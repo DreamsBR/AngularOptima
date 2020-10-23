@@ -1,0 +1,13 @@
+<div id="sidebar-wrapper">
+    <div class="list-group">
+        <a href="clientes" class="list-group-item">Clientes</a>
+        <a href="#" class="list-group-item">Ventas</a>
+        <a href="#" class="list-group-item">Consultas ventas</a>
+        <a href="colaboradores" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/colaboradores' }">Colaboradores</a>
+        <a href="#" class="list-group-item">Proyectos</a>
+        <a href="#" class="list-group-item">Gerencias</a>
+        <br>
+        <br>
+        <a (click)="logOut()" href="#" class="list-group-item">Cerrar sesión</a>
+    </div>
+</div>

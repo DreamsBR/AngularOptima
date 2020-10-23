@@ -7,7 +7,7 @@ import { ModalService } from './detalles/modal.service';
 import { AuthService } from '../usuarios/auth.service';
 import { URL_BACKEND } from '../config/config';
 
-
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,12 +28,17 @@ export class ClientesComponent implements OnInit {
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
     public modalService: ModalService,
-    public authService: AuthService
-  ) {
+    public authService: AuthService,
+    private router: Router
+  ){
 
   }
 
   ngOnInit() {
+
+    if(!this.authService.isAuthenticated()){
+      this.router.navigate(['/login']);
+    }
 
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
@@ -58,9 +63,6 @@ export class ClientesComponent implements OnInit {
       })
     });
   }
-
-
-
 
   public eliminar(cliente: Cliente): void {
     (Swal as any).fire({
@@ -90,7 +92,6 @@ export class ClientesComponent implements OnInit {
       }
     })
   }
-
 
   abrirModal(cliente: Cliente) {
     this.clienteSeleccionado = cliente;

@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "clientes-facturacion"
+  "defaultProject": "clientes-facturacion",
+  "cli": {
+    "analytics": "59974eff-0347-4e65-9708-a99a09cad23f"
+  }
 }

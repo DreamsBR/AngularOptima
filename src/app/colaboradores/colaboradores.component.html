@@ -1,0 +1,26 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+    
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <h3>Colaboradores</h3>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th> Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let colaborador of colaboradoresLista">
+                        <td>{{colaborador.nombre}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

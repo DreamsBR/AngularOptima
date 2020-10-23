@@ -5,4 +5,5 @@ export class Usuario {
     password: string;
     enabled: boolean;
     roles: string[] = [];
+    email: string;
 }

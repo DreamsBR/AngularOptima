@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { Usuario } from './usuario';
+import { Usuario } from '../usuarios/usuario';
 import swal from 'sweetalert2';
-import { AuthService } from './auth.service';
+import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-recordar-contrasenia',
+  templateUrl: './recordar-contrasenia.component.html',
+  styleUrls: ['./recordar-contrasenia.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RecordarContraseniaComponent implements OnInit {
 
-  titulo: string = "Iniciar sesión";
+  titulo: string = "Restableces contraseña";
+  subtitulo: string = "Déjanos tu correo, enviaremos un link para restablecer la contraseña.";
   usuario: Usuario;
 
   constructor(
@@ -23,22 +25,19 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if(this.authService.isAuthenticated()){
-      //swal('Login',`El usuario ${this.authService.usuario.userName} ya se encuentra logeado `,'info');
-      this.router.navigate(['/colaboradores']);
+      swal('Login',`El usuario ${this.authService.usuario.userName} ya se encuentra logeado `,'info');
+      this.router.navigate(['/clientes']);
     }
   }
 
   public logIn(): void {
 
-    if (this.usuario.userName == null || this.usuario.password == null) {
-      swal('Aviso', 'Usuario o Contraseña vacia', 'warning');
+    if (this.usuario.email == null) {
+      swal('Aviso', 'El correo esta vacio.', 'warning');
       return;
     }
 
-    this.authService.guardarUsuario('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
-    this.authService.guardarToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
-    let user = this.authService.usuario;
-    this.router.navigate(['/colaboradores']);
+    this.router.navigate(['/recordar-contrasenia-aviso']);
 
     // this.authService.logIn(this.usuario).subscribe(response =>{
     //   this.authService.guardarUsuario(response.access_token);
@@ -53,4 +52,5 @@ export class LoginComponent implements OnInit {
     // });
 
   }
+
 }

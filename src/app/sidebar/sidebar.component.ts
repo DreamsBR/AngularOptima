@@ -4,17 +4,19 @@ import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: 'app-sidebar',
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class SidebarComponent implements OnInit {
 
-  constructor(
+  constructor(   
     public authService: AuthService,
-    private router: Router
-    ) {}
+    public router: Router
+  ) { }
 
   ngOnInit() {
+    console.info(this.router.url);
   }
 
   logOut():void {
