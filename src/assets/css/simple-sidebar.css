@@ -69,8 +69,17 @@
 }
 
 .button-toggle{
-    /* position: absolute;
-    float: left; */
+    position: relative;
+    float: left;
+    color:#EE6F2E;
+    width: auto;
+    height: auto;
+    margin: 5px 20px 0px 0px;
+    cursor: pointer;
+}
+
+
+/* .button-toggle{
     color:#EE6F2E;
     margin: 18px 0px 10px 15px;
     z-index: 9999;
@@ -80,9 +89,17 @@
     color:#EE6F2E;
     font-size: 25px;
     cursor: pointer;
-}
+} */
 
 /* 
 .button-toggle i:hover {
     color: #EE6F2E;
 }*/
+
+.sub-item{
+    padding-left: 35px;
+}
+
+.margin-right{
+    margin-right: 50px;
+}

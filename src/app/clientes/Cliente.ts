@@ -1,17 +1,28 @@
-import { Region } from './region';
-import { Factura } from '../facturas/models/factura';
-
 export class Cliente{
-
-    idCliente: number;
+    codigo: number;
     nombre: string;
-    apellido: string;
-    dni: string;
-    email: string;
+    apepaterno: string;
+    apematerno: string;
+    tipodoc: number;
+    nrodoc: string;
+    estadocivil: string;
+    ocupacion: string;
+    nacimiento: string;
+    edad: number;
+    correo: string;
     telefono: string;
-    fechaIngreso: string;
-    foto: string;
-    region: Region;
-    facturas: Factura[] = [];
+    distrito: string;
+    provincia: string;
+    direccion: string;
+    nombreconyugue: string;
+    c_tipodoc: number;
+    c_nrodoc: string;
+    c_estadocivil: string;
+    c_ocupacion: string;
+    ingresos: string;
+    motivocompra: string;
+    canalcaptacion: string;
+    categoria: string;
+    asesorventas: string;
 
 }

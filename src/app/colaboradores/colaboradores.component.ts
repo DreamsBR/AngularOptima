@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-colaboradores',
-  templateUrl: './colaboradores.component.html',
-  styleUrls: ['./colaboradores.component.css']
+  templateUrl: './colaboradores.component.html'
 })
+
 export class ColaboradoresComponent implements OnInit {
 
   status: boolean = false;
@@ -39,5 +39,4 @@ export class ColaboradoresComponent implements OnInit {
   menuToggle(){
     this.status = !this.status;
   }
-
 }

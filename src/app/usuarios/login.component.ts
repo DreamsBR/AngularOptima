@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if(this.authService.isAuthenticated()){
       //swal('Login',`El usuario ${this.authService.usuario.userName} ya se encuentra logeado `,'info');
-      this.router.navigate(['/colaboradores']);
+      this.router.navigate(['/clientes']);
     }
   }
 
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.authService.guardarUsuario('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
     this.authService.guardarToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
     let user = this.authService.usuario;
-    this.router.navigate(['/colaboradores']);
+    this.router.navigate(['/clientes']);
 
     // this.authService.logIn(this.usuario).subscribe(response =>{
     //   this.authService.guardarUsuario(response.access_token);

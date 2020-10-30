@@ -1,0 +1,46 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid div-ventas">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <h3>Proyectos</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                    <!-- <button type="button" class="btn btn-outline-optima btn-margin"><i class="far fa-file-excel"></i> Plantilla</button>
+                    <button type="button" class="btn btn-outline-optima btn-margin margin-right"><i class="far fa-file-excel"></i> Importar excel</button> -->
+                    <!-- <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <i class="fas fa-plus-circle"></i></span></a> -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+
+                    <div class="card" *ngFor="let proyecto of proyectoLista">
+                        <div class="card-body">
+                            <a href="ventas-proyecto/{{proyecto.codigo}}">{{proyecto.nombre}}</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <br>
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+</div>

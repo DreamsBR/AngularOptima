@@ -1,0 +1,95 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <h3>Nuevo / Editar cliente</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+
+                    <br>
+
+                    <form>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres">Nombres</label>
+                                    <input type="text" class="form-control" id="nombres">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellidos">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres">Tipo de documento</label>
+                                    <select class="form-control" id="exampleFormControlSelect1">
+                                        <option>DNI</option>
+                                        <option>Carnet extranjeria</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Nro. doc.</label>
+                                    <input type="text" class="form-control" id="apellidos">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres">Teléfono</label>
+                                    <input type="text" class="form-control" id="nombres">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Dirección</label>
+                                    <input type="text" class="form-control" id="apellidos">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres">Usuario</label>
+                                    <input type="text" class="form-control" id="nombres">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="apellidos">Contraseña</label>
+                                    <input type="password" class="form-control" id="apellidos">
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <button type="submit" class="btn btn-optima btn-float-right">Registrar</button>
+
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

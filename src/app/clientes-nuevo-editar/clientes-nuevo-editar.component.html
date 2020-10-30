@@ -1,0 +1,273 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <h3>Nuevo / Editar cliente</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+                    <br>
+
+                    <form>
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span class="nav-number">1</span> Datos personales</a>
+                                    <span class="separator"></span>
+                                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="nav-number">2</span> Co propietarios Conyugue</a>
+                                    <span class="separator"></span>
+                                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span class="nav-number">3</span> Datos laborales</a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-6">
+                                <div class="tab-content" id="v-pills-tabContent">
+                                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Nombres</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Apellidos</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Tipo de documento</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Nro. doc.</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Estado civil</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Ocupación</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Fecha de nacimiento</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Edad</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Correo</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Teléfono</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Distrito</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Provincia</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label for="nombres">Dirección</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Nombres</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Apellidos</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Tipo de documento</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Nro. doc.</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Estado civil</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Ocupación</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Lugar de trabajo</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Ingresos</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Motivo de compra</label>
+                                                    <input type="text" class="form-control" id="nombres">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Canal de captación</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="nombres">Categoria</label>
+                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="apellidos">Asesor de ventas</label>
+                                                    <input type="text" class="form-control" id="apellidos">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        
+        </div>
+    </div>
+
+</div>

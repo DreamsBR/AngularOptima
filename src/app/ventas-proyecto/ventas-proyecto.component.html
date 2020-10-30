@@ -1,0 +1,98 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <h3>Ventas</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                    <!-- <button type="button" class="btn btn-outline-optima btn-margin"><i class="far fa-file-excel"></i> Plantilla</button>
+                    <button type="button" class="btn btn-outline-optima btn-margin margin-right"><i class="far fa-file-excel"></i> Importar excel</button> -->
+                    <a href="/ventas-proyecto-nuevo-editar/0"><span class="font-add">Agregar <i class="fas fa-plus-circle"></i></span></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 overflow-auto">
+
+                    <br>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th nowrap class="text-center">Editar</th>
+                                <th nowrap>Nombres</th>
+                                <th nowrap>Apellidos</th>
+                                <th nowrap>Nº doc.</th>
+                                <th nowrap>Total de venta</th>
+                                <th nowrap>Estado</th>
+                                <th nowrap>Nº dpto</th>
+                                <th nowrap>Nº estacionamiento</th>
+                                <th nowrap>Nº cochera</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let ventasProyecto of ventasProyectoLista">
+                                <td nowrap class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><i class="far fa-edit"></i> Editar</button>
+                                        <!-- <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-colaborador"><i class="far fa-trash-alt"></i> Eliminar</button> -->
+                                    </div>
+                                </td>
+                                <td nowrap>{{ventasProyecto.nombre}}</td>
+                                <td nowrap>{{ventasProyecto.apepaterno}} {{ventasProyecto.apematerno}}</td>
+                                <td nowrap>{{ventasProyecto.nrodoc}}</td>
+                                <td nowrap>{{ventasProyecto.totalventa}}</td>
+                                <td nowrap>{{ventasProyecto.estado}}</td>
+                                <td nowrap>{{ventasProyecto.nro_dpto}}</td>
+                                <td nowrap>{{ventasProyecto.nro_estacionamiento}}</td>
+                                <td nowrap>{{ventasProyecto.nro_cochera}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <br>
+
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item active">
+                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="modal-eliminar-colaborador" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar colaborador</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el registro?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima">Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>
