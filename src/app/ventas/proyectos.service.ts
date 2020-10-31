@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Proyecto } from './Proyecto'
+import { Proyecto } from './proyecto'
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/operators';
