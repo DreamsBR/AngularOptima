@@ -6,9 +6,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VentasProyectoNuevoEditarComponent implements OnInit {
 
+  status: boolean = false;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  menuToggle(){
+    this.status = !this.status;
   }
 
 }
