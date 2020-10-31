@@ -52,21 +52,21 @@ export class FormularioClientesComponent implements OnInit {
     });
   }
 
-  public actualizarCliente(): void {
+  // public actualizarCliente(): void {
 
-    this.cliente.facturas = null;
-    this.clienteService.editarCliente(this.cliente).
-      subscribe(
-        clienteResponse => {
-          this.router.navigate(['/clientes'])
-          console.log(clienteResponse)
-          swal('Cliente actualizado', 'Cliente actualizado con exito', "success");
-        },
-        err => {
-          this.errores = err.error.errors as string[];
-        }
-      );
-  }
+  //   this.cliente.facturas = null;
+  //   this.clienteService.editarCliente(this.cliente).
+  //     subscribe(
+  //       clienteResponse => {
+  //         this.router.navigate(['/clientes'])
+  //         console.log(clienteResponse)
+  //         swal('Cliente actualizado', 'Cliente actualizado con exito', "success");
+  //       },
+  //       err => {
+  //         this.errores = err.error.errors as string[];
+  //       }
+  //     );
+  // }
 
   public compararRegion(o1: Region, o2: Region): boolean {
     if (o1 === undefined && o2 === undefined){

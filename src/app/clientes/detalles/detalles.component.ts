@@ -52,52 +52,53 @@ export class DetallesComponent implements OnInit {
     }
   }
 
-  subirFoto(){
+  // subirFoto(){
 
-    if(!this.fotoSeleccionada){
-      swal('Error al subir la imagen:', 'Debe seleccionar una foto','error')
-    }else{
+  //   if(!this.fotoSeleccionada){
+  //     swal('Error al subir la imagen:', 'Debe seleccionar una foto','error')
+  //   }else{
 
     
-    this.clienteService.subirFoto(this.fotoSeleccionada, this.cliente.idCliente).
-    subscribe(cliente =>{
-      this.cliente = cliente;
+  //   this.clienteService.subirFoto(this.fotoSeleccionada, this.cliente.idCliente).
+  //   subscribe(cliente =>{
+  //     this.cliente = cliente;
 
-      this.modalService.notificarUpload.emit(this.cliente);
-      swal('Foto cargada','La foto se ha subido correctamente','success');
-    });
-  }
-  }
+  //     this.modalService.notificarUpload.emit(this.cliente);
+  //     swal('Foto cargada','La foto se ha subido correctamente','success');
+  //   });
+  // }
+  // }
+
   cerrarModal(){
     this.modalService.cerrarModal();
     this.fotoSeleccionada = null;
   }
 
-  deleteFactura(factura: Factura){
-    (swal as any).fire({
-      title: 'Esta seguro?',
-      text: "Desea eliminar la factura?",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, borrar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.value) {
+  // deleteFactura(factura: Factura){
+  //   (swal as any).fire({
+  //     title: 'Esta seguro?',
+  //     text: "Desea eliminar la factura?",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Si, borrar',
+  //     cancelButtonText: 'Cancelar'
+  //   }).then((result) => {
+  //     if (result.value) {
 
-        this.facturaService.delete(factura.id).subscribe(
-          response => {
-            this.cliente.facturas = this.cliente.facturas.filter(f => f !== factura);
-            (swal as any).fire(
-              'Factura eliminada',
-              `${factura.descripcion}, ha sido borrada`,
-              'success'
-            )
-          }
-        )
+  //       this.facturaService.delete(factura.id).subscribe(
+  //         response => {
+  //           this.cliente.facturas = this.cliente.facturas.filter(f => f !== factura);
+  //           (swal as any).fire(
+  //             'Factura eliminada',
+  //             `${factura.descripcion}, ha sido borrada`,
+  //             'success'
+  //           )
+  //         }
+  //       )
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 }

@@ -37,7 +37,7 @@ export class ClienteService {
       map((jsonClientesResponse: any) => {
         (jsonClientesResponse.content as Cliente[]).map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
-          cliente.fechaIngreso = formatDate(cliente.fechaIngreso, "dd-MM-yyyy", 'en-US')
+          // cliente.fechaIngreso = formatDate(cliente.fechaIngreso, "dd-MM-yyyy", 'en-US')
           return cliente;
         });
         return jsonClientesResponse;
@@ -70,17 +70,17 @@ export class ClienteService {
     );
   }
 
-  editarCliente(cliente: Cliente): Observable<Cliente> {
+  // editarCliente(cliente: Cliente): Observable<Cliente> {
 
-    return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.idCliente}`, cliente).pipe(
-      catchError(e => {
-        if (e.status === 400) {
-          return throwError(e);
-        }
-        return throwError(e);
-      })
-    )
-  }
+  //   return this.http.put<Cliente>(`${this.urlEndPoint}/${cliente.idCliente}`, cliente).pipe(
+  //     catchError(e => {
+  //       if (e.status === 400) {
+  //         return throwError(e);
+  //       }
+  //       return throwError(e);
+  //     })
+  //   )
+  // }
 
   eliminarCliente(id: number): Observable<Cliente> {
 
