@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-<<<<<<< HEAD
 import { Cliente } from './cliente'
-=======
-import { Cliente } from './Cliente';
->>>>>>> 2b914f533dbebc9a82fcc54571b4502b1bcdc139
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
