@@ -5,21 +5,14 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 
-
-// import { ClienteService } from './clientes/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-// import { FormularioClientesComponent } from './clientes/formulario-clientes.component';
 import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 import { PaginatorComponent } from './paginator/paginator.component';
-// import { DetallesComponent } from './clientes/detalles/detalles.component';
 
-import { AuthGuard } from './usuarios/guards/auth.guard';
-import { RolGuard } from './usuarios/guards/rol.guard';
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';
 import { AuthInterceptor } from './usuarios/interceptors/auth.interceptor';
-// import { DetalleFacturaComponent } from './facturas/detalle-factura.component';
-// import { FacturasComponent } from './facturas/facturas.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
@@ -46,17 +39,10 @@ import { VentasProyectoNuevoEditarComponent } from './ventas-proyecto-nuevo-edit
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
-  // {path: 'clientes', component: ClientesComponent},
-  // {path: 'clientes/form', component: FormularioClientesComponent, canActivate:[AuthGuard, RolGuard], data: {role:'ROLE_ADMIN'}},
-  // {path: 'clientes/form/:id',component: FormularioClientesComponent, canActivate:[AuthGuard, RolGuard], data: {role:'ROLE_ADMIN'}},
-  // {path: 'clientes/page/:page', component: ClientesComponent},
-  // {path: 'clientes/page', component: ClientesComponent},
   {path: 'login', component: LoginComponent},
   {path: 'recordar-contrasenia', component: RecordarContraseniaComponent},
   {path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent},
   {path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent},
-  // {path: 'facturas/:id',component: DetalleFacturaComponent, canActivate:[AuthGuard, RolGuard], data: {role:'ROLE_USER'}},
-  // {path: 'facturas/form/:clienteId',component: FacturasComponent, canActivate:[AuthGuard, RolGuard], data: {role:'ROLE_ADMIN'}},
   {path: 'colaboradores', component: ColaboradoresComponent},
   {path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent},
   {path: 'clientes', component: ClientesComponent},
@@ -71,12 +57,8 @@ const ROUTES: Routes = [
     AppComponent,
     HeaderComponent,
     ClientesComponent,
-    // FormularioClientesComponent,
     PaginatorComponent,
-    // DetallesComponent,
     LoginComponent,
-    // DetalleFacturaComponent,
-    // FacturasComponent,
     RecordarContraseniaComponent,
     RecordarContraseniaAvisoComponent,
     RecordarContraseniaCambioComponent,

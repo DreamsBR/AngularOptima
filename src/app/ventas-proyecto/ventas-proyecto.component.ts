@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Ventasproyecto } from './Ventasproyecto';
 import { VentasproyectoService } from './ventasproyecto.service';
-import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
-import { URL_BACKEND } from '../config/config';
 import { Router } from '@angular/router';
 
 @Component({
