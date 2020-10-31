@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recordar-contrasenia-aviso',
-  templateUrl: './recordar-contrasenia-aviso.component.html',
-  styleUrls: ['./recordar-contrasenia-aviso.component.css']
+  templateUrl: './recordar-contrasenia-aviso.component.html'
 })
 export class RecordarContraseniaAvisoComponent implements OnInit {
 
