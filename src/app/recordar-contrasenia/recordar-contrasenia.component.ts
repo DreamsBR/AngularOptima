@@ -10,21 +10,20 @@ import { Router } from '@angular/router';
 })
 export class RecordarContraseniaComponent implements OnInit {
 
-  titulo: string = "Restableces contraseña";
-  subtitulo: string = "Déjanos tu correo, enviaremos un link para restablecer la contraseña.";
+  titulo = 'Restableces contraseña';
+  subtitulo = 'Déjanos tu correo, enviaremos un link para restablecer la contraseña.';
   usuario: Usuario;
 
   constructor(
     private authService: AuthService,
     private router: Router
-    ) 
-  {
+    ) {
     this.usuario = new Usuario();
   }
 
   ngOnInit() {
-    if(this.authService.isAuthenticated()){
-      swal('Login',`El usuario ${this.authService.usuario.userName} ya se encuentra logeado `,'info');
+    if (this.authService.isAuthenticated()) {
+      swal('Login', `El usuario ${this.authService.usuario.userName} ya se encuentra logeado `, 'info');
       this.router.navigate(['/clientes']);
     }
   }

@@ -1,4 +1,4 @@
-export class Ventasproyecto{
+export class Ventasproyecto {
     codigo: number;
     nombre: string;
     apepaterno: string;

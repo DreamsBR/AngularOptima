@@ -1,4 +1,4 @@
-export class Cliente{
+export class Cliente {
     codigo: number;
     nombre: string;
     apepaterno: string;
@@ -15,14 +15,13 @@ export class Cliente{
     provincia: string;
     direccion: string;
     nombreconyugue: string;
-    c_tipodoc: number;
-    c_nrodoc: string;
-    c_estadocivil: string;
-    c_ocupacion: string;
+    conyugeTipodoc: number;
+    conyugeNrodoc: string;
+    conyugeEstadocivil: string;
+    conyugeOcupacion: string;
     ingresos: string;
     motivocompra: string;
     canalcaptacion: string;
     categoria: string;
     asesorventas: string;
-
 }

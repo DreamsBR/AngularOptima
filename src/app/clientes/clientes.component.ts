@@ -11,7 +11,7 @@ import { AuthService } from '../usuarios/auth.service';
 
 export class ClientesComponent implements OnInit {
 
-  status: boolean = false;
+  status = false;
   clienteLista: Cliente[];
 
   constructor(
@@ -32,8 +32,7 @@ export class ClientesComponent implements OnInit {
     });
   }
 
-  menuToggle(){
+  menuToggle() {
     this.status = !this.status;
   }
-
 }

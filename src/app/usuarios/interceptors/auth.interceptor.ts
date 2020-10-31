@@ -17,17 +17,16 @@ export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
-  
 
     return next.handle(req).pipe(
-      catchError(e =>{
+      catchError(e => {
         if (e.status === 401) {
 
           if (this.authService.isAuthenticated()) {
             this.authService.logOut();
           }
           this.router.navigate(['/login']);
-          
+
         }
         if (e.status === 403) {
           swal('Acceso denegado', 'No tienes los permisos para acceder a este recurso', 'warning');
@@ -35,6 +34,6 @@ export class AuthInterceptor implements HttpInterceptor {
         }
         return throwError(e);
       })
-    )
+    );
   }
 }

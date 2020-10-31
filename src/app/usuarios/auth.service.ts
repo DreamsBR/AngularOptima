@@ -28,7 +28,7 @@ export class AuthService {
     if (this._token != null) {
       return this._token;
     } else if (this._token == null && sessionStorage.getItem('token') != null) {
-      this._token = sessionStorage.getItem('token')
+      this._token = sessionStorage.getItem('token');
       return this._token;
     }
     return null;
@@ -47,7 +47,7 @@ export class AuthService {
         'Authorization': 'Basic ' + credenciales
       });
 
-    let params = new URLSearchParams();
+    const params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', usuario.userName);
     params.set('password', usuario.password);
@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   public guardarUsuario(accessToken: string): void {
-    let payLoad = this.obtenerDatosToken(accessToken);
+    const payLoad = this.obtenerDatosToken(accessToken);
     this._usuario = new Usuario();
     this._usuario.userName = payLoad.user_name;
     this._usuario.roles = payLoad.authorities;
@@ -70,13 +70,13 @@ export class AuthService {
 
   public obtenerDatosToken(accessToken: string): any {
     if (accessToken != null) {
-      return JSON.parse(atob(accessToken.split(".")[1]));
+      return JSON.parse(atob(accessToken.split('.')[1]));
     }
     return null;
   }
 
   public isAuthenticated(): boolean {
-    let payload = this.obtenerDatosToken(this.token);
+    const payload = this.obtenerDatosToken(this.token);
     if (payload != null && payload.user_name && payload.user_name.length > 0) {
       return true;
     }
@@ -84,7 +84,7 @@ export class AuthService {
   }
 
 
-  logOut(){
+  logOut() {
     this._token = null;
     this._usuario = null;
     sessionStorage.clear();
@@ -92,8 +92,7 @@ export class AuthService {
     sessionStorage.removeItem('usuario');
   }
 
-  tienePermisos(rol: string):boolean{
-
+  tienePermisos(rol: string): boolean {
     return this.usuario.roles.includes(rol);
   }
 

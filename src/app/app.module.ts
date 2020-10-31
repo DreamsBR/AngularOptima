@@ -7,7 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule,ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
 
 import { TokenInterceptor } from './usuarios/interceptors/token.interceptor';

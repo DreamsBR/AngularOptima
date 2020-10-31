@@ -9,17 +9,16 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(   
+  constructor(
     public authService: AuthService,
     public router: Router
   ) { }
 
   ngOnInit() {
-    console.info(this.router.url);
   }
 
-  logOut():void {
-    swal('Logout','Ha cerrado sesión correctamente','success');
+  logOut() {
+    swal('Logout', 'Ha cerrado sesión correctamente', 'success');
     this.authService.logOut();
     this.router.navigate(['/login']);
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Ventasproyecto } from './Ventasproyecto'
+import { Ventasproyecto } from './Ventasproyecto';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { URL_BACKEND_DEMO } from '../config/config';
