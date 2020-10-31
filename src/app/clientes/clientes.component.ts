@@ -3,7 +3,6 @@ import { Cliente } from './cliente';
 import { ClienteService } from './clientes.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clientes',

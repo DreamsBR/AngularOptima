@@ -6,17 +6,18 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-5">
-                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
                     <h3>Colaboradores</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <button type="button" class="btn btn-outline-optima btn-margin"><i class="far fa-file-excel"></i> Plantilla</button>
-                    <button type="button" class="btn btn-outline-optima btn-margin margin-right"><i class="far fa-file-excel"></i> Importar excel</button>
-                    <a href="/colaboradores-nuevo-editar/0"><span class="font-add">Agregar <i class="fas fa-plus-circle"></i></span></a>
+                    <button type="button" class="btn btn-outline-optima btn-margin"><em class="far fa-file-excel"></em> Plantilla</button>
+                    <button type="button" class="btn btn-outline-optima btn-margin margin-right"><em class="far fa-file-excel"></em> Importar excel</button>
+                    <a href="/colaboradores-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
 
             <table class="table">
+                <caption>Lista de colaboradores</caption>
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">Editar</th>
@@ -31,10 +32,10 @@
                 <tbody>
                     <tr *ngFor="let colaborador of colaboradoresLista">
                         <td class="text-center font-color-1">
-                            <a href="#" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
+                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                             <div class="dropdown-menu dropdown-menu-left">
-                                <button class="dropdown-item" type="button" [routerLink]="['/colaboradores-nuevo-editar', colaborador.codigo]"><i class="far fa-edit"></i> Editar</button>
-                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-colaborador"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                <button class="dropdown-item" type="button" [routerLink]="['/colaboradores-nuevo-editar', colaborador.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-colaborador"><em class="far fa-trash-alt"></em> Eliminar</button>
                             </div>
                         </td>
                         <td>{{colaborador.nombre}}</td>

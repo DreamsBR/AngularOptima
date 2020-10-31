@@ -6,11 +6,11 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-5">
-                    <div class="button-toggle"><a (click)="menuToggle()"><i class="fas fa-bars"></i></a></div>
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
                     <h3>Clientes</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <i class="fas fa-plus-circle"></i></span></a>
+                    <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
 
@@ -20,6 +20,7 @@
                     <br>
 
                     <table class="table">
+                        <caption>Lista de clientes</caption>
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Editar</th>
@@ -51,10 +52,10 @@
                         <tbody>
                             <tr *ngFor="let cliente of clienteLista">
                                 <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.codigo]"><i class="far fa-edit"></i> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
                                     </div>
                                 </td>
                                 <td>{{cliente.nombre}}</td>
