@@ -27,7 +27,7 @@ export class VentasproyectoService {
 
         return this.http.get(URL_BACKEND_DEMO + 'ventas-proyecto.json').pipe(
             map((jsonVentasProyectoResponse: any) => {
-                (jsonVentasProyectoResponse as Ventasproyecto[]).map(proyecto => {
+                (jsonVentasProyectoResponse as Ventasproyecto[]).forEach(proyecto => {
                     proyecto.nombre = proyecto.nombre.toUpperCase();
                     proyecto.apepaterno = proyecto.apepaterno.toUpperCase();
                     proyecto.apematerno = proyecto.apematerno.toUpperCase();

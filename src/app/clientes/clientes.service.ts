@@ -28,7 +28,7 @@ export class ClienteService {
 
         return this.http.get(URL_BACKEND_DEMO + 'clientes.json').pipe(
             map((jsonClienteResponse: any) => {
-                (jsonClienteResponse as Cliente[]).map(cliente => {
+                (jsonClienteResponse as Cliente[]).forEach(cliente => {
                     cliente.nombre = cliente.nombre.toUpperCase();
                     cliente.apepaterno = cliente.apepaterno.toUpperCase();
                     cliente.apematerno = cliente.apematerno.toUpperCase();

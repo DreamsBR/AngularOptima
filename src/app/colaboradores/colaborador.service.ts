@@ -28,7 +28,7 @@ export class ColaboradorService {
 
         return this.http.get(URL_BACKEND_DEMO + 'colaboradores.json').pipe(
             map((jsonColaboradorResponse: any) => {
-                (jsonColaboradorResponse as Colaborador[]).map(colaborador => {
+                (jsonColaboradorResponse as Colaborador[]).forEach(colaborador => {
                     colaborador.nombre = colaborador.nombre.toUpperCase();
                     colaborador.apepaterno = colaborador.apepaterno.toUpperCase();
                     colaborador.apematerno = colaborador.apematerno.toUpperCase();

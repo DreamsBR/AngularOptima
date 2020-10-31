@@ -28,7 +28,7 @@ export class ProyectoService {
 
         return this.http.get(URL_BACKEND_DEMO + 'proyectos.json').pipe(
             map((jsonProyectoResponse: any) => {
-                (jsonProyectoResponse as Proyecto[]).map(proyecto => {
+                (jsonProyectoResponse as Proyecto[]).forEach(proyecto => {
                     proyecto.nombre = proyecto.nombre.toUpperCase();
                     return proyecto;
                 });
