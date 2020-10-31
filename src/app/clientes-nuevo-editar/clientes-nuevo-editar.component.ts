@@ -6,14 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientesNuevoEditarComponent implements OnInit {
 
-  status: boolean = false;
+  status = false;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  menuToggle(){
+  menuToggle() {
     this.status = !this.status;
   }
 

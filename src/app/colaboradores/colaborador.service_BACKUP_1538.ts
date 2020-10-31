@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { Colaborador } from './colaborador'
+=======
+import { Colaborador } from './Colaborador';
+>>>>>>> 2b914f533dbebc9a82fcc54571b4502b1bcdc139
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
