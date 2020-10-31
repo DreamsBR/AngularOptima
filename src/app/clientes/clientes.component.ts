@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Cliente } from './cliente';
 import { ClienteService } from './clientes.service';
-import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
-import { URL_BACKEND } from '../config/config';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,8 +18,7 @@ export class ClientesComponent implements OnInit {
   constructor(
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
-    public authService: AuthService,
-    private router: Router
+    public authService: AuthService
   ) { }
 
   ngOnInit() {

@@ -37,19 +37,6 @@ export class RecordarContraseniaComponent implements OnInit {
     }
 
     this.router.navigate(['/recordar-contrasenia-aviso']);
-
-    // this.authService.logIn(this.usuario).subscribe(response =>{
-    //   this.authService.guardarUsuario(response.access_token);
-    //   this.authService.guardarToken(response.access_token);
-    //   let user = this.authService.usuario;
-    //   this.router.navigate(['/clientes']);
-    //   swal('Inicio Exitoso',`Bienvenido de vuelta ${user.userName}. Has iniciado correctamente`,'success');
-    // }, err =>{
-    //   if (err.status == 400){
-    //     swal('Error al iniciar sesión','Usuario o clave Incorrecta','error');
-    //   }
-    // });
-
   }
 
 }
