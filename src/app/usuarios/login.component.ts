@@ -13,6 +13,9 @@ export class LoginComponent implements OnInit {
   titulo: string = "Iniciar sesión";
   usuario: Usuario;
 
+  modal_titulo: string = "";
+  modal_mensaje: string = "";
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
   public logIn(): void {
 
     if (this.usuario.userName == null || this.usuario.password == null) {
-      swal('Aviso', 'Usuario o Contraseña vacia', 'warning');
+      this.mostrarAlerta('Aviso','Ingrese usuario y contraseña por favor');
       return;
     }
 
@@ -38,4 +41,11 @@ export class LoginComponent implements OnInit {
     this.authService.guardarToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
     this.router.navigate(['/clientes']);
   }
+
+  public mostrarAlerta( titulo: string, mensaje: string ): void {
+    this.modal_titulo = titulo;
+    this.modal_mensaje = mensaje;
+    document.getElementById("openModalButton").click();
+  }
+
 }

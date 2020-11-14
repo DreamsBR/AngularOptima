@@ -18,7 +18,7 @@ export class SidebarComponent implements OnInit {
   }
 
   logOut() {
-    swal('Logout', 'Ha cerrado sesión correctamente', 'success');
+    // swal('Logout', 'Ha cerrado sesión correctamente', 'success');
     this.authService.logOut();
     this.router.navigate(['/login']);
   }

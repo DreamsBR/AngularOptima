@@ -36,6 +36,10 @@ import { ClientesNuevoEditarComponent } from './clientes-nuevo-editar/clientes-n
 import { VentasComponent } from './ventas/ventas.component';
 import { VentasProyectoComponent } from './ventas-proyecto/ventas-proyecto.component';
 import { VentasProyectoNuevoEditarComponent } from './ventas-proyecto-nuevo-editar/ventas-proyecto-nuevo-editar.component';
+import { VentasConsultaClienteDetalleComponent } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.component';
+import { ConsultaVentasComponent } from './consulta-ventas/consulta-ventas.component';
+import { ConsultaVentasDetalleComponent } from './consulta-ventas-detalle/consulta-ventas-detalle.component';
+import { ProyectosComponent } from './proyectos/proyectos.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -49,7 +53,11 @@ const ROUTES: Routes = [
   {path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent},
   {path: 'ventas', component: VentasComponent},
   {path: 'ventas-proyecto/:id', component: VentasProyectoComponent},
-  {path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent}
+  {path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent},
+  {path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent},
+  {path: 'consulta-ventas', component: ConsultaVentasComponent},
+  {path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent},
+  {path: 'proyectos', component: ProyectosComponent}
 ];
 
 @NgModule({
@@ -68,7 +76,11 @@ const ROUTES: Routes = [
     ClientesNuevoEditarComponent,
     VentasComponent,
     VentasProyectoComponent,
-    VentasProyectoNuevoEditarComponent
+    VentasProyectoNuevoEditarComponent,
+    VentasConsultaClienteDetalleComponent,
+    ConsultaVentasComponent,
+    ConsultaVentasDetalleComponent,
+    ProyectosComponent
   ],
   imports: [
     BrowserModule,

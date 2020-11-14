@@ -7,10 +7,31 @@
             <div class="row">
                 <div class="col-sm-12 col-md-5">
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Ventas</h3>
+                    <h3>Proyecto Elio</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
                     <a href="/ventas-proyecto-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                        <label for="apellidos">Status</label>
+                        <select class="form-control" id="exampleFormControlSelect1">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                        <label for="apellidos">Desde</label>
+                        <input type="text" class="form-control" id="apellidos">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                        <label for="apellidos">Hasta</label>
+                        <input type="text" class="form-control" id="apellidos">                    </div>
                 </div>
             </div>
 
@@ -27,6 +48,13 @@
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Apellidos</th>
                                 <th scope="col">Nº doc.</th>
+
+                                <th scope="col">Separación</th>
+                                <th scope="col">Minuta</th>
+                                <th scope="col">Desembolso</th>
+                                <th scope="col">EEPP</th>
+                                <th scope="col">Caida</th>
+
                                 <th scope="col">Total de venta</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Nº dpto</th>
@@ -45,6 +73,13 @@
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.nrodoc}}">{{ventasProyecto.nombre}}</a></td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.nrodoc}}">{{ventasProyecto.apepaterno}} {{ventasProyecto.apematerno}}</a></td>
                                 <td>{{ventasProyecto.nrodoc}}</td>
+
+                                <td>02/11/2020</td>
+                                <td>02/11/2020</td>
+                                <td>02/11/2020</td>
+                                <td>02/11/2020</td>
+                                <td>02/11/2020</td>
+
                                 <td>{{ventasProyecto.totalventa}}</td>
                                 <td>{{ventasProyecto.estado}}</td>
                                 <td>{{ventasProyecto.nro_dpto}}</td>

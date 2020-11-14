@@ -14,6 +14,9 @@ export class RecordarContraseniaComponent implements OnInit {
   subtitulo = 'Déjanos tu correo, enviaremos un link para restablecer la contraseña.';
   usuario: Usuario;
 
+  modal_titulo: string = "";
+  modal_mensaje: string = "";
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -31,11 +34,17 @@ export class RecordarContraseniaComponent implements OnInit {
   public logIn(): void {
 
     if (this.usuario.email == null) {
-      swal('Aviso', 'El correo esta vacio.', 'warning');
+      this.mostrarAlerta('Aviso','El correo esta vacio.');
       return;
     }
 
     this.router.navigate(['/recordar-contrasenia-aviso']);
+  }
+
+  public mostrarAlerta( titulo: string, mensaje: string ): void {
+    this.modal_titulo = titulo;
+    this.modal_mensaje = mensaje;
+    document.getElementById("openModalButton").click();
   }
 
 }
