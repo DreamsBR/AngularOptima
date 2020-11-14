@@ -21,6 +21,10 @@ th, td{
     white-space:nowrap
 }
 
+label{
+    font-size: 12px;
+}
+
 .nav a {
     color: #C2C3C5;
     text-decoration: none;
@@ -235,4 +239,53 @@ th, td{
 .div-ventas .card a:hover{
     text-decoration: none;
     font-weight: bold;
+}
+
+.div-vendedores .card{
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 1px 1px 4px #BBC0C4;
+}
+
+.div-vendedores .card .card-body{
+    padding: 10px;
+}
+
+.div-vendedores .card .card-body p{
+    margin: 3px;
+}
+
+.div-vendedores .card .card-body p.cliente-nombre{
+    color: #EE6F2E;
+}
+
+.div-vendedores .card .card-body p.cliente-numero{
+    color: #C2C3C5;
+}
+
+.div-vendedores .card a{
+    color: #000000;
+    font-weight: bold;
+}
+
+.div-vendedores .card a:hover{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.label-hidden{
+    width: 100%;
+}
+
+.div-inmueble-caracteristicas p.titulo{
+    color: #EE6F2E;
+}
+
+.item-inmueble i{
+    color: #EE6F2E;
+}
+
+.label-dato{
+    color: #EE6F2E;
+    margin: 0px;
 }
