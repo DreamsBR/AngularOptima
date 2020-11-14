@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../usuarios/auth.service';
-import swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
 @Component({
