@@ -40,6 +40,9 @@ import { VentasConsultaClienteDetalleComponent } from './ventas-consulta-cliente
 import { ConsultaVentasComponent } from './consulta-ventas/consulta-ventas.component';
 import { ConsultaVentasDetalleComponent } from './consulta-ventas-detalle/consulta-ventas-detalle.component';
 import { ProyectosComponent } from './proyectos/proyectos.component';
+import { ProyectoNuevoEditarComponent } from './proyecto-nuevo-editar/proyecto-nuevo-editar.component';
+import { InmueblesComponent } from './inmuebles/inmuebles.component';
+import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -57,7 +60,10 @@ const ROUTES: Routes = [
   {path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent},
   {path: 'consulta-ventas', component: ConsultaVentasComponent},
   {path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent},
-  {path: 'proyectos', component: ProyectosComponent}
+  {path: 'proyectos', component: ProyectosComponent},
+  {path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent},
+  {path: 'inmuebles/:id', component: InmueblesComponent},
+  {path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent}  
 ];
 
 @NgModule({
@@ -80,7 +86,10 @@ const ROUTES: Routes = [
     VentasConsultaClienteDetalleComponent,
     ConsultaVentasComponent,
     ConsultaVentasDetalleComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    ProyectoNuevoEditarComponent,
+    InmueblesComponent,
+    InmuebleNuevoEditarComponent
   ],
   imports: [
     BrowserModule,

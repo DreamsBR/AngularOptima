@@ -293,3 +293,17 @@ label{
 .item-proyecto p{
     margin: 0px;
 }
+
+.div-proyectos .card{
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 1px 1px 4px #BBC0C4;
+}
+
+.div-proyectos .card a{
+    color: #EE6F2E;
+}
+
+.div-proyectos .card a:hover{
+    text-decoration: none;
+}
