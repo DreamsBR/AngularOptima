@@ -1,0 +1,117 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid div-ventas">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Nueva / Editar gerencia</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Nombre de gerencia</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Buscar gerente de ventas</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Fecha de inicio cargo</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Fecha de termino cargo</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-8">
+                    <h3>Vendedores</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Buscar vendedores</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <table class="table">
+                        <caption>tabla de jefaturas</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Editar</th>
+                                <th scope="col">Vendedor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
+                                    </div>
+                                </td>
+                                <td>Valeria Sarmiento Sanchez</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
+                                    </div>
+                                </td>
+                                <td>Valeria Sarmiento Sanchez</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
+                                    </div>
+                                </td>
+                                <td>Valeria Sarmiento Sanchez</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>            
+
+
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                </div>
+            </div>
+            
+            <br>
+
+        </div>
+    </div>
+
+</div>

@@ -43,6 +43,11 @@ import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoNuevoEditarComponent } from './proyecto-nuevo-editar/proyecto-nuevo-editar.component';
 import { InmueblesComponent } from './inmuebles/inmuebles.component';
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component';
+import { GerenciasComponent } from './gerencias/gerencias.component';
+import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component';
+import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component';
+import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component';
+import { PeriodosComponent } from './periodos/periodos.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -63,7 +68,12 @@ const ROUTES: Routes = [
   {path: 'proyectos', component: ProyectosComponent},
   {path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent},
   {path: 'inmuebles/:id', component: InmueblesComponent},
-  {path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent}  
+  {path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent},
+  {path: 'gerencias', component: GerenciasComponent},
+  {path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent},
+  {path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent},
+  {path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent},
+  {path: 'periodos', component: PeriodosComponent}
 ];
 
 @NgModule({
@@ -89,7 +99,12 @@ const ROUTES: Routes = [
     ProyectosComponent,
     ProyectoNuevoEditarComponent,
     InmueblesComponent,
-    InmuebleNuevoEditarComponent
+    InmuebleNuevoEditarComponent,
+    GerenciasComponent,
+    GerenciaNuevoEditarComponent,
+    JefaturaNuevoEditarComponent,
+    VendedorMetaNuevoEditarComponent,
+    PeriodosComponent
   ],
   imports: [
     BrowserModule,

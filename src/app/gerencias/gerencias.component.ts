@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-proyecto-nuevo-editar',
-  templateUrl: './proyecto-nuevo-editar.component.html'
+  selector: 'app-gerencias',
+  templateUrl: './gerencias.component.html'
 })
-export class ProyectoNuevoEditarComponent implements OnInit {
+export class GerenciasComponent implements OnInit {
 
 
 
@@ -12,7 +12,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  
   status = false;
   menuToggle() {
     this.status = !this.status;
