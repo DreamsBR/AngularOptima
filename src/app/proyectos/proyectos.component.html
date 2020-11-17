@@ -95,7 +95,10 @@
       </table>
 
       <mat-paginator
-        [pageSizeOptions]="[5, 10, 25, 100]"
+        (page)="onPageChange($event)"
+        [length]="totalData"
+        [pageIndex]="pageIndex"
+        [pageSize]="pageSize"
         showFirstLastButtons
         class="ptproy"
       ></mat-paginator>

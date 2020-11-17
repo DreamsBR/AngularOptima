@@ -54,6 +54,7 @@ import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-n
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component';
 import { PeriodosComponent } from './periodos/periodos.component';
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
+import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -116,7 +117,8 @@ const ROUTES: Routes = [
     JefaturaNuevoEditarComponent,
     VendedorMetaNuevoEditarComponent,
     PeriodosComponent,
-    PeriodoNuevoEditarComponent
+    PeriodoNuevoEditarComponent,
+    PeriodosProyectosComponent
   ],
   imports: [
     BrowserModule,

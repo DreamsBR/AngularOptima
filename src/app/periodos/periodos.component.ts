@@ -32,7 +32,6 @@ export class PeriodosComponent implements OnInit {
     //public modalService: ModalService,
     public authService: AuthService
   ) { }
- 
 
   ngOnInit() {
 

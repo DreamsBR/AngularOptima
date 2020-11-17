@@ -8,7 +8,5 @@ import { Component, OnInit } from '@angular/core'
 export class ProyectoitemComponent implements OnInit {
   status = false
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }
