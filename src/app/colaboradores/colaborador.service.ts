@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Colaborador } from './colaborador'
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config/config';
+
 
 
 @Injectable()
@@ -27,4 +28,17 @@ export class ColaboradorService {
         );
 
     }
+    agregarColaborador(colaborador: Colaborador): Observable<any> {
+
+        return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
+            catchError(e => {
+    
+            if (e.status === 400) {
+                return throwError(e);
+            }
+            })
+        );
+        }
+    
+
 }
