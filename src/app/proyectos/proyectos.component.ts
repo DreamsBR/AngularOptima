@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Proyecto } from './proyecto'
 import { ProyectoService } from './proyectos.service'
-import { ActivatedRoute } from '@angular/router'
+// import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
-import { hardCode } from './data'
+// import { hardCode } from './data'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 
@@ -15,30 +15,35 @@ import { MatTableDataSource } from '@angular/material/table'
 export class ProyectosComponent implements OnInit {
   status = false
   displayedColumns: string[] = ['nombre']
-  proyectoLista = new MatTableDataSource<Proyecto>(hardCode)
+  proyectoLista = new MatTableDataSource<Proyecto>()
+
+  totalData: number = 0
+  pageIndex: number = 0
+  pageSize: number = 5
+  pageSizeOptions: number[] = [5, 10, 25, 250]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   constructor(
     private proyectoService: ProyectoService,
-    private activatedRoute: ActivatedRoute,
+    // private activatedRoute: ActivatedRoute,
     public authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.proyectoLista.paginator = this.paginator
+    this.fetchData(0)
+  }
 
-    this.activatedRoute.paramMap.subscribe((params) => {
-      let page: number = +params.get('page')
-      if (!page) {
-        page = 0
-      }
-      this.proyectoService.getProyectos(0).subscribe((proyectosJsonResponse) => {
-        this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
-        this.proyectoLista.paginator = this.paginator
-        //this.base = 'cliente'
-      })
+  fetchData(pageIndex: number) {
+    this.proyectoService.getProyectos(pageIndex).subscribe((proyectosJsonResponse) => {
+      this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
+      this.pageIndex = proyectosJsonResponse.pageable.pageNumber
+      this.totalData = proyectosJsonResponse.totalElements
     })
+  }
+
+  onPageChange(event: any) {
+    this.fetchData(event.pageIndex)
   }
 
   menuToggle() {
