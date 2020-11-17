@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-proyecto-nuevo-editar',
   templateUrl: './proyecto-nuevo-editar.component.html'
 })
 export class ProyectoNuevoEditarComponent implements OnInit {
+  constructor() {}
 
+  ngOnInit() {}
 
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-  status = false;
+  status = false
   menuToggle() {
-    this.status = !this.status;
+    this.status = !this.status
   }
 
+  regresar() {
+    window.location.href = '/proyectos'
+  }
 }
