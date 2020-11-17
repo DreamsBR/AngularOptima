@@ -1,8 +1,9 @@
 export class Colaborador{
-    idVendedor: number;
-    idJefatura: number;
-    nombre: string;
-    apepaterno: string;
-    apematerno: string;
+    idColaborador: number;
+    nombres: string;
+    apellidos: string;
+    numeroDocumento:string;
+    sexo:string;
+    idtipodocumento:number;
     enable: boolean;
 }

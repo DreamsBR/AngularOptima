@@ -38,6 +38,23 @@ export class PeriodoService {
       })
     );
   }
+
+  agregarPeriodo(periodo: Periodo): Observable<any> {
+
+    return this.http.post<any>(this.urlEndPoint, periodo).pipe(
+      catchError(e => {
+
+        if (e.status === 400) {
+          return throwError(e);
+        }
+      })
+    );
+  }
+
+
+
+
+
 /*
   agregarCliente(cliente: Cliente): Observable<any> {
 

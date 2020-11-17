@@ -17,7 +17,7 @@
             </div>
 
             <table class="table">
-                <caption>Lista de colaboradores</caption>
+                <!--<caption>Lista de colaboradores</caption>-->
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">Editar</th>
@@ -25,8 +25,7 @@
                         <th scope="col">Apellidos</th>
                         <th scope="col">Tip. doc.</th>
                         <th scope="col">Nro. documento</th>
-                        <th scope="col">Teléfono</th>
-                        <th scope="col">Dirección</th>
+                        <th scope="col">Sexo</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,12 +37,11 @@
                                 <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-colaborador"><em class="far fa-trash-alt"></em> Eliminar</button>
                             </div>
                         </td>
-                        <td>{{colaborador.nombre}}</td>
-                        <td>{{colaborador.apepaterno}} {{colaborador.apematerno}}</td>
-                        <td>{{colaborador.tipodoc}}</td>
-                        <td>{{colaborador.nrodoc}}</td>
-                        <td>{{colaborador.telefono}}</td>
-                        <td>{{colaborador.direccion}}</td>
+                        <td>{{colaborador.nombres}}</td>
+                        <td>{{colaborador.apellidos}}</td>
+                        <td>{{colaborador.idtipodocumento}}</td>
+                        <td>{{colaborador.numeroDocumento}}</td>
+                        <td>{{colaborador.sexo}}</td>
                     </tr>
                 </tbody>
             </table>
