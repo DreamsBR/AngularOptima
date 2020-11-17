@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Periodo } from './periodo';
 import { PeriodoService } from './periodo.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,15 +23,20 @@ export class PeriodosComponent implements OnInit {
   public errores: string[];
   private router: Router;
   public periodo: Periodo = new Periodo();
+  model: NgbDateStruct;
+  date: {year: number, month: number};
+
   constructor(
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
     //public modalService: ModalService,
     public authService: AuthService
-  ) {
-
-  }
-  //constructor() { }
+  ) { }
+  periodosLista: Periodo[];
+  paginador: any;
+  periodoSeleccionado: Periodo;
+  urlBackend: String = URL_BACKEND;
+  base: String;
 
   ngOnInit() {
 

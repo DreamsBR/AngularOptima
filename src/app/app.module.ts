@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -22,7 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ColaboradorService } from './colaboradores/colaborador.service';
 import { ClienteService } from './clientes/clientes.service';
-import { ProyectoService } from './ventas/proyectos.service';
+import { ProyectoService } from './proyectos/proyectos.service';
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service';
 import { PeriodoService } from './periodos/periodo.service';
 
@@ -127,7 +129,8 @@ const ROUTES: Routes = [
     MatInputModule,
     MatFormFieldModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbModule
   ],
   providers: [
     ClienteService,

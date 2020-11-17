@@ -1,140 +1,155 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
-
-    <app-sidebar></app-sidebar>
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nuevo / Agregar proyecto</h3>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-
-                    <br>
-
-                    <form>
-
-                        <div class="row">
-
-                            <div class="col-sm-12 col-md-6">
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="nombres">Código</label>
-                                            <input type="text" class="form-control" id="nombres">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-6">
-                                        <div class="form-group">
-                                            <label for="apellidos">Nombre del proyecto</label>
-                                            <input type="text" class="form-control" id="apellidos">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <div class="form-group">
-                                            <label for="nombres">Dirección</label>
-                                            <input type="text" class="form-control" id="apellidos">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="form-group">
-                                            <label for="nombres">Buscar periodo</label>
-                                            <input type="text" class="form-control" id="nombres">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="form-group">
-                                            <label for="apellidos">Ingresar metas</label>
-                                            <input type="text" class="form-control" id="apellidos">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-2">
-                                        <div class="form-group">
-                                            <label class="label-hidden">&nbsp;</label>
-                                            <button type="submit" class="btn btn-optima btn-float-right"><em class="fas fa-plus"></em></button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-
-                                        <table class="table">
-                                            <caption>Lista de periodos</caption>
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" class="text-center">Editar</th>
-                                                    <th scope="col">Periodo</th>
-                                                    <th scope="col">Meta</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-center font-color-1">
-                                                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-left">
-                                                            <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                            <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                        </div>
-                                                    </td>
-                                                    <td>Enero 2020</td>
-                                                    <td>S/. 250,345.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center font-color-1">
-                                                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-left">
-                                                            <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                            <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                        </div>
-                                                    </td>
-                                                    <td>Enero 2020</td>
-                                                    <td>S/. 250,345.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-center font-color-1">
-                                                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                        <div class="dropdown-menu dropdown-menu-left">
-                                                            <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                            <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                        </div>
-                                                    </td>
-                                                    <td>Enero 2020</td>
-                                                    <td>S/. 250,345.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-sm-12 col-md-12">
-                                        <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </form>
-
-                </div>
-            </div>
-        
+  <app-sidebar></app-sidebar>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <!-- <div class="button-toggle">
+            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+          </div> -->
+          <div style="display: flex; align-items: center">
+            <button (click)="regresar()" class="btn btn-optima" style="margin-right: 10px">
+              <em class="fas fa-chevron-left"></em>
+            </button>
+            <h3 style="display: inline-block; margin-bottom: 0px">Agregar proyecto</h3>
+          </div>
         </div>
-    </div>
+      </div>
 
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <br />
+
+          <form>
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="nombres">Código</label>
+                      <input type="text" class="form-control" id="nombres" />
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="apellidos">Nombre del proyecto</label>
+                      <input type="text" class="form-control" id="apellidos" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                    <div class="form-group">
+                      <label for="nombres">Dirección</label>
+                      <input type="text" class="form-control" id="apellidos" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-5">
+                    <div class="form-group">
+                      <label for="nombres">Buscar periodo</label>
+                      <input type="text" class="form-control" id="nombres" />
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-5">
+                    <div class="form-group">
+                      <label for="apellidos">Ingresar metas</label>
+                      <input type="text" class="form-control" id="apellidos" />
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                      <label class="label-hidden">&nbsp;</label>
+                      <button type="submit" class="btn btn-optima btn-float-right">
+                        <em class="fas fa-plus"></em>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                    <table class="table">
+                      <caption>
+                        Lista de periodos
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th scope="col" class="text-center">Editar</th>
+                          <th scope="col">Periodo</th>
+                          <th scope="col">Meta</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-center font-color-1">
+                            <a href="#" data-toggle="dropdown"
+                              ><em class="fas fa-ellipsis-v"></em
+                            ></a>
+                            <div class="dropdown-menu dropdown-menu-left">
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-edit"></em> Editar
+                              </button>
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-trash-alt"></em> Eliminar
+                              </button>
+                            </div>
+                          </td>
+                          <td>Enero 2020</td>
+                          <td>S/. 250,345.00</td>
+                        </tr>
+                        <tr>
+                          <td class="text-center font-color-1">
+                            <a href="#" data-toggle="dropdown"
+                              ><em class="fas fa-ellipsis-v"></em
+                            ></a>
+                            <div class="dropdown-menu dropdown-menu-left">
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-edit"></em> Editar
+                              </button>
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-trash-alt"></em> Eliminar
+                              </button>
+                            </div>
+                          </td>
+                          <td>Enero 2020</td>
+                          <td>S/. 250,345.00</td>
+                        </tr>
+                        <tr>
+                          <td class="text-center font-color-1">
+                            <a href="#" data-toggle="dropdown"
+                              ><em class="fas fa-ellipsis-v"></em
+                            ></a>
+                            <div class="dropdown-menu dropdown-menu-left">
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-edit"></em> Editar
+                              </button>
+                              <button class="dropdown-item" type="button">
+                                <em class="far fa-trash-alt"></em> Eliminar
+                              </button>
+                            </div>
+                          </td>
+                          <td>Enero 2020</td>
+                          <td>S/. 250,345.00</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-12">
+                    <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
