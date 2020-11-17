@@ -25,7 +25,6 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
@@ -38,9 +37,15 @@ export class ClientesComponent implements OnInit {
           this.base = "cliente";
         }
       );
-
     });
+  }
 
+  public eliminar(cliente: Cliente): void {
+    this.clienteService.eliminarCliente(cliente.idCliente).subscribe(
+      response => {
+        console.info(response);
+      }
+    )
   }
 
   status = false;

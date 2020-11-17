@@ -10,7 +10,7 @@
                     <h3>Periodos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <a href="#"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                    <a data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', 0]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><em class="far fa-edit"></em> Editar</button>
                                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
                                     </div>
                                 </td>
@@ -46,7 +46,7 @@
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', 0]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><em class="far fa-edit"></em> Editar</button>
                                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
                                     </div>
                                 </td>
@@ -58,7 +58,7 @@
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', 0]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><em class="far fa-edit"></em> Editar</button>
                                         <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
                                     </div>
                                 </td>
@@ -89,12 +89,50 @@
 
 </div>
 
+<div id="modal-periodo-nuevo-editar" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Nuevo / Editar periodo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <label for="nombres">Periodo</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="apellidos">Fecha de inicio</label>
+                        <input type="text" class="form-control" id="apellidos">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="apellidos">Fecha de termino</label>
+                        <input type="text" class="form-control" id="apellidos">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>
 
 <div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title">Eliminar cliente</h5>
+            <h5 class="modal-title">Eliminar periodo</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>

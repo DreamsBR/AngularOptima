@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Cliente } from './cliente'
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config/config';
 
@@ -22,6 +22,15 @@ export class ClienteService {
             });
             return jsonClientesResponse;
             })
+        );
+    }
+
+    eliminarCliente(id: number): Observable<Cliente> {
+        return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+            catchError(e => {
+                return throwError(e);
+            }
+            )
         );
     }
 

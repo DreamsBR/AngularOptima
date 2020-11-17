@@ -50,6 +50,7 @@ import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-n
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component';
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component';
 import { PeriodosComponent } from './periodos/periodos.component';
+import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -109,7 +110,8 @@ const ROUTES: Routes = [
     GerenciaNuevoEditarComponent,
     JefaturaNuevoEditarComponent,
     VendedorMetaNuevoEditarComponent,
-    PeriodosComponent
+    PeriodosComponent,
+    PeriodoNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
