@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config/config';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-colaboradores',
@@ -12,7 +13,8 @@ import { URL_BACKEND } from '../config/config';
 })
 
 export class ColaboradoresComponent implements OnInit {
-
+  public colaborador: Colaborador = new Colaborador();
+  public errores: string[];
   status: boolean = false;
   colaboradoresLista: Colaborador[];
   paginador: any;
@@ -45,4 +47,22 @@ export class ColaboradoresComponent implements OnInit {
   menuToggle(){
     this.status = !this.status;
   }
+  
+  public agregarColaborador(): void {
+
+    this.colaboradorService.agregarColaborador(this.colaborador)
+      .subscribe(response => {
+        this.router.navigate(['/colaborador'])
+        swal('Nuevo colaborador', `colaborador ${response.colaborador.nombres} creado con exito`, 'success')
+
+      },
+        err => {
+          this.errores = err.error.errors as string[];
+        }
+      );
+  }
+
+
+
+
 }
