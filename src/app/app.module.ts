@@ -22,7 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { ColaboradorService } from './colaboradores/colaborador.service';
 import { ClienteService } from './clientes/clientes.service';
-import { ProyectoService } from './ventas/proyectos.service';
+import { ProyectoService } from './proyectos/proyectos.service';
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service';
 
 import { LoginComponent } from './usuarios/login.component';

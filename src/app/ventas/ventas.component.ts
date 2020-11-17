@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Proyecto } from './proyecto';
-import { ProyectoService } from './proyectos.service';
+//import { Proyecto } from './proyecto';
+//import { ProyectoService } from './proyectos.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
@@ -12,17 +12,17 @@ import { Router } from '@angular/router';
 export class VentasComponent implements OnInit {
 
   status: boolean = false;
-  proyectoLista: Proyecto[];
+  //proyectoLista: Proyecto[];
 
   constructor(
-    private proyectoService: ProyectoService,
-    private activatedRoute: ActivatedRoute,
-    public authService: AuthService,
-    private router: Router
+    //private proyectoService: ProyectoService,
+    //private activatedRoute: ActivatedRoute,
+    //public authService: AuthService,
+    //private router: Router
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(() => {
+    /*this.activatedRoute.paramMap.subscribe(() => {
 
       this.proyectoService.getProyectos().subscribe(
         clientesJsonResponse => {
@@ -30,7 +30,7 @@ export class VentasComponent implements OnInit {
         }
       );
 
-    });
+    });*/
   }
 
   menuToggle(){
