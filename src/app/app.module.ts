@@ -24,6 +24,7 @@ import { ColaboradorService } from './colaboradores/colaborador.service';
 import { ClienteService } from './clientes/clientes.service';
 import { ProyectoService } from './proyectos/proyectos.service';
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service';
+import { PeriodoService } from './periodos/periodo.service';
 
 import { LoginComponent } from './usuarios/login.component';
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component';
@@ -50,6 +51,7 @@ import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-n
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component';
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component';
 import { PeriodosComponent } from './periodos/periodos.component';
+import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -78,7 +80,9 @@ const ROUTES: Routes = [
   {path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent},
   {path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent},
   {path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent},
+  
   {path: 'periodos', component: PeriodosComponent}
+
 ];
 
 @NgModule({
@@ -109,7 +113,8 @@ const ROUTES: Routes = [
     GerenciaNuevoEditarComponent,
     JefaturaNuevoEditarComponent,
     VendedorMetaNuevoEditarComponent,
-    PeriodosComponent
+    PeriodosComponent,
+    PeriodoNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
@@ -129,6 +134,8 @@ const ROUTES: Routes = [
     ColaboradorService,
     ProyectoService,
     VentasproyectoService,
+    PeriodoService,
+
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
