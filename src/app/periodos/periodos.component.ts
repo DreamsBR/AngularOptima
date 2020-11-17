@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import { Periodo } from './periodo';
 import { PeriodoService } from './periodo.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 //import { ModalService } from './detalles/modal.service';
 import { AuthService } from '../usuarios/auth.service';
 import { URL_BACKEND } from '../config/config';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-periodos',
@@ -13,6 +14,15 @@ import { URL_BACKEND } from '../config/config';
 })
 export class PeriodosComponent implements OnInit {
 
+  periodosLista: Periodo[];
+  paginador: any;
+  periodoSeleccionado: Periodo;
+  urlBackend: String = URL_BACKEND;
+  base: String;
+  
+  public errores: string[];
+  private router: Router;
+  public periodo: Periodo = new Periodo();
   model: NgbDateStruct;
   date: {year: number, month: number};
 
@@ -22,11 +32,6 @@ export class PeriodosComponent implements OnInit {
     //public modalService: ModalService,
     public authService: AuthService
   ) { }
-  periodosLista: Periodo[];
-  paginador: any;
-  periodoSeleccionado: Periodo;
-  urlBackend: String = URL_BACKEND;
-  base: String;
 
   ngOnInit() {
 
@@ -44,7 +49,28 @@ export class PeriodosComponent implements OnInit {
         }
       );
     });// end subscribe
+  
   }
+  public agregarPeriodo(): void {
+
+    this.periodoService.agregarPeriodo(this.periodo)
+      .subscribe(response => {
+        this.router.navigate(['/periodo'])
+        swal('Nuevo Periodo', `Periodo ${response.periodo.nombre} creado con exito`, 'success')
+
+      },
+        err => {
+          this.errores = err.error.errors as string[];
+        }
+      );
+  }
+
+
+
+
+
+
+
 
   status = false;
   menuToggle() {
@@ -52,3 +78,18 @@ export class PeriodosComponent implements OnInit {
   }
 
 }
+
+
+/*public agregarCliente(): void {
+
+    this.clienteService.agregarCliente(this.cliente)
+      .subscribe(response => {
+        this.router.navigate(['/clientes'])
+        swal('Nuevo cliente', `Cliente ${response.cliente.nombre} creado con exito`, 'success')
+
+      },
+        err => {
+          this.errores = err.error.errors as string[];
+        }
+      );
+  }*/
