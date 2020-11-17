@@ -55,7 +55,6 @@ export class ClientesComponent implements OnInit {
         console.error(err);
         document.getElementById("cerrarModalEliminar").click();
         this.obtenerCliente();
-       // check error status code is 500, if so, do some action
       }
     )
   }
