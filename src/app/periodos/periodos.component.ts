@@ -32,11 +32,6 @@ export class PeriodosComponent implements OnInit {
     //public modalService: ModalService,
     public authService: AuthService
   ) { }
-  periodosLista: Periodo[];
-  paginador: any;
-  periodoSeleccionado: Periodo;
-  urlBackend: String = URL_BACKEND;
-  base: String;
 
   ngOnInit() {
 

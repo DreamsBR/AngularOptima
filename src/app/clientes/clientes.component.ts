@@ -12,7 +12,6 @@ import { URL_BACKEND } from '../config/config';
 
 export class ClientesComponent implements OnInit {
 
-
   clientesLista: Cliente[];
   clienteSeleccionado: Cliente;
   paginador: any;
@@ -26,6 +25,10 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obtenerCliente();
+  }
+
+  public obtenerCliente(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
@@ -45,6 +48,14 @@ export class ClientesComponent implements OnInit {
     this.clienteService.eliminarCliente(cliente.idCliente).subscribe(
       response => {
         console.info(response);
+        document.getElementById("cerrarModalEliminar").click();
+        this.obtenerCliente();
+      },
+      err => {
+        console.error(err);
+        document.getElementById("cerrarModalEliminar").click();
+        this.obtenerCliente();
+       // check error status code is 500, if so, do some action
       }
     )
   }
