@@ -16,7 +16,7 @@ export class PeriodosComponent implements OnInit {
   paginador: any;
   periodoSeleccionado: Periodo;
   urlBackend: String = URL_BACKEND;
-
+  base: String;
 
   constructor(
     private periodoService: PeriodoService,
@@ -40,6 +40,7 @@ export class PeriodosComponent implements OnInit {
         periodosJsonResponse => {
           this.periodosLista = periodosJsonResponse.content;
           this.paginador = periodosJsonResponse;
+          this.base = "periodo";
         }
       );
     });// end subscribe

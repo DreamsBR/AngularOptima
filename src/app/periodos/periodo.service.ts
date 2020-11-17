@@ -27,19 +27,16 @@ export class PeriodoService {
   */
 
   getPeriodos(page): Observable<any> {
-
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       map((data: any) => {
         (data.content as Periodo[]).map(periodo => {
-          //cliente.nombre = cliente.nombre.toUpperCase();
-          //cliente.fechaIngreso = formatDate(cliente.fechaIngreso, "dd-MM-yyyy", 'en-US')
-          //return cliente;
+          periodo.fechaInicio = formatDate(periodo.fechaInicio, "dd/MM/yyyy", 'en-US');
+          periodo.fechaFin = formatDate(periodo.fechaFin, "dd/MM/yyyy", 'en-US');
           return periodo;
         });
         return data;
       })
     );
-
   }
 /*
   agregarCliente(cliente: Cliente): Observable<any> {
