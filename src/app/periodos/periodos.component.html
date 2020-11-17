@@ -108,14 +108,34 @@
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
-                        <label for="apellidos">Fecha de inicio</label>
-                        <input type="text" class="form-control" id="apellidos">
+                        <label for="fechainicio">Fecha de inicio</label>
+                        <form class="form-inline">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                       name="dp1" [(ngModel)]="mdl_fechainicio" ngbDatepicker #dfecini="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary calendar" (click)="dfecini.toggle()" type="button"></button>
+                                </div>
+                              </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
-                        <label for="apellidos">Fecha de termino</label>
-                        <input type="text" class="form-control" id="apellidos">
+                        <label for="fechafin">Fecha de termino</label>
+                        <form class="form-inline">
+                            <div class="form-group">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="yyyy-mm-dd"
+                                       name="dp2" [(ngModel)]="mdl_fechafin" ngbDatepicker #dfecfin="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary calendar" (click)="dfecfin.toggle()" type="button"></button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
                     </div>
                 </div>
             </div>

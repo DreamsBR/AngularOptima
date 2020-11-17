@@ -14,6 +14,7 @@ export class ClientesComponent implements OnInit {
 
 
   clientesLista: Cliente[];
+  clienteSeleccionado: Cliente;
   paginador: any;
   base: string;
   urlBackend: String = URL_BACKEND;
@@ -46,6 +47,10 @@ export class ClientesComponent implements OnInit {
         console.info(response);
       }
     )
+  }
+
+  public obtenerClienteSeleccionado(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
   }
 
   status = false;
