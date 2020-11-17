@@ -52,10 +52,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
 
-    console.log(newProyecto)
-    /* this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
+    // console.log(newProyecto)
+    this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
-    }) */
+    })
   }
 
   /*fetchDataById() {
