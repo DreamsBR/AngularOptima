@@ -24,6 +24,7 @@ import { ColaboradorService } from './colaboradores/colaborador.service';
 import { ClienteService } from './clientes/clientes.service';
 import { ProyectoService } from './ventas/proyectos.service';
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service';
+import { PeriodoService } from './periodos/periodo.service';
 
 import { LoginComponent } from './usuarios/login.component';
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component';
@@ -78,7 +79,9 @@ const ROUTES: Routes = [
   {path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent},
   {path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent},
   {path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent},
+  
   {path: 'periodos', component: PeriodosComponent}
+
 ];
 
 @NgModule({
@@ -129,6 +132,8 @@ const ROUTES: Routes = [
     ColaboradorService,
     ProyectoService,
     VentasproyectoService,
+    PeriodoService,
+
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
