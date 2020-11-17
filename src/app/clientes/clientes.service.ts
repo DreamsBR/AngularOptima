@@ -4,25 +4,25 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { URL_BACKEND_DEMO } from '../config/config';
+import { URL_BACKEND } from '../config/config';
 
 @Injectable()
 export class ClienteService {
 
+    private urlEndPoint: string = URL_BACKEND + 'cliente/';
+
     constructor(private http: HttpClient, private router: Router) { }
 
-    getClientes(): Observable<any> {
-
-        return this.http.get(URL_BACKEND_DEMO + 'clientes.json').pipe(
-            map((jsonClienteResponse: any) => {
-                (jsonClienteResponse as Cliente[]).forEach(cliente => {
-                    cliente.nombre = cliente.nombre.toUpperCase();
-                    cliente.apepaterno = cliente.apepaterno.toUpperCase();
-                    cliente.apematerno = cliente.apematerno.toUpperCase();
-                    return cliente;
-                });
-                return jsonClienteResponse;
+    getClientes(page): Observable<any> {
+        return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+            map((jsonClientesResponse: any) => {
+            (jsonClientesResponse.content as Cliente[]).map(cliente => {
+                cliente.nombres = cliente.nombres.toUpperCase();
+                return cliente;
+            });
+            return jsonClientesResponse;
             })
         );
     }
+
 }

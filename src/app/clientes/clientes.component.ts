@@ -3,6 +3,7 @@ import { Cliente } from './cliente';
 import { ClienteService } from './clientes.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
+import { URL_BACKEND } from '../config/config';
 
 @Component({
   selector: 'app-clientes',
@@ -11,8 +12,11 @@ import { AuthService } from '../usuarios/auth.service';
 
 export class ClientesComponent implements OnInit {
 
-  status = false;
-  clienteLista: Cliente[];
+
+  clientesLista: Cliente[];
+  paginador: any;
+  base: string;
+  urlBackend: String = URL_BACKEND;
 
   constructor(
     private clienteService: ClienteService,
@@ -21,17 +25,25 @@ export class ClientesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(() => {
 
-      this.clienteService.getClientes().subscribe(
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page');
+      if (!page) {
+        page = 0;
+      }
+      this.clienteService.getClientes(page).subscribe(
         clientesJsonResponse => {
-          this.clienteLista = clientesJsonResponse;
+          this.clientesLista = clientesJsonResponse.content;
+          this.paginador = clientesJsonResponse;
+          this.base = "cliente";
         }
       );
 
     });
+
   }
 
+  status = false;
   menuToggle() {
     this.status = !this.status;
   }

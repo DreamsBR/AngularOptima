@@ -57,8 +57,11 @@ const ROUTES: Routes = [
   {path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent},
   {path: 'colaboradores', component: ColaboradoresComponent},
   {path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent},
+
   {path: 'clientes', component: ClientesComponent},
+  {path: 'cliente/page/:page', component: ClientesComponent},
   {path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent},
+  
   {path: 'ventas', component: VentasComponent},
   {path: 'ventas-proyecto/:id', component: VentasProyectoComponent},
   {path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent},

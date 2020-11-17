@@ -17,88 +17,59 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
 
-                    <br>
-
-                    <table class="table">
-                        <caption>Lista de clientes</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Nombres</th>
-                                <th scope="col">Apellidos</th>
-                                <th scope="col">Tip. doc.</th>
-                                <th scope="col">Nro. doc.</th>
-                                <th scope="col">Estado civil</th>
-                                <th scope="col">Ocupación</th>
-                                <th scope="col">Fecha de nacimiento</th>
-                                <th scope="col">Edad</th>
-                                <th scope="col">Correo</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Distrito</th>
-                                <th scope="col">Provincia</th>
-                                <th scope="col">Dirección</th>
-                                <th scope="col">Conyugue</th>
-                                <th scope="col">Tip. doc.</th>
-                                <th scope="col">Nro. doc.</th>
-                                <th scope="col">Estado civil</th>
-                                <th scope="col">Ocupación</th>
-                                <th scope="col">Ingresos</th>
-                                <th scope="col">Motivo compra</th>
-                                <th scope="col">Canal captación</th>
-                                <th scope="col">Categoria</th>
-                                <th scope="col">Asesor ventas</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let cliente of clienteLista">
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.codigo]"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>{{cliente.nombre}}</td>
-                                <td>{{cliente.apepaterno}} {{cliente.apematerno}}</td>
-                                <td>{{cliente.tipodoc}}</td>
-                                <td>{{cliente.nrodoc}}</td>
-                                <td>{{cliente.estadocivil}}</td>
-                                <td>{{cliente.ocupacion}}</td>
-                                <td>{{cliente.nacimiento}}</td>
-                                <td>{{cliente.edad}}</td>
-                                <td>{{cliente.correo}}</td>
-                                <td>{{cliente.telefono}}</td>
-                                <td>{{cliente.distrito}}</td>
-                                <td>{{cliente.provincia}}</td>
-                                <td>{{cliente.direccion}}</td>
-                                <td>{{cliente.nombreconyugue}}</td>
-                                <td>{{cliente.conyugeTipodoc}}</td>
-                                <td>{{cliente.conyugeNrodoc}}</td>
-                                <td>{{cliente.conyugeEstadocivil}}</td>
-                                <td>{{cliente.conyugeOcupacion}}</td>
-                                <td>{{cliente.ingresos}}</td>
-                                <td>{{cliente.motivocompra}}</td>
-                                <td>{{cliente.canalcaptacion}}</td>
-                                <td>{{cliente.categoria}}</td>
-                                <td>{{cliente.asesorventas}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="card-body">
+                        <div class="alert alert-info my-2" *ngIf="clientesLista?.length==0">No hay clientes registrados</div>
+                        <div class="table-responsive" *ngIf="clientesLista?.length>0">
+                            <table class="table table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Apellidos</th>
+                                        <th scope="col">Nro. Doc.</th>
+                                        <th scope="col">Ocupacion</th>
+                                        <th scope="col">Fecha de nacimiento</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Provincia</th>
+                                        <th scope="col">Distrito</th>
+                                        <th scope="col">Direccion</th>
+                                        <th scope="col">Conyuge</th>
+                                        <th scope="col">Nro. Doc. Conyugue</th>
+                                        <th scope="col">Asesor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cliente of clientesLista">
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>{{cliente.nombres}}</td>
+                                        <td>{{cliente.apellidos}}</td>
+                                        <td>{{cliente.nroDocumento}}</td>
+                                        <td>{{cliente.ocupacion}}</td>
+                                        <td>{{cliente.fechaNacimiento}}</td>
+                                        <td>{{cliente.email}}</td>
+                                        <td>{{cliente.telefono}}</td>
+                                        <td>{{cliente.provincia}}</td>
+                                        <td>{{cliente.distrito}}</td>
+                                        <td>{{cliente.direccion}}</td>
+                                        <td>{{cliente.conyuge}}</td>
+                                        <td>{{cliente.nroDocConyuge}}</td>
+                                        <td>{{cliente.asesor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <paginator [paginador]="paginador" [base]="base"></paginator>
+                        </div>
+                    </div>
 
                 </div>
             </div>
-
-            <br>
-
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
 
         </div>
     </div>
