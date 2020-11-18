@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table'
 })
 export class VentasComponent implements OnInit {
   proyectoLista = new MatTableDataSource<Proyecto>()
-
+  displayedColumns: string[] = ['nombre']
   idProyectoSelected: number = 0
 
   totalData: number = 0
@@ -29,8 +29,6 @@ export class VentasComponent implements OnInit {
 
   obtenerProyectos(pageIndex: number) {
     this.proyectoService.getProyectos(pageIndex).subscribe((proyectosJsonResponse) => {
-      console.info(proyectosJsonResponse.content)
-
       this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
       this.pageIndex = proyectosJsonResponse.pageable.pageNumber
       this.totalData = proyectosJsonResponse.totalElements
