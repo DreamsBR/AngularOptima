@@ -39,13 +39,13 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="nombres">Nro Doc</label>
-                                                    <input type="text" class="form-control" id="nombres">
+                                                    <input type="text" class="form-control" #txtNumDoc (keydown.enter)="obtenerClienteSeleccionado(txtNumDoc.value)">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-5">
                                                 <div class="form-group">
                                                     <label for="apellidos">Nombres y Apellidos</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <input type="text" class="form-control" [(ngModel)]="clienteSeleccionado.nombres">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-2">
