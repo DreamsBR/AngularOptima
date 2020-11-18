@@ -11,6 +11,7 @@ import sleep from 'await-sleep'
   templateUrl: './inmueble-nuevo-editar.component.html'
 })
 export class InmuebleNuevoEditarComponent implements OnInit {
+  errors: string[] = []
   loading: boolean = false
   status: boolean = false
 
@@ -86,6 +87,11 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         nombre: 'ESTACIONAMIENTO'
       }
     ]
+    
+    // CONSULTAR... LISTASMAESTRAS --> FALTA INYECTAR EN app.module.ts
+    /* this.proyectoService.getProyectos(pageIndex).subscribe((listaJsonResponse) => {
+      console.log(listaJsonResponse)
+    }) */
   }
 
   loadTipoVista(val: number) {
@@ -121,32 +127,22 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   }
 
   guardar() {
+    const isValid = this.validarForm()
+    if (!isValid) return
+
     const newInmueble = new Inmueble()
     newInmueble.idInmueble = this.formIdInmueble
     newInmueble.idProyecto = this.formIdProyecto
-    newInmueble.idTipoInmueble = this.formIdTipoInmueble
-    newInmueble.idTipoInmuebleCategoria = this.formIdTipoInmuebleCategoria
+    newInmueble.idTipoInmueble = this.formIdTipoInmueble // Requerido
+    newInmueble.idTipoInmuebleCategoria = this.formIdTipoInmuebleCategoria // Requerido
     newInmueble.numero = this.formNroDptoEstac
     newInmueble.areaTechada = this.formAreaTechada
     newInmueble.areaLibre = this.formAreaLibre
     newInmueble.areaTotal = this.formAreaTotal
-    newInmueble.idTipoVista = this.formIdTipoVista
+    newInmueble.idTipoVista = this.formIdTipoVista // Requerido
     newInmueble.cantidadDormitorio = this.formCantDorm
     newInmueble.precio = this.formPrecio
     newInmueble.enable = this.formEnable
-
-    // HardCode
-    // newInmueble.idProyecto = 1
-    // newInmueble.idTipoInmueble = 1
-    // newInmueble.idTipoInmuebleCategoria = 1
-    // newInmueble.numero = '156'
-    // newInmueble.areaTechada = 20
-    // newInmueble.areaLibre = 10
-    // newInmueble.areaTotal = 30
-    // newInmueble.idTipoVista = 1
-    // newInmueble.cantidadDormitorio = 4
-    // newInmueble.precio = 3000
-    // newInmueble.enable = 1
 
     // console.log(newInmueble)
     const __self = this
@@ -173,5 +169,15 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       this.formIdTipoVista = 0
       this.formCantDorm = 0
     }
+  }
+
+  validarForm() {
+    this.errors = []
+    let tmpValid = true
+    if (this.formIdTipoInmueble === 0 || this.formIdTipoInmuebleCategoria === 0 || this.formIdTipoVista === 0) {
+      tmpValid = false
+      this.errors = ['Los campos: tipo inmueble, categoría y vista son requeridos']
+    } 
+    return tmpValid
   }
 }

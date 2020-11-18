@@ -27,8 +27,8 @@ import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
-import { InmuebleService } from './inmuebles/inmueble.service'
 import { ProyectoService2 } from './ventas/proyectos.service'
+import { InmuebleService } from './inmuebles/inmueble.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -44,8 +44,10 @@ import { VentasComponent } from './ventas/ventas.component'
 import { VentasProyectoComponent } from './ventas-proyecto/ventas-proyecto.component'
 import { VentasProyectoNuevoEditarComponent } from './ventas-proyecto-nuevo-editar/ventas-proyecto-nuevo-editar.component'
 import { VentasConsultaClienteDetalleComponent } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.component'
+
 import { ConsultaVentasComponent } from './consulta-ventas/consulta-ventas.component'
 import { ConsultaVentasDetalleComponent } from './consulta-ventas-detalle/consulta-ventas-detalle.component'
+
 import { ProyectosComponent } from './proyectos/proyectos.component'
 import { ProyectoNuevoEditarComponent } from './proyecto-nuevo-editar/proyecto-nuevo-editar.component'
 import { InmueblesComponent } from './inmuebles/inmuebles.component'
@@ -57,6 +59,7 @@ import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/v
 import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
+import { NgxPaginationModule } from 'ngx-pagination'
 import { AppLoadingComponent } from './app-loading/app-loading.component'
 
 const ROUTES: Routes = [
@@ -66,6 +69,7 @@ const ROUTES: Routes = [
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
   { path: 'colaboradores', component: ColaboradoresComponent },
+  { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },
 
   { path: 'clientes', component: ClientesComponent },
@@ -76,8 +80,10 @@ const ROUTES: Routes = [
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
+
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
+
   { path: 'proyectos', component: ProyectosComponent },
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
   { path: 'inmuebles/:idProyecto', component: InmueblesComponent },
@@ -87,7 +93,8 @@ const ROUTES: Routes = [
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
-  { path: 'periodos', component: PeriodosComponent }
+  { path: 'periodos', component: PeriodosComponent },
+  { path: 'periodo/page/:page', component: PeriodosComponent }
 ]
 
 @NgModule({
@@ -135,7 +142,8 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     ClienteService,
