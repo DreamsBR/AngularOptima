@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Proyecto } from './../ventas/proyecto'
-import { ProyectoService2 } from './../ventas/proyectos.service'
+import { ProyectoService } from './../proyectos/proyectos.service';
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { Router } from '@angular/router'
@@ -17,7 +17,7 @@ export class ConsultaVentasComponent implements OnInit {
   base: string
 
   constructor(
-    private proyectoService: ProyectoService2,
+    private proyectoService: ProyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
     private router: Router
@@ -33,7 +33,7 @@ public obtenerProyecto(){
     if (!page) {
       page = 0
     }
-    this.proyectoService.getProyectos().subscribe((
+    this.proyectoService.getProyectos(page).subscribe((
       proyectosJsonResponse) => {
       this.proyectoLista = proyectosJsonResponse.content;
       this.paginador=proyectosJsonResponse
