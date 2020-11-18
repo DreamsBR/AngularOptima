@@ -27,8 +27,8 @@ import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
-import { ProyectoService2 } from './ventas/proyectos.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
+import { ProyectoService2 } from './ventas/proyectos.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -59,7 +59,6 @@ import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/v
 import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
-import { NgxPaginationModule } from 'ngx-pagination'
 import { AppLoadingComponent } from './app-loading/app-loading.component'
 
 const ROUTES: Routes = [
@@ -142,8 +141,7 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule,
-    NgxPaginationModule
+    NgbModule
   ],
   providers: [
     ClienteService,
