@@ -22,22 +22,22 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nombres">Nombres</label>
-                                    <input type="text" class="form-control" id="nombres">
+                                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="colaborador.nombres">
                                 </div>
                             </div>
+
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="apellidos">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellidos">
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="colaborador.apellidos">
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nombres">Tipo de documento</label>
-                                    <select class="form-control" id="exampleFormControlSelect1">
+                                    <select class="form-control" id="tipoDoc"  name="idtipodocumento" [(ngModel)]="colaborador.idtipodocumento">
                                         <option>DNI</option>
                                         <option>Carnet extranjeria</option>
                                     </select>
@@ -46,25 +46,36 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="apellidos">Nro. doc.</label>
-                                    <input type="text" class="form-control" id="apellidos">
+                                    <input type="text" class="form-control" id="nroDocumentos" name="numeroDocumento"  [(ngModel)]="colaborador.numeroDocumento">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row">
+                        <!--
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nombres">Teléfono</label>
-                                    <input type="text" class="form-control" id="nombres">
+                                    <input type="number" class="form-control" id="telefono" name="telefono"   [(ngModel)]="colaborador.telefono">
                                 </div>
                             </div>
+                            
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="apellidos">Dirección</label>
-                                    <input type="text" class="form-control" id="apellidos">
+                                    <label for="direccion">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion" name="direccion"  [(ngModel)]="colaborador.direccion">
+                                </div>
+                            </div>
+-->
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="nombres">Sexo</label>
+                                    <input type="text" class="form-control" id="sexo" name="sexo"  [(ngModel)]="colaborador.sexo">
                                 </div>
                             </div>
                         </div>
+
+                        <!--
 
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
@@ -79,9 +90,9 @@
                                     <input type="password" class="form-control" id="apellidos">
                                 </div>
                             </div>
-                        </div>                        
+                        </div>           -->             
 
-                        <button type="submit" class="btn btn-optima btn-float-right">Registrar</button>
+                        <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarColaborador()">Registrar</button>
 
                     </form>
 
