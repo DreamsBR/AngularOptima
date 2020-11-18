@@ -13,8 +13,7 @@ import swal from 'sweetalert2';
 })
 
 export class ColaboradoresComponent implements OnInit {
-  public colaborador: Colaborador = new Colaborador();
-  public errores: string[];
+
   status: boolean = false;
   colaboradoresLista: Colaborador[];
   paginador: any;
@@ -46,20 +45,6 @@ export class ColaboradoresComponent implements OnInit {
 
   menuToggle(){
     this.status = !this.status;
-  }
-  
-  public agregarColaborador(): void {
-
-    this.colaboradorService.agregarColaborador(this.colaborador)
-      .subscribe(response => {
-        this.router.navigate(['/colaborador'])
-        swal('Nuevo colaborador', `colaborador ${response.colaborador.nombres} creado con exito`, 'success')
-
-      },
-        err => {
-          this.errores = err.error.errors as string[];
-        }
-      );
   }
 
 
