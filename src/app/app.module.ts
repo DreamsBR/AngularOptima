@@ -60,7 +60,6 @@ import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/v
 import { PeriodosComponent } from './periodos/periodos.component';
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { AppLoadingComponent } from './app-loading/app-loading.component';
 
 const ROUTES: Routes = [
@@ -144,8 +143,7 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule,
-    NgxPaginationModule
+    NgbModule
   ],
   providers: [
     ClienteService,
