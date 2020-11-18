@@ -43,8 +43,10 @@ import { VentasComponent } from './ventas/ventas.component';
 import { VentasProyectoComponent } from './ventas-proyecto/ventas-proyecto.component';
 import { VentasProyectoNuevoEditarComponent } from './ventas-proyecto-nuevo-editar/ventas-proyecto-nuevo-editar.component';
 import { VentasConsultaClienteDetalleComponent } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.component';
+
 import { ConsultaVentasComponent } from './consulta-ventas/consulta-ventas.component';
 import { ConsultaVentasDetalleComponent } from './consulta-ventas-detalle/consulta-ventas-detalle.component';
+
 import { ProyectosComponent } from './proyectos/proyectos.component';
 import { ProyectoNuevoEditarComponent } from './proyecto-nuevo-editar/proyecto-nuevo-editar.component';
 import { InmueblesComponent } from './inmuebles/inmuebles.component';
@@ -66,6 +68,7 @@ const ROUTES: Routes = [
   {path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent},
   {path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent},
   {path: 'colaboradores', component: ColaboradoresComponent},
+  {path: 'colaborador/page/:page', component: ColaboradoresComponent},
   {path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent},
 
   {path: 'clientes', component: ClientesComponent},
@@ -76,8 +79,10 @@ const ROUTES: Routes = [
   {path: 'ventas-proyecto/:id', component: VentasProyectoComponent},
   {path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent},
   {path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent},
+
   {path: 'consulta-ventas', component: ConsultaVentasComponent},
   {path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent},
+
   {path: 'proyectos', component: ProyectosComponent},
   {path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent},
   {path: 'inmuebles/:idProyecto', component: InmueblesComponent},
@@ -87,7 +92,8 @@ const ROUTES: Routes = [
   {path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent},
   {path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent},
 
-  {path: 'periodos', component: PeriodosComponent}
+  {path: 'periodos', component: PeriodosComponent},
+  {path: 'periodo/page/:page', component: PeriodosComponent},
 
 ];
 
@@ -146,6 +152,7 @@ const ROUTES: Routes = [
     VentasproyectoService,
     PeriodoService,
     InmuebleService,
+
 
 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

@@ -75,7 +75,7 @@ export class PeriodosComponent implements OnInit {
       .subscribe(response => {
         console.info(response)
         document.getElementById('cerrarModalEliminar').click();
-        swal('Nuevo Periodo', `Periodo ${response} creado con exito`, 'success')
+        swal('Nuevo Periodo', `Periodo ${response.nombre} creado con exito`, 'success')
         this.obtenerPeriodo();
       },
         err => {
