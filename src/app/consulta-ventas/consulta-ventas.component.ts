@@ -13,7 +13,8 @@ import { URL_BACKEND } from '../config/config'
 export class ConsultaVentasComponent implements OnInit {
   status: boolean = false
   proyectoLista: Proyecto[]
-
+  paginador:any
+  base: string
 
   constructor(
     private proyectoService: ProyectoService2,
@@ -23,12 +24,27 @@ export class ConsultaVentasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe(() => {
-      this.proyectoService.getProyectos().subscribe((clientesJsonResponse) => {
-        this.proyectoLista = clientesJsonResponse
-      })
-    })
+    this.obtenerProyecto();
   }
+
+public obtenerProyecto(){
+  this.activatedRoute.paramMap.subscribe((params) => {
+    let page: number = +params.get('page')
+    if (!page) {
+      page = 0
+    }
+    this.proyectoService.getProyectos().subscribe((
+      proyectosJsonResponse) => {
+      this.proyectoLista = proyectosJsonResponse.content;
+      this.paginador=proyectosJsonResponse
+      this.base = 'proyecto';
+    })
+  })
+
+}
+
+
+
 
   menuToggle() {
     this.status = !this.status
