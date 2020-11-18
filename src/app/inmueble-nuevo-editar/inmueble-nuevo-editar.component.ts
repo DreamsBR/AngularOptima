@@ -23,13 +23,13 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   // Formulario
   formIdInmueble: number = 0
   formIdProyecto: number = 0
-  formIdTipoInmueble: number = null
-  formIdTipoInmuebleCategoria: number = null
+  formIdTipoInmueble: number = 0
+  formIdTipoInmuebleCategoria: number = 0
   formNroDptoEstac: string = ''
   formAreaTechada: number = 0
   formAreaLibre: number = 0
   formAreaTotal: number = 0
-  formIdTipoVista: number = null
+  formIdTipoVista: number = 0
   formCantDorm: number = 0
   formPrecio: number = 0
   formOtros: string = ''
@@ -148,7 +148,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     // newInmueble.precio = 3000
     // newInmueble.enable = 1
 
-    // console.log(newProyecto)
+    // console.log(newInmueble)
     const __self = this
     __self.inmuebleService.crearInmueble(newInmueble).subscribe((resp) => {
       __self.regresar()
@@ -169,8 +169,8 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       this.loadTipoInmuebleCategoria(val)
     } else {
       // Otros (Estacionamiento)
-      this.formIdTipoInmuebleCategoria = null
-      this.formIdTipoVista = null
+      this.formIdTipoInmuebleCategoria = 0
+      this.formIdTipoVista = 0
       this.formCantDorm = 0
     }
   }
