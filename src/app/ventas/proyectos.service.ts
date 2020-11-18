@@ -8,7 +8,7 @@ import { URL_BACKEND_DEMO } from '../config/config';
 
 
 @Injectable()
-export class ProyectoService {
+export class ProyectoService2 {
 
     constructor(private http: HttpClient, private router: Router) { }
 
