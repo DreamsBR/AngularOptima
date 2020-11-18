@@ -8,18 +8,27 @@ import swal from 'sweetalert2'
   templateUrl: './ventas-proyecto-nuevo-editar.component.html'
 })
 export class VentasProyectoNuevoEditarComponent implements OnInit {
-  clienteSeleccionado: Cliente
+  public clienteSeleccionado: Cliente = new Cliente()
+  public nrodoc: string
 
   constructor(private clienteService: ClienteService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.clienteSeleccionado.idCliente = 0
+    this.clienteSeleccionado.nombres = ''
+    this.clienteSeleccionado.apellidos = ''
+    this.clienteSeleccionado.nroDocumento = ''
+  }
 
   public obtenerClienteSeleccionado(nrodoc: string) {
     this.clienteService.obtenerClientesPorDni(nrodoc).subscribe((cliente) => {
-      console.info(cliente[0])
       if (Object.keys(cliente).length > 0) {
-        this.clienteSeleccionado = cliente
+        this.clienteSeleccionado = cliente[0]
       } else {
+        this.clienteSeleccionado.idCliente = 0
+        this.clienteSeleccionado.nombres = ''
+        this.clienteSeleccionado.apellidos = ''
+        this.clienteSeleccionado.nroDocumento = ''
         swal('consultar cliente', 'No se encontro el registro solicitado ', 'warning')
       }
     })
