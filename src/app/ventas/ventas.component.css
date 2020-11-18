@@ -48,6 +48,9 @@
 .cardproy {
   cursor: pointer;
 }
+.cardproy a {
+  color: #ee6f2e;
+}
 .cardproy-selected {
   background: #ee6f2e;
   color: rgb(255, 255, 255, 0.65);

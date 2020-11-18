@@ -27,6 +27,7 @@ import { ClienteService } from './clientes/clientes.service';
 import { ProyectoService } from './proyectos/proyectos.service';
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service';
 import { PeriodoService } from './periodos/periodo.service';
+import { InmuebleService } from './inmuebles/inmueble.service';
 
 import { LoginComponent } from './usuarios/login.component';
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component';
@@ -56,6 +57,7 @@ import { PeriodosComponent } from './periodos/periodos.component';
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AppLoadingComponent } from './app-loading/app-loading.component';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -78,7 +80,7 @@ const ROUTES: Routes = [
   {path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent},
   {path: 'proyectos', component: ProyectosComponent},
   {path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent},
-  {path: 'inmuebles/:id', component: InmueblesComponent},
+  {path: 'inmuebles/:idProyecto', component: InmueblesComponent},
   {path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent},
   {path: 'gerencias', component: GerenciasComponent},
   {path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent},
@@ -119,7 +121,8 @@ const ROUTES: Routes = [
     VendedorMetaNuevoEditarComponent,
     PeriodosComponent,
     PeriodoNuevoEditarComponent,
-    PeriodosProyectosComponent
+    PeriodosProyectosComponent,
+    AppLoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -142,6 +145,7 @@ const ROUTES: Routes = [
     ProyectoService,
     VentasproyectoService,
     PeriodoService,
+    InmuebleService,
 
 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},

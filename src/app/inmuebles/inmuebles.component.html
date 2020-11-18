@@ -1,135 +1,128 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
-
-    <app-sidebar></app-sidebar>
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-
-            <div class="row">
-                <div class="col-sm-12 col-md-5">
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Datos de inmuebles</h3>
-                </div>
-                <div class="col-sm-12 col-md-7 text-right">
-                    <a href="/inmueble-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-12 overflow-auto">
-
-                    <br>
-
-                    <table class="table">
-                        <caption>Lista de inmuebles</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">DPTO</th>
-                                <th scope="col">A. techada</th>
-                                <th scope="col">A. Libre</th>
-                                <th scope="col">A. Total</th>
-                                <th scope="col">Vista</th>
-                                <th scope="col">Dorm</th>
-                                <th scope="col">Estac.</th>
-                                <th scope="col">Dep.</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/inmueble-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>A</td>
-                                <td>901</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>Exterior</td>
-                                <td>2</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/inmueble-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>A</td>
-                                <td>901</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>Exterior</td>
-                                <td>2</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/inmueble-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>A</td>
-                                <td>901</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>437.34</td>
-                                <td>Exterior</td>
-                                <td>2</td>
-                                <td>-</td>
-                                <td>-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-
-            <br>
-
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
-
+  <app-sidebar></app-sidebar>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- <div class="col-sm-12 col-md-5">
+          <div class="button-toggle">
+            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+          </div>
+          <h3>Datos de inmuebles</h3>
+        </div> -->
+        <div class="col-sm-12 col-md-5">
+          <!-- <div class="button-toggle">
+            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+          </div> -->
+          <div style="display: flex; align-items: center">
+            <button (click)="regresar()" class="btn btn-optima" style="margin-right: 10px">
+              <em class="fas fa-chevron-left"></em>
+            </button>
+            <h3 style="display: inline-block; margin-bottom: 0px">Datos de inmuebles</h3>
+          </div>
         </div>
-    </div>
+        <div class="col-sm-12 col-md-7 text-right">
+          <a (click)="goToAgregar()" style="cursor: pointer"
+            ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
+          ></a>
+        </div>
+      </div>
 
+      <table
+        mat-table
+        class="tbinm"
+        [dataSource]="inmuebleLista"
+        style="width: 100%; margin-top: 20px"
+      >
+        <ng-container matColumnDef="editar">
+          <th mat-header-cell *matHeaderCellDef>Editar</th>
+          <td mat-cell *matCellDef="let elem">
+            <a href="#" data-toggle="dropdown" style="margin-left: 20px; color: #ee6f2e">
+              <em class="fas fa-ellipsis-v"></em>
+            </a>
+            <div class="dropdown-menu dropdown-menu-left">
+              <button
+                class="dropdown-item"
+                type="button"
+                [routerLink]="['/inmueble-nuevo-editar', 1]"
+              >
+                <em class="far fa-edit"></em> Editar
+              </button>
+              <button
+                class="dropdown-item"
+                type="button"
+                data-toggle="modal"
+                data-target="#modal-eliminar-cliente"
+              >
+                <em class="far fa-trash-alt"></em> Eliminar
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="idTipoInmuebleCategoria">
+          <th mat-header-cell *matHeaderCellDef>Tipo</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.idTipoInmuebleCategoria }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="numero">
+          <th mat-header-cell *matHeaderCellDef>Nro.</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.numero }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="areaTechada">
+          <th mat-header-cell *matHeaderCellDef>A. Techada</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.areaTechada }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="areaLibre">
+          <th mat-header-cell *matHeaderCellDef>A. Libre</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.areaLibre }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="areaTotal">
+          <th mat-header-cell *matHeaderCellDef>A. Total</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.areaTotal }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="idTipoVista">
+          <th mat-header-cell *matHeaderCellDef>Vista</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.idTipoVista }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cantidadDormitorio">
+          <th mat-header-cell *matHeaderCellDef>Dorm.</th>
+          <td mat-cell *matCellDef="let elem">{{ elem.cantidadDormitorio }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+      </table>
+      <div
+        *ngIf="inmuebleLista.data.length === 0"
+        style="width: 100%; text-align: center; margin-top: 15px"
+      >
+        -- No hay resultados --
+      </div>
+    </div>
+  </div>
 </div>
 
-
 <div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title">Eliminar cliente</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p>¿Seguro que deseas eliminar el registro?</p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-optima">Confirmar</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-        </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el registro?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
     </div>
+  </div>
 </div>
