@@ -23,7 +23,7 @@ export class ProyectoService {
     )
   }
 
-  newProyecto(proyecto: Proyecto) {
+  newProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.post<Proyecto>(this.urlEndPoint, proyecto).pipe(
       map((resp: any) => {
         console.log(resp)
@@ -32,7 +32,7 @@ export class ProyectoService {
     )
   }
 
-  getProyectosById(proyecto: Proyecto) {
+  getProyectosById(proyecto: Proyecto): Observable<any> {
     return this.http.get(this.urlEndPoint + '/' + proyecto.idProyecto).pipe(
       map((jsonProyectosResponse: any) => {
         console.log('respondiendo')

@@ -13,18 +13,18 @@
   margin-left: -15px;
 }
 
-.tbproy /deep/ tbody tr{
+.tbproy /deep/ tbody tr {
   display: block;
 }
 
-.tbproy /deep/ tbody tr td{
+.tbproy /deep/ tbody tr td {
   width: 100%;
   display: block;
   border: 0px;
   padding: 0px;
 }
 
-.tbproy /deep/ tr.mat-row{
+.tbproy /deep/ tr.mat-row {
   height: unset;
 }
 
@@ -43,4 +43,18 @@
 .ptproy /deep/ .mat-select-value,
 .ptproy /deep/ .mat-select-arrow {
   color: rgb(238, 111, 46, 1);
+}
+
+.cardproy {
+  cursor: pointer;
+}
+.cardproy-selected {
+  background: #ee6f2e;
+  color: rgb(255, 255, 255, 0.65);
+}
+.cardproy-selected a {
+  color: #ffffff;
+}
+.cardproy-selected a strong {
+  font-weight: 500;
 }
