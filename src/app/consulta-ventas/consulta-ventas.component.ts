@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Proyecto } from './../ventas/proyecto'
-import { ProyectoService } from './../ventas/proyectos.service'
+import { ProyectoService2 } from './../ventas/proyectos.service'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { Router } from '@angular/router'
@@ -14,7 +14,7 @@ export class ConsultaVentasComponent implements OnInit {
   proyectoLista: Proyecto[]
 
   constructor(
-    private proyectoService: ProyectoService,
+    private proyectoService: ProyectoService2,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
     private router: Router

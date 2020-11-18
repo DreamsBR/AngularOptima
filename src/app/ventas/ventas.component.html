@@ -37,61 +37,20 @@
                           <div class="card-body">
                             <div class="row item-proyecto">
                               <div class="col-sm-12 col-md-10">
-
-                                
                                 <p>
                                   <a
-                                    data-toggle="collapse"
-                                    [href]="'#collapseDivProyID-' + elemproyecto.idProyecto"
+                                    [routerLink]="['/ventas-proyecto', elemproyecto.idProyecto]"
                                     aria-expanded="false"
                                     ><strong>{{ elemproyecto.nombre }}</strong></a
                                   >
                                 </p>
                                 <p>{{ elemproyecto.direccion }}</p>
                               </div>
-                              <div class="col-sm-12 col-md-2">
-                                <div class="btn-float-right">
-                                  <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                  <div class="dropdown-menu dropdown-menu-left">
-                                    <button
-                                      class="dropdown-item"
-                                      type="button"
-                                      [routerLink]="['/cliente-nuevo-editar', 1]"
-                                    >
-                                      <em class="far fa-edit"></em> Editar
-                                    </button>
-                                    <button
-                                      class="dropdown-item"
-                                      type="button"
-                                      data-toggle="modal"
-                                      data-target="#modal-eliminar-cliente"
-                                    >
-                                      <em class="far fa-trash-alt"></em> Eliminar
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
                             </div>
                           </div>
+
                         </div>
 
-                        <div class="collapse" [id]="'collapseDivProyID-' + elemproyecto.idProyecto">
-                          <div class="card">
-                            <div class="card-body">
-                              <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-3">
-                                  <div class="logo-user">SR</div>
-                                </div>
-                                <div class="col-sm-12 col-md-9">
-                                  <p><strong>Gerente</strong></p>
-                                  <p>Samantha Rodriguez López</p>
-                                  <p><strong>Fecha de inicio</strong></p>
-                                  <p>12/12/20</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                       </td>
                     </ng-container>
 
