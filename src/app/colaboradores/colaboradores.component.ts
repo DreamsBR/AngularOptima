@@ -20,7 +20,7 @@ export class ColaboradoresComponent implements OnInit {
   colaboradorSeleccionado: Colaborador;
   urlBackend: String = URL_BACKEND;
   base: String;
-  
+
   constructor(
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
@@ -29,19 +29,23 @@ export class ColaboradoresComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obtenerColaborador()
+  }
+  obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
         page = 0;
       }
       this.colaboradorService.getColaboradores(page).subscribe(
-        clientesJsonResponse => {
-          this.colaboradoresLista = clientesJsonResponse.content;
-          this.paginador = clientesJsonResponse;
-        }
-      );
-    });
+        (colaboradorJsonResponse) => {
+          this.colaboradoresLista = colaboradorJsonResponse.content;
+          this.paginador = colaboradorJsonResponse;
+          this.base='colaborador'
+        })
+    })
   }
+
 
   menuToggle(){
     this.status = !this.status;
