@@ -55,6 +55,7 @@ import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/v
 import { PeriodosComponent } from './periodos/periodos.component';
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component';
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const ROUTES: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -68,7 +69,7 @@ const ROUTES: Routes = [
   {path: 'clientes', component: ClientesComponent},
   {path: 'cliente/page/:page', component: ClientesComponent},
   {path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent},
-  
+
   {path: 'ventas', component: VentasComponent},
   {path: 'ventas-proyecto/:id', component: VentasProyectoComponent},
   {path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent},
@@ -83,7 +84,7 @@ const ROUTES: Routes = [
   {path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent},
   {path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent},
   {path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent},
-  
+
   {path: 'periodos', component: PeriodosComponent}
 
 ];
@@ -132,7 +133,8 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     ClienteService,
@@ -140,6 +142,7 @@ const ROUTES: Routes = [
     ProyectoService,
     VentasproyectoService,
     PeriodoService,
+
 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

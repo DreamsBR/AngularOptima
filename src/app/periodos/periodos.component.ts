@@ -19,9 +19,9 @@ export class PeriodosComponent implements OnInit {
   periodoSeleccionado: Periodo;
   urlBackend: String = URL_BACKEND;
   base: String;
-  
+  totalRecords:number;
   public errores: string[];
-  private router: Router;
+  pageActual:number = 1;
   public periodo: Periodo = new Periodo();
   model: NgbDateStruct;
   date: {year: number, month: number};
@@ -29,16 +29,25 @@ export class PeriodosComponent implements OnInit {
   constructor(
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     //public modalService: ModalService,
     public authService: AuthService
   ) { }
 
   ngOnInit() {
 
+    this.obtenerPeriodo();
+
+  }
+
+
+
+  public obtenerPeriodo(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
         page = 0;
+
       }
 
       this.periodoService.getPeriodos(page).subscribe(
@@ -46,15 +55,14 @@ export class PeriodosComponent implements OnInit {
           this.periodosLista = periodosJsonResponse.content;
           this.paginador = periodosJsonResponse;
           this.base = "periodo";
+
         }
       );
     });// end subscribe
-  
-  }
-  
-  public agregarPeriodo(): void {
-    
 
+  }
+
+  public agregarPeriodo(): void {
 
     let fechaInicioT:any = this.periodo.fechaInicio;
     let fechaFinT:any = this.periodo.fechaFin;
@@ -65,15 +73,18 @@ export class PeriodosComponent implements OnInit {
 
     this.periodoService.agregarPeriodo(this.periodo)
       .subscribe(response => {
-        this.router.navigate(['/periodo'])
-        swal('Nuevo Periodo', `Periodo ${response.periodo.nombre} creado con exito`, 'success')
-        
+        console.info(response)
+        document.getElementById('cerrarModalEliminar').click();
+        swal('Nuevo Periodo', `Periodo ${response} creado con exito`, 'success')
+        this.obtenerPeriodo();
       },
         err => {
-          this.errores = err.error.errors as string[];
+          console.error(err)
+          document.getElementById('cerrarModalEliminar').click();
+          this.obtenerPeriodo();
         }
       );
-      
+
   }
 
 

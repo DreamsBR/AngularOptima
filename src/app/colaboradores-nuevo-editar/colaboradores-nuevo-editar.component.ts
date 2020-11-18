@@ -14,12 +14,16 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   public colaborador: Colaborador = new Colaborador();
   public errores: string[];
-  private colaboradorService:ColaboradorService;
-  private router: Router;
 
   status = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private colaboradorService:ColaboradorService,
+
+  ) {
+
+   }
 
   ngOnInit() {
 
@@ -33,19 +37,20 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
     this.colaboradorService.agregarColaborador(this.colaborador)
       .subscribe(response => {
-        this.router.navigate(['/colaborador'])
-        swal('Nuevo colaborador', `colaborador ${response.colaborador.nombres} creado con exito`, 'success')
+        this.router.navigate(['/colaboradores'])
+        console.log(response)
+        swal('Nuevo colaborador', `colaborador ${response.nombres} creado con exito`, 'success')
 
       },
         err => {
           this.errores = err.error.errors as string[];
         }
       );
-  
+
     }
 
-    /*  
-    
+    /*
+
   public agregarCliente(): void {
 
     this.clienteService.agregarCliente(this.cliente)

@@ -16,7 +16,7 @@
 
             <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-    
+
                     <div class="card-body">
                         <div class="alert alert-info my-2" *ngIf="periodosLista?.length==0">No hay peridos registrados</div>
                         <div class="table-responsive" *ngIf="periodosLista?.length>0">
@@ -34,14 +34,14 @@
                                         <td class="text-center font-color-1">
                                             <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                             <div class="dropdown-menu dropdown-menu-left">
-                                                <button class="dropdown-item" type="button" [routerLink]="['/periodo-nuevo-editar', periodo.idPeriodo]"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" [routerLink]="['/periodo-nuevo-editar']"><em class="far fa-edit"></em> Editar</button>
                                                 <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-periodo"><em class="far fa-trash-alt"></em> Eliminar</button>
                                             </div>
                                         </td>
                                         <td>{{periodo.nombre}}</td>
                                         <td>{{periodo.fechaInicio}}</td>
                                         <td>{{periodo.fechaFin}}</td>
-                                        
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -108,7 +108,7 @@
                         <form class="form-inline">
                             <div class="form-group">
                               <div class="input-group">
-                                <input class="form-control" placeholder="yyyy-mm-dd" 
+                                <input class="form-control" placeholder="yyyy-mm-dd"
                                        name="dp2" [(ngModel)]="periodo.fechaFin" ngbDatepicker #dfecfin="ngbDatepicker">
                                 <div class="input-group-append">
                                   <button class="btn btn-outline-secondary calendar" (click)="dfecfin.toggle()" type="button"></button>
@@ -122,7 +122,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" (click)="agregarPeriodo()" class="btn btn-optima">Guardar</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" id="cerrarModalEliminar" data-dismiss="modal">Cancelar</button>
         </div>
         </div>
     </div>
