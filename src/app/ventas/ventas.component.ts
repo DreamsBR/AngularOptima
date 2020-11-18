@@ -1,40 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-//import { Proyecto } from './proyecto';
-//import { ProyectoService } from './proyectos.service';
-import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../usuarios/auth.service';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { Proyecto } from './../proyectos/proyecto'
+import { ProyectoService } from './../proyectos/proyectos.service'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatTableDataSource } from '@angular/material/table'
 
 @Component({
   selector: 'app-ventas',
-  templateUrl: './ventas.component.html'
+  templateUrl: './ventas.component.html',
+  styleUrls: ['./ventas.component.css']
 })
 export class VentasComponent implements OnInit {
+  proyectoLista = new MatTableDataSource<Proyecto>()
 
-  status: boolean = false;
-  //proyectoLista: Proyecto[];
+  idProyectoSelected: number = 0
 
-  constructor(
-    //private proyectoService: ProyectoService,
-    //private activatedRoute: ActivatedRoute,
-    //public authService: AuthService,
-    //private router: Router
-  ) { }
+  totalData: number = 0
+  pageIndex: number = 0
+  pageSize: number = 5
+  pageSizeOptions: number[] = [5, 10, 25, 250]
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+
+  constructor(private proyectoService: ProyectoService) {}
 
   ngOnInit() {
-    /*this.activatedRoute.paramMap.subscribe(() => {
-
-      this.proyectoService.getProyectos().subscribe(
-        clientesJsonResponse => {
-          this.proyectoLista = clientesJsonResponse;
-        }
-      );
-
-    });*/
+    this.obtenerProyectos(this.pageIndex)
   }
 
-  menuToggle(){
-    this.status = !this.status;
+  obtenerProyectos(pageIndex: number) {
+    this.proyectoService.getProyectos(pageIndex).subscribe((proyectosJsonResponse) => {
+      console.info(proyectosJsonResponse.content)
+
+      this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
+      this.pageIndex = proyectosJsonResponse.pageable.pageNumber
+      this.totalData = proyectosJsonResponse.totalElements
+    })
   }
 
+  onPageChange(event: any) {
+    this.idProyectoSelected = 0
+    this.obtenerProyectos(event.pageIndex)
+  }
+
+  selectItemProyecto(idProyecto) {
+    this.idProyectoSelected = idProyecto
+  }
+
+  status: boolean = false
+  menuToggle() {
+    this.status = !this.status
+  }
 }
