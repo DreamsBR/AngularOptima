@@ -14,7 +14,7 @@ export class PeriodoService {
 
 
   private urlEndPoint: string = URL_BACKEND + 'periodo';
-  
+
   constructor(private http: HttpClient, private router: Router) { }
 
   /*  private agregarAutorizathionHeader() {
@@ -51,7 +51,7 @@ export class PeriodoService {
     );
   }
 
-
+}
 
 
 
@@ -128,10 +128,8 @@ export class PeriodoService {
     //   this.isAutorizado(e);
     //   return throwError(e);
     // })
-    //; 
+    //;
 
   }
 
 */
-
-}

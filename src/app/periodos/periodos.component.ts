@@ -19,9 +19,9 @@ export class PeriodosComponent implements OnInit {
   periodoSeleccionado: Periodo;
   urlBackend: String = URL_BACKEND;
   base: String;
-  
+
   public errores: string[];
-  private router: Router;
+
   public periodo: Periodo = new Periodo();
   model: NgbDateStruct;
   date: {year: number, month: number};
@@ -30,7 +30,8 @@ export class PeriodosComponent implements OnInit {
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
     //public modalService: ModalService,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -49,11 +50,11 @@ export class PeriodosComponent implements OnInit {
         }
       );
     });// end subscribe
-  
+
   }
-  
+
   public agregarPeriodo(): void {
-    
+    console.log(this.periodo);
 
 
     let fechaInicioT:any = this.periodo.fechaInicio;
@@ -63,20 +64,16 @@ export class PeriodosComponent implements OnInit {
     this.periodo.fechaFin=fechaFinT.year+'-'+fechaFinT.month+'-'+fechaFinT.day;
 
 
-    this.periodoService.agregarPeriodo(this.periodo)
-      .subscribe(response => {
-        this.router.navigate(['/periodo'])
+    this.periodoService.agregarPeriodo(this.periodo).subscribe(
+      (response) => {
+        this.router.navigate(['/periodos'])
         swal('Nuevo Periodo', `Periodo ${response.periodo.nombre} creado con exito`, 'success')
-        
       },
-        err => {
-          this.errores = err.error.errors as string[];
+        (err) => {
+          this.errores = err.error.errors as string[]
         }
-      );
-      
+      )
   }
-
-
 
 
 

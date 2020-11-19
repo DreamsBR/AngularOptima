@@ -37,6 +37,7 @@ export class ClienteService {
     agregarCliente(cliente: Cliente): Observable<any> {
         return this.http.post<any>(this.urlEndPoint, cliente).pipe(
           catchError(e => {
+
             if (e.status === 400) {
               return throwError(e);
             }

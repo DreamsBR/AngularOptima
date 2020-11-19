@@ -41,11 +41,10 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[];
         }
       );
-  
     }
 
-    /*  
-    
+    /*
+
   public agregarCliente(): void {
 
     this.clienteService.agregarCliente(this.cliente)
