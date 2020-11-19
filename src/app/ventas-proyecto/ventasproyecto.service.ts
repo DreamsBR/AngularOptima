@@ -4,12 +4,15 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { URL_BACKEND_DEMO } from '../config/config';
+import { URL_BACKEND, URL_BACKEND_DEMO } from '../config/config';
+import { Proyecto } from '../proyectos/proyecto';
 
 @Injectable()
 export class VentasproyectoService {
 
     constructor(private http: HttpClient, private router: Router) { }
+    private urlEndPoint: string = URL_BACKEND + 'cliente/'
+
 
     getVentasProyectos(): Observable<any> {
 
@@ -26,4 +29,6 @@ export class VentasproyectoService {
         );
 
     }
+
+
 }
