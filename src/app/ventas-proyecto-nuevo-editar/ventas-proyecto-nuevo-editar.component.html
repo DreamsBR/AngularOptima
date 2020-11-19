@@ -38,20 +38,20 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
-                                                    <label for="nombres">Nro Doc</label>
-                                                    <input type="text" class="form-control" id="nombres">
+                                                    <label for="busqueda-nrodoc">Nro Doc</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="nrodoc" (keydown.enter)="obtenerClienteSeleccionado(nrodoc)" name="busqueda-nrodoc">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-5">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Nombres y Apellidos</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="busqueda-nombres">Nombres y Apellidos</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos" name="busqueda-nombres" disabled="disabled">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-2">
                                                 <div class="form-group">
                                                     <label class="label-hidden">&nbsp;</label>
-                                                    <button type="submit" class="btn btn-optima btn-float-right">Buscar</button>
+                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="obtenerClienteSeleccionado(nrodoc)">Buscar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -62,8 +62,8 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <p class="cliente-card-titulo"><strong>Nombres</strong></p>
-                                                        <p class="cliente-nombre"><strong>Flor Maria Pupo Bello</strong></p>
-                                                        <p class="cliente-numero"><strong>07888888</strong></p>
+                                                        <p class="cliente-nombre"><strong>{{ clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</strong></p>
+                                                        <p class="cliente-numero"><strong>{{ clienteSeleccionado.nroDocumento }}</strong></p>
                                                     </div>
                                                 </div>
 
@@ -85,14 +85,14 @@
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="nombres">Tipo dpto</label>
-                                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                                    <select class="form-control" id="sle-tipo-departamento">
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="apellidos">Nº dpto</label>
-                                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                                    <select class="form-control" id="nro-departamento">
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -163,19 +163,19 @@
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="nombres">Precio</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <input type="text" class="form-control" name="precio">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="nombres">Dscto</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <input type="text" class="form-control" name="descuento">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="nombres">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <input type="text" class="form-control" name="ayuda-inicial">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -247,20 +247,20 @@
                                                                             
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="nombres">Precio</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <label for="precio">Precio</label>
+                                                                                    <input type="text" class="form-control" name="precio">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="nombres">Dscto</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <label for="dsto">Dscto</label>
+                                                                                    <input type="text" class="form-control" name="dsto">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="nombres">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" id="nombres">
+                                                                                    <input type="text" class="form-control" name="ayuda-inicial">
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -298,14 +298,14 @@
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="nombres">Adicionales</label>
-                                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                                    <select class="form-control" name="adicionales">
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="apellidos">Buscar codigo</label>
-                                                                    <input type="text" class="form-control" id="apellidos">
+                                                                    <input type="text" class="form-control" name="buscar-codigo">
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-2">
@@ -373,19 +373,19 @@
                                                                         <div class="col-sm-12 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label for="nombres">Precio</label>
-                                                                                <input type="text" class="form-control" id="nombres">
+                                                                                <input type="text" class="form-control" name="precio">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label for="nombres">Dscto</label>
-                                                                                <input type="text" class="form-control" id="nombres">
+                                                                                <input type="text" class="form-control" name="dscto">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12 col-md-3">
                                                                             <div class="form-group">
                                                                                 <label for="nombres">Ayuda inicial</label>
-                                                                                <input type="text" class="form-control" id="nombres">
+                                                                                <input type="text" class="form-control" name="ayuda-inicial">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-sm-12 col-md-3">

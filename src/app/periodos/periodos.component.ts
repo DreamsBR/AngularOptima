@@ -22,6 +22,9 @@ export class PeriodosComponent implements OnInit {
 
   public errores: string[];
 
+  totalRecords:number;
+
+  pageActual:number = 1;
   public periodo: Periodo = new Periodo();
   model: NgbDateStruct;
   date: {year: number, month: number};
@@ -36,10 +39,18 @@ export class PeriodosComponent implements OnInit {
 
   ngOnInit() {
 
+    this.obtenerPeriodo();
+
+  }
+
+
+
+  public obtenerPeriodo(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number = +params.get('page');
       if (!page) {
         page = 0;
+
       }
 
       this.periodoService.getPeriodos(page).subscribe(
@@ -47,6 +58,7 @@ export class PeriodosComponent implements OnInit {
           this.periodosLista = periodosJsonResponse.content;
           this.paginador = periodosJsonResponse;
           this.base = "periodo";
+
         }
       );
     });// end subscribe
@@ -54,8 +66,6 @@ export class PeriodosComponent implements OnInit {
   }
 
   public agregarPeriodo(): void {
-    console.log(this.periodo);
-
 
     let fechaInicioT:any = this.periodo.fechaInicio;
     let fechaFinT:any = this.periodo.fechaFin;
@@ -64,15 +74,20 @@ export class PeriodosComponent implements OnInit {
     this.periodo.fechaFin=fechaFinT.year+'-'+fechaFinT.month+'-'+fechaFinT.day;
 
 
-    this.periodoService.agregarPeriodo(this.periodo).subscribe(
-      (response) => {
-        this.router.navigate(['/periodos'])
-        swal('Nuevo Periodo', `Periodo ${response.periodo.nombre} creado con exito`, 'success')
+    this.periodoService.agregarPeriodo(this.periodo)
+      .subscribe(response => {
+        console.info(response)
+        document.getElementById('cerrarModalEliminar').click();
+        swal('Nuevo Periodo', `Periodo ${response.nombre} creado con exito`, 'success')
+        this.obtenerPeriodo();
       },
-        (err) => {
-          this.errores = err.error.errors as string[]
+        err => {
+          console.error(err)
+          document.getElementById('cerrarModalEliminar').click();
+          this.obtenerPeriodo();
         }
-      )
+      );
+
   }
 
 

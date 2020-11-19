@@ -17,6 +17,8 @@ export class ProyectosComponent implements OnInit {
   displayedColumns: string[] = ['nombre']
   proyectoLista = new MatTableDataSource<Proyecto>()
 
+  idProyectoSelected: number = 0
+
   totalData: number = 0
   pageIndex: number = 0
   pageSize: number = 5
@@ -31,7 +33,7 @@ export class ProyectosComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.fetchData(0)
+    this.fetchData(this.pageIndex)
   }
 
   fetchData(pageIndex: number) {
@@ -43,10 +45,23 @@ export class ProyectosComponent implements OnInit {
   }
 
   onPageChange(event: any) {
+    this.idProyectoSelected = 0
     this.fetchData(event.pageIndex)
   }
 
   menuToggle() {
     this.status = !this.status
+  }
+
+  selectItemProyecto(idProyecto) {
+    this.idProyectoSelected = idProyecto
+  }
+
+  verInmuebles() {
+    if (this.idProyectoSelected === 0) {
+      // alert('Debe seleccionar un proyecto')
+    } else {
+      window.location.href = '/inmuebles/' + this.idProyectoSelected
+    }
   }
 }
