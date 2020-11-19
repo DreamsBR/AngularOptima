@@ -13,6 +13,7 @@ export class VentasProyectoComponent implements OnInit {
 
   status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
+  idProyectoSeleted:number = 0;
 
   constructor(
     private ventasproyectoService: VentasproyectoService,
@@ -35,6 +36,12 @@ export class VentasProyectoComponent implements OnInit {
 
   menuToggle(){
     this.status = !this.status;
+  }
+
+
+
+  selectItemProyecto(idProyecto) {
+    this.idProyectoSeleted = idProyecto
   }
 
 }
