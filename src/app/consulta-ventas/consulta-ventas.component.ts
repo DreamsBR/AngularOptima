@@ -16,6 +16,7 @@ export class ConsultaVentasComponent implements OnInit {
   proyectoLista: Proyecto[]
   paginador:any
   base: string
+  nombreProyecto: string
 
 
   constructor(
@@ -27,11 +28,10 @@ export class ConsultaVentasComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerProyecto();
+
   }
 
 public obtenerProyecto(){
-
-
   this.activatedRoute.paramMap.subscribe((params) => {
     let page: number = +params.get('page')
     if (!page) {
@@ -50,7 +50,10 @@ public obtenerProyecto(){
 
 }
 
+  public proyectobyId(){
 
+
+  }
 
 
   menuToggle() {
