@@ -4,28 +4,23 @@ import { ProyectoService } from './../proyectos/proyectos.service';
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { Router } from '@angular/router'
-import { URL_BACKEND } from '../config/config'
-import sleep from 'await-sleep'
 
 @Component({
   selector: 'app-consulta-ventas',
   templateUrl: './consulta-ventas.component.html'
 })
+
 export class ConsultaVentasComponent implements OnInit {
-  //loading: boolean = false
-  status: boolean = false
   proyectoLista: Proyecto[]
   paginador:any
   base: string
   nombreProyecto: string
   pageActual: number = 1
 
-
   constructor(
     private proyectoService: ProyectoService,
     private activatedRoute: ActivatedRoute,
-    public authService: AuthService,
-    private router: Router
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -42,13 +37,13 @@ public obtenerProyecto(){
     this.proyectoService.getProyectos(page).subscribe((
       proyectosJsonResponse) => {
       this.proyectoLista = proyectosJsonResponse.content;
-      this.paginador=proyectosJsonResponse
-      this.base = 'proyecto'
+      this.paginador = proyectosJsonResponse
+      this.base = 'consulta-ventas'
     })
   })
-
 }
 
+  status: boolean = false
   menuToggle() {
     this.status = !this.status
   }

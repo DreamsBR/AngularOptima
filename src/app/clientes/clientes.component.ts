@@ -9,6 +9,7 @@ import { URL_BACKEND } from '../config/config'
   selector: 'app-clientes',
   templateUrl: './clientes.component.html'
 })
+
 export class ClientesComponent implements OnInit {
   clientesLista: Cliente[]
   clienteSeleccionado: Cliente
@@ -28,11 +29,12 @@ export class ClientesComponent implements OnInit {
 
   public obtenerCliente() {
     this.activatedRoute.paramMap.subscribe((params) => {
-      let page: number = +params.get('page')
+      let page: number =+ params.get('page')
       if (!page) {
         page = 0
       }
-      this.clienteService.getClientes(page).subscribe((clientesJsonResponse) => {
+      this.clienteService.getClientes(page).subscribe((
+        clientesJsonResponse) => {
         this.clientesLista = clientesJsonResponse.content
         this.paginador = clientesJsonResponse
         this.base = 'cliente'
