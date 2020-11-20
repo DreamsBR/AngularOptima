@@ -18,7 +18,8 @@ export class ColaboradorService {
     getColaboradores(page): Observable<any> {
         return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
             map((jsonColaboradorResponse: any) => {
-                (jsonColaboradorResponse.content as Colaborador[]).map(colaborador => {
+                (jsonColaboradorResponse.content as Colaborador[]).map(
+                  colaborador => {
                     colaborador.nombres = colaborador.nombres.toUpperCase();
                     colaborador.apellidos = colaborador.apellidos.toUpperCase();
                     return colaborador;
@@ -32,13 +33,13 @@ export class ColaboradorService {
 
         return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
             catchError(e => {
-    
+
             if (e.status === 400) {
                 return throwError(e);
             }
             })
         );
         }
-    
+
 
 }
