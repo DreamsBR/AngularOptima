@@ -29,6 +29,8 @@ import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
 import { ProyectoService2 } from './ventas/proyectos.service'
+import { VentaService } from './ventas/ventas.service'
+import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -59,7 +61,8 @@ import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/v
 import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
-import { AppLoadingComponent } from './app-loading/app-loading.component'
+import { AppLoadingComponent } from './app-loading/app-loading.component';
+import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -127,7 +130,8 @@ const ROUTES: Routes = [
     PeriodosComponent,
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
-    AppLoadingComponent
+    AppLoadingComponent,
+    DatepickerRoundedComponent
   ],
   imports: [
     BrowserModule,
@@ -151,6 +155,8 @@ const ROUTES: Routes = [
     PeriodoService,
     InmuebleService,
     ProyectoService2,
+    VentaService,
+    VentaConsultaClienteDetalleService,
 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
