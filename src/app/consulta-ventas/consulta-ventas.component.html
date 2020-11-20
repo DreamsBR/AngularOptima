@@ -1,7 +1,9 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
 
     <app-sidebar></app-sidebar>
-    <app-loading [isLoading]="loading"></app-loading>
+    <app-loading ></app-loading>
+
+    <!--[isLoading]="loading"-->
     <div id="page-content-wrapper">
         <div class="container-fluid div-ventas">
 
@@ -27,13 +29,12 @@
                 </div>
             </div>
 
+            <br>
+
+            <paginator [paginador]="paginador" [base]="base"></paginator>
 
 
         </div>
-
-        <br>
-
-        <paginator [paginador]="paginador" [base]="base"></paginator>
     </div>
 
 </div>

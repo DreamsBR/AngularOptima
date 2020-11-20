@@ -43,7 +43,7 @@ public obtenerProyecto(){
       proyectosJsonResponse) => {
       this.proyectoLista = proyectosJsonResponse.content;
       this.paginador=proyectosJsonResponse
-      this.base = 'proyecto'
+      this.base = 'consulta-ventas'
     })
   })
 
