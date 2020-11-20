@@ -23,6 +23,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   paramIdProyecto: number
   departamentosAgregados = []
 
+  adicionales: Inmueble[]
+  idAdicionalSeleccionado: number
+  adicionalAgregados = []
+
   constructor(
     private clienteService: ClienteService,
     private inmuebleService: InmuebleService,
@@ -41,6 +45,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.clienteSeleccionado.nroDocumento = ''
 
     this.obtenerTipoInmuebleCategoria()
+    this.obteneradicionalesPorCategoria(1)
   }
 
   public obtenerClienteSeleccionado(nrodoc: string) {
@@ -71,19 +76,42 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       })
   }
 
+  public obteneradicionalesPorCategoria(idTipoInmuebleCategoria: number) {
+    this.inmuebleService
+      .getInmueblesByListarPorCategoria(this.paramIdProyecto, 2, idTipoInmuebleCategoria)
+      .subscribe((response) => {
+        this.adicionales = response
+      })
+  }
+
   public agregarDepartamento() {
     this.inmuebleService
       .getInmueblesByIdInmueble(this.idInmuebleSeleccionado)
       .subscribe((response) => {
-        this.departamentosAgregados.push(response)
-        console.info(this.departamentosAgregados)
+        let tInmueble = new Inmueble()
+        tInmueble = response
+        tInmueble.descuento = 0
+        tInmueble.ayudainicial = 0
+        tInmueble.total = tInmueble.precio - tInmueble.descuento - tInmueble.ayudainicial
+        this.departamentosAgregados.push(tInmueble)
+      })
+  }
+
+  public agregarAdicional() {
+    this.inmuebleService
+      .getInmueblesByIdInmueble(this.idAdicionalSeleccionado)
+      .subscribe((response) => {
+        let tInmueble = new Inmueble()
+        tInmueble = response
+        tInmueble.descuento = 0
+        tInmueble.ayudainicial = 0
+        tInmueble.total = tInmueble.precio - tInmueble.descuento - tInmueble.ayudainicial
+        this.adicionalAgregados.push(tInmueble)
       })
   }
 
   public quitarDepartamento(i: number) {
-    console.info(i)
     this.departamentosAgregados.splice(i, 1)
-    console.info(this.departamentosAgregados)
   }
 
   status = false

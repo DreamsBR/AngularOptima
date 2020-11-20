@@ -108,7 +108,6 @@
 
                                                         <div class="row">
 
-
                                                             <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemDepartamento of departamentosAgregados; index as i">
                                                                 <div class="row">
                                                                     <div class="col-sm-12 col-md-12">
@@ -116,9 +115,14 @@
                                                                         <a (click)="quitarDepartamento(i)"><span class="float-right"><em class="fas fa-times-circle"></em></span></a>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    {{i}}
 
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
+                                                                        <p>{{itemDepartamento.numero}}</p>
+                                                                    </div>   
+                                                                </div>
+
+                                                                <div class="row">
                                                                     <div class="col-sm-12 col-md-12" >
 
                                                                         <div class="card">
@@ -127,30 +131,30 @@
                                                                                 <div class="row">
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. techada</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaTechada}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. Libre</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaLibre}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. Total</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaTotal}}</p>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="row">
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Vista</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.idTipoVista}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Dorm</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.cantidadDormitorio}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Precio</strong></p>
-                                                                                        <p>S/ 230,000</p>
+                                                                                        <p>{{itemDepartamento.precio}}</p>
                                                                                     </div>
                                                                                 </div>
 
@@ -164,32 +168,24 @@
                                                                         </div>
 
                                                                         <div class="row">
-                                                                            
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="nombres">Precio</label>
-                                                                                    <input type="text" class="form-control" name="precio">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="nombres">Dscto</label>
-                                                                                    <input type="text" class="form-control" name="descuento">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="nombres">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayuda-inicial">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
 
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12 col-md-4 offset-md-8">
-                                                                                <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>S/ 230,000</p>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="descuento{{i}}">Dscto</label>
+                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento">
+                                                                                </div>
                                                                             </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <p class="titulo"><strong>Total</strong></p>
+                                                                                <p>{{itemDepartamento.total - itemDepartamento.descuento - itemDepartamento.ayudainicial}}</p>
+                                                                            </div>
+
                                                                         </div>
 
                                                                     </div>
@@ -218,28 +214,34 @@
                                                         </div>
 
                                                         <div class="row">
-                                                            <div class="col-sm-12 col-md-3">
+                                                            <!-- <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="nombres">Adicionales</label>
                                                                     <select class="form-control" name="adicionales">
                                                                     </select>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="apellidos">Buscar codigo</label>
-                                                                    <input type="text" class="form-control" name="buscar-codigo">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="sle-adicional">Buscar código</label>
+                                                                            <select class="form-control" name="sle-adicional" [(ngModel)]="idAdicionalSeleccionado">
+                                                                                <option [value]="adicionales.idInmueble" *ngFor="let itemAdicional of adicionales">{{itemAdicional.numero}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-2">
                                                                 <div class="form-group">
                                                                     <label class="label-hidden">&nbsp;</label>
-                                                                    <button type="submit" class="btn btn-optima btn-float-right">Agregar</button>
+                                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarAdicional()">Agregar</button>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-12 col-md-10 item-inmueble">
+                                                        <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemAdicional of adicionalAgregados; index as i">
                                                             <div class="row">
                                                                 <div class="col-sm-12 col-md-12">
                                                                     <label for="nombres"><strong> Caracteristicas</strong></label>
@@ -255,30 +257,30 @@
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>A. techada</strong></p>
-                                                                                    <p>123</p>
+                                                                                    <p>{{itemAdicional.areaTechada}}</p>
                                                                                 </div>
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>A. Libre</strong></p>
-                                                                                    <p>123</p>
+                                                                                    <p>{{itemAdicional.areaLibre}}</p>
                                                                                 </div>
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>A. Total</strong></p>
-                                                                                    <p>123</p>
+                                                                                    <p>{{itemAdicional.areaTotal}}</p>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="row">
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>Vista</strong></p>
-                                                                                    <p>123</p>
+                                                                                    <p>{{itemAdicional.idTipoVista}}</p>
                                                                                 </div>
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>Dorm</strong></p>
-                                                                                    <p>123</p>
+                                                                                    <p>{{itemAdicional.cantidadDormitorio}}</p>
                                                                                 </div>
                                                                                 <div class="col-sm-12 col-md-4">
                                                                                     <p class="titulo"><strong>Precio</strong></p>
-                                                                                    <p>S/ 230,000</p>
+                                                                                    <p>{{itemAdicional.precio}}</p>
                                                                                 </div>
                                                                             </div>
 
