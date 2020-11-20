@@ -1,7 +1,7 @@
 <ul *ngIf="paginas?.length > 0" class="pagination">
 
     <li class="page-item" *ngIf="paginador.number > 0">
-        <a class="page-link" ngif [routerLink]="['/cliente/page', paginador.number-1]"> &laquo;</a> 
+        <a class="page-link" ngif [routerLink]="['/',base,'page', paginador.number-1]"> &laquo;</a>
     </li>
 
     <li [ngClass]="paginador.first?'disabled page-item':''">
@@ -18,6 +18,6 @@
     </li>
 
     <li class="page-item" *ngIf="paginador.number < paginador.totalPages-1">
-        <a  class="page-link" ngif [routerLink]="['/',base,'page', paginador.number+1]"> &raquo;</a> 
+        <a  class="page-link" ngif [routerLink]="['/',base,'page', paginador.number+1]"> &raquo;</a>
     </li>
 </ul>
