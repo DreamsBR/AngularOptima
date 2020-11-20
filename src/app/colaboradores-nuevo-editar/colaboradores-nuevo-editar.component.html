@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nuevo / Editar cliente</h3>
+                    <h3>Nuevo / Editar Colaborador</h3>
                 </div>
             </div>
 
@@ -58,7 +58,7 @@
                                     <input type="number" class="form-control" id="telefono" name="telefono"   [(ngModel)]="colaborador.telefono">
                                 </div>
                             </div>
-                            
+
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="direccion">Dirección</label>
@@ -90,10 +90,11 @@
                                     <input type="password" class="form-control" id="apellidos">
                                 </div>
                             </div>
-                        </div>           -->             
-
+                        </div>           -->
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-float-right" (click)="regresar()">Cancelar</button>
                         <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarColaborador()">Registrar</button>
-
+                      </div>
                     </form>
 
                 </div>

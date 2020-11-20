@@ -36,6 +36,11 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     )
   }
 
+  regresar() {
+    window.location.href = '/colaboradores'
+  }
+
+
   /*
 
   public agregarCliente(): void {

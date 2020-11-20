@@ -11,5 +11,6 @@ export class Inmueble {
   cantidadDormitorio: number
   precio: number
   // Esta faltando Otros
-  enable: number
+  enable: number;
+  [key: string]: any
 }
