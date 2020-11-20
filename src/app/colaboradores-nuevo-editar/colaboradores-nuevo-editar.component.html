@@ -38,8 +38,8 @@
                                 <div class="form-group">
                                     <label for="nombres">Tipo de documento</label>
                                     <select class="form-control" id="tipoDoc"  name="idtipodocumento" [(ngModel)]="colaborador.idtipodocumento">
-                                        <option>DNI</option>
-                                        <option>Carnet extranjeria</option>
+                                        <option value="1">DNI</option>
+                                        <option value="2">Carnet extranjeria</option>
                                     </select>
                                 </div>
                             </div>
@@ -70,27 +70,13 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nombres">Sexo</label>
-                                    <input type="text" class="form-control" id="sexo" name="sexo"  [(ngModel)]="colaborador.sexo">
-                                </div>
+                                    <select class="form-control" id="sexo" name="sexo"  [(ngModel)]="colaborador.sexo">
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                    </select>
                             </div>
                         </div>
-
-                        <!--
-
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="nombres">Usuario</label>
-                                    <input type="text" class="form-control" id="nombres">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="apellidos">Contraseña</label>
-                                    <input type="password" class="form-control" id="apellidos">
-                                </div>
-                            </div>
-                        </div>           -->
+                        </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-float-right" (click)="regresar()">Cancelar</button>
                         <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarColaborador()">Registrar</button>

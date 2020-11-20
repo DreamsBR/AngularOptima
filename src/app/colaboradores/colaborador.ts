@@ -5,9 +5,12 @@ export class Colaborador{
     numeroDocumento:string;
     sexo:string;
     idtipodocumento:number;
-    //direccion:string; 
-    enable: boolean;
+    //direccion:string;
+    enable: number;
     //telefono: number;
-    
-    
+
+    //
+    //
+    //
+    //
 }

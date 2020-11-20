@@ -70,6 +70,7 @@ const ROUTES: Routes = [
   { path: 'recordar-contrasenia', component: RecordarContraseniaComponent },
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
+
   { path: 'colaboradores', component: ColaboradoresComponent },
   { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
+import { NgbDateStruct, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap'
 import { Periodo } from './periodo'
 import { PeriodoService } from './periodo.service'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { URL_BACKEND } from '../config/config'
 import swal from 'sweetalert2'
+import { validateVerticalPosition } from '@angular/cdk/overlay'
 
 @Component({
   selector: 'app-periodos',
@@ -52,6 +53,7 @@ export class PeriodosComponent implements OnInit {
     }) // end subscribe
   }
 
+
   public agregarPeriodo(): void {
     let fechaInicioT: any = this.periodo.fechaInicio
     let fechaFinT: any = this.periodo.fechaFin
@@ -59,9 +61,9 @@ export class PeriodosComponent implements OnInit {
     this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' + fechaInicioT.day
     this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
 
+
     this.periodoService.agregarPeriodo(this.periodo).subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         swal('Nuevo Periodo', `Periodo ${response.nombre} creado con exito`, 'success')
         this.obtenerPeriodo()
@@ -71,14 +73,22 @@ export class PeriodosComponent implements OnInit {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerPeriodo()
       }
-    )
-  }
+    )}
+
+
+
 
   status = false
   menuToggle() {
     this.status = !this.status
   }
+
+
+
+
 }
+
+
 
 /*public agregarCliente(): void {
 

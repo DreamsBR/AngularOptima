@@ -17,13 +17,22 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   constructor(private router: Router, private colaboradorService: ColaboradorService) {}
 
-  ngOnInit() {}
+  ngOnInit(
+  ) {}
 
   menuToggle() {
     this.status = !this.status
   }
 
+
+
+
+
   public agregarColaborador(): void {
+    console.log(this.colaborador)
+    this.colaborador.enable = 1
+    this.colaborador.idtipodocumento = 1
+    this.colaborador.idColaborador = 0
     this.colaboradorService.agregarColaborador(this.colaborador).subscribe(
       (response) => {
         this.router.navigate(['/colaboradores'])
