@@ -19,7 +19,7 @@ export class ColaboradoresComponent implements OnInit {
   paginador: any;
   colaboradorSeleccionado: Colaborador;
   urlBackend: String = URL_BACKEND;
-  base: String;
+  base: string;
 
   constructor(
     private colaboradorService: ColaboradorService,
