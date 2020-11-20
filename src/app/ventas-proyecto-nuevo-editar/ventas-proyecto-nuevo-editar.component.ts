@@ -114,6 +114,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.departamentosAgregados.splice(i, 1)
   }
 
+  public quitarAdicional(i: number) {
+    this.adicionalAgregados.splice(i, 1)
+  }
+
   status = false
   menuToggle() {
     this.status = !this.status
