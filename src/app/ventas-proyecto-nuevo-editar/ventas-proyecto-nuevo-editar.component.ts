@@ -3,8 +3,17 @@ import { ActivatedRoute } from '@angular/router'
 import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
+
 import { Tipoinmueblecategoria } from './Tipoinmueblecategoria'
 import { TipoinmueblecategoriaService } from './tipoinmueblecategoria.service'
+
+import { Tipocredito } from './Tipocredito'
+import { TipocreditoService } from './tipocredito.service'
+
+import { Bancos } from './Bancos'
+import { BancosService } from './bancos.service'
+
+
 import { Inmueble } from './../inmuebles/inmueble'
 import { InmuebleService } from './../inmuebles/inmueble.service'
 
@@ -15,8 +24,16 @@ import { InmuebleService } from './../inmuebles/inmueble.service'
 export class VentasProyectoNuevoEditarComponent implements OnInit {
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
+
   tipoinmueblecategoria: Tipoinmueblecategoria[]
   tipoinmueblecategoriaSeleccionado: number
+
+  tipocredito: Tipocredito[]
+  tipocreditoSeleccionado: number
+
+  bancos: Bancos[]
+  bancoSeleccionado: number
+
   departamentos: Inmueble[]
   idInmuebleSeleccionado: number
   departamentoSeleccionado: Inmueble
@@ -31,7 +48,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     private clienteService: ClienteService,
     private inmuebleService: InmuebleService,
     private activatedRoute: ActivatedRoute,
-    private tipoinmueblecategoriaService: TipoinmueblecategoriaService
+    private tipoinmueblecategoriaService: TipoinmueblecategoriaService,
+    private tipocreditoService: TipocreditoService,
+    private bancosService: BancosService
   ) {}
 
   ngOnInit() {
@@ -45,6 +64,8 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.clienteSeleccionado.nroDocumento = ''
 
     this.obtenerTipoInmuebleCategoria()
+    this.obtenerTipoCredito()
+    this.obtenerBancos()
     this.obteneradicionalesPorCategoria(1)
   }
 
@@ -65,6 +86,18 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   public obtenerTipoInmuebleCategoria() {
     this.tipoinmueblecategoriaService.getTipoinmueblecategoria().subscribe((response) => {
       this.tipoinmueblecategoria = response
+    })
+  }
+
+  public obtenerTipoCredito() {
+    this.tipocreditoService.getTipoCredito().subscribe((response) => {
+      this.tipocredito = response
+    })
+  }
+
+  public obtenerBancos() {
+    this.bancosService.getBancos().subscribe((response) => {
+      this.bancos = response
     })
   }
 
@@ -118,8 +151,25 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.adicionalAgregados.splice(i, 1)
   }
 
+  getTotalVenta() {
+    let totalDepartamentos = 0;
+    let totalAdicional = 0;
+    for (var i = 0; i < this.departamentosAgregados.length; i++) {
+      totalDepartamentos += this.departamentosAgregados[i].precio - this.departamentosAgregados[i].descuento - this.departamentosAgregados[i].ayudainicial;
+    }
+    for (var i = 0; i < this.adicionalAgregados.length; i++) {
+      totalAdicional += this.adicionalAgregados[i].precio - this.adicionalAgregados[i].descuento - this.adicionalAgregados[i].ayudainicial;
+    }
+    return totalDepartamentos + totalAdicional;
+  }
+
+  siguientePagina(){
+    document.getElementById('v-pills-profile-tab').click()
+  }
+
   status = false
   menuToggle() {
     this.status = !this.status
   }
+
 }

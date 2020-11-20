@@ -29,6 +29,9 @@ import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
 import { TipoinmueblecategoriaService } from './ventas-proyecto-nuevo-editar/tipoinmueblecategoria.service'
+import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.service'
+import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
+
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -152,6 +155,8 @@ const ROUTES: Routes = [
     PeriodoService,
     InmuebleService,
     TipoinmueblecategoriaService,
+    TipocreditoService,
+    BancosService,
 
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
