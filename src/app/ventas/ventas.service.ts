@@ -19,7 +19,18 @@ export class VentaService {
 
   fetchingTipoDocumento(): Observable<any> {
     return this.http.get(this.urlEndPoint + '/tipodocumento/').pipe()
-    //return this.http.get('http://localhost:4000/usuarios/temp').pipe()
+  }
+
+  getVentas(page): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+      map((jsonVentasResponse: any) => {
+        ;(jsonVentasResponse.content as Venta[]).map((venta) => {
+          // venta.nombres = venta.nombres.toUpperCase()
+          return venta
+        })
+        return jsonVentasResponse
+      })
+    )
   }
 
   agregarVenta(venta: Venta): Observable<any> {
