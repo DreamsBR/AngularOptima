@@ -14,7 +14,7 @@ export class VentainmuebleService {
   constructor(private http: HttpClient, private router: Router) {}
 
   agregarVentainmueble(ventainmueble: Ventainmueble): Observable<any> {
-    return this.http.post<any>(this.urlEndPoint + 'venta', ventainmueble).pipe(
+    return this.http.post<any>(this.urlEndPoint + 'ventainmueble', ventainmueble).pipe(
       catchError((e) => {
         if (e.status === 400) {
           return throwError(e)
