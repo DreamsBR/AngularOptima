@@ -50,10 +50,5 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[];
         }
       );
-  }
-    */
-<<<<<<< HEAD
-
-=======
->>>>>>> f0230d03f0ef10b14b0173f56fe11992bbf00e58
+  }*/
 }

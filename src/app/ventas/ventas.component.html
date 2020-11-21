@@ -31,18 +31,13 @@
                             'cardproy card': true,
                             'cardproy-selected': idProyectoSelected === elemproyecto.idProyecto
                           }"
-                          (click)="selectItemProyecto(elemproyecto.idProyecto)"
-                        >
+                          (click)="selectItemProyecto(elemproyecto.idProyecto)">
 
                           <div class="card-body">
                             <div class="row item-proyecto">
                               <div class="col-sm-12 col-md-10">
                                 <p>
-                                  <a
-                                    [routerLink]="['/ventas-proyecto', elemproyecto.idProyecto]"
-                                    aria-expanded="false"
-                                    ><strong>{{ elemproyecto.nombre }}</strong></a
-                                  >
+                                  <a [routerLink]="['/ventas-proyecto', elemproyecto.idProyecto]" aria-expanded="false"><strong>{{ elemproyecto.nombre }}</strong></a>
                                 </p>
                                 <p>{{ elemproyecto.direccion }}</p>
                               </div>

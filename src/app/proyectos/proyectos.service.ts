@@ -8,11 +8,12 @@ import { URL_BACKEND } from '../config/config'
 
 @Injectable()
 export class ProyectoService {
-  private urlEndPoint: string = URL_BACKEND + 'proyecto/'
+  private urlEndPoint: string = URL_BACKEND + 'proyecto'
   constructor(private http: HttpClient, private router: Router) {}
 
+
   getProyectos(page): Observable<any> {
-    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       map((jsonProyectosResponse: any) => {
          (jsonProyectosResponse.content as Proyecto[]).map((
              proyecto) => {
@@ -24,6 +25,7 @@ export class ProyectoService {
     )
   }
 
+
   newProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.post<Proyecto>(this.urlEndPoint, proyecto).pipe(
       map((resp: any) => {
@@ -32,6 +34,7 @@ export class ProyectoService {
       })
     )
   }
+
 
   getProyectosById(proyecto: Proyecto): Observable<any> {
     return this.http.get(this.urlEndPoint + '/' + proyecto.idProyecto).pipe(

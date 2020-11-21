@@ -4,6 +4,8 @@ import { VentasproyectoService } from './../ventas-proyecto/ventasproyecto.servi
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
+import { Proyecto } from '../proyectos/proyecto';
+
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -13,15 +15,19 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
   status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
+  proyectoLista:Proyecto[];
 
   constructor(
     private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private router: Router
+    public router: Router,
   ) { }
 
   ngOnInit() {
+    this.obtenerVentas();
+  }
+  obtenerVentas(){
     this.activatedRoute.paramMap.subscribe(() => {
 
       this.ventasproyectoService.getVentasProyectos().subscribe(
@@ -31,10 +37,14 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       );
 
     });
+
   }
+
 
   menuToggle(){
     this.status = !this.status;
   }
 
-}
+
+ }
+

@@ -126,7 +126,8 @@ const ROUTES: Routes = [
     PeriodosComponent,
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
-    AppLoadingComponent
+    AppLoadingComponent,
+
   ],
   imports: [
     BrowserModule,

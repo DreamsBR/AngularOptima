@@ -61,7 +61,7 @@ export class PeriodosComponent implements OnInit {
 
         }
       );
-    });// end subscribe
+    });
 
   }
 
