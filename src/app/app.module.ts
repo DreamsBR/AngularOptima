@@ -36,6 +36,7 @@ import { TipoinmueblecategoriaService } from './ventas-proyecto-nuevo-editar/tip
 import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.service'
 import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
 import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
+import { PagosService } from './pagos/pagos.service'
 
 import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
@@ -74,7 +75,13 @@ import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyec
 import { AppLoadingComponent } from './app-loading/app-loading.component'
 import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component';
 import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
-import { FinanciamientosComponent } from './financiamientos/financiamientos.component'
+import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
+import { PagosComponent } from './pagos/pagos.component'
+
+
+import { ReverseStr } from '../pipes/reverse-str.pipe';
+import { FormatDate } from '../pipes/format-date.pipe';
+import { FormatSoles } from '../pipes/format-soles.pipe';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -147,7 +154,11 @@ const ROUTES: Routes = [
     AppLoadingComponent,
     DatepickerRoundedComponent,
     SelectDropdownComponent,
-    FinanciamientosComponent
+    FinanciamientosComponent,
+    PagosComponent,
+    ReverseStr,
+    FormatDate,
+    FormatSoles
   ],
   imports: [
     BrowserModule,
@@ -182,6 +193,7 @@ const ROUTES: Routes = [
     CanalService,
     CategoriaService,
     VentainmuebleService,
+    PagosService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
