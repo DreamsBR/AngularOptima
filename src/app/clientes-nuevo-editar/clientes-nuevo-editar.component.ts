@@ -23,7 +23,6 @@ export class ClientesNuevoEditarComponent implements OnInit {
   }
 
   public agregarCliente(): void {
-    console.info(this.cliente)
     this.cliente.idCliente = 0
     this.cliente.idPais = 1
     this.clienteService.agregarCliente(this.cliente).subscribe(

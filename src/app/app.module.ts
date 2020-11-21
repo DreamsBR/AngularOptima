@@ -33,6 +33,14 @@ import { InmuebleService } from './inmuebles/inmueble.service'
 import { VentaService } from './ventas/ventas.service'
 import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
 import { TipoinmueblecategoriaService } from './ventas-proyecto-nuevo-editar/tipoinmueblecategoria.service'
+import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.service'
+import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
+import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
+
+import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
+import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
+import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.service'
+import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -74,6 +82,7 @@ const ROUTES: Routes = [
   { path: 'recordar-contrasenia', component: RecordarContraseniaComponent },
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
+
   { path: 'colaboradores', component: ColaboradoresComponent },
   { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },
@@ -166,7 +175,13 @@ const ROUTES: Routes = [
     VentaService,
     VentaConsultaClienteDetalleService,
     TipoinmueblecategoriaService,
-
+    TipocreditoService,
+    BancosService,
+    FinanciamientoService,
+    MotivoService,
+    CanalService,
+    CategoriaService,
+    VentainmuebleService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3><a href="login"><em class="fas fa-chevron-circle-left icon-faw"></em></a></h3>
+                    <h3>Cliente</h3>
                 </div>
             </div>
 
@@ -168,24 +168,22 @@
                                                                         </div>
 
                                                                         <div class="row">
-
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="descuento{{i}}">Dscto</label>
-                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento">
+                                                                                    <label for="departamentoDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                    <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemDepartamento.total - itemDepartamento.descuento - itemDepartamento.ayudainicial}}</p>
+                                                                                <p>{{itemDepartamento.total - ( (itemDepartamento.total * itemDepartamento.descuento) / 100 ) - itemDepartamento.ayudainicial}}</p>
                                                                             </div>
-
                                                                         </div>
 
                                                                     </div>
@@ -305,19 +303,19 @@
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="descuento{{i}}">Dscto</label>
-                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento">
+                                                                                    <label for="adicionalDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="adicionalDescuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
+                                                                                    <label for="adicionalAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="adicionalAyudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemAdicional.total - itemAdicional.descuento - itemAdicional.ayudainicial}}</p>
+                                                                                <p>{{itemAdicional.total - ( (itemAdicional.total * itemAdicional.descuento) / 100 ) - itemAdicional.ayudainicial}}</p>
                                                                             </div>
                                                                         </div>
 
@@ -341,7 +339,7 @@
 
                                                         <div class="col-sm-12 col-md-4 offset-md-8">
                                                             <p class="titulo"><strong>Total</strong></p>
-                                                            <p>S/ 230,000</p>
+                                                            <p>{{getTotalVenta()}}</p>
                                                         </div>
 
                                                     </div>
@@ -353,7 +351,7 @@
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                                <button type="button" class="btn btn-optima btn-float-right" (click)="siguientePagina()">Siguiente</button>
                                             </div>
                                         </div>
 
@@ -374,20 +372,47 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Cuota inicial</label>
-                                                    <input type="text" class="form-control" id="nombres">
+                                                    <label for="porcentaje_cuota_inicial">Cuota inicial (%)</label>
+                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" maxlength="2">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Cuota inicial</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="cuota_inicial">Cuota inicial</label>
+                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 }}" [(ngModel)]="cuota_inicial" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Financiamiento</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="total_financiamiento">Financiamiento</label>
+                                                    <input type="text" class="form-control" name="total_financiamiento" value="{{ totalInmuebles - ( ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 ) }}" [(ngModel)]="total_financiamiento" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-motivo">Motivo</label>
+                                                    <select class="form-control" name="sle-motivo" [(ngModel)]="motivoSeleccionado">
+                                                        <option [value]="itemMotivo.idMotivo" *ngFor="let itemMotivo of motivo">{{itemMotivo.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-canal">Canal</label>
+                                                    <select class="form-control" name="sle-canal" [(ngModel)]="canalSeleccionado">
+                                                        <option [value]="itemCanal.idCanal" *ngFor="let itemCanal of canal">{{itemCanal.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-categoria">Categoria</label>
+                                                    <select class="form-control" name="sle-categoria" [(ngModel)]="categoriaSeleccionado">
+                                                        <option [value]="itemCategoria.idCategoria" *ngFor="let itemCategoria of categoria">{{itemCategoria.nombre}}</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -401,21 +426,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Tipo de credito</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    <label for="sle-tipocredito">Tipo de credito</label>
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="tipocreditoSeleccionado">
+                                                        <option [value]="itemCredito.idTipoCredito" *ngFor="let itemCredito of tipocredito">{{itemCredito.nombre}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Bono MMV</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="bono">Bono MMV</label>
+                                                    <input type="text" class="form-control" name="bono" [(ngModel)]="bono">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">AFP</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="afp">AFP</label>
+                                                    <input type="text" class="form-control" name="afp" [(ngModel)]="afp">
                                                 </div>
                                             </div>
                                         </div>
@@ -424,14 +450,15 @@
                                             <div class="col-sm-12 col-md-8">
                                                 <div class="form-group">
                                                     <label for="nombres">Banco</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="bancoSeleccionado">
+                                                        <option [value]="itemBanco.idBanco" *ngFor="let itemBanco of bancos">{{itemBanco.nombre}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Asesor banco</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="asesor">Asesor banco</label>
+                                                    <input type="text" class="form-control" name="asesor" [(ngModel)]="asesor">
                                                 </div>
                                             </div>
                                         </div>
@@ -445,29 +472,33 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Ahorro</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="ahorro">Ahorro</label>
+                                                    <input type="text" class="form-control" name="ahorro" [(ngModel)]="ahorro">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Inicio ahorro</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                    </select>
+                                                    <datepicker-rounded 
+                                                    [value]="inicioahorro"
+                                                    [label]="'Inicio ahorro'"
+                                                    (onDateChanged)="onFechaInicioAhorro($event)"
+                                                    ></datepicker-rounded>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Fin de ahorro</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                    </select>
+                                                    <datepicker-rounded 
+                                                    [value]="finAhorro"
+                                                    [label]="'Fin ahorro'"
+                                                    (onDateChanged)="onFechaFinAhorro($event)"
+                                                    ></datepicker-rounded>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" style="margin-bottom: 200px;" (click)="guardarFinanciamiento()">Guardar</button>
                                             </div>
                                         </div>
 
