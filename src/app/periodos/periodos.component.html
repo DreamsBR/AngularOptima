@@ -74,9 +74,13 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="form-group">
-                        <label for="nombres">Periodo</label>
-                        <input type="text" name="nombre" class="form-control" id="periodo" [(ngModel)]="periodo.nombre" >
-                    </div>
+                        <label for="nombre">Periodo</label>
+                        <input type="text" name="nombre"  class="form-control" id="periodo" [(ngModel)]="periodo.nombre"
+                        #nombre="ngModel" required >
+                        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+                          <div *ngIf="nombre.errors.required">Dato obligatorio</div>
+                        </div>
+                      </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
@@ -85,32 +89,45 @@
                             <div class="form-group">
                               <div class="input-group">
                                 <input class="form-control" type="date" name="fechaInicio" placeholder="yyyy-mm-dd"
-                                       name="dp1" [(ngModel)]="periodo.fechaInicio" ngbDatepicker #dfecini="ngbDatepicker">
+                                       name="dp1" [(ngModel)]="periodo.fechaInicio" ngbDatepicker #dfecini="ngbDatepicker" #fechaInicio="ngModel"required>
                                 <div class="input-group-append">
                                   <button class="btn btn-outline-secondary calendar" (click)="dfecini.toggle()" type="button"></button>
                                 </div>
                               </div>
                             </div>
+                            <div *ngIf="fechaInicio.invalid && (fechaInicio.dirty || fechaInicio.touched)" class="alert alert-danger">
+                              <div *ngIf="fechaInicio.errors.required">Dato obligatorio</div>
+                            </div>
                         </form>
+
                     </div>
+
                 </div>
+
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <label for="fechafin">Fecha de termino</label>
                         <form class="form-inline">
                             <div class="form-group">
                               <div class="input-group">
-                                <input class="form-control" type="date" name="fechaInicio" placeholder="yyyy-mm-dd"
-                                       name="dp2" [(ngModel)]="periodo.fechaFin" ngbDatepicker #dfecfin="ngbDatepicker">
+                                <input class="form-control" type="date" name="fechaFin"  placeholder="yyyy-mm-dd"
+                                       name="dp2" [(ngModel)]="periodo.fechaFin" ngbDatepicker #dfecfin="ngbDatepicker" #fechaFin='ngModel' required>
+
                                 <div class="input-group-append">
                                   <button class="btn btn-outline-secondary calendar" (click)="dfecfin.toggle()" type="button"></button>
                                 </div>
                               </div>
                             </div>
+                            <div *ngIf="fechaFin.invalid && (fechaFin.dirty || fechaFin.touched)" class="alert alert-danger">
+                              <div *ngIf="fechaFin.errors.required">Dato obligatorio</div>
+                            </div>
                           </form>
+
                     </div>
+
                 </div>
             </div>
+
         </div>
         <div class="modal-footer">
             <button type="button"  (click)="agregarPeriodo() " class="btn btn-optima">Guardar</button>

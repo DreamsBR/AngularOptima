@@ -34,6 +34,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         this.fetchDataById()
       }
     })
+
   }
 
   menuToggle() {
@@ -52,7 +53,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
 
-    // console.log(newProyecto)
+    console.log(newProyecto)
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
     })
@@ -66,6 +67,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       window.location.href = '/proyectos'
     })
   }*/
+
   fetchDataById() {
     const proyectToEdit = new Proyecto()
     proyectToEdit.idProyecto = this.frmIdProyecto

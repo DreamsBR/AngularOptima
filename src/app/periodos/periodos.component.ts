@@ -58,6 +58,11 @@ export class PeriodosComponent implements OnInit {
 
   public agregarPeriodo(): void {
 
+    if(Object.keys(this.periodo).length < 3){
+      swal('Campos Incompletos de Periodo', '','error')
+      return
+    }
+
     let fechaInicioT: any = this.periodo.fechaInicio
     let fechaFinT: any = this.periodo.fechaFin
 
