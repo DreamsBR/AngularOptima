@@ -29,9 +29,9 @@ export class VentasProyectoComponent implements OnInit {
     })
 
     this.activatedRoute.paramMap.subscribe(() => {
-      this.ventasproyectoService.getVentasProyectos(0).subscribe((clientesJsonResponse) => {
-        this.ventasProyectoLista = clientesJsonResponse
-      })
+      //this.ventasproyectoService.getVentasProyectos(0).subscribe((clientesJsonResponse) => {
+      //  this.ventasProyectoLista = clientesJsonResponse
+      //})
     })
   }
 
