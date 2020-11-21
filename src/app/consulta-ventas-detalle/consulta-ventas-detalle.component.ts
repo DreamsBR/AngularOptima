@@ -31,19 +31,19 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.obtenerColaborador();
-    /*
+    //this.obtenerColaborador();
+
     this.activatedRoute.paramMap.subscribe(() => {
 
-      this.ventasproyectoService.getVentasProyectos(page).subscribe(
+      this.ventasproyectoService.getVentasProyectos().subscribe(
         clientesJsonResponse => {
           this.ventasProyectoLista = clientesJsonResponse;
         }
       );
 
-    });*/
+    });
   }
-
+/*
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page:number =+params.get('page');
@@ -57,7 +57,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
         this.base = 'proyecto';
       })
     })
-  }
+  }*/
 
 
 
