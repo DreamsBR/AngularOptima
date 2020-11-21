@@ -28,11 +28,11 @@ export class VentasProyectoComponent implements OnInit {
       this.paramIdProyecto = parseInt(params.get('id'))
     })
 
-    this.activatedRoute.paramMap.subscribe(() => {
-      //this.ventasproyectoService.getVentasProyectos(0).subscribe((clientesJsonResponse) => {
-      //  this.ventasProyectoLista = clientesJsonResponse
-      //})
-    })
+    // this.activatedRoute.paramMap.subscribe(() => {
+    //   this.ventasproyectoService.getVentasProyectos(0).subscribe((clientesJsonResponse) => {
+    //     this.ventasProyectoLista = clientesJsonResponse
+    //   })
+    // })
   }
 
   menuToggle() {

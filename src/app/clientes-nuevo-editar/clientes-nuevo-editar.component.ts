@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-
 import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
-
-
 import { Router, ActivatedRoute } from '@angular/router'
 import swal from 'sweetalert2'
-
 import { Estadocivil } from './../clientes/estadocivil'
 import { EstadocivilService } from './../clientes/estadocivil.service'
-
 import { Tipodocumento } from './tipodocumento'
 import { TipodocumentoService } from './tipodocumento.service'
 
@@ -72,7 +67,7 @@ export class ClientesNuevoEditarComponent implements OnInit {
   public agregarCliente(): void {
     console.info(Object.keys(this.cliente).length)
     if(Object.keys(this.cliente).length < 20){
-      swal('Nuevo cliente', 'Falta ingresar datos','warning')
+      swal('Campos Incompletos de Cliente', '','error')
       return
     }
     if(this.cliente.idCliente == 0){
