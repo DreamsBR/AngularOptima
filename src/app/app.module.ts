@@ -21,6 +21,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ColaboradorService } from './colaboradores/colaborador.service'
 import { ClienteService } from './clientes/clientes.service'
@@ -62,7 +64,9 @@ import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
 import { AppLoadingComponent } from './app-loading/app-loading.component'
-import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component'
+import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component';
+import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
+import { FinanciamientosComponent } from './financiamientos/financiamientos.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -132,7 +136,9 @@ const ROUTES: Routes = [
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-    DatepickerRoundedComponent
+    DatepickerRoundedComponent,
+    SelectDropdownComponent,
+    FinanciamientosComponent
   ],
   imports: [
     BrowserModule,
@@ -146,6 +152,8 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
+    MatSnackBarModule,
     NgbModule
   ],
   providers: [
