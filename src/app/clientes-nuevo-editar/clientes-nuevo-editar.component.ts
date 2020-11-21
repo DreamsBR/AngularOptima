@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-
 import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
-
-
 import { Router, ActivatedRoute } from '@angular/router'
 import swal from 'sweetalert2'
-
 import { Estadocivil } from './../clientes/estadocivil'
 import { EstadocivilService } from './../clientes/estadocivil.service'
-
 import { Tipodocumento } from './tipodocumento'
 import { TipodocumentoService } from './tipodocumento.service'
 

@@ -4,13 +4,13 @@ import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
 
-import { Tipoinmueblecategoria } from './Tipoinmueblecategoria'
+import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
 import { TipoinmueblecategoriaService } from './tipoinmueblecategoria.service'
 
-import { Tipocredito } from './Tipocredito'
+import { Tipocredito } from './tipocredito'
 import { TipocreditoService } from './tipocredito.service'
 
-import { Bancos } from './Bancos'
+import { Bancos } from './bancos'
 import { BancosService } from './bancos.service'
 
 import { Motivo } from './motivo'

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Tipoinmueblecategoria } from './Tipoinmueblecategoria'
+import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
 import { Observable, throwError } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
