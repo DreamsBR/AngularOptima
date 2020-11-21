@@ -11,12 +11,12 @@ import { Proyecto } from '../proyectos/proyecto';
 export class VentasproyectoService {
 
     constructor(private http: HttpClient, private router: Router) { }
-    private urlEndPoint: string = URL_BACKEND + 'proyecto/'
+    private urlEndPoint: string = URL_BACKEND + 'cliente/'
 
 
-    getVentasProyectos(page): Observable<any> {
+    getVentasProyectos(): Observable<any> {
 
-        return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+        return this.http.get(URL_BACKEND_DEMO + 'ventas-proyecto.json').pipe(
             map((jsonVentasProyectoResponse: any) => {
                 (jsonVentasProyectoResponse as Ventasproyecto[]).forEach(proyecto => {
                     proyecto.nombre = proyecto.nombre.toUpperCase();

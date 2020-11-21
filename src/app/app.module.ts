@@ -42,6 +42,8 @@ import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
 import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.service'
 import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
+import { EstadocivilService } from './clientes/estadocivil.service'
+import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -194,6 +196,8 @@ const ROUTES: Routes = [
     CategoriaService,
     VentainmuebleService,
     PagosService,
+    EstadocivilService,
+    TipodocumentoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
