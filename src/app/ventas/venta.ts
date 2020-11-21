@@ -1,10 +1,11 @@
 export class Venta {
   ayudaInicial: number
   descuento: number
-  enable:	number
+  enable: number
   fechaDesembolso: string
   fechaMinuta: string
   fechaSeparacion: string
+  FechaEpp: string
   idCanal: number
   idCategoria: number
   idCliente: number
