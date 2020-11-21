@@ -1,5 +1,5 @@
 export class Bancos {
-    idBanco: number
-    enable: string
-    nombre: string
-  }
+  idBanco: number
+  enable: string
+  nombre: string
+}

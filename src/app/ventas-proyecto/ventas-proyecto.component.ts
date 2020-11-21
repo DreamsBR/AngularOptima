@@ -15,6 +15,8 @@ export class VentasProyectoComponent implements OnInit {
   ventasProyectoLista: Ventasproyecto[];
   idProyectoSeleted:number = 0;
 
+  paramIdProyecto: number
+
   constructor(
     private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
@@ -23,6 +25,11 @@ export class VentasProyectoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.paramIdProyecto = parseInt(params.get('id'))
+    })
+
     this.activatedRoute.paramMap.subscribe(() => {
 
       this.ventasproyectoService.getVentasProyectos().subscribe(
