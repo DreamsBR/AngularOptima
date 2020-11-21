@@ -39,6 +39,7 @@ export class PeriodosComponent implements OnInit {
   }
 
   public obtenerPeriodo() {
+
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page')
       if (!page) {
@@ -51,10 +52,12 @@ export class PeriodosComponent implements OnInit {
         this.base = 'periodo'
       })
     }) // end subscribe
+
   }
 
 
   public agregarPeriodo(): void {
+
     let fechaInicioT: any = this.periodo.fechaInicio
     let fechaFinT: any = this.periodo.fechaFin
 
@@ -72,8 +75,9 @@ export class PeriodosComponent implements OnInit {
         console.error(err)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerPeriodo()
-      }
-    )}
+      })
+
+    }
 
 
 
