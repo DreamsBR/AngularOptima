@@ -20,7 +20,8 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ventasProyectoLista: Ventasproyecto[];
   sortDesde: string = ''
   sortHasta: string = ''
-
+  paginador:any;
+  base:string;
 
   constructor(
     private ventasproyectoService: VentasproyectoService,
@@ -30,15 +31,32 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obtenerColaborador();
+    /*
     this.activatedRoute.paramMap.subscribe(() => {
 
-      this.ventasproyectoService.getVentasProyectos().subscribe(
+      this.ventasproyectoService.getVentasProyectos(page).subscribe(
         clientesJsonResponse => {
           this.ventasProyectoLista = clientesJsonResponse;
         }
       );
 
-    });
+    });*/
+  }
+
+  obtenerColaborador(){
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page:number =+params.get('page');
+      if(!page){
+        page = 0
+      }
+      this.ventasproyectoService.getVentasProyectos(page).
+      subscribe((proyectoJsonReponse)=>{
+        this.proyectoLista=proyectoJsonReponse.content;
+        this.paginador = proyectoJsonReponse;
+        this.base = 'proyecto';
+      })
+    })
   }
 
 
