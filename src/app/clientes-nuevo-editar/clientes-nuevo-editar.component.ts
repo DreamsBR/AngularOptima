@@ -23,12 +23,18 @@ export class ClientesNuevoEditarComponent implements OnInit {
   }
 
   public agregarCliente(): void {
+
+    if(Object.keys(this.cliente).length < 20){
+      swal('Nuevo cliente', 'Falta ingresar datos','warning')
+      return
+    }
+
     this.cliente.idCliente = 0
     this.cliente.idPais = 1
     this.clienteService.agregarCliente(this.cliente).subscribe(
       (response) => {
         this.router.navigate(['/clientes'])
-        swal('Nuevo cliente', `Cliente ${response.cliente.nombre} creado con exito`, 'success')
+        swal('Nuevo cliente', `Cliente ${response.nombres} creado con exito`, 'success')
       },
       (err) => {
         this.errores = err.error.errors as string[]
@@ -38,6 +44,12 @@ export class ClientesNuevoEditarComponent implements OnInit {
 
   siguientePagina(tabName: string){
     document.getElementById(tabName).click()
+  }
+
+  clienteFechanacimiento(event: string){
+    let str = event.split('-');
+    this.cliente.fechaNacimiento = str[2] + "-" + str[1] + "-" + str[0]
+    console.info(this.cliente.fechaNacimiento);
   }
 
   status = false

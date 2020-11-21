@@ -40,7 +40,7 @@
                                                     <label for="nombres">Nombres</label>
                                                     <input type="text" [(ngModel)]="cliente.nombres" class="form-control" name="nombres" #nombres="ngModel" required>
                                                     <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
-                                                        <div *ngIf="nombres.errors.required">Ingrese un nombre</div>
+                                                        <div *ngIf="nombres.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -49,7 +49,7 @@
                                                     <label for="apellidos">Apellidos</label>
                                                     <input type="text" [(ngModel)]="cliente.apellidos" class="form-control" name="apellidos" #apellidos="ngModel" required>
                                                     <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
-                                                        <div *ngIf="apellidos.errors.required">Ingrese un apellido</div>
+                                                        <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -63,7 +63,7 @@
                                                         <option value="1">DNI</option>
                                                     </select>
                                                     <div *ngIf="tipodocumento.invalid && (tipodocumento.dirty || tipodocumento.touched)" class="alert alert-danger">
-                                                        <div *ngIf="tipodocumento.errors.required">Seleccione un tipo de documento</div>
+                                                        <div *ngIf="tipodocumento.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -72,7 +72,7 @@
                                                     <label for="nrodocdocumento">Nro. doc.</label>
                                                     <input type="text" [(ngModel)]="cliente.nroDocumento" class="form-control" name="nrodocdocumento" #nrodocdocumento="ngModel" required>
                                                     <div *ngIf="nrodocdocumento.invalid && (nrodocdocumento.dirty || nrodocdocumento.touched)" class="alert alert-danger">
-                                                        <div *ngIf="nrodocdocumento.errors.required">Ingrese un número de documento</div>
+                                                        <div *ngIf="nrodocdocumento.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -86,7 +86,7 @@
                                                         <option value="1">SOLTERO</option>
                                                     </select>
                                                     <div *ngIf="estadocivil.invalid && (estadocivil.dirty || estadocivil.touched)" class="alert alert-danger">
-                                                        <div *ngIf="estadocivil.errors.required">Seleccione un estado civil</div>
+                                                        <div *ngIf="estadocivil.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -95,7 +95,7 @@
                                                     <label for="ocupacion">Ocupación</label>
                                                     <input type="text" [(ngModel)]="cliente.ocupacion" class="form-control" name="ocupacion" #ocupacion="ngModel" required>
                                                     <div *ngIf="ocupacion.invalid && (ocupacion.dirty || ocupacion.touched)" class="alert alert-danger">
-                                                        <div *ngIf="ocupacion.errors.required">Ingrese una ocupación</div>
+                                                        <div *ngIf="ocupacion.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,10 +105,10 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="fechanacimiento">Fecha de nacimiento</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.fechaNacimiento" name="fechanacimiento" #fechanacimiento="ngModel" required>
-                                                    <div *ngIf="fechanacimiento.invalid && (fechanacimiento.dirty || fechanacimiento.touched)" class="alert alert-danger">
-                                                        <div *ngIf="fechanacimiento.errors.required">Ingrese una fecha de nacimiento</div>
-                                                    </div>
+                                                    <datepicker-rounded
+                                                    (onDateChanged)="clienteFechanacimiento($event)"
+                                                    [label]="'Fecha'"
+                                                    ></datepicker-rounded>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,7 +119,7 @@
                                                     <label for="correo">Correo</label>
                                                     <input type="text" [(ngModel)]="cliente.email" class="form-control" name="correo" #correo="ngModel" required>
                                                     <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
-                                                        <div *ngIf="correo.errors.required">Ingrese un correo</div>
+                                                        <div *ngIf="correo.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -128,7 +128,7 @@
                                                     <label for="telefono">Teléfono</label>
                                                     <input type="text" [(ngModel)]="cliente.telefono" class="form-control" name="telefono" #telefono="ngModel" required>
                                                     <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger">
-                                                        <div *ngIf="telefono.errors.required">Ingrese un teléfono</div>
+                                                        <div *ngIf="telefono.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -140,7 +140,7 @@
                                                     <label for="distrito">Distrito</label>
                                                     <input type="text" [(ngModel)]="cliente.distrito" class="form-control" name="distrito" #distrito="ngModel" required>
                                                     <div *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)" class="alert alert-danger">
-                                                        <div *ngIf="distrito.errors.required">Ingrese un teléfono</div>
+                                                        <div *ngIf="distrito.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -149,7 +149,7 @@
                                                     <label for="provincia">Provincia</label>
                                                     <input type="text" [(ngModel)]="cliente.provincia" class="form-control" name="provincia" #provincia="ngModel" required>
                                                     <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-danger">
-                                                        <div *ngIf="provincia.errors.required">Ingrese un teléfono</div>
+                                                        <div *ngIf="provincia.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,7 +161,7 @@
                                                     <label for="direccion">Dirección</label>
                                                     <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion" #direccion="ngModel" required>
                                                     <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-danger">
-                                                        <div *ngIf="direccion.errors.required">Ingrese un teléfono</div>
+                                                        <div *ngIf="direccion.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -179,8 +179,11 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <label for="nombre-conyugue">Nombres</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.conyuge" name="nombre-conyugue">
+                                                    <label for="nombreconyugue">Nombres</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.conyuge" name="nombreconyugue" #nombreconyugue="ngModel" required>
+                                                    <div *ngIf="nombreconyugue.invalid && (nombreconyugue.dirty || nombreconyugue.touched)" class="alert alert-danger">
+                                                        <div *ngIf="nombreconyugue.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,16 +191,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="tipo-documento-conyuge">Tipo de documento</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.tipoDocConyuge" name="tipo-documento">
+                                                    <label for="tipodocconyugue">Tipo de documento</label>
+                                                    <select class="form-control" [(ngModel)]="cliente.tipoDocConyuge" name="tipodocconyugue" #tipodocconyugue="ngModel" required>
                                                         <option value="1">DNI</option>
                                                     </select>
+                                                    <div *ngIf="tipodocconyugue.invalid && (tipodocconyugue.dirty || tipodocconyugue.touched)" class="alert alert-danger">
+                                                        <div *ngIf="tipodocconyugue.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="nro-doc-documento-conyugue">Nro. doc.</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.nroDocConyuge" name="nro-doc-documento-conyugue">
+                                                    <label for="nrodocdocumentoconyugue">Nro. doc.</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.nroDocConyuge" name="nrodocdocumentoconyugue" #nrodocdocumentoconyugue="ngModel" required>
+                                                    <div *ngIf="nrodocdocumentoconyugue.invalid && (nrodocdocumentoconyugue.dirty || nrodocdocumentoconyugue.touched)" class="alert alert-danger">
+                                                        <div *ngIf="nrodocdocumentoconyugue.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,16 +214,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="estado-civil-conyugue">Estado civil</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivilConyuge" name="estado-civil">
+                                                    <label for="estadocivilconyugue">Estado civil</label>
+                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivilConyuge" name="estadocivilconyugue" #estadocivilconyugue="ngModel" required>
                                                         <option value="1">SOLTERO</option>
                                                     </select>
+                                                    <div *ngIf="estadocivilconyugue.invalid && (estadocivilconyugue.dirty || estadocivilconyugue.touched)" class="alert alert-danger">
+                                                        <div *ngIf="estadocivilconyugue.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="ocupacion-conyugue">Ocupación</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.ocupacionConyuge" name="ocupacion-conyugue">
+                                                    <label for="ocupacionconyugue">Ocupación</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.ocupacionConyuge" name="ocupacionconyugue" #ocupacionconyugue="ngModel" required>
+                                                    <div *ngIf="ocupacionconyugue.invalid && (ocupacionconyugue.dirty || ocupacionconyugue.touched)" class="alert alert-danger">
+                                                        <div *ngIf="ocupacionconyugue.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,14 +246,20 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="lugar-trabajo">Lugar de trabajo</label>
-                                                    <input type="text" [(ngModel)]="cliente.lugarTrabajo" class="form-control" name="lugar-trabajo">
+                                                    <label for="lugartrabajo">Lugar de trabajo</label>
+                                                    <input type="text" [(ngModel)]="cliente.lugarTrabajo" class="form-control" name="lugartrabajo" #lugartrabajo="ngModel" required>
+                                                    <div *ngIf="lugartrabajo.invalid && (lugartrabajo.dirty || lugartrabajo.touched)" class="alert alert-danger">
+                                                        <div *ngIf="lugartrabajo.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="ingresos">Ingresos</label>
-                                                    <input type="text" [(ngModel)]="cliente.ingresos" class="form-control" name="ingresos">
+                                                    <input type="number" [(ngModel)]="cliente.ingresos" class="form-control" name="ingresos" #ingresos="ngModel" required>
+                                                    <div *ngIf="ingresos.invalid && (ingresos.dirty || ingresos.touched)" class="alert alert-danger">
+                                                        <div *ngIf="ingresos.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -246,8 +267,11 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="asesor-venta">Asesor de ventas</label>
-                                                    <input type="text" [(ngModel)]="cliente.asesor" class="form-control"  name="asesor">
+                                                    <label for="asesorventa">Asesor de ventas</label>
+                                                    <input type="text" [(ngModel)]="cliente.asesor" class="form-control"  name="asesorventa" #asesorventa="ngModel" required>
+                                                    <div *ngIf="asesorventa.invalid && (asesorventa.dirty || asesorventa.touched)" class="alert alert-danger">
+                                                        <div *ngIf="asesorventa.errors.required">Dato obligatorio</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
