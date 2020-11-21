@@ -16,7 +16,7 @@ export class ProyectosComponent implements OnInit {
   status = false
   displayedColumns: string[] = ['nombre']
   proyectoLista = new MatTableDataSource<Proyecto>()
-
+  proyectoSeleccionado:Proyecto
   idProyectoSelected: number = 0
 
   totalData: number = 0
@@ -64,4 +64,11 @@ export class ProyectosComponent implements OnInit {
       window.location.href = '/inmuebles/' + this.idProyectoSelected
     }
   }
+
+public obtenerProyectoSeleccionado(proyecto:Proyecto){
+
+  this.proyectoSeleccionado = proyecto
+}
+
+
 }

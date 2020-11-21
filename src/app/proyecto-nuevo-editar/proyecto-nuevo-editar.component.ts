@@ -4,6 +4,7 @@ import { ProyectoService } from '../proyectos/proyectos.service'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { hardCodeProyectos } from '../proyectos/hardCodeProyectos'
+import { Observable } from 'rxjs'
 
 @Component({
   selector: 'app-proyecto-nuevo-editar',
@@ -12,7 +13,11 @@ import { hardCodeProyectos } from '../proyectos/hardCodeProyectos'
 export class ProyectoNuevoEditarComponent implements OnInit {
   status = false
   editMode: boolean = true
+  public errores:string[]
+  public proyecto = new Proyecto()
 
+
+  idProyecto:number
   frmIdProyecto: number = 0
   frmCodigo: string = ''
   frmNombre: string = ''
@@ -27,11 +32,21 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
-      const paramIdProyecto: number = parseInt(params.get('id'))
-      if (paramIdProyecto > 0) {
-        this.editMode = true
-        this.frmIdProyecto = paramIdProyecto
-        this.fetchDataById()
+      this.idProyecto = parseInt(params.get('id'))
+      if (this.idProyecto != 0) {
+        this.proyecto.idProyecto = this.idProyecto
+          this.proyectoService.getProyectosById(this.proyecto).subscribe(
+            (response)=> {
+              this.frmIdProyecto = response.idProyecto
+              this.frmCodigo  = response.codigo
+              this.frmNombre  = response.nombre
+              this.frmEnable  =  response.enable
+              this.frmDireccion =  response.direccion
+
+            },
+            (err)=> {
+              this.errores = err.error.errors as string[]
+            })
       }
     })
 
@@ -48,7 +63,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   guardar() {
     const newProyecto = new Proyecto()
     newProyecto.idProyecto = this.frmIdProyecto
-    // newProyecto.codigo = this.frmCodigo
+    newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombre
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
@@ -58,6 +73,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       window.location.href = '/proyectos'
     })
   }
+
+
+
+
+
 
   /*fetchDataById() {
     const proyectToEdit = new Proyecto()
@@ -83,4 +103,17 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       }
     }
   }
+
+
+/*ELIMINAR  VENTAS
+public eliminar(proyecto:Proyecto):void{
+  this.proyectoService.eliminarProyecto(proyecto.idProyecto).subscribe(
+    (response)=>
+    document.getElementById('cerrarModalEliminar').click()
+    this.ob
+  )
+}
+*/
+
+
 }
