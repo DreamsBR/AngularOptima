@@ -31,7 +31,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   public agregarColaborador(): void {
     console.log(this.colaborador)
     this.colaborador.enable = 1
-    this.colaborador.idtipodocumento = 1
+    this.colaborador.idTipoDocumento = 1
     this.colaborador.idColaborador = 0
     this.colaboradorService.agregarColaborador(this.colaborador).subscribe(
       (response) => {

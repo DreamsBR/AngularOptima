@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { URL_BACKEND } from '../config/config'
 import swal from 'sweetalert2'
-import { validateVerticalPosition } from '@angular/cdk/overlay'
 
 @Component({
   selector: 'app-periodos',
@@ -25,6 +24,7 @@ export class PeriodosComponent implements OnInit {
   public periodo: Periodo = new Periodo()
   model: NgbDateStruct
   date: { year: number; month: number }
+
 
   constructor(
     private periodoService: PeriodoService,
@@ -63,12 +63,7 @@ export class PeriodosComponent implements OnInit {
 
     this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' + fechaInicioT.day
     this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
-
-    let nombre : any = this.periodo.nombre;
-
-
     this.periodoService.agregarPeriodo(this.periodo).subscribe(
-
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         swal('Nuevo Periodo', `Periodo ${response.nombre} creado con exito`, 'success')
@@ -81,6 +76,9 @@ export class PeriodosComponent implements OnInit {
       })
 
     }
+
+
+
 
   status = false
   menuToggle() {

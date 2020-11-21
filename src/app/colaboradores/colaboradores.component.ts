@@ -33,11 +33,12 @@ export class ColaboradoresComponent implements OnInit {
   }
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
-      let page: number = +params.get('page');
+      let page: number =+params.get('page');
       if (!page) {
         page = 0;
       }
-      this.colaboradorService.getColaboradores(page).subscribe(
+      this.colaboradorService.getColaboradores(page).
+      subscribe(
         (colaboradorJsonResponse) => {
           this.colaboradoresLista = colaboradorJsonResponse.content;
           this.paginador = colaboradorJsonResponse;

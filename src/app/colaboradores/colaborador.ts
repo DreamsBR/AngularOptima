@@ -4,7 +4,7 @@ export class Colaborador{
     apellidos: string;
     numeroDocumento:string;
     sexo:string;
-    idtipodocumento:number;
+    idTipoDocumento:number;
     //direccion:string;
     enable: number;
     //telefono: number;
