@@ -22,29 +22,35 @@
 
                             <div class="col-sm-12 col-md-3">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span class="nav-number">1</span> Datos personales</a>
+                                    <a class="nav-link active" id="v-pills-datospersonales-tab" data-toggle="pill" href="#v-pills-datospersonales" role="tab" aria-controls="v-pills-datospersonales" aria-selected="true"><span class="nav-number">1</span> Datos personales</a>
                                     <span class="separator"></span>
-                                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="nav-number">2</span> Co propietarios Conyugue</a>
+                                    <a class="nav-link" id="v-pills-datosconyugue-tab" data-toggle="pill" href="#v-pills-datosconyugue" role="tab" aria-controls="v-pills-datosconyugue" aria-selected="false"><span class="nav-number">2</span> Co propietarios Conyugue</a>
                                     <span class="separator"></span>
-                                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false"><span class="nav-number">3</span> Datos laborales</a>
+                                    <a class="nav-link" id="v-pills-datoslaborales-tab" data-toggle="pill" href="#v-pills-datoslaborales" role="tab" aria-controls="v-pills-datoslaborales" aria-selected="false"><span class="nav-number">3</span> Datos laborales</a>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-6">
                                 <div class="tab-content" id="v-pills-tabContent">
-                                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class="tab-pane fade show active" id="v-pills-datospersonales" role="tabpanel" aria-labelledby="v-pills-datospersonales-tab">
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="nombres">Nombres</label>
-                                                    <input type="text" [(ngModel)]="cliente.nombres" class="form-control" name="nombres">
+                                                    <input type="text" [(ngModel)]="cliente.nombres" class="form-control" name="nombres" #nombres="ngModel" required>
+                                                    <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
+                                                        <div *ngIf="nombres.errors.required">Ingrese un nombre</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="apellidos">Apellidos</label>
-                                                    <input type="text" [(ngModel)]="cliente.apellidos" class="form-control" name="apellidos">
+                                                    <input type="text" [(ngModel)]="cliente.apellidos" class="form-control" name="apellidos" #apellidos="ngModel" required>
+                                                    <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                                                        <div *ngIf="apellidos.errors.required">Ingrese un apellido</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,16 +58,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="tipo-documento">Tipo de documento</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idTipoDocumento" name="tipo-documento">
+                                                    <label for="tipodocumento">Tipo de documento</label>
+                                                    <select class="form-control" [(ngModel)]="cliente.idTipoDocumento" name="tipodocumento" #tipodocumento="ngModel" required>
                                                         <option value="1">DNI</option>
                                                     </select>
+                                                    <div *ngIf="tipodocumento.invalid && (tipodocumento.dirty || tipodocumento.touched)" class="alert alert-danger">
+                                                        <div *ngIf="tipodocumento.errors.required">Seleccione un tipo de documento</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="nro-doc-documento">Nro. doc.</label>
-                                                    <input type="text" [(ngModel)]="cliente.nroDocumento" class="form-control" name="nro-documento">
+                                                    <label for="nrodocdocumento">Nro. doc.</label>
+                                                    <input type="text" [(ngModel)]="cliente.nroDocumento" class="form-control" name="nrodocdocumento" #nrodocdocumento="ngModel" required>
+                                                    <div *ngIf="nrodocdocumento.invalid && (nrodocdocumento.dirty || nrodocdocumento.touched)" class="alert alert-danger">
+                                                        <div *ngIf="nrodocdocumento.errors.required">Ingrese un número de documento</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,16 +81,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="estado-civil">Estado civil</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivil" name="estado-civil">
+                                                    <label for="estadocivil">Estado civil</label>
+                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivil" name="estadocivil" #estadocivil="ngModel" required>
                                                         <option value="1">SOLTERO</option>
                                                     </select>
+                                                    <div *ngIf="estadocivil.invalid && (estadocivil.dirty || estadocivil.touched)" class="alert alert-danger">
+                                                        <div *ngIf="estadocivil.errors.required">Seleccione un estado civil</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="ocupacio">Ocupación</label>
-                                                    <input type="text" [(ngModel)]="cliente.ocupacion" class="form-control" name="ocupacion">
+                                                    <label for="ocupacion">Ocupación</label>
+                                                    <input type="text" [(ngModel)]="cliente.ocupacion" class="form-control" name="ocupacion" #ocupacion="ngModel" required>
+                                                    <div *ngIf="ocupacion.invalid && (ocupacion.dirty || ocupacion.touched)" class="alert alert-danger">
+                                                        <div *ngIf="ocupacion.errors.required">Ingrese una ocupación</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -86,8 +104,11 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="fecha-nacimiento">Fecha de nacimiento</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.fechaNacimiento" name="fecha-nacimiento">
+                                                    <label for="fechanacimiento">Fecha de nacimiento</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.fechaNacimiento" name="fechanacimiento" #fechanacimiento="ngModel" required>
+                                                    <div *ngIf="fechanacimiento.invalid && (fechanacimiento.dirty || fechanacimiento.touched)" class="alert alert-danger">
+                                                        <div *ngIf="fechanacimiento.errors.required">Ingrese una fecha de nacimiento</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -96,13 +117,19 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="correo">Correo</label>
-                                                    <input type="text" [(ngModel)]="cliente.email" class="form-control" name="correo">
+                                                    <input type="text" [(ngModel)]="cliente.email" class="form-control" name="correo" #correo="ngModel" required>
+                                                    <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
+                                                        <div *ngIf="correo.errors.required">Ingrese un correo</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="telefono">Teléfono</label>
-                                                    <input type="text" [(ngModel)]="cliente.telefono" class="form-control" name="telefono">
+                                                    <input type="text" [(ngModel)]="cliente.telefono" class="form-control" name="telefono" #telefono="ngModel" required>
+                                                    <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger">
+                                                        <div *ngIf="telefono.errors.required">Ingrese un teléfono</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,13 +138,19 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="distrito">Distrito</label>
-                                                    <input type="text" [(ngModel)]="cliente.distrito" class="form-control" name="distrito">
+                                                    <input type="text" [(ngModel)]="cliente.distrito" class="form-control" name="distrito" #distrito="ngModel" required>
+                                                    <div *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)" class="alert alert-danger">
+                                                        <div *ngIf="distrito.errors.required">Ingrese un teléfono</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="provincia">Provincia</label>
-                                                    <input type="text" [(ngModel)]="cliente.provincia" class="form-control" name="provincia">
+                                                    <input type="text" [(ngModel)]="cliente.provincia" class="form-control" name="provincia" #provincia="ngModel" required>
+                                                    <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-danger">
+                                                        <div *ngIf="provincia.errors.required">Ingrese un teléfono</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,19 +159,22 @@
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="form-group">
                                                     <label for="direccion">Dirección</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion">
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion" #direccion="ngModel" required>
+                                                    <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-danger">
+                                                        <div *ngIf="direccion.errors.required">Ingrese un teléfono</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datosconyugue-tab')">Siguiente</button>
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div class="tab-pane fade" id="v-pills-datosconyugue" role="tabpanel" aria-labelledby="v-pills-datosconyugue-tab">
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
@@ -147,12 +183,6 @@
                                                     <input type="text" class="form-control" [(ngModel)]="cliente.conyuge" name="nombre-conyugue">
                                                 </div>
                                             </div>
-                                            <!-- <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="apellidos-conyugue">Apellidos</label>
-                                                    <input type="text" class="form-control" id="apellidos">
-                                                </div>
-                                            </div> -->
                                         </div>
 
                                         <div class="row">
@@ -191,12 +221,12 @@
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datoslaborales-tab')">Siguiente</button>
                                             </div>
                                         </div>
 
                                     </div>
-                                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div class="tab-pane fade" id="v-pills-datoslaborales" role="tabpanel" aria-labelledby="v-pills-datoslaborales-tab">
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
@@ -213,29 +243,7 @@
                                             </div>
                                         </div>
 
-                                        <!-- <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="motivo-compra">Motivo de compra</label>
-                                                    <input type="text" [(ngModel)]="cliente.ingresos" class="form-control" id="nombres">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="canal-captacion">Canal de captación</label>
-                                                    <input type="text" class="form-control" id="apellidos">
-                                                </div>
-                                            </div>
-                                        </div> -->
-
                                         <div class="row">
-                                            <!-- <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="categoria">Categoria</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                    </select>
-                                                </div>
-                                            </div> -->
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="asesor-venta">Asesor de ventas</label>

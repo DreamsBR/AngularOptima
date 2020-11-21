@@ -36,6 +36,10 @@ export class ClientesNuevoEditarComponent implements OnInit {
     )
   }
 
+  siguientePagina(tabName: string){
+    document.getElementById(tabName).click()
+  }
+
   status = false
   menuToggle() {
     this.status = !this.status
