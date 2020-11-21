@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
+import { Tipodocumento } from './tipodocumento'
 import { Observable, throwError } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
@@ -8,16 +8,16 @@ import { formatDate } from '@angular/common'
 import { URL_BACKEND } from '../config/config'
 
 @Injectable()
-export class TipoinmueblecategoriaService {
-  private urlEndPoint: string = URL_BACKEND + 'tipoinmueblecategoria/'
+export class TipodocumentoService {
+  private urlEndPoint: string = URL_BACKEND + 'tipodocumento/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getTipoinmueblecategoria(): Observable<any> {
+  getTipodocumento(): Observable<any> {
     return this.http.get(this.urlEndPoint).pipe(
       map((data: any) => {
-        ;(data as Tipoinmueblecategoria[]).map((tipoinmueblecategoria) => {
-          return tipoinmueblecategoria
+        ;(data as Tipodocumento[]).map((Tipodocumento) => {
+          return Tipodocumento
         })
         return data
       })

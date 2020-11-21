@@ -58,12 +58,12 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="tipodocumento">Tipo de documento</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idTipoDocumento" name="tipodocumento" #tipodocumento="ngModel" required>
-                                                        <option value="1">DNI</option>
+                                                    <label for="tipodocumentocliente">Tipo de documento</label>
+                                                    <select class="form-control" name="tipodocumentocliente" [(ngModel)]="cliente.idTipoDocumento" #tipodocumentocliente="ngModel" required>
+                                                        <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
                                                     </select>
-                                                    <div *ngIf="tipodocumento.invalid && (tipodocumento.dirty || tipodocumento.touched)" class="alert alert-danger">
-                                                        <div *ngIf="tipodocumento.errors.required">Dato obligatorio</div>
+                                                    <div *ngIf="tipodocumentocliente.invalid && (tipodocumentocliente.dirty || tipodocumentocliente.touched)" class="alert alert-danger">
+                                                        <div *ngIf="tipodocumentocliente.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -81,12 +81,12 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
-                                                    <label for="estadocivil">Estado civil</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivil" name="estadocivil" #estadocivil="ngModel" required>
-                                                        <option value="1">SOLTERO</option>
+                                                    <label for="estadocivilcliente">Estado civil</label>
+                                                    <select class="form-control" name="estadocivilcliente" [(ngModel)]="cliente.idEstadoCivil" #estadocivilcliente="ngModel" required>
+                                                        <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">{{itemEstadocivil.nombre}}</option>
                                                     </select>
-                                                    <div *ngIf="estadocivil.invalid && (estadocivil.dirty || estadocivil.touched)" class="alert alert-danger">
-                                                        <div *ngIf="estadocivil.errors.required">Dato obligatorio</div>
+                                                    <div *ngIf="estadocivilcliente.invalid && (estadocivilcliente.dirty || estadocivilcliente.touched)" class="alert alert-danger">
+                                                        <div *ngIf="estadocivilcliente.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,17 +189,19 @@
                                         </div>
 
                                         <div class="row">
+
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="tipodocconyugue">Tipo de documento</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.tipoDocConyuge" name="tipodocconyugue" #tipodocconyugue="ngModel" required>
-                                                        <option value="1">DNI</option>
+                                                    <select class="form-control" name="tipodocconyugue" [(ngModel)]="cliente.tipoDocConyuge" #tipodocconyugue="ngModel" required>
+                                                        <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
                                                     </select>
                                                     <div *ngIf="tipodocconyugue.invalid && (tipodocconyugue.dirty || tipodocconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="tipodocconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="nrodocdocumentoconyugue">Nro. doc.</label>
@@ -209,20 +211,23 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                         <div class="row">
+
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="estadocivilconyugue">Estado civil</label>
-                                                    <select class="form-control" [(ngModel)]="cliente.idEstadoCivilConyuge" name="estadocivilconyugue" #estadocivilconyugue="ngModel" required>
-                                                        <option value="1">SOLTERO</option>
+                                                    <select class="form-control" name="estadocivilconyugue" [(ngModel)]="cliente.idEstadoCivilConyuge" #estadocivilconyugue="ngModel" required>
+                                                        <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">{{itemEstadocivil.nombre}}</option>
                                                     </select>
                                                     <div *ngIf="estadocivilconyugue.invalid && (estadocivilconyugue.dirty || estadocivilconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="estadocivilconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="ocupacionconyugue">Ocupación</label>
@@ -232,6 +237,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
 
                                         <div class="row">

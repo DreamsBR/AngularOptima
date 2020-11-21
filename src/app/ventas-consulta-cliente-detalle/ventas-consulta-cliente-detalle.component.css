@@ -3,6 +3,7 @@ ol.stw {
   position: relative;
   overflow: hidden;
   counter-reset: wizard;
+  padding-inline-start: 0px;
 }
 
 ol.stw li {
@@ -12,7 +13,7 @@ ol.stw li {
 ol.stw li {
   position: relative;
   float: left;
-  width: 25%;
+  width: 20%;
   text-align: center;
   color: var(--primary);
   font-weight: 800;

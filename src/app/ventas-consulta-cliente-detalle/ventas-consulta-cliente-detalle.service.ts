@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core'
 import { Observable, of, throwError, forkJoin } from 'rxjs'
-import { catchError, retry } from 'rxjs/operators'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
