@@ -29,10 +29,12 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
 
   public agregarColaborador(): void {
-    console.log(this.colaborador)
-    this.colaborador.enable = 1
-    this.colaborador.idTipoDocumento = 1
-    this.colaborador.idColaborador = 0
+    if(Object.keys(this.colaborador).length < 5){
+      swal('Campos Incompletos de Colaboradores', '','error')
+      return
+
+    }
+
     this.colaboradorService.agregarColaborador(this.colaborador).subscribe(
       (response) => {
         this.router.navigate(['/colaboradores'])

@@ -14,10 +14,10 @@ export class VentaConsultaClienteDetalleService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  fetchingInfoVenta(idVenta: number): Observable<Venta> {
+  fetchingInfoVenta(idVenta: number): Observable<any> {
     return this.http
       .get(this.urlEndPoint + 'venta/' + idVenta)
-      .pipe(map((jsonReponse: any) => jsonReponse as Venta))
+      .pipe(map((jsonReponse: any) => jsonReponse))
   }
 
   fetchingTipoVista(): Observable<any> {

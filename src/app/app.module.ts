@@ -179,7 +179,8 @@ const ROUTES: Routes = [
     MatPaginatorModule,
     MatSelectModule,
     MatSnackBarModule,
-    NgbModule
+    NgbModule,
+    //NgxMaskModule.forRoot()
   ],
   providers: [
     ClienteService,

@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-// import { DatepickerRoundedComponent } from ''
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
   templateUrl: './ventas-consulta-cliente-detalle.component.html',
@@ -30,18 +29,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   errors: string[] = []
 
   venta: Venta = new Venta()
-
-  ventaClienteId: number = null
-  ventaFinanciamientoId: number = null
-
-  formPagoWarnings: string[] = []
-  formPagoErrores: string[] = []
-  formPagoNroRecibo: string = ''
-  formPagoMonto: string = ''
-  formPagoFecha: string = ''
-
   cliente: Cliente = new Cliente()
   financiamiento: Financiamiento = new Financiamiento()
+  pago: Pago = new Pago()
 
   // Sort Datos
   svFechaCaida: NgbDateStruct
@@ -52,6 +42,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   pageIndex: number = 0
   pageSize: number = 5
   pageSizeOptions: number[] = [5, 10, 25, 250]
+
+  // Objetos edit
+  modalPagoWarnings: string[] = []
+  modalPagoErrores: string[] = []
+  pagoModal: Pago = new Pago()
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
@@ -74,40 +69,41 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     })
   }
 
-  onPagoModalChanged(newdate: string) {
-    this.formPagoFecha = newdate
-  }
+  //onPagoModalChanged(newdate: string) {
+  //  this.formPagoFecha = newdate
+  //}
 
   limpiarFormulario() {
-    this.formPagoErrores = []
-    this.formPagoWarnings = []
-    this.formPagoNroRecibo = ''
-    this.formPagoMonto = ''
-    this.formPagoFecha = ''
+    this.modalPagoErrores = []
+    this.modalPagoWarnings = []
+    ///this.formPagoNroRecibo = ''
+    ///this.formPagoMonto = ''
+    //this.formPagoFecha = ''
   }
 
   btnPagoGuardar() {
-    this.formPagoWarnings = []
-    this.formPagoErrores = []
+    console.log(this.pagoModal)
+
+    if (typeof this.pagoModal.monto === 'string') {
+      this.pagoModal.monto = parseFloat(this.pagoModal.monto)
+    }
+    console.log(this.pagoModal)
+    return
     if (
-      this.formPagoFecha === '' ||
-      this.formPagoMonto.trim() === '' ||
-      this.formPagoNroRecibo === ''
+      this.pagoModal.fecha === '' ||
+      this.pagoModal.monto === 0 ||
+      this.pagoModal.numeroOperacion === 0
     ) {
-      this.formPagoWarnings = ['Todos los campos deben ser completados']
+      this.modalPagoWarnings = ['Todos los campos deben ser completados']
     } else {
       this.loading = true
-      const regPago = new Pago()
-      regPago.idVenta = this.paramIdVenta
-      regPago.numeroOperacion = parseInt(this.formPagoNroRecibo)
-      regPago.monto = parseFloat(this.formPagoMonto)
-      regPago.fecha = this.formPagoFecha.split('-').reverse().join('-') // API solo acepta en formato YYYY-MM-DD
-      regPago.enable = 1
-      regPago.pagado = 1
-      regPago.porcentaje = ''
+      this.pagoModal.idVenta = this.paramIdVenta // API solo acepta en formato YYYY-MM-DD
+      this.pagoModal.enable = 1
+      this.pagoModal.pagado = 1
+      this.pagoModal.porcentaje = ''
       document.getElementById('btnPagoClose').click()
-
-      this.pagosService.postGuardarPago(regPago).subscribe(
+      console.log(this.pagoModal)
+      /* this.pagosService.postGuardarPago(regPago).subscribe(
         (_) => {
           this.loading = false
           this.openSnackBar('✓ Pago guardado', 'Cerrar')
@@ -115,10 +111,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         },
         (err) => {
           this.loading = false
-          this.formPagoErrores = ['Hubo un problema recuperando información adicional de la venta']
+          this.modalPagoErrores = ['Hubo un problema recuperando información adicional de la venta']
           console.log(err)
         }
-      )
+      ) */
     }
   }
 
@@ -128,17 +124,16 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     const _self = this
     _self.vccdService.fetchingInfoVenta(this.paramIdVenta).subscribe(
       (resp) => {
-        _self.venta = resp
-        _self.ventaClienteId = resp.idCliente
-        _self.ventaFinanciamientoId = resp.idFinanciamiento
+        _self.venta = resp.venta
+        _self.cliente = resp.cliente
+        _self.financiamiento = resp.financiamiento
+        _self.pago = resp.pago
 
         _self.getInfoExtra()
 
         this.getInfoExtra().subscribe(
           (resp_extra) => {
-            this.cliente = resp_extra[0]
-            this.financiamiento = resp_extra[1]
-            this.pagos = new MatTableDataSource<Pago>(resp_extra[2])
+            this.pagos = new MatTableDataSource<Pago>(resp_extra[0])
           },
           (e) => {
             this.errors = ['Hubo un problema recuperando información adicional de la venta']
@@ -151,17 +146,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         console.log(error)
       }
     )
-
-    /* this.getInfo().subscribe(
-      (resp) => {
-        this.cliente = resp[0]
-        // console.log(this.cliente)
-      },
-      (error) => {
-        this.errors = ['Hubo un problema recuperando la información de la API.']
-        console.log(error)
-      }
-    ) */
   }
 
   onFechaCaidaChanged(newdate: string) {
@@ -171,13 +155,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   getInfoVenta() {}
 
   getInfoExtra(): Observable<any[]> {
-    let infoCliente = this.vccdService.getClienteById(this.ventaClienteId)
-    let infoFinanciamiento = this.vccdService.getFinanciamientoById(this.ventaFinanciamientoId)
     let infoPagos = this.pagosService.getPagosByIdVenta(this.paramIdVenta)
-    return forkJoin([infoCliente, infoFinanciamiento, infoPagos])
+    return forkJoin([infoPagos])
   }
 
-  refreshTablaPagos () {
+  refreshTablaPagos() {
     this.pagosService.getPagosByIdVenta(this.paramIdVenta).subscribe(
       (resp) => {
         this.pagos = new MatTableDataSource<Pago>(resp)
@@ -201,5 +183,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   menuToggle() {
     this.status = !this.status
+  }
+
+  setObjetoPagoEdit(editPagoObj) {
+    //console.log()
+    //this.limpiarFormulario()
+    //this.formPagoMonto = `${editPagoObj.monto}`
+    //this.formPagoMonto = `${editPagoObj.monto}`
   }
 }

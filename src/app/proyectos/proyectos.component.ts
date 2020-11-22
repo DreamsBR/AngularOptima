@@ -16,13 +16,15 @@ export class ProyectosComponent implements OnInit {
   status = false
   displayedColumns: string[] = ['nombre']
   proyectoLista = new MatTableDataSource<Proyecto>()
-
+  proyectoSeleccionado:Proyecto
   idProyectoSelected: number = 0
 
   totalData: number = 0
   pageIndex: number = 0
   pageSize: number = 5
   pageSizeOptions: number[] = [5, 10, 25, 250]
+
+  proyectoToDelete:Proyecto = new Proyecto()
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
@@ -64,4 +66,24 @@ export class ProyectosComponent implements OnInit {
       window.location.href = '/inmuebles/' + this.idProyectoSelected
     }
   }
+
+  public obtenerProyectoSeleccionado(proyecto:Proyecto){
+
+    this.proyectoSeleccionado = proyecto
+  }
+
+  selectProyectoEliminar(proyecto: Proyecto) {
+    this.proyectoToDelete = new Proyecto()
+    this.proyectoToDelete = proyecto
+  }
+
+  eliminarProyectoSeleccionado () {
+    this.proyectoService.deleteProyecto(this.proyectoToDelete).subscribe(
+      (_) => {
+        document.getElementById('cerrarModalEliminar').click()
+        this.fetchData(0)
+      }
+    )
+  }
+
 }

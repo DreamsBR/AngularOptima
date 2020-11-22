@@ -22,32 +22,48 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="nombres">Nombres</label>
-                                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="colaborador.nombres">
+                                    <input type="text" class="form-control" id="nombres" name="nombres" [(ngModel)]="colaborador.nombres"
+                                      #nombres="ngModel" required>
+                                    <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
+                                      <div *ngIf="nombres.errors.required">Dato obligatorio</div>
+                                  </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
                                     <label for="apellidos">Apellidos</label>
-                                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="colaborador.apellidos">
+                                    <input type="text" class="form-control" id="apellidos" name="apellidos" [(ngModel)]="colaborador.apellidos"
+                                    #apellidos="ngModel" required>
+                                    <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                                      <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
+                                  </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="nombres">Tipo de documento</label>
-                                    <select class="form-control" id="tipoDoc"  name="idtipodocumento" [(ngModel)]="colaborador.idTipoDocumento">
+                                    <label for="idTipoDocumento">Tipo de documento</label>
+                                    <select class="form-control" id="tipoDoc"  name="idTipoDocumento" [(ngModel)]="colaborador.idTipoDocumento"
+                                    #idTipoDocumento="ngModel" required>
                                         <option value="1">DNI</option>
                                         <option value="2">Carnet extranjeria</option>
                                     </select>
+                                    <div *ngIf="idTipoDocumento.invalid && (idTipoDocumento.dirty || idTipoDocumento.touched)" class="alert alert-danger">
+                                      <div *ngIf="idTipoDocumento.errors.required">Dato obligatorio</div>
+                                  </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="apellidos">Nro. doc.</label>
-                                    <input type="text" class="form-control" id="nroDocumentos" name="numeroDocumento"  [(ngModel)]="colaborador.numeroDocumento">
-                                </div>
+                                    <label for="numeroDocumento">Nro. doc.</label>
+                                    <input type="text" class="form-control" id="numeroDocumento" name="numeroDocumento"  [(ngModel)]="colaborador.numeroDocumento"
+                                     #numeroDocumento="ngModel" required>
+                                    <div *ngIf="numeroDocumento.invalid && (numeroDocumento.dirty || numeroDocumento.touched)" class="alert alert-danger">
+                                      <div *ngIf="numeroDocumento.errors.required">Dato obligatorio</div>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
 
@@ -69,11 +85,15 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="nombres">Sexo</label>
-                                    <select class="form-control" id="sexo" name="sexo"  [(ngModel)]="colaborador.sexo">
+                                    <label for="sexo">Sexo</label>
+                                    <select class="form-control" id="sexo" name="sexo"  [(ngModel)]="colaborador.sexo"
+                                    #sexo="ngModel" required>
                                         <option value="M">Masculino</option>
                                         <option value="F">Femenino</option>
                                     </select>
+                                    <div *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)" class="alert alert-danger">
+                                      <div *ngIf="sexo.errors.required">Dato obligatorio</div>
+                                  </div>
                             </div>
                         </div>
                         </div>

@@ -67,7 +67,7 @@ export class ClientesNuevoEditarComponent implements OnInit {
   public agregarCliente(): void {
     console.info(Object.keys(this.cliente).length)
     if(Object.keys(this.cliente).length < 20){
-      swal('Nuevo cliente', 'Falta ingresar datos','warning')
+      swal('Campos Incompletos de Cliente', '','error')
       return
     }
     if(this.cliente.idCliente == 0){

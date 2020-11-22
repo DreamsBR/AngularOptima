@@ -504,7 +504,6 @@
                     <ng-container matColumnDef="editar">
                       <th mat-header-cell *matHeaderCellDef>Editar</th>
                       <td mat-cell *matCellDef="let element">
-                        
                         <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                         <div class="dropdown-menu dropdown-menu-left">
                           <button
@@ -512,8 +511,9 @@
                             type="button"
                             data-toggle="modal"
                             data-target="#modal-gestion-pago"
+                            (click)="setObjetoPagoEdit(element)"
                           >
-                            <em class="far fa-edit"></em> Editars
+                            <em class="far fa-edit"></em> Editar
                           </button>
                           <button
                             class="dropdown-item"
@@ -524,7 +524,6 @@
                             <em class="far fa-trash-alt"></em> Eliminar
                           </button>
                         </div>
-
                       </td>
                     </ng-container>
 
@@ -675,27 +674,32 @@
   </div>
 </div>
 
-
 <div id="modal-eliminar-pago" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-      <div class="modal-content">
+    <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title">Eliminar cliente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title">Eliminar cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-          </button>
+        </button>
       </div>
       <div class="modal-body">
-          <p>¿Seguro que deseas eliminar el registro?</p>
+        <p>¿Seguro que deseas eliminar el registro?</p>
       </div>
       <div class="modal-footer">
-          <button type="button" class="btn btn-optima">Confirmar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        <button type="button" class="btn btn-optima">Confirmar</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminar"
+        >
+          Cancelar
+        </button>
       </div>
-      </div>
+    </div>
   </div>
 </div>
-
 
 <div id="modal-gestion-pago" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
@@ -718,39 +722,46 @@
             <div
               class="alert alert-warning"
               role="alert"
-              *ngIf="formPagoWarnings.length > 0"
+              *ngIf="modalPagoWarnings.length > 0"
               style="font-size: 12px"
             >
-              <div *ngFor="let formPagoWarning of formPagoWarnings">
-                <strong>Advertencia:</strong> {{ formPagoWarning }}<br />
+              <div *ngFor="let modalPagoWarning of modalPagoWarnings">
+                <strong>Advertencia:</strong> {{ modalPagoWarning }}<br />
               </div>
             </div>
             <div
               class="alert alert-danger"
               role="alert"
-              *ngIf="formPagoErrores.length > 0"
+              *ngIf="modalPagoErrores.length > 0"
               style="font-size: 12px"
             >
-              <div *ngFor="let formPagoError of formPagoErrores">
-                <strong>Error:</strong> {{ formPagoError }}<br />
+              <div *ngFor="let modalPagoError of modalPagoErrores">
+                <strong>Error:</strong> {{ modalPagoError }}<br />
               </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <input [(ngModel)]="formPagoNroRecibo" type="text" placeholder="Nro de recibo" />
+            <input
+              [(ngModel)]="pagoModal.numeroOperacion"
+              type="text"
+              placeholder="Nro de recibo"
+            />
           </div>
           <div class="col-6">
-            <datepicker-rounded
+            <!-- <datepicker-rounded
+              [value]="formPagoFechaInitialValue"
               (onDateChanged)="onPagoModalChanged($event)"
               [label]="'Fecha'"
-            ></datepicker-rounded>
+            ></datepicker-rounded> -->
+            Fecha<br />
+            <input type="date" [(ngModel)]="pagoModal.fecha" />
           </div>
         </div>
         <div class="row">
           <div class="col-6">
-            <input [(ngModel)]="formPagoMonto" type="text" placeholder="Monto" />
+            <input [(ngModel)]="pagoModal.monto" type="text" placeholder="Monto" />
           </div>
         </div>
       </div>
