@@ -80,7 +80,7 @@ import { SelectDropdownComponent } from './select-dropdown/select-dropdown.compo
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
 
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+// import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
@@ -178,7 +178,7 @@ const ROUTES: Routes = [
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    NgxMaskModule.forRoot()
+    //NgxMaskModule.forRoot()
   ],
   providers: [
     ClienteService,
