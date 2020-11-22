@@ -1,7 +1,13 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
 
     <app-sidebar></app-sidebar>
+<<<<<<< HEAD
 
+=======
+    <app-loading ></app-loading>
+
+    <!--[isLoading]="loading"-->
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
     <div id="page-content-wrapper">
         <div class="container-fluid div-ventas">
 
@@ -54,12 +60,21 @@
             <!--
             <div class="row" [ngModel]="opcionSelecionada" >
 
+<<<<<<< HEAD
+=======
+
+            <div class="row">
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
                 <div class="col-sm-12 col-md-6">
 
                     <div class="card" *ngFor="let proyecto of proyectoLista">
                         <div class="card-body">
+<<<<<<< HEAD
                           <a href="consulta-ventas-detalle/{{proyecto.codigo}}">{{proyecto.nombre}}</a>
 
+=======
+                            <a [href]="'consulta-ventas-detalle/'+ proyecto.nombre">{{proyecto.nombre}}</a>
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
                         </div>
                     </div>
 

@@ -28,6 +28,17 @@ import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
+import { VentaService } from './ventas/ventas.service'
+import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
+import { TipoinmueblecategoriaService } from './ventas-proyecto-nuevo-editar/tipoinmueblecategoria.service'
+import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.service'
+import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
+import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
+
+import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
+import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
+import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.service'
+import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -59,6 +70,7 @@ import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
 import { AppLoadingComponent } from './app-loading/app-loading.component'
+import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -79,6 +91,7 @@ const ROUTES: Routes = [
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
+  { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
 
@@ -127,7 +140,11 @@ const ROUTES: Routes = [
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
+<<<<<<< HEAD
 
+=======
+    DatepickerRoundedComponent
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
   ],
   imports: [
     BrowserModule,
@@ -150,8 +167,16 @@ const ROUTES: Routes = [
     VentasproyectoService,
     PeriodoService,
     InmuebleService,
-
-
+    VentaService,
+    VentaConsultaClienteDetalleService,
+    TipoinmueblecategoriaService,
+    TipocreditoService,
+    BancosService,
+    FinanciamientoService,
+    MotivoService,
+    CanalService,
+    CategoriaService,
+    VentainmuebleService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

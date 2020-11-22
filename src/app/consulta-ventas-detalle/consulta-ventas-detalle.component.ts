@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Ventasproyecto } from './../ventas-proyecto/Ventasproyecto';
 import { VentasproyectoService } from './../ventas-proyecto/ventasproyecto.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../proyectos/proyecto';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -13,9 +16,19 @@ import { Proyecto } from '../proyectos/proyecto';
 })
 export class ConsultaVentasDetalleComponent implements OnInit {
 
+  @Input()
+  nombreProyecto:string
+
+  proyectoLista: Proyecto[]
   status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
+<<<<<<< HEAD
   proyectoLista:Proyecto[];
+=======
+  sortDesde: string = ''
+  sortHasta: string = ''
+
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
   constructor(
     private ventasproyectoService: VentasproyectoService,
@@ -41,6 +54,10 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
   menuToggle(){
     this.status = !this.status;
   }

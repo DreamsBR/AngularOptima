@@ -28,6 +28,14 @@ export class InmuebleService {
     )
   }
 
+  getInmueblesByIdInmueble(idInmueble: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/' + idInmueble).pipe(
+      map((jsonInmueblesResponse: any) => {
+        return jsonInmueblesResponse
+      })
+    )
+  }
+
   crearInmueble(inmueble: Inmueble): Observable<any> {
     return this.http.post<Inmueble>(this.urlEndPoint, inmueble).pipe(
       map((resp: any) => {
@@ -35,5 +43,27 @@ export class InmuebleService {
         return resp
       })
     )
+  }
+
+  getInmueblesByListarPorCategoria(
+    idProyecto: number,
+    idTipoInmueble: number,
+    idTipoInmuebleCategoria: number
+  ): Observable<any> {
+    return this.http
+      .get(
+        this.urlEndPoint +
+          '/listarporcategoria/' +
+          idProyecto +
+          '/' +
+          idTipoInmueble +
+          '/' +
+          idTipoInmuebleCategoria
+      )
+      .pipe(
+        map((jsonInmueblesResponse: any) => {
+          return jsonInmueblesResponse
+        })
+      )
   }
 }

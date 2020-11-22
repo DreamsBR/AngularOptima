@@ -47,7 +47,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   guardar() {
     const newProyecto = new Proyecto()
     newProyecto.idProyecto = this.frmIdProyecto
-    newProyecto.codigo = this.frmCodigo
+    // newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombre
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion

@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3><a href="login"><em class="fas fa-chevron-circle-left icon-faw"></em></a></h3>
+                    <h3>Cliente</h3>
                 </div>
             </div>
 
@@ -84,37 +84,46 @@
                                                         <div class="row">
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="nombres">Tipo dpto</label>
-                                                                    <select class="form-control" id="sle-tipo-departamento">
+                                                                    <label for="sle-tipo-departamento">Tipo dpto</label>
+                                                                    <select class="form-control" name="sle-tipo-departamento" [(ngModel)]="tipoinmueblecategoriaSeleccionado" (change)="obtenerInmueblesPorCategoria(tipoinmueblecategoriaSeleccionado)">
+                                                                        <option [value]="itemtipoinmueblecategoria.idTipoInmuebleCategoria" *ngFor="let itemtipoinmueblecategoria of tipoinmueblecategoria">{{itemtipoinmueblecategoria.nombre}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="apellidos">Nº dpto</label>
-                                                                    <select class="form-control" id="nro-departamento">
+                                                                    <label for="sle-departamento">Nº dpto</label>
+                                                                    <select class="form-control" name="sle-departamento" [(ngModel)]="idInmuebleSeleccionado">
+                                                                        <option [value]="itemDepartamentos.idInmueble" *ngFor="let itemDepartamentos of departamentos">{{itemDepartamentos.numero}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-2">
                                                                 <div class="form-group">
                                                                     <label class="label-hidden">&nbsp;</label>
-                                                                    <button type="submit" class="btn btn-optima btn-float-right">Agregar</button>
+                                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarDepartamento()">Agregar</button>
                                                                 </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="row">
 
-                                                            <div class="col-sm-12 col-md-6 item-inmueble">
+                                                            <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemDepartamento of departamentosAgregados; index as i">
                                                                 <div class="row">
                                                                     <div class="col-sm-12 col-md-12">
                                                                         <label for="nombres"><strong> Caracteristicas</strong></label>
-                                                                        <span class="float-right"><em class="fas fa-times-circle"></em></span>
+                                                                        <a (click)="quitarDepartamento(i)"><span class="float-right"><em class="fas fa-times-circle"></em></span></a>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="row">
-                                                                    <div class="col-sm-12 col-md-12">
+                                                                    <div class="col-sm-12 col-md-12" >
+                                                                        <p>{{itemDepartamento.numero}}</p>
+                                                                    </div>   
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
 
                                                                         <div class="card">
                                                                             <div class="card-body">
@@ -122,30 +131,30 @@
                                                                                 <div class="row">
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. techada</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaTechada}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. Libre</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaLibre}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>A. Total</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.areaTotal}}</p>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <div class="row">
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Vista</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.idTipoVista}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Dorm</strong></p>
-                                                                                        <p>123</p>
+                                                                                        <p>{{itemDepartamento.cantidadDormitorio}}</p>
                                                                                     </div>
                                                                                     <div class="col-sm-12 col-md-4">
                                                                                         <p class="titulo"><strong>Precio</strong></p>
-                                                                                        <p>S/ 230,000</p>
+                                                                                        <p>{{itemDepartamento.precio}}</p>
                                                                                     </div>
                                                                                 </div>
 
@@ -159,122 +168,30 @@
                                                                         </div>
 
                                                                         <div class="row">
-                                                                            
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="nombres">Precio</label>
-                                                                                    <input type="text" class="form-control" name="precio">
+                                                                                    <label for="descuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="nombres">Dscto</label>
-                                                                                    <input type="text" class="form-control" name="descuento">
+                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="nombres">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayuda-inicial">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12 col-md-4 offset-md-8">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>S/ 230,000</p>
+                                                                                <p>{{itemDepartamento.total - ( (itemDepartamento.total * itemDepartamento.descuento) / 100 ) - itemDepartamento.ayudainicial}}</p>
                                                                             </div>
                                                                         </div>
 
                                                                     </div>
+
+
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-12 col-md-6 item-inmueble">
-                                                                <div class="row">
-                                                                    <div class="col-sm-12 col-md-12">
-                                                                        <label for="nombres"><strong> Caracteristicas</strong></label>
-                                                                        <span class="float-right"><em class="fas fa-times-circle"></em></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-sm-12 col-md-12">
-
-                                                                        <div class="card">
-                                                                            <div class="card-body">
-
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>A. techada</strong></p>
-                                                                                        <p>123</p>
-                                                                                    </div>
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>A. Libre</strong></p>
-                                                                                        <p>123</p>
-                                                                                    </div>
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>A. Total</strong></p>
-                                                                                        <p>123</p>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>Vista</strong></p>
-                                                                                        <p>123</p>
-                                                                                    </div>
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>Dorm</strong></p>
-                                                                                        <p>123</p>
-                                                                                    </div>
-                                                                                    <div class="col-sm-12 col-md-4">
-                                                                                        <p class="titulo"><strong>Precio</strong></p>
-                                                                                        <p>S/ 230,000</p>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12 col-md-12">
-                                                                                <label for="nombres"><strong> Precio</strong></label>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="precio">Precio</label>
-                                                                                    <input type="text" class="form-control" name="precio">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="dsto">Dscto</label>
-                                                                                    <input type="text" class="form-control" name="dsto">
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-sm-12 col-md-4">
-                                                                                <div class="form-group">
-                                                                                    <label for="nombres">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayuda-inicial">
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="row">
-                                                                            <div class="col-sm-12 col-md-4 offset-md-8">
-                                                                                <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>S/ 230,000</p>
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
 
                                                         </div>
 
@@ -295,107 +212,117 @@
                                                         </div>
 
                                                         <div class="row">
-                                                            <div class="col-sm-12 col-md-3">
+                                                            <!-- <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="nombres">Adicionales</label>
                                                                     <select class="form-control" name="adicionales">
                                                                     </select>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
-                                                                    <label for="apellidos">Buscar codigo</label>
-                                                                    <input type="text" class="form-control" name="buscar-codigo">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="sle-adicional">Buscar código</label>
+                                                                            <select class="form-control" name="sle-adicional" [(ngModel)]="idAdicionalSeleccionado">
+                                                                                <option [value]="itemAdicional.idInmueble" *ngFor="let itemAdicional of adicionales">{{itemAdicional.numero}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-12 col-md-2">
                                                                 <div class="form-group">
                                                                     <label class="label-hidden">&nbsp;</label>
-                                                                    <button type="submit" class="btn btn-optima btn-float-right">Agregar</button>
+                                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarAdicional()">Agregar</button>
                                                                 </div>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-sm-12 col-md-10 item-inmueble">
-                                                            <div class="row">
-                                                                <div class="col-sm-12 col-md-12">
-                                                                    <label for="nombres"><strong> Caracteristicas</strong></label>
-                                                                    <span class="float-right"><em class="fas fa-times-circle"></em></span>
+                                                        <div class="row">
+
+                                                            <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemAdicional of adicionalAgregados; index as i">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <label for="nombres"><strong> Caracteristicas</strong></label>
+                                                                        <a (click)="quitarAdicional(i)"><span class="float-right"><em class="fas fa-times-circle"></em></span></a>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
+                                                                        <p>{{itemAdicional.numero}}</p>
+                                                                    </div>   
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. techada</strong></p>
+                                                                                        <p>{{itemAdicional.areaTechada}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Libre</strong></p>
+                                                                                        <p>{{itemAdicional.areaLibre}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Total</strong></p>
+                                                                                        <p>{{itemAdicional.areaTotal}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Vista</strong></p>
+                                                                                        <p>{{itemAdicional.idTipoVista}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Dorm</strong></p>
+                                                                                        <p>{{itemAdicional.cantidadDormitorio}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Precio</strong></p>
+                                                                                        <p>{{itemAdicional.precio}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-12">
+                                                                                <label for="nombres"><strong> Precio</strong></label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="descuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <p class="titulo"><strong>Total</strong></p>
+                                                                                <p>{{itemAdicional.total - ( (itemAdicional.total * itemAdicional.descuento) / 100 ) - itemAdicional.ayudainicial}}</p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-12 col-md-12">
 
-                                                                    <div class="card">
-                                                                        <div class="card-body">
-
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>A. techada</strong></p>
-                                                                                    <p>123</p>
-                                                                                </div>
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>A. Libre</strong></p>
-                                                                                    <p>123</p>
-                                                                                </div>
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>A. Total</strong></p>
-                                                                                    <p>123</p>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="row">
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>Vista</strong></p>
-                                                                                    <p>123</p>
-                                                                                </div>
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>Dorm</strong></p>
-                                                                                    <p>123</p>
-                                                                                </div>
-                                                                                <div class="col-sm-12 col-md-4">
-                                                                                    <p class="titulo"><strong>Precio</strong></p>
-                                                                                    <p>S/ 230,000</p>
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="col-sm-12 col-md-12">
-                                                                            <label for="nombres"><strong> Precio</strong></label>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        
-                                                                        <div class="col-sm-12 col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label for="nombres">Precio</label>
-                                                                                <input type="text" class="form-control" name="precio">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-12 col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label for="nombres">Dscto</label>
-                                                                                <input type="text" class="form-control" name="dscto">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-12 col-md-3">
-                                                                            <div class="form-group">
-                                                                                <label for="nombres">Ayuda inicial</label>
-                                                                                <input type="text" class="form-control" name="ayuda-inicial">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-12 col-md-3">
-                                                                            <p class="titulo"><strong>Total</strong></p>
-                                                                            <p>S/ 230,000</p>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -412,7 +339,7 @@
 
                                                         <div class="col-sm-12 col-md-4 offset-md-8">
                                                             <p class="titulo"><strong>Total</strong></p>
-                                                            <p>S/ 230,000</p>
+                                                            <p>{{getTotalVenta()}}</p>
                                                         </div>
 
                                                     </div>
@@ -424,7 +351,7 @@
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Siguiente</button>
+                                                <button type="button" class="btn btn-optima btn-float-right" (click)="siguientePagina()">Siguiente</button>
                                             </div>
                                         </div>
 
@@ -445,20 +372,47 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Cuota inicial</label>
-                                                    <input type="text" class="form-control" id="nombres">
+                                                    <label for="porcentaje_cuota_inicial">Cuota inicial (%)</label>
+                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" maxlength="2">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Cuota inicial</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="cuota_inicial">Cuota inicial</label>
+                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 }}" [(ngModel)]="cuota_inicial" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Financiamiento</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="total_financiamiento">Financiamiento</label>
+                                                    <input type="text" class="form-control" name="total_financiamiento" value="{{ totalInmuebles - ( ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 ) }}" [(ngModel)]="total_financiamiento" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-motivo">Motivo</label>
+                                                    <select class="form-control" name="sle-motivo" [(ngModel)]="motivoSeleccionado">
+                                                        <option [value]="itemMotivo.idMotivo" *ngFor="let itemMotivo of motivo">{{itemMotivo.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-canal">Canal</label>
+                                                    <select class="form-control" name="sle-canal" [(ngModel)]="canalSeleccionado">
+                                                        <option [value]="itemCanal.idCanal" *ngFor="let itemCanal of canal">{{itemCanal.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-categoria">Categoria</label>
+                                                    <select class="form-control" name="sle-categoria" [(ngModel)]="categoriaSeleccionado">
+                                                        <option [value]="itemCategoria.idCategoria" *ngFor="let itemCategoria of categoria">{{itemCategoria.nombre}}</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -472,21 +426,22 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Tipo de credito</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    <label for="sle-tipocredito">Tipo de credito</label>
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="tipocreditoSeleccionado">
+                                                        <option [value]="itemCredito.idTipoCredito" *ngFor="let itemCredito of tipocredito">{{itemCredito.nombre}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Bono MMV</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="bono">Bono MMV</label>
+                                                    <input type="text" class="form-control" name="bono" [(ngModel)]="bono">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">AFP</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="afp">AFP</label>
+                                                    <input type="text" class="form-control" name="afp" [(ngModel)]="afp">
                                                 </div>
                                             </div>
                                         </div>
@@ -495,14 +450,15 @@
                                             <div class="col-sm-12 col-md-8">
                                                 <div class="form-group">
                                                     <label for="nombres">Banco</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="bancoSeleccionado">
+                                                        <option [value]="itemBanco.idBanco" *ngFor="let itemBanco of bancos">{{itemBanco.nombre}}</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Asesor banco</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="asesor">Asesor banco</label>
+                                                    <input type="text" class="form-control" name="asesor" [(ngModel)]="asesor">
                                                 </div>
                                             </div>
                                         </div>
@@ -516,29 +472,33 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="nombres">Ahorro</label>
-                                                    <input type="text" class="form-control" id="apellidos">
+                                                    <label for="ahorro">Ahorro</label>
+                                                    <input type="text" class="form-control" name="ahorro" [(ngModel)]="ahorro">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Inicio ahorro</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                    </select>
+                                                    <datepicker-rounded 
+                                                    [value]="inicioahorro"
+                                                    [label]="'Inicio ahorro'"
+                                                    (onDateChanged)="onFechaInicioAhorro($event)"
+                                                    ></datepicker-rounded>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="apellidos">Fin de ahorro</label>
-                                                    <select class="form-control" id="exampleFormControlSelect1">
-                                                    </select>
+                                                    <datepicker-rounded 
+                                                    [value]="finAhorro"
+                                                    [label]="'Fin ahorro'"
+                                                    (onDateChanged)="onFechaFinAhorro($event)"
+                                                    ></datepicker-rounded>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" style="margin-bottom: 200px;" (click)="guardarFinanciamiento()">Guardar</button>
                                             </div>
                                         </div>
 

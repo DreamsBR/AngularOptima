@@ -1,0 +1,44 @@
+.agdtpk {
+  border: 0px solid red;
+  position: relative;
+}
+
+.agdtpk .form-control {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.agdtpk-body {
+  background: #f3f3f6;
+  border: 0px solid green;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  border-radius: 27px;
+  cursor: pointer;
+}
+
+.agdtpk-body em {
+  color: var(--primary);
+}
+
+.agdtpk-label {
+  border: 0px solid red;
+  padding-top: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.agdtpk-date {
+  border: 0px solid green;
+  padding-bottom: 7px;
+  font-size: 13px;
+}
+.agdtpk-label,
+.agdtpk-date {
+  padding-left: 20px;
+}
+
+.agdtpk /deep/ .dropdown-menu.show + .agdtpk-body {
+  background: #dadada;
+}

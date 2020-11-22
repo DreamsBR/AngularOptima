@@ -4,10 +4,19 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
 
+<<<<<<< HEAD
             <div class="row">
                 <div class="col-sm-12 col-md-5" >
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
                     <h3 *ngFor="let proyec of proyectoLista">{{proyec.nombre}}</h3>
+=======
+            <div class="row" >
+                <div class="col-sm-12 col-md-5"  >
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+
+                    <h3>{{ nombreProyecto }} </h3>
+
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
                     <a href="/ventas-proyecto-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
@@ -19,20 +28,28 @@
                     <div class="form-group">
                         <label for="apellidos">Status</label>
                         <select class="form-control" id="exampleFormControlSelect1">
+
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-2">
                     <div class="form-group">
                         <label for="apellidos">Desde</label>
-                        <input type="text" class="form-control" id="apellidos">
+
+
+                        <input type="date" class="form-control" form='control class' [(ngModel)]="sortDesde">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-2">
                     <div class="form-group">
                         <label for="apellidos">Hasta</label>
+<<<<<<< HEAD
                         <input type="text" class="form-control" id="apellidos">                    .
                       </div>
+=======
+                        <input type="date" class="form-control" [(ngModel)]="sortHasta">
+                    </div>
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
                 </div>
             </div>
 
@@ -59,7 +76,7 @@
                                 <th scope="col">Total de venta</th>
                                 <th scope="col">Estado</th>
                                 <th scope="col">Nº dpto</th>
-                                <th scope="col">Nº estacionamiento</th>
+                                <th scope="col">Nº esta1'''''cionamiento</th>
                                 <th scope="col">Nº cochera</th>
                             </tr>
                         </thead>
@@ -73,7 +90,11 @@
                                 </td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.nombre}}</a></td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.apepaterno}} {{ventasProyecto.apematerno}}</a></td>
+<<<<<<< HEAD
                                 <!--<td>{{ventasProyecto.nrodoc}}</td>-->
+=======
+                                <td>{{ventasProyecto.codigo}}</td>
+>>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
                                 <td>02/11/2020</td>
                                 <td>02/11/2020</td>
