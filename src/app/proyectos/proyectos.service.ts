@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core'
 import { Proyecto } from './proyecto'
-import { Observable } from 'rxjs'
+import { Observable, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
 
@@ -35,6 +35,12 @@ export class ProyectoService {
     )
   }
 
+<<<<<<< HEAD
+=======
+  deleteProyecto(proyecto: Proyecto): Observable<any> {
+    return this.http.delete<Proyecto>(this.urlEndPoint + '/' + proyecto.idProyecto).pipe()
+  }
+>>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
 
   getProyectosById(proyecto: Proyecto): Observable<any> {
     return this.http.get(this.urlEndPoint + '/' + proyecto.idProyecto).pipe(
@@ -42,6 +48,13 @@ export class ProyectoService {
         console.log('respondiendo')
         return jsonProyectosResponse
       })
-    )
-  }
+    )}
+
+
+    eliminarProyecto(id:number):Observable<Proyecto>{
+      return this.http.delete<Proyecto>(`${this.urlEndPoint}/${id}`).pipe(
+        catchError((e) => {
+          return throwError(e)
+        })
+      )}
 }

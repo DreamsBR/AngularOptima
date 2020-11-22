@@ -43,7 +43,6 @@ export class PeriodoService {
 
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
       catchError(e => {
-
         if (e.status === 400) {
           return throwError(e);
         }

@@ -4,13 +4,13 @@ import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
 
-import { Tipoinmueblecategoria } from './Tipoinmueblecategoria'
+import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
 import { TipoinmueblecategoriaService } from './tipoinmueblecategoria.service'
 
-import { Tipocredito } from './Tipocredito'
+import { Tipocredito } from './tipocredito'
 import { TipocreditoService } from './tipocredito.service'
 
-import { Bancos } from './Bancos'
+import { Bancos } from './bancos'
 import { BancosService } from './bancos.service'
 
 import { Motivo } from './motivo'
@@ -271,7 +271,12 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
     let fi = this.fechaInicioAhorro.split("-");
     this.financiamiento.fechaInicioAhorro = ( fi[2] + '-' + fi[1] + '-' + fi[0] )
+
     this.financiamiento.idEstadoFinanciamiento = 1
+
+    this.financiamiento.nomtoCuotaInicial = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
+    this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
+    this.financiamiento.financiamiento = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
@@ -309,9 +314,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     let totalVenta: number = this.getTotalVenta()
 
     this.venta.ayudaInicial = this.porcentaje_cuota_inicial
-    this.venta.descuento = this.cuota_inicial
+    this.venta.descuento = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
     this.venta.importe = this.totalInmuebles
-    this.venta.total = this.total_financiamiento
+    this.venta.total = this.venta.importe - this.venta.descuento
 
     console.info(this.venta)
 
@@ -328,36 +333,56 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   guardarInmuebles(idVenta: number){
-
-    for (var i = 0; i < this.departamentosAgregados.length; i++) {
-      // totalDepartamentos += this.departamentosAgregados[i].precio - ( ( this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento ) / 100 ) - this.departamentosAgregados[i].ayudainicial;
-      
-      this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
-        (response) => {
-          console.info(`Venta ${response.idVentaInmueble}`)
-        },
-        (err) => {
-          this.errores = err.error.errors as string[]
-        }
-      )
-
+    if(this.departamentosAgregados.length > 0){
+      for (var i = 0; i < this.departamentosAgregados.length; i++) {
+        this.ventainmueble.idVentaInmueble = 0
+        this.ventainmueble.areaLibre = this.departamentosAgregados[i].areaLibre
+        this.ventainmueble.areaTechada = this.departamentosAgregados[i].areaTechada
+        this.ventainmueble.areaTotal = this.departamentosAgregados[i].areaTotal
+        this.ventainmueble.dormitorios = this.departamentosAgregados[i].cantidadDormitorio
+        this.ventainmueble.enable = 1
+        this.ventainmueble.idInmueble = this.departamentosAgregados[i].idInmueble
+        this.ventainmueble.idVenta = idVenta
+        this.ventainmueble.precio = this.departamentosAgregados[i].precio
+        this.ventainmueble.vista = ""
+        this.ventainmueble.ayudainicial = this.departamentosAgregados[i].ayudainicial
+        this.ventainmueble.descuento = this.departamentosAgregados[i].descuento
+        this.ventainmueble.importe = this.departamentosAgregados[i].total - ( (this.departamentosAgregados[i].total * this.departamentosAgregados[i].descuento) / 100 ) - this.departamentosAgregados[i].ayudainicial
+        this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
+          (response) => {
+            console.info(`Venta ${response.idVentaInmueble}`)
+          },
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
     }
-    for (var i = 0; i < this.adicionalAgregados.length; i++) {
-      // totalAdicional += this.adicionalAgregados[i].precio - ( ( this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento ) / 100 ) - this.adicionalAgregados[i].ayudainicial;
-
-      this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
-        (response) => {
-          console.info(`Venta ${response.idVentaInmueble}`)
-        },
-        (err) => {
-          this.errores = err.error.errors as string[]
-        }
-      )
-
+    if(this.adicionalAgregados.length > 0){
+      for (var i = 0; i < this.adicionalAgregados.length; i++) {
+        this.ventainmueble.idVentaInmueble = 0
+        this.ventainmueble.areaLibre = this.adicionalAgregados[i].areaLibre
+        this.ventainmueble.areaTechada = this.adicionalAgregados[i].areaTechada
+        this.ventainmueble.areaTotal = this.adicionalAgregados[i].areaTotal
+        this.ventainmueble.dormitorios = this.adicionalAgregados[i].cantidadDormitorio
+        this.ventainmueble.enable = 1
+        this.ventainmueble.idInmueble = this.adicionalAgregados[i].idInmueble
+        this.ventainmueble.idVenta = idVenta
+        this.ventainmueble.precio = this.adicionalAgregados[i].precio
+        this.ventainmueble.vista = ""
+        this.ventainmueble.ayudainicial = this.adicionalAgregados[i].ayudainicial
+        this.ventainmueble.descuento = this.adicionalAgregados[i].descuento
+        this.ventainmueble.importe = this.adicionalAgregados[i].total - ( (this.adicionalAgregados[i].total * this.adicionalAgregados[i].descuento) / 100 ) - this.adicionalAgregados[i].ayudainicial
+        this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
+          (response) => {
+            console.info(`Venta ${response.idVentaInmueble}`)
+          },
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
     }
-
-
-
   }
 
   status = false

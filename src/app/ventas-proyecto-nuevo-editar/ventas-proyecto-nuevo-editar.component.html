@@ -170,14 +170,14 @@
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="descuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
+                                                                                    <label for="departamentoDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                    <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
@@ -303,14 +303,14 @@
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="descuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="text" class="form-control" name="descuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
+                                                                                    <label for="adicionalDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="adicionalDescuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="ayudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="ayudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
+                                                                                    <label for="adicionalAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="adicionalAyudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
@@ -479,7 +479,6 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <datepicker-rounded 
-                                                    [value]="inicioahorro"
                                                     [label]="'Inicio ahorro'"
                                                     (onDateChanged)="onFechaInicioAhorro($event)"
                                                     ></datepicker-rounded>
@@ -488,7 +487,6 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <datepicker-rounded 
-                                                    [value]="finAhorro"
                                                     [label]="'Fin ahorro'"
                                                     (onDateChanged)="onFechaFinAhorro($event)"
                                                     ></datepicker-rounded>

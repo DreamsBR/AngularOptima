@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
+import { NgbDateStruct, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap'
 import { Periodo } from './periodo'
 import { PeriodoService } from './periodo.service'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -43,6 +43,7 @@ export class PeriodosComponent implements OnInit {
   date: { year: number; month: number }
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
+
   constructor(
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
@@ -61,6 +62,7 @@ export class PeriodosComponent implements OnInit {
   }
 
   public obtenerPeriodo() {
+
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page')
       if (!page) {
@@ -85,19 +87,28 @@ export class PeriodosComponent implements OnInit {
         this.base = 'periodo'
       })
     }) // end subscribe
+<<<<<<< HEAD
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
+=======
+
+>>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
   }
 
+
   public agregarPeriodo(): void {
+
+    if(Object.keys(this.periodo).length < 3){
+      swal('Campos Incompletos de Periodo', '','error')
+      return
+    }
+
     let fechaInicioT: any = this.periodo.fechaInicio
     let fechaFinT: any = this.periodo.fechaFin
 
     this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' + fechaInicioT.day
     this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
-
     this.periodoService.agregarPeriodo(this.periodo).subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         swal('Nuevo Periodo', `Periodo ${response.nombre} creado con exito`, 'success')
         this.obtenerPeriodo()
@@ -106,9 +117,12 @@ export class PeriodosComponent implements OnInit {
         console.error(err)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerPeriodo()
-      }
-    )
-  }
+      })
+
+    }
+
+
+
 
 <<<<<<< HEAD
 
@@ -123,7 +137,13 @@ export class PeriodosComponent implements OnInit {
   menuToggle() {
     this.status = !this.status
   }
+
+
+
+
 }
+
+
 
 /*public agregarCliente(): void {
 

@@ -4,10 +4,6 @@ export class Colaborador{
     apellidos: string;
     numeroDocumento:string;
     sexo:string;
-    idtipodocumento:number;
-    //direccion:string; 
-    enable: boolean;
-    //telefono: number;
-    
-    
+    idTipoDocumento:number;
+    enable: number;
 }

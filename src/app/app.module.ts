@@ -21,6 +21,8 @@ import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ColaboradorService } from './colaboradores/colaborador.service'
 import { ClienteService } from './clientes/clientes.service'
@@ -34,11 +36,14 @@ import { TipoinmueblecategoriaService } from './ventas-proyecto-nuevo-editar/tip
 import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.service'
 import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
 import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
+import { PagosService } from './pagos/pagos.service'
 
 import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
 import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.service'
 import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
+import { EstadocivilService } from './clientes/estadocivil.service'
+import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -70,7 +75,15 @@ import { PeriodosComponent } from './periodos/periodos.component'
 import { PeriodoNuevoEditarComponent } from './periodo-nuevo-editar/periodo-nuevo-editar.component'
 import { PeriodosProyectosComponent } from './periodos-proyectos/periodos-proyectos.component'
 import { AppLoadingComponent } from './app-loading/app-loading.component'
-import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component'
+import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-rounded.component';
+import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
+import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
+import { PagosComponent } from './pagos/pagos.component'
+
+import { ReverseStr } from '../pipes/reverse-str.pipe';
+import { FormatDate } from '../pipes/format-date.pipe';
+import { FormatSoles } from '../pipes/format-soles.pipe';
+import { Paginator2Component } from './paginator2/paginator2.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -78,6 +91,7 @@ const ROUTES: Routes = [
   { path: 'recordar-contrasenia', component: RecordarContraseniaComponent },
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
+
   { path: 'colaboradores', component: ColaboradoresComponent },
   { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },
@@ -88,6 +102,8 @@ const ROUTES: Routes = [
 
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
+  { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
+
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
@@ -141,10 +157,21 @@ const ROUTES: Routes = [
     PeriodosProyectosComponent,
     AppLoadingComponent,
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     DatepickerRoundedComponent
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
+=======
+    DatepickerRoundedComponent,
+    SelectDropdownComponent,
+    FinanciamientosComponent,
+    PagosComponent,
+    ReverseStr,
+    FormatDate,
+    FormatSoles,
+    Paginator2Component
+>>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
   ],
   imports: [
     BrowserModule,
@@ -158,7 +185,10 @@ const ROUTES: Routes = [
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
-    NgbModule
+    MatSelectModule,
+    MatSnackBarModule,
+    NgbModule,
+    //NgxMaskModule.forRoot()
   ],
   providers: [
     ClienteService,
@@ -177,6 +207,9 @@ const ROUTES: Routes = [
     CanalService,
     CategoriaService,
     VentainmuebleService,
+    PagosService,
+    EstadocivilService,
+    TipodocumentoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

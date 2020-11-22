@@ -62,9 +62,9 @@
                 >Modo de pago</a
               >
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link active"
                 id="contact-tab"
                 data-toggle="tab"
                 href="#tab4"
@@ -318,23 +318,26 @@
               <br />
 
               <div class="row">
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
+                <div class="col-sm-12 col-md-4">
+                  <select-dropdown>sdf</select-dropdown>
+                  <!-- <div class="form-group">
                     <label for="apellidos">Tipo de inmueble</label>
                     <input type="text" class="form-control" id="apellidos" />
-                  </div>
+                  </div> -->
                 </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
+                <div class="col-sm-12 col-md-4">
+                  <select-dropdown>sdf</select-dropdown>
+                  <!-- <div class="form-group">
                     <label for="nombres">Dpto</label>
                     <select class="form-control" id="exampleFormControlSelect1"></select>
-                  </div>
+                  </div> -->
                 </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
+                <div class="col-sm-12 col-md-4">
+                  <select-dropdown>sdf</select-dropdown>
+                  <!-- <div class="form-group">
                     <label for="apellidos">Nro. Dpto.</label>
                     <input type="text" class="form-control" id="apellidos" />
-                  </div>
+                  </div> -->
                 </div>
               </div>
 
@@ -585,15 +588,15 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-                          <p>10%</p>
+                          <p>{{ financiamiento.porcCuotaInicial }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-                          <p>S/. 32,324.00</p>
+                          <p>{{ financiamiento.nomtoCuotaInicial }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Financiamiento</p>
-                          <p>S/. 32,324.00</p>
+                          <p>{{ financiamiento.financiamiento }}</p>
                         </div>
                       </div>
 
@@ -699,7 +702,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Tipo de crédito</p>
-                          <p>Ahorro MMV</p>
+                          <p>{{ financiamiento.idTipoCredito }}</p>
                         </div>
 <<<<<<< HEAD
 
@@ -844,11 +847,11 @@
 =======
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Bono MMV</p>
-                          <p>0</p>
+                          <p>{{ financiamiento.bono }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">AFP</p>
-                          <p>S/. 32,324.00</p>
+                          <p>{{ financiamiento.afp }}</p>
                         </div>
                       </div>
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
@@ -856,11 +859,11 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-8">
                           <p class="label-dato">Banco</p>
-                          <p>BCP - Banco de Crédito del Perú</p>
+                          <p>{{ financiamiento.idBanco }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Asesor Banco</p>
-                          <p>Jorge Zed</p>
+                          <p>{{ financiamiento.asesor }}</p>
                         </div>
                       </div>
 
@@ -873,15 +876,15 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Ahorro</p>
-                          <p>S/. 2,500.00</p>
+                          <p>{{ financiamiento.ahorro }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Inicio ahorro</p>
-                          <p>08/02/20</p>
+                          <p>{{ financiamiento.fechaInicioAhorro }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Fin de ahorro</p>
-                          <p>08/02/20</p>
+                          <p>{{ financiamiento.fechaFinAhorro }}</p>
                         </div>
                       </div>
                     </div>
@@ -925,7 +928,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
                     [value]="svFechaCaida"
-                    [label]="'Fecha de salida'"
+                    [label]="'Fecha de caída'"
                     (onDateChanged)="onFechaCaidaChanged($event)"
                   ></datepicker-rounded>
                 </div>
@@ -950,12 +953,15 @@
                     <input type="text" class="form-control" id="nombres" />
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-7">
                   <ol class="stw">
+                    <li class="current">
+                      <div class="stw-label">Inicio</div>
+                    </li>
                     <li class="">
                       <div class="stw-label">Separación</div>
                     </li>
-                    <li class="current">
+                    <li class="">
                       <div class="stw-label">Minuta</div>
                     </li>
                     <li class="">
@@ -973,9 +979,89 @@
                   <h3>Pagos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                  <a href="/cliente-nuevo-editar/0"
+                  <a
+                    id="#btnAgregarPago"
+                    (click)="limpiarFormulario()"
+                    data-toggle="modal"
+                    data-target="#modal-gestion-pago"
                     ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
                   ></a>
+                  <!-- <a href="/cliente-nuevo-editar/0"
+                    ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
+                  ></a> -->
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <table
+                    mat-table
+                    [dataSource]="pagos"
+                    class="tbproy"
+                    style="width: 100%; margin-top: 20px"
+                  >
+                    <ng-container matColumnDef="editar">
+                      <th mat-header-cell *matHeaderCellDef>Editar</th>
+                      <td mat-cell *matCellDef="let element">
+                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                        <div class="dropdown-menu dropdown-menu-left">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-gestion-pago"
+                            (click)="setObjetoPagoEdit(element)"
+                          >
+                            <em class="far fa-edit"></em> Editar
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-eliminar-pago"
+                          >
+                            <em class="far fa-trash-alt"></em> Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numeroOperacion">
+                      <th mat-header-cell *matHeaderCellDef>Nº Recibo</th>
+                      <td mat-cell *matCellDef="let element">{{ element.numeroOperacion }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fecha">
+                      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                      <td mat-cell *matCellDef="let element">{{ element.fecha | formatDate }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="monto">
+                      <th mat-header-cell *matHeaderCellDef>Monto</th>
+                      <td mat-cell *matCellDef="let element">{{ element.monto }}</td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="fieldsTblPagos"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: fieldsTblPagos"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
+                  </table>
+                  <div
+                    *ngIf="pagos.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
+
+                  <mat-paginator
+                    [length]="totalData"
+                    [pageIndex]="pageIndex"
+                    [pageSize]="pageSize"
+                    showFirstLastButtons
+                    class="ptproy"
+                  ></mat-paginator>
                 </div>
               </div>
 
@@ -997,14 +1083,19 @@
                       <td class="text-center font-color-1">
                         <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                         <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-gestion-pago"
+                          >
+                            <em class="far fa-edit"></em> Editars
                           </button>
                           <button
                             class="dropdown-item"
                             type="button"
                             data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
+                            data-target="#modal-eliminar-pago"
                           >
                             <em class="far fa-trash-alt"></em> Eliminar
                           </button>
@@ -1083,4 +1174,102 @@
     </div>
   </div>
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
+</div>
+
+<div id="modal-eliminar-pago" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el registro?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima">Confirmar</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminar"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-gestion-pago" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar pago</h5>
+        <button
+          id="btnPagoClose"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="alert alert-warning"
+              role="alert"
+              *ngIf="modalPagoWarnings.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoWarning of modalPagoWarnings">
+                <strong>Advertencia:</strong> {{ modalPagoWarning }}<br />
+              </div>
+            </div>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="modalPagoErrores.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoError of modalPagoErrores">
+                <strong>Error:</strong> {{ modalPagoError }}<br />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <input
+              [(ngModel)]="pagoModal.numeroOperacion"
+              type="text"
+              placeholder="Nro de recibo"
+            />
+          </div>
+          <div class="col-6">
+            <!-- <datepicker-rounded
+              [value]="formPagoFechaInitialValue"
+              (onDateChanged)="onPagoModalChanged($event)"
+              [label]="'Fecha'"
+            ></datepicker-rounded> -->
+            Fecha<br />
+            <input type="date" [(ngModel)]="pagoModal.fecha" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <input [(ngModel)]="pagoModal.monto" type="text" placeholder="Monto" />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" (click)="btnPagoGuardar()" class="btn btn-optima">Agregar</button>
+      </div>
+    </div>
+  </div>
 </div>

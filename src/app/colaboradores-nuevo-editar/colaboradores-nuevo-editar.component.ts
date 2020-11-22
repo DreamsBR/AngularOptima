@@ -17,13 +17,24 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   constructor(private router: Router, private colaboradorService: ColaboradorService) {}
 
-  ngOnInit() {}
+  ngOnInit(
+  ) {}
 
   menuToggle() {
     this.status = !this.status
   }
 
+
+
+
+
   public agregarColaborador(): void {
+    if(Object.keys(this.colaborador).length < 5){
+      swal('Campos Incompletos de Colaboradores', '','error')
+      return
+
+    }
+
     this.colaboradorService.agregarColaborador(this.colaborador).subscribe(
       (response) => {
         this.router.navigate(['/colaboradores'])

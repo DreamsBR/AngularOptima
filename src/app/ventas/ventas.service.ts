@@ -19,7 +19,18 @@ export class VentaService {
 
   fetchingTipoDocumento(): Observable<any> {
     return this.http.get(this.urlEndPoint + '/tipodocumento/').pipe()
-    //return this.http.get('http://localhost:4000/usuarios/temp').pipe()
+  }
+
+  getVentas(page): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+      map((jsonVentasResponse: any) => {
+        ;(jsonVentasResponse.content as Venta[]).map((venta) => {
+          // venta.nombres = venta.nombres.toUpperCase()
+          return venta
+        })
+        return jsonVentasResponse
+      })
+    )
   }
 
   agregarVenta(venta: Venta): Observable<any> {
@@ -28,6 +39,17 @@ export class VentaService {
         if (e.status === 400) {
           return throwError(e)
         }
+      })
+    )
+  }
+
+  getVentasByProyecto(idProyecto, page): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
+      map((jsonVentasResponse: any) => {
+        ;(jsonVentasResponse.content as Venta[]).map((venta) => {
+          return venta
+        })
+        return jsonVentasResponse
       })
     )
   }

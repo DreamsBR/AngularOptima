@@ -29,51 +29,34 @@
                                 <th scope="col">Nº doc.</th>
                                 <th scope="col">Total de venta</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Nº dpto</th>
-                                <th scope="col">Nº estacionamiento</th>
-                                <th scope="col">Nº cochera</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ventasProyecto of ventasProyectoLista">
+                            <tr *ngFor="let ventasProyecto of ventasLista">
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
                                         <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.nombre}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.apepaterno}} {{ventasProyecto.apematerno}}</a></td>
-                                <!--<td>{{ventasProyecto.nrodoc}}</td>-->
-                                <td>{{ventasProyecto.totalventa}}</td>
-                                <td>{{ventasProyecto.estado}}</td>
-                                <td>{{ventasProyecto.nro_dpto}}</td>
-                                <td>{{ventasProyecto.nro_estacionamiento}}</td>
-                                <td>{{ventasProyecto.nro_cochera}}</td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.nombres}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.apellidos}}</a></td>
+                                <td>{{ventasProyecto.cliente.nroDocumento}}</td>
+                                <td>{{ventasProyecto.total}}</td>
+                                <td>{{ventasProyecto.estadoVenta.nombre}}</td>
                             </tr>
                         </tbody>
                     </table>
-
+                    <paginator2 [paginador]="paginador" [base]="base" [id]="id"></paginator2>
                 </div>
             </div>
 
             <br>
 
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
-
         </div>
     </div>
 
 </div>
-
 
 <div id="modal-eliminar-colaborador" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
