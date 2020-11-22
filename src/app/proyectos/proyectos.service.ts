@@ -33,6 +33,10 @@ export class ProyectoService {
     )
   }
 
+  deleteProyecto(proyecto: Proyecto): Observable<any> {
+    return this.http.delete<Proyecto>(this.urlEndPoint + '/' + proyecto.idProyecto).pipe()
+  }
+
   getProyectosById(proyecto: Proyecto): Observable<any> {
     return this.http.get(this.urlEndPoint + '/' + proyecto.idProyecto).pipe(
       map((jsonProyectosResponse: any) => {

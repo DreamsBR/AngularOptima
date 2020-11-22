@@ -24,6 +24,8 @@ export class ProyectosComponent implements OnInit {
   pageSize: number = 5
   pageSizeOptions: number[] = [5, 10, 25, 250]
 
+  proyectoToDelete:Proyecto = new Proyecto()
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   constructor(
@@ -65,10 +67,23 @@ export class ProyectosComponent implements OnInit {
     }
   }
 
-public obtenerProyectoSeleccionado(proyecto:Proyecto){
+  public obtenerProyectoSeleccionado(proyecto:Proyecto){
 
-  this.proyectoSeleccionado = proyecto
-}
+    this.proyectoSeleccionado = proyecto
+  }
 
+  selectProyectoEliminar(proyecto: Proyecto) {
+    this.proyectoToDelete = new Proyecto()
+    this.proyectoToDelete = proyecto
+  }
+
+  eliminarProyectoSeleccionado () {
+    this.proyectoService.deleteProyecto(this.proyectoToDelete).subscribe(
+      (_) => {
+        document.getElementById('cerrarModalEliminar').click()
+        this.fetchData(0)
+      }
+    )
+  }
 
 }
