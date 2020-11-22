@@ -80,10 +80,10 @@ import { SelectDropdownComponent } from './select-dropdown/select-dropdown.compo
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
 
-
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
+import { Paginator2Component } from './paginator2/paginator2.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -102,6 +102,8 @@ const ROUTES: Routes = [
 
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
+  { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
+
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
@@ -160,7 +162,8 @@ const ROUTES: Routes = [
     PagosComponent,
     ReverseStr,
     FormatDate,
-    FormatSoles
+    FormatSoles,
+    Paginator2Component
   ],
   imports: [
     BrowserModule,
