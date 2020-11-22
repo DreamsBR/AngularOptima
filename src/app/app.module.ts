@@ -156,13 +156,9 @@ const ROUTES: Routes = [
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-    DatepickerRoundedComponent
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
-=======
+
+
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
@@ -171,7 +167,6 @@ const ROUTES: Routes = [
     FormatDate,
     FormatSoles,
     Paginator2Component
->>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
   ],
   imports: [
     BrowserModule,

@@ -13,23 +13,6 @@ import swal from 'sweetalert2'
   templateUrl: './periodos.component.html'
 })
 export class PeriodosComponent implements OnInit {
-<<<<<<< HEAD
-
-  periodosLista: Periodo[];
-  paginador: any;
-  periodoSeleccionado: Periodo;
-  urlBackend: String = URL_BACKEND;
-  base: String;
-
-  public errores: string[];
-
-  totalRecords:number;
-
-  pageActual:number = 1;
-  public periodo: Periodo = new Periodo();
-  model: NgbDateStruct;
-  date: {year: number, month: number};
-=======
   periodosLista: Periodo[]
   paginador: any
   periodoSeleccionado: Periodo
@@ -41,21 +24,14 @@ export class PeriodosComponent implements OnInit {
   public periodo: Periodo = new Periodo()
   model: NgbDateStruct
   date: { year: number; month: number }
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
 
   constructor(
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
     //public modalService: ModalService,
-<<<<<<< HEAD
-    public authService: AuthService,
-    private router: Router
-  ) { }
-=======
     public authService: AuthService
   ) {}
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
   ngOnInit() {
     this.obtenerPeriodo()
@@ -69,7 +45,7 @@ export class PeriodosComponent implements OnInit {
         page = 0
       }
 
-<<<<<<< HEAD
+
       this.periodoService.getPeriodos(page).subscribe(
         periodosJsonResponse => {
           this.periodosLista = periodosJsonResponse.content;
@@ -80,18 +56,6 @@ export class PeriodosComponent implements OnInit {
       );
     });
 
-=======
-      this.periodoService.getPeriodos(page).subscribe((periodosJsonResponse) => {
-        this.periodosLista = periodosJsonResponse.content
-        this.paginador = periodosJsonResponse
-        this.base = 'periodo'
-      })
-    }) // end subscribe
-<<<<<<< HEAD
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
-=======
-
->>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
   }
 
 
@@ -124,16 +88,11 @@ export class PeriodosComponent implements OnInit {
 
 
 
-<<<<<<< HEAD
 
 
 
 
-
-  status = false;
-=======
   status = false
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
   menuToggle() {
     this.status = !this.status
   }

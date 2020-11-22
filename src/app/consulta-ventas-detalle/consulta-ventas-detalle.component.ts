@@ -5,10 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../proyectos/proyecto';
-<<<<<<< HEAD
-
-=======
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -22,18 +18,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   proyectoLista: Proyecto[]
   status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
-<<<<<<< HEAD
-  proyectoLista:Proyecto[];
-=======
   sortDesde: string = ''
   sortHasta: string = ''
-<<<<<<< HEAD
 
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
-=======
-  paginador:any;
-  base:string;
->>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
 
   constructor(
     private ventasproyectoService: VentasproyectoService,
@@ -43,16 +30,10 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-<<<<<<< HEAD
     this.obtenerVentas();
   }
   obtenerVentas(){
-=======
-    //this.obtenerColaborador();
-
->>>>>>> 2ef74529641582e9530113ebfaa5d88f828667e7
     this.activatedRoute.paramMap.subscribe(() => {
-
       this.ventasproyectoService.getVentasProyectos().subscribe(
         clientesJsonResponse => {
           this.ventasProyectoLista = clientesJsonResponse;
@@ -62,27 +43,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     });
 
   }
-/*
-  obtenerColaborador(){
-    this.activatedRoute.paramMap.subscribe(params => {
-      let page:number =+params.get('page');
-      if(!page){
-        page = 0
-      }
-      this.ventasproyectoService.getVentasProyectos(page).
-      subscribe((proyectoJsonReponse)=>{
-        this.proyectoLista=proyectoJsonReponse.content;
-        this.paginador = proyectoJsonReponse;
-        this.base = 'proyecto';
-      })
-    })
-  }*/
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
   menuToggle(){
     this.status = !this.status;
   }
