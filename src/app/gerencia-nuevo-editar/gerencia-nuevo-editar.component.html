@@ -36,20 +36,36 @@
 
 
             </div>
+            <div class="row">
+              <div class="col-xl-4"></div>
+              <div class="col-xl-4 col-md-9 col-md-offset-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="cliente-card-titulo"><strong>Nombres</strong></p>
+                        <p class="cliente-nombre"><strong>{{ clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</strong></p>
+                        <p class="cliente-numero"><strong>{{ clienteSeleccionado.nroDocumento }}</strong></p>
+                    </div>
+                </div>
+
+            </div>
+
+            </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-2">
+
+                <div class="col-sm-4 col-md-2">
                     <div class="form-group">
                         <label for="nombres">Fecha de inicio cargo</label>
                         <input type="date" class="form-control" id="nombres">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-4 col-md-2">
                     <div class="form-group">
                         <label for="nombres">Fecha de termino cargo</label>
                         <input type="date" class="form-control" id="nombres">
                     </div>
                 </div>
+
             </div>
 
             <div class="row">

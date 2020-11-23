@@ -45,6 +45,8 @@ import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmue
 import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 
+import { statusVentaservice } from './consulta-ventas/statusventa.service'
+
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
 import { RecordarContraseniaAvisoComponent } from './recordar-contrasenia-aviso/recordar-contrasenia-aviso.component'
@@ -212,6 +214,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     VentainmuebleService,
     PagosService,
     EstadocivilService,
+    statusVentaservice,
     TipodocumentoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
