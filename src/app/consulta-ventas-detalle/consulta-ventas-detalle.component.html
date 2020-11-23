@@ -21,10 +21,8 @@
                 <div class="col-sm-12 col-md-12 col-xl-2">
                     <div class="form-group">
                         <label for="status">Status</label>
-
-                        <select class="form-control" id="exampleFormControlSelect1">
-                          <option></option>
-
+                        <select class="form-control" name="statusventa"  id="exampleFormControlSelect1">
+                          <option [value]="items.idEstadoVenta" *ngFor="let items of tipoestado">{{items.nombre}}</option>
                         </select>
                     </div>
                 </div>
