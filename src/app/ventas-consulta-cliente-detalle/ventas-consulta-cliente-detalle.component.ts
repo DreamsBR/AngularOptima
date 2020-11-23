@@ -16,6 +16,15 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+
+import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
+
+interface EstadoVenta {
+  idEstadoVenta: number
+  enable: number
+  nombre: string
+}
+
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
   templateUrl: './ventas-consulta-cliente-detalle.component.html',
@@ -44,11 +53,26 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 250]
 
   // Objetos edit
+  modalPagoModeEdit: boolean = false
   modalPagoWarnings: string[] = []
   modalPagoErrores: string[] = []
   pagoModal: Pago = new Pago()
 
+  pagoToDelete: Pago = new Pago()
+
+  statusVentaTotal: number = 0
+
+  optionsTiposEstadoVenta: EstadoVenta[] = []
+  idEstadoVentaSelect: number = null
+
+  //
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
+  @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
+  @ViewChild('dpFMinuta', { static: true }) dpFMinuta: DatepickerRoundedComponent
+  @ViewChild('dpFDesembolso', { static: true }) dpFDesembolso: DatepickerRoundedComponent
+  @ViewChild('dpFEEP', { static: true }) dpFEEP: DatepickerRoundedComponent
+  @ViewChild('dpFCaida', { static: true }) dpFCaida: DatepickerRoundedComponent
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -62,48 +86,73 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.initFunctions()
   }
 
-  openSnackBar(message: string, action: string) {
+  actualizarVenta() {
+    console.log('Aplicando lógica de negocio...')
+
+    console.log('actualizar')
+    return
+    this.loading = true
+    this.vccdService.updateVenta(this.venta).subscribe(
+      (resp) => {
+        this.loading = false
+        // actualizando toda la pagina por seguridad
+        window.location.reload()
+      },
+      (err) => {
+        this.loading = false
+        this.errors = ['Hubo un problema recuperando información adicional de la venta']
+        console.log(err)
+      }
+    )
+  }
+
+  cambiarFecha() {
+    this.dpFSeparacion.setValue('')
+  }
+
+  openSnackBar(message: string, action: string, duration: number = 5000) {
     this._snackBar.open(message, action, {
-      duration: 5000,
+      duration: duration,
       panelClass: ['success-snackbar']
     })
   }
 
-  //onPagoModalChanged(newdate: string) {
-  //  this.formPagoFecha = newdate
-  //}
-
   limpiarFormulario() {
     this.modalPagoErrores = []
     this.modalPagoWarnings = []
-    ///this.formPagoNroRecibo = ''
-    ///this.formPagoMonto = ''
-    //this.formPagoFecha = ''
+    this.pagoModal = new Pago()
+    this.pagoModal.numeroOperacion = null
+    this.pagoModal.monto = null
   }
 
   btnPagoGuardar() {
-    console.log(this.pagoModal)
-
-    if (typeof this.pagoModal.monto === 'string') {
-      this.pagoModal.monto = parseFloat(this.pagoModal.monto)
-    }
-    console.log(this.pagoModal)
-    return
     if (
       this.pagoModal.fecha === '' ||
       this.pagoModal.monto === 0 ||
-      this.pagoModal.numeroOperacion === 0
+      this.pagoModal.monto === null ||
+      this.pagoModal.monto.toString() === '' ||
+      this.pagoModal.numeroOperacion === 0 ||
+      this.pagoModal.numeroOperacion === null ||
+      this.pagoModal.numeroOperacion.toString() === ''
     ) {
       this.modalPagoWarnings = ['Todos los campos deben ser completados']
     } else {
       this.loading = true
+      this.pagoModal.monto = parseFloat('' + this.pagoModal.monto)
       this.pagoModal.idVenta = this.paramIdVenta // API solo acepta en formato YYYY-MM-DD
       this.pagoModal.enable = 1
       this.pagoModal.pagado = 1
       this.pagoModal.porcentaje = ''
+      //console.log(this.pagoModal)
+      //return
+      let path = null
+      if (this.modalPagoModeEdit) {
+        path = this.pagosService.updatePago(this.pagoModal)
+      } else {
+        path = this.pagosService.postGuardarPago(this.pagoModal)
+      }
       document.getElementById('btnPagoClose').click()
-      console.log(this.pagoModal)
-      /* this.pagosService.postGuardarPago(regPago).subscribe(
+      path.subscribe(
         (_) => {
           this.loading = false
           this.openSnackBar('✓ Pago guardado', 'Cerrar')
@@ -114,35 +163,52 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           this.modalPagoErrores = ['Hubo un problema recuperando información adicional de la venta']
           console.log(err)
         }
-      ) */
+      )
     }
   }
 
   initFunctions() {
     this.paramIdVenta = parseInt(this.activatedRoute.snapshot.params.id)
 
-    const _self = this
-    _self.vccdService.fetchingInfoVenta(this.paramIdVenta).subscribe(
+    this.loading = true
+    this.vccdService.fetchingInfoVenta(this.paramIdVenta).subscribe(
       (resp) => {
-        _self.venta = resp.venta
-        _self.cliente = resp.cliente
-        _self.financiamiento = resp.financiamiento
-        _self.pago = resp.pago
+        this.venta = resp
+        this.cliente = resp.cliente
+        this.financiamiento = resp.financiamiento
+        this.pago = resp.pago
 
-        _self.getInfoExtra()
+        // Actualizando las fechas de Estado de Venta
+        this.dpFSeparacion.setValue(resp.fechaSeparacion)
+        this.dpFMinuta.setValue(resp.fechaMinuta)
+        this.dpFDesembolso.setValue(resp.fechaDesembolso)
+        this.dpFEEP.setValue(resp.fechaEpp)
+        this.dpFCaida.setValue(resp.fechaCaida)
+
+        // Set Status Venta Total
+        this.idEstadoVentaSelect = resp.estadoVenta.idEstadoVenta
 
         this.getInfoExtra().subscribe(
           (resp_extra) => {
+            let sumaPagos = 0
+            resp_extra[0].forEach((pago: any) => {
+              sumaPagos += pago.monto
+            })
+            this.statusVentaTotal = sumaPagos
             this.pagos = new MatTableDataSource<Pago>(resp_extra[0])
+            this.optionsTiposEstadoVenta = resp_extra[1]
+            this.loading = false
           },
           (e) => {
+            this.loading = false
             this.errors = ['Hubo un problema recuperando información adicional de la venta']
             console.log(e)
           }
         )
       },
       (error) => {
-        _self.errors = ['Hubo un problema recuperando la información de la venta']
+        this.loading = false
+        this.errors = ['Hubo un problema recuperando la información de la venta']
         console.log(error)
       }
     )
@@ -152,16 +218,20 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     console.log(newdate)
   }
 
-  getInfoVenta() {}
-
   getInfoExtra(): Observable<any[]> {
     let infoPagos = this.pagosService.getPagosByIdVenta(this.paramIdVenta)
-    return forkJoin([infoPagos])
+    let listaEstadoVenta = this.vccdService.getListaEstadosVenta()
+    return forkJoin([infoPagos, listaEstadoVenta])
   }
 
   refreshTablaPagos() {
     this.pagosService.getPagosByIdVenta(this.paramIdVenta).subscribe(
       (resp) => {
+        let sumaPagos = 0
+        resp.forEach((pago) => {
+          sumaPagos += pago.monto
+        })
+        this.statusVentaTotal = sumaPagos
         this.pagos = new MatTableDataSource<Pago>(resp)
       },
       (e) => {
@@ -169,6 +239,37 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         console.log(e)
       }
     )
+  }
+
+  menuToggle() {
+    this.status = !this.status
+  }
+
+  abrirModalAgregarPago() {
+    this.limpiarFormulario()
+    this.modalPagoModeEdit = false
+  }
+
+  setObjetoPagoEdit(editPagoObj) {
+    this.limpiarFormulario()
+    this.pagoModal = JSON.parse(JSON.stringify(editPagoObj))
+    this.pagoModal.fecha = this.pagoModal.fecha.substring(0, 10)
+    this.modalPagoModeEdit = true
+  }
+
+  setObjetoPagoDelete(pagoToDelete: Pago) {
+    this.pagoToDelete = new Pago()
+    this.pagoToDelete = pagoToDelete
+  }
+
+  eliminarPagoSeleccionado() {
+    this.loading = true
+    this.pagosService.deletePago(this.pagoToDelete).subscribe((_) => {
+      this.loading = false
+      document.getElementById('cerrarModalEliminarPago').click()
+      this.openSnackBar('✓ Pago eliminado con éxito', 'Cerrar', 1500)
+      this.refreshTablaPagos()
+    })
   }
 
   get formatNacimientoEdad(): string {
@@ -179,16 +280,5 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     } else {
       return '--'
     }
-  }
-
-  menuToggle() {
-    this.status = !this.status
-  }
-
-  setObjetoPagoEdit(editPagoObj) {
-    //console.log()
-    //this.limpiarFormulario()
-    //this.formPagoMonto = `${editPagoObj.monto}`
-    //this.formPagoMonto = `${editPagoObj.monto}`
   }
 }

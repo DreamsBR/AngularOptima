@@ -80,6 +80,8 @@ import { SelectDropdownComponent } from './select-dropdown/select-dropdown.compo
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
 
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
@@ -123,6 +125,12 @@ const ROUTES: Routes = [
   { path: 'periodos', component: PeriodosComponent },
   { path: 'periodo/page/:page', component: PeriodosComponent }
 ]
+
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+}
 
 @NgModule({
   declarations: [
@@ -183,7 +191,7 @@ const ROUTES: Routes = [
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    //NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(maskConfigFunction)
   ],
   providers: [
     ClienteService,
