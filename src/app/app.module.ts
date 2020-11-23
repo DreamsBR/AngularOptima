@@ -86,6 +86,7 @@ import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
+import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -174,7 +175,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     ReverseStr,
     FormatDate,
     FormatSoles,
-    Paginator2Component
+    Paginator2Component,
+    EstadosVentasComponent
   ],
   imports: [
     BrowserModule,

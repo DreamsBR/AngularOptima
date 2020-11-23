@@ -418,19 +418,29 @@
                   <datepicker-rounded
                     #dpFSeparacion
                     [label]="'Fecha de separación'"
+                    (onDateChanged)="onFechaSeparacionChanged($event)"
                   ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFMinuta
+                    [label]="'Fecha de minuta'"
+                    (onDateChanged)="onFechaMinutaChanged($event)"
+                  ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
                   <datepicker-rounded
                     #dpFDesembolso
                     [label]="'Fecha de desembolso'"
+                    (onDateChanged)="onFechaDesembolsoChanged($event)"
                   ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFEEP
+                    [label]="'Fecha de EEP'"
+                    (onDateChanged)="onFechaEEPChanged($event)"
+                  ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
@@ -443,7 +453,10 @@
 
               <div class="row">
                 <div class="col-sm-8 col-md-8">
-                  <h5 style="color: var(--primary)">Status</h5>
+                  <h5 style="color: var(--primary)">
+                    Status actual:
+                    {{ computedNombreStatusActual }}
+                  </h5>
                 </div>
 
                 <div class="col-sm-4 col-md-4" style="text-align: end">
@@ -461,7 +474,7 @@
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
-                    <label for="nombres">Status actual</label>
+                    <label for="nombres">Cambiar estado</label>
                     <select
                       [(ngModel)]="idEstadoVentaSelect"
                       class="form-control"
@@ -476,25 +489,45 @@
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
-                    <label for="nombres">Tipo de pago</label>
-                    <input type="text" class="form-control" id="nombres" />
+                    <label for="nombres">Porcentaje</label><br />
+                    {{ porcentajeFaltante }}
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-7">
                   <ol class="stw">
-                    <li class="current">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Inicio'
+                      }"
+                    >
                       <div class="stw-label">Inicio</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Separacion'
+                      }"
+                    >
                       <div class="stw-label">Separación</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Minuta'
+                      }"
+                    >
                       <div class="stw-label">Minuta</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Desembolso'
+                      }"
+                    >
                       <div class="stw-label">Desembolso</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'EEP'
+                      }"
+                    >
                       <div class="stw-label">EEPP</div>
                     </li>
                   </ol>
@@ -602,7 +635,7 @@
                       <div class="col-sm-12 col-md-2 offset-md-10">
                         <p><strong>Total</strong></p>
                         <p class="label-dato">
-                          <strong>{{ statusVentaTotal | formatSoles }}</strong>
+                          <strong>{{ sumaTotalPagos | formatSoles }}</strong>
                         </p>
                       </div>
                     </div>
@@ -693,7 +726,14 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" (click)="btnPagoGuardar()" class="btn btn-optima">Agregar</button>
+        <button
+          type="button"
+          (click)="btnPagoGuardar()"
+          class="btn btn-optima"
+          style="text-decoration: none"
+        >
+          Agregar
+        </button>
       </div>
     </div>
   </div>

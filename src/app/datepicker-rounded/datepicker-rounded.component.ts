@@ -31,6 +31,7 @@ export class DatepickerRoundedComponent implements OnInit {
         month: month,
         day: day
       }
+      this.onDateSelection(this.value)
     }
   }
 
@@ -39,7 +40,7 @@ export class DatepickerRoundedComponent implements OnInit {
       const day = ngbdate.day < 10 ? '0' + ngbdate.day : ngbdate.day
       const month = ngbdate.month < 10 ? '0' + ngbdate.month : ngbdate.month
       const year = ngbdate.year
-      const sendDateValue = `${day}-${month}-${year}`
+      const sendDateValue = `${year}-${month}-${day}`
       this.emitEventChange(sendDateValue)
     }
   }

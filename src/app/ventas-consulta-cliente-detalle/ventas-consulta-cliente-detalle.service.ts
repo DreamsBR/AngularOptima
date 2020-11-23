@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
 import { Cliente } from '../clientes/cliente'
-import { Venta } from '../ventas/venta'
+import { VentaNodos } from '../ventas/ventanodos'
 import { Financiamiento } from '../financiamientos/financiamiento'
 
 @Injectable()
@@ -20,34 +20,35 @@ export class VentaConsultaClienteDetalleService {
       .pipe(map((jsonReponse: any) => jsonReponse))
   }
 
-  updateVenta(venta: any): Observable<any> {
+  updateVenta(venta: VentaNodos): Observable<VentaNodos> {
     const paramVenta = JSON.parse(JSON.stringify(venta))
-    console.log(paramVenta)
-
     const upventa = {
-      ayudaInicial: venta.ayudaInicial,
-      descuento: venta.descuento,
-      enable: venta.enable,
-      fechaCaida: '',
-      fechaDesembolso: '',
-      fechaEpp: '',
-      fechaMinuta: '',
-      fechaSeparacion: '',
-      idCanal: venta.canal.idCanal,
-      idCategoria: venta.categoria.idCategoria,
-      idCliente: venta.cliente.idCliente,
-      idEstadoVenta: venta.estadoVenta.idEstadoVenta,
-      idFinanciamiento: venta.financiamiento.idFinanciamiento,
-      idMotivo: venta.motivo.idMotivo,
-      idProyecto: venta.idProyecto,
-      idVendedor: venta.vendedor.idVendedor,
-      idVenta: venta.idVenta,
-      importe: venta.importe,
-      total: venta.total
+      ayudaInicial: paramVenta.ayudaInicial,
+      descuento: paramVenta.descuento,
+      enable: paramVenta.enable,
+      fechaCaida: paramVenta.fechaCaida,
+      fechaDesembolso: paramVenta.fechaDesembolso,
+      fechaEpp: paramVenta.fechaEpp,
+      fechaMinuta: paramVenta.fechaMinuta,
+      fechaSeparacion: paramVenta.fechaSeparacion,
+      idCanal: paramVenta.canal.idCanal,
+      idCategoria: paramVenta.categoria.idCategoria,
+      idCliente: paramVenta.cliente.idCliente,
+      idEstadoVenta: paramVenta.estadoVenta.idEstadoVenta,
+      idFinanciamiento: paramVenta.financiamiento.idFinanciamiento,
+      idMotivo: paramVenta.motivo.idMotivo,
+      idProyecto: paramVenta.idProyecto,
+      idVendedor: paramVenta.vendedor.idVendedor,
+      idVenta: paramVenta.idVenta,
+      importe: paramVenta.importe,
+      total: paramVenta.total
     }
+    //console.log('Objeto upventa')
+    //console.log(upventa)
+    //return
     return this.http
       .put(this.urlEndPoint + 'venta/' + venta.idVenta, upventa)
-      .pipe(map((jsonReponse: any) => jsonReponse as Venta))
+      .pipe(map((jsonReponse: any) => jsonReponse as VentaNodos))
   }
 
   fetchingTipoVista(): Observable<any> {
