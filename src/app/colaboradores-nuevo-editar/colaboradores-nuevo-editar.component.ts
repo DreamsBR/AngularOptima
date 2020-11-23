@@ -41,12 +41,13 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         console.log(response)
         swal('Nuevo colaborador', `colaborador ${response.nombres} creado con exito`, 'success')
       },
-      (err) => {
-        this.errores = err.error.errors as string[]
-      }
-    )
-  }
+        err => {
+          this.errores = err.error.errors as string[];
+        }
+      );
+    }
 
+    /*
   regresar() {
     window.location.href = '/colaboradores'
   }
@@ -66,6 +67,5 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[];
         }
       );
-  }
-    */
+  }*/
 }

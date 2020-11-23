@@ -29,7 +29,6 @@ export class PeriodosComponent implements OnInit {
   constructor(
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     //public modalService: ModalService,
     public authService: AuthService
   ) {}
@@ -46,12 +45,16 @@ export class PeriodosComponent implements OnInit {
         page = 0
       }
 
-      this.periodoService.getPeriodos(page).subscribe((periodosJsonResponse) => {
-        this.periodosLista = periodosJsonResponse.content
-        this.paginador = periodosJsonResponse
-        this.base = 'periodo'
-      })
-    }) // end subscribe
+
+      this.periodoService.getPeriodos(page).subscribe(
+        periodosJsonResponse => {
+          this.periodosLista = periodosJsonResponse.content;
+          this.paginador = periodosJsonResponse;
+          this.base = "periodo";
+
+        }
+      );
+    });
 
   }
 
@@ -81,6 +84,10 @@ export class PeriodosComponent implements OnInit {
       })
 
     }
+
+
+
+
 
 
 

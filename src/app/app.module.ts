@@ -85,6 +85,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
+import { Paginator2Component } from './paginator2/paginator2.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -103,6 +104,8 @@ const ROUTES: Routes = [
 
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
+  { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
+
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
@@ -161,13 +164,17 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
+
+
+
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
     PagosComponent,
     ReverseStr,
     FormatDate,
-    FormatSoles
+    FormatSoles,
+    Paginator2Component
   ],
   imports: [
     BrowserModule,

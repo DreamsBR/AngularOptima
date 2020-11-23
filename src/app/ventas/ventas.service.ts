@@ -43,4 +43,15 @@ export class VentaService {
     )
   }
 
+  getVentasByProyecto(idProyecto, page): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
+      map((jsonVentasResponse: any) => {
+        ;(jsonVentasResponse.content as Venta[]).map((venta) => {
+          return venta
+        })
+        return jsonVentasResponse
+      })
+    )
+  }
+
 }

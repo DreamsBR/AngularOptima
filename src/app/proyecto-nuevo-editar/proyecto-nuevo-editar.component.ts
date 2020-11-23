@@ -105,15 +105,15 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   }
 
 
-/*ELIMINAR  VENTAS
-public eliminar(proyecto:Proyecto):void{
-  this.proyectoService.eliminarProyecto(proyecto.idProyecto).subscribe(
-    (response)=>
-    document.getElementById('cerrarModalEliminar').click()
-    this.ob
-  )
-}
-*/
+  /*ELIMINAR  VENTAS
+  public eliminar(proyecto:Proyecto):void{
+    this.proyectoService.eliminarProyecto(proyecto.idProyecto).subscribe(
+      (response)=>
+      document.getElementById('cerrarModalEliminar').click()
+      this.ob
+    )
+  }
+  */
 
 
 }

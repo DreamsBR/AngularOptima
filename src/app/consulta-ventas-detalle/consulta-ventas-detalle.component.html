@@ -4,6 +4,10 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
 
+            <div class="row">
+                <div class="col-sm-12 col-xl-11 col-md-5" >
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3 *ngFor="let proyec of proyectoLista">{{proyec.nombre}}</h3>
             <div class="row" >
                 <div class="col-sm-12 col-md-5"  >
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
@@ -63,9 +67,7 @@
 
                                 <th scope="col">Total de venta</th>
                                 <th scope="col">Estado</th>
-                                <th scope="col">Nº dpto</th>
-                                <th scope="col">Nº esta1'''''cionamiento</th>
-                                <th scope="col">Nº cochera</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -88,9 +90,7 @@
 
                                 <td>{{ventasProyecto.totalventa}}</td>
                                 <td>{{ventasProyecto.estado}}</td>
-                                <td>{{ventasProyecto.nro_dpto}}</td>
-                                <td>{{ventasProyecto.nro_estacionamiento}}</td>
-                                <td>{{ventasProyecto.nro_cochera}}</td>
+
                             </tr>
                         </tbody>
                     </table>

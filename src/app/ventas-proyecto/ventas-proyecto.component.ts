@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Ventasproyecto } from './Ventasproyecto'
+import { Venta } from './../ventas/venta'
+import { VentaService } from './../ventas/ventas.service'
 import { VentasproyectoService } from './ventasproyecto.service'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
@@ -10,7 +12,7 @@ import { Router } from '@angular/router'
   templateUrl: './ventas-proyecto.component.html'
 })
 export class VentasProyectoComponent implements OnInit {
-  status: boolean = false
+  
   ventasProyectoLista: Ventasproyecto[]
   idProyectoSeleted: number = 0
 
@@ -20,21 +22,39 @@ export class VentasProyectoComponent implements OnInit {
     private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private router: Router
+    private router: Router,
+    public VentaService: VentaService
   ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
     })
-
-    // this.activatedRoute.paramMap.subscribe(() => {
-    //   this.ventasproyectoService.getVentasProyectos(0).subscribe((clientesJsonResponse) => {
-    //     this.ventasProyectoLista = clientesJsonResponse
-    //   })
-    // })
+    this.obtenerVentas(this.paramIdProyecto)
   }
 
+  ventasLista: Venta[]
+  paginador: any
+  base: string
+  id: number
+
+  obtenerVentas(id: number) {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number =+ params.get('page')
+      if (!page) {
+        page = 0
+      }
+      this.VentaService.getVentasByProyecto(id, page).subscribe((
+        ventasJsonResponse) => {
+        this.ventasLista = ventasJsonResponse.content
+        this.paginador = ventasJsonResponse
+        this.base = 'ventas-proyecto'
+        this.id = this.paramIdProyecto
+      })
+    })
+  }
+
+  status: boolean = false
   menuToggle() {
     this.status = !this.status
   }
