@@ -20,6 +20,36 @@ export class VentaConsultaClienteDetalleService {
       .pipe(map((jsonReponse: any) => jsonReponse))
   }
 
+  updateVenta(venta: any): Observable<any> {
+    const paramVenta = JSON.parse(JSON.stringify(venta))
+    console.log(paramVenta)
+
+    const upventa = {
+      ayudaInicial: venta.ayudaInicial,
+      descuento: venta.descuento,
+      enable: venta.enable,
+      fechaCaida: '',
+      fechaDesembolso: '',
+      fechaEpp: '',
+      fechaMinuta: '',
+      fechaSeparacion: '',
+      idCanal: venta.canal.idCanal,
+      idCategoria: venta.categoria.idCategoria,
+      idCliente: venta.cliente.idCliente,
+      idEstadoVenta: venta.estadoVenta.idEstadoVenta,
+      idFinanciamiento: venta.financiamiento.idFinanciamiento,
+      idMotivo: venta.motivo.idMotivo,
+      idProyecto: venta.idProyecto,
+      idVendedor: venta.vendedor.idVendedor,
+      idVenta: venta.idVenta,
+      importe: venta.importe,
+      total: venta.total
+    }
+    return this.http
+      .put(this.urlEndPoint + 'venta/' + venta.idVenta, upventa)
+      .pipe(map((jsonReponse: any) => jsonReponse as Venta))
+  }
+
   fetchingTipoVista(): Observable<any> {
     return this.http.get(this.urlEndPoint + 'tipovista/').pipe()
   }
@@ -38,5 +68,11 @@ export class VentaConsultaClienteDetalleService {
     return this.http
       .get(this.urlEndPoint + 'financiamiento/' + idFinanciamiento)
       .pipe(map((jsonReponse: any) => jsonReponse as Financiamiento))
+  }
+
+  getListaEstadosVenta(): Observable<any> {
+    return this.http
+      .get(this.urlEndPoint + 'estadoventa/')
+      .pipe(map((jsonReponse: any) => jsonReponse))
   }
 }

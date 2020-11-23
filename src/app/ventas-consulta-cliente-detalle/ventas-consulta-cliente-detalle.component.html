@@ -415,20 +415,26 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                  <datepicker-rounded [label]="'Fecha de separación'"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFSeparacion
+                    [label]="'Fecha de separación'"
+                  ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded [label]="'Fecha de minuta'"></datepicker-rounded>
+                  <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'"></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                  <datepicker-rounded [label]="'Fecha de desembolso'"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFDesembolso
+                    [label]="'Fecha de desembolso'"
+                  ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded [label]="'Fecha de EEP'"></datepicker-rounded>
+                  <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'"></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
-                    [value]="svFechaCaida"
+                    #dpFCaida
                     [label]="'Fecha de caída'"
                     (onDateChanged)="onFechaCaidaChanged($event)"
                   ></datepicker-rounded>
@@ -436,8 +442,19 @@
               </div>
 
               <div class="row">
-                <div class="col-sm-12 col-md-12">
-                  <h5 style="color: black">Status</h5>
+                <div class="col-sm-8 col-md-8">
+                  <h5 style="color: var(--primary)">Status</h5>
+                </div>
+
+                <div class="col-sm-4 col-md-4" style="text-align: end">
+                  <button
+                    type="button"
+                    class="btn btn-optima"
+                    (click)="actualizarVenta()"
+                    style="text-decoration: none"
+                  >
+                    Guardar
+                  </button>
                 </div>
               </div>
 
@@ -445,7 +462,16 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
                     <label for="nombres">Status actual</label>
-                    <select class="form-control" id="exampleFormControlSelect1"></select>
+                    <select
+                      [(ngModel)]="idEstadoVentaSelect"
+                      class="form-control"
+                      id="iptTipoEstadoVenta"
+                    >
+                      <option [ngValue]="0">-- Seleccionar --</option>
+                      <option *ngFor="let o of optionsTiposEstadoVenta" [ngValue]="o.idEstadoVenta">
+                        {{ o.nombre }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
@@ -474,7 +500,7 @@
                   </ol>
                 </div>
               </div>
-
+              <hr />
               <div class="row">
                 <div class="col-sm-12 col-md-5">
                   <h3>Pagos</h3>
@@ -482,7 +508,7 @@
                 <div class="col-sm-12 col-md-7 text-right">
                   <a
                     id="#btnAgregarPago"
-                    (click)="limpiarFormulario()"
+                    (click)="abrirModalAgregarPago()"
                     data-toggle="modal"
                     data-target="#modal-gestion-pago"
                     ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
@@ -502,7 +528,7 @@
                     style="width: 100%; margin-top: 20px"
                   >
                     <ng-container matColumnDef="editar">
-                      <th mat-header-cell *matHeaderCellDef>Editar</th>
+                      <th mat-header-cell *matHeaderCellDef style="max-width: 150px">Editar</th>
                       <td mat-cell *matCellDef="let element">
                         <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                         <div class="dropdown-menu dropdown-menu-left">
@@ -520,6 +546,7 @@
                             type="button"
                             data-toggle="modal"
                             data-target="#modal-eliminar-pago"
+                            (click)="setObjetoPagoDelete(element)"
                           >
                             <em class="far fa-trash-alt"></em> Eliminar
                           </button>
@@ -538,8 +565,10 @@
                     </ng-container>
 
                     <ng-container matColumnDef="monto">
-                      <th mat-header-cell *matHeaderCellDef>Monto</th>
-                      <td mat-cell *matCellDef="let element">{{ element.monto }}</td>
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Monto</th>
+                      <td mat-cell *matCellDef="let element" style="text-align: end">
+                        {{ element.monto | formatSoles }}
+                      </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="fieldsTblPagos"></tr>
@@ -556,100 +585,14 @@
                     -- No hay resultados --
                   </div>
 
-                  <mat-paginator
+                  <!-- <mat-paginator
                     [length]="totalData"
                     [pageIndex]="pageIndex"
                     [pageSize]="pageSize"
                     showFirstLastButtons
                     class="ptproy"
-                  ></mat-paginator>
+                  ></mat-paginator> -->
                 </div>
-              </div>
-
-              <div class="row">
-                <table class="table">
-                  <caption>
-                    tabla
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-center">Editar</th>
-                      <th scope="col">Nº recibo</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Monto</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-gestion-pago"
-                          >
-                            <em class="far fa-edit"></em> Editars
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-pago"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
 
               <div class="row">
@@ -658,7 +601,9 @@
                     <div class="card-body">
                       <div class="col-sm-12 col-md-2 offset-md-10">
                         <p><strong>Total</strong></p>
-                        <p class="label-dato"><strong>S/. 30,000.00</strong></p>
+                        <p class="label-dato">
+                          <strong>{{ statusVentaTotal | formatSoles }}</strong>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -670,33 +615,6 @@
       </div>
 
       <br />
-    </div>
-  </div>
-</div>
-
-<div id="modal-eliminar-pago" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Eliminar cliente</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>¿Seguro que deseas eliminar el registro?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-optima">Confirmar</button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-          id="cerrarModalEliminar"
-        >
-          Cancelar
-        </button>
-      </div>
     </div>
   </div>
 </div>
@@ -745,7 +663,9 @@
           <div class="col-6">
             <input
               [(ngModel)]="pagoModal.numeroOperacion"
-              type="text"
+              matInput
+              mask="00000000000000"
+              style="border: 1px solid gray"
               placeholder="Nro de recibo"
             />
           </div>
@@ -761,12 +681,55 @@
         </div>
         <div class="row">
           <div class="col-6">
-            <input [(ngModel)]="pagoModal.monto" type="text" placeholder="Monto" />
+            <input
+              [(ngModel)]="pagoModal.monto"
+              matInput
+              mask="separator.2"
+              thousandSeparator=","
+              style="border: 1px solid gray"
+              placeholder="Monto"
+            />
           </div>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" (click)="btnPagoGuardar()" class="btn btn-optima">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-pago" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el siguiente pago?</p>
+        <p>
+          Nro. Recibo: <b>{{ pagoToDelete.numeroOperacion }}</b
+          ><br />
+          Monto: <b>{{ pagoToDelete.monto }}</b
+          ><br />
+          Fecha: <b>{{ pagoToDelete.fecha | formatDate }}</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarPago"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
