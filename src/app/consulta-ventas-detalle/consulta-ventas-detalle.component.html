@@ -4,10 +4,7 @@
     <div id="page-content-wrapper">
         <div class="container-fluid">
 
-            <div class="row">
-                <div class="col-sm-12 col-xl-11 col-md-5" >
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3 *ngFor="let proyec of proyectoLista">{{proyec.nombre}}</h3>
+
             <div class="row" >
                 <div class="col-sm-12 col-md-5"  >
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
@@ -21,26 +18,35 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-12 col-md-12 col-xl-2">
                     <div class="form-group">
-                        <label for="apellidos">Status</label>
+                        <label for="status">Status</label>
+
                         <select class="form-control" id="exampleFormControlSelect1">
+                          <option></option>
 
                         </select>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group">
-                        <label for="apellidos">Desde</label>
+
+                  <div class="col-sm-12 col-xl-2  col-md-6">
+                      <div class="form-group">
+                          <label for="fechanacimiento">Desde</label>
+                          <datepicker-rounded
+                          [label]="'Fecha'"
+                          ></datepicker-rounded>
+                      </div>
+                  </div>
 
 
-                        <input type="date" class="form-control" form='control class' [(ngModel)]="sortDesde">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-2">
+
+
+                  <div class="col-sm-12 col-xl-2  col-md-6">
                     <div class="form-group">
-                        <label for="apellidos">Hasta</label>
-                        <input type="date" class="form-control" [(ngModel)]="sortHasta">
+                        <label for="fechanacimiento">Hasta</label>
+                        <datepicker-rounded
+                        [label]="'Fecha'"
+                        ></datepicker-rounded>
                     </div>
                 </div>
             </div>
