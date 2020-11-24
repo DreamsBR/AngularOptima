@@ -93,6 +93,7 @@ import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
 import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
+import { ReportesComponent } from './reportes/reportes.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -133,7 +134,9 @@ const ROUTES: Routes = [
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
-  { path: 'periodo/page/:page', component: PeriodosComponent }
+  { path: 'periodo/page/:page', component: PeriodosComponent },
+
+  { path: 'reportes', component: ReportesComponent }
 ]
 
 const maskConfigFunction: () => Partial<IConfig> = () => {
@@ -185,7 +188,8 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     FormatDate,
     FormatSoles,
     Paginator2Component,
-    EstadosVentasComponent
+    EstadosVentasComponent,
+    ReportesComponent
   ],
   imports: [
     BrowserModule,

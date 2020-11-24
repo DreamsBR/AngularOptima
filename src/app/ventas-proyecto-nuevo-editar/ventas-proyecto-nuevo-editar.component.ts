@@ -303,43 +303,51 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     }
 
     if(this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null){
-      swal('Seleccione un tipo de credito', '', 'warning')
-      return
+      // swal('Seleccione un tipo de credito', '', 'warning')
+      this.tipocreditoSeleccionado = 0
+      // return
     }
 
     if(this.bono == 0 || this.bono == null){
-      swal('Ingrese un bono', '', 'warning')
-      return
+      // swal('Ingrese un bono', '', 'warning')
+      this.bono = 0
+      // return
     }
 
     if(this.afp == 0 || this.afp == null){
-      swal('Ingrese AFP', '', 'warning')
-      return
+      // swal('Ingrese AFP', '', 'warning')
+      this.afp = 0
+      // return
     }
 
     if(this.bancoSeleccionado == 0 || this.bancoSeleccionado == null){
-      swal('Seleccione un banco', '', 'warning')
-      return
+      // swal('Seleccione un banco', '', 'warning')
+      this.bancoSeleccionado = 0
+      // return
     }
 
     if(this.asesor == '' || this.asesor == null){
-      swal('Ingrese el nombre del asesor', '', 'warning')
-      return
+      // swal('Ingrese el nombre del asesor', '', 'warning')
+      this.asesor = ''
+      // return
     }
 
     if(this.ahorro == 0 || this.ahorro == null){
-      swal('Ingrese un porcentaje de ahorro', '', 'warning')
-      return
+      // swal('Ingrese un porcentaje de ahorro', '', 'warning')
+      this.ahorro = 0
+      // return
     }
 
     if(this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null){
-      swal('Seleccione una fecha de inicio de ahorro', '', 'warning')
-      return
+      // swal('Seleccione una fecha de inicio de ahorro', '', 'warning')
+      this.fechaInicioAhorro = ''
+      // return
     }
 
     if(this.fechaFinAhorro == '' || this.fechaFinAhorro == null){
-      swal('Seleccione una fecha de fin de ahorro', '', 'warning')
-      return
+      // swal('Seleccione una fecha de fin de ahorro', '', 'warning')
+      this.fechaInicioAhorro = ''
+      // return
     }
 
     console.info("guardar financiamiento")
@@ -388,11 +396,11 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idVendedor = 2 // id vendedor logueado
 
     this.venta.enable = 1
-    this.venta.fechaCaida = "1900-01-01T21:53:55.766Z"
-    this.venta.fechaDesembolso = "1900-01-01T21:53:55.766Z"
-    this.venta.fechaEpp = "1900-01-01T21:53:55.766Z"
-    this.venta.fechaMinuta = "1900-01-01T21:53:55.766Z"
-    this.venta.fechaSeparacion = "1900-01-01T21:53:55.766Z"
+    this.venta.fechaCaida = ""
+    this.venta.fechaDesembolso = ""
+    this.venta.fechaEpp = ""
+    this.venta.fechaMinuta = ""
+    this.venta.fechaSeparacion = ""
 
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idEstadoVenta = 1
