@@ -7,6 +7,7 @@ import { Estadocivil } from './../clientes/estadocivil'
 import { EstadocivilService } from './../clientes/estadocivil.service'
 import { Tipodocumento } from './tipodocumento'
 import { TipodocumentoService } from './tipodocumento.service'
+import { isNull } from 'util'
 
 @Component({
   selector: 'app-clientes-nuevo-editar',
@@ -17,6 +18,8 @@ export class ClientesNuevoEditarComponent implements OnInit {
   public cliente: Cliente = new Cliente()
   public errores: string[]
   public idCliente: number
+  public nrodoc: string
+  public idproyecto: number
 
   estadocivil: Estadocivil[]
   tipodocumento: Tipodocumento[]
@@ -32,6 +35,8 @@ export class ClientesNuevoEditarComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.idCliente = parseInt(params.get('id'))
+      this.nrodoc = (params.get('nrodoc'))
+      this.idproyecto = parseInt(params.get('idproyecto'))
     })
     if(this.idCliente != 0){
       this.clienteService.obtenerClientesPorId(this.idCliente).subscribe(
@@ -45,6 +50,12 @@ export class ClientesNuevoEditarComponent implements OnInit {
     }else{
       this.cliente.idCliente = 0
       this.cliente.idPais = 1
+
+      if(this.nrodoc != ''){
+        this.cliente.idTipoDocumento = 1
+        this.cliente.nroDocumento = this.nrodoc
+      }
+
     }
     this.obtenerEstadoCivil()
     this.obtenerTipoDocumento()
@@ -70,11 +81,19 @@ export class ClientesNuevoEditarComponent implements OnInit {
       swal('Campos Incompletos de Cliente', '','error')
       return
     }
+
+    this.clienteFechanacimiento(this.cliente.fechaNacimiento);
+
     if(this.cliente.idCliente == 0){
       this.clienteService.agregarCliente(this.cliente).subscribe(
         (response) => {
-          this.router.navigate(['/clientes'])
-          swal('Nuevo cliente', `Cliente ${response.nombres} creado con exito`, 'success')
+          if(!isNull(this.nrodoc)){
+            this.router.navigate(['/ventas-proyecto-nuevo-editar/' + this.idproyecto + '/' + response.nroDocumento])
+            swal('Nuevo cliente', `Cliente ${response.nombres} creado con exito`, 'success')
+          }else{
+            this.router.navigate(['/clientes'])
+            swal('Nuevo cliente', `Cliente ${response.nombres} creado con exito`, 'success')
+          }
         },
         (err) => {
           this.errores = err.error.errors as string[]

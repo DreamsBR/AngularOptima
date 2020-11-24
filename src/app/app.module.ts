@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { ProyectoVentaService } from './consulta-ventas-detalle/ProyectoVentas.service'
 import { ColaboradorService } from './colaboradores/colaborador.service'
 import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
@@ -71,6 +72,9 @@ import { InmueblesComponent } from './inmuebles/inmuebles.component'
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component'
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
+import { GerenciaService } from './gerencias/gerencia.service'
+
+
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component'
 import { PeriodosComponent } from './periodos/periodos.component'
@@ -105,12 +109,15 @@ const ROUTES: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'cliente/page/:page', component: ClientesComponent },
   { path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent },
-
+  { path: 'cliente-nuevo-editar/:id/:nrodoc/:idproyecto', component: ClientesNuevoEditarComponent },
+            
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
+  { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
+
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
   { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },
