@@ -8,7 +8,14 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <h3>Cliente ALBERTO ARMENDARIZ ARTURIAZ</h3>
+          <button
+            (click)="regresar()"
+            class="btn btn-optima btn-sm"
+            style="margin-right: 10px; display: inline; margin-top: -7px"
+          >
+            <em class="fas fa-chevron-left"></em>
+          </button>
+          <h3 style="display: inline">Cliente ALBERTO ARMENDARIZ ARTURIAZ</h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
@@ -329,15 +336,15 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-                          <p>{{ financiamiento.porcCuotaInicial }}</p>
+                          <p>{{ financiamiento.porcCuotaInicial }} %</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-                          <p>{{ financiamiento.nomtoCuotaInicial }}</p>
+                          <p>{{ financiamiento.nomtoCuotaInicial | formatSoles }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Financiamiento</p>
-                          <p>{{ financiamiento.financiamiento }}</p>
+                          <p>{{ financiamiento.financiamiento | formatSoles }}</p>
                         </div>
                       </div>
 

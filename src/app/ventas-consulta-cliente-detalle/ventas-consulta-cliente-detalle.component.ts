@@ -555,4 +555,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
     return name
   }
+
+  regresar() {
+    console.log('regresar')
+  }
 }
