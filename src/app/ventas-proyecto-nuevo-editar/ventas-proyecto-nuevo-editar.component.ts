@@ -266,11 +266,15 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.idTipoCredito = this.tipocreditoSeleccionado
     this.financiamiento.enable = 1
 
-    let ff = this.fechaFinAhorro.split("-");
-    this.financiamiento.fechaFinAhorro = ( ff[2] + '-' + ff[1] + '-' + ff[0] )
+    //console.info( this.fechaFinAhorro );
 
-    let fi = this.fechaInicioAhorro.split("-");
-    this.financiamiento.fechaInicioAhorro = ( fi[2] + '-' + fi[1] + '-' + fi[0] )
+    //let ff = this.fechaFinAhorro.split("-");
+    //this.financiamiento.fechaFinAhorro = ( ff[2] + '-' + ff[1] + '-' + ff[0] )
+    this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
+
+    //let fi = this.fechaInicioAhorro.split("-");
+    //this.financiamiento.fechaInicioAhorro = ( fi[2] + '-' + fi[1] + '-' + fi[0] )
+    this.financiamiento.fechaFinAhorro = this.fechaInicioAhorro
 
     this.financiamiento.idEstadoFinanciamiento = 1
 
@@ -306,6 +310,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idEstadoVenta = 1
     this.venta.idFinanciamiento = idFinanciamiento
+    this.venta.idProyecto = this.paramIdProyecto
 
     this.venta.idMotivo = this.motivoSeleccionado
     this.venta.idCanal = this.canalSeleccionado
@@ -383,6 +388,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
+
+    this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
+    swal('Venta registrada correctamente', '', 'success')
+
   }
 
   status = false
