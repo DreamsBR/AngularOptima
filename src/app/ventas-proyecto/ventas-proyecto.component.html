@@ -39,8 +39,8 @@
                                         <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.nombres}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.apellidos}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos}}</a></td>
                                 <td>{{ventasProyecto.cliente.nroDocumento}}</td>
                                 <td>{{ventasProyecto.total}}</td>
                                 <td>{{ventasProyecto.estadoVenta.nombre}}</td>
