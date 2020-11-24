@@ -80,6 +80,40 @@
           <b>Metas y ventas alcanzadas por proyecto</b>
         </div>
       </div>
+      <div class="row mt-4">
+        <div class="col-sm-12 col-md-6">
+          <apx-chart
+            #mychart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions"
+            [xaxis]="chartOptions.xaxis"
+          ></apx-chart>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <apx-chart
+            #mychart
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions"
+            [xaxis]="chartOptions.xaxis"
+          ></apx-chart>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <apx-chart
+            #mychart2
+            [series]="chartOptions.series"
+            [chart]="chartOptions.chart"
+            [dataLabels]="chartOptions.dataLabels"
+            [plotOptions]="chartOptions.plotOptions"
+            [xaxis]="chartOptions.xaxis"
+          ></apx-chart>
+        </div>
+      </div>
     </div>
   </div>
 </div>
