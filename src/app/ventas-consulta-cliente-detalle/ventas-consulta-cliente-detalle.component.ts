@@ -557,6 +557,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   regresar() {
-    console.log('regresar')
+    window.history.back()
   }
 }
