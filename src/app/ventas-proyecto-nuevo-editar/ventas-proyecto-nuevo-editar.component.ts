@@ -306,6 +306,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idEstadoVenta = 1
     this.venta.idFinanciamiento = idFinanciamiento
+    this.venta.idProyecto = this.paramIdProyecto
 
     this.venta.idMotivo = this.motivoSeleccionado
     this.venta.idCanal = this.canalSeleccionado
@@ -383,6 +384,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
+
+    this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
+    swal('Venta registrada correctamente', '', 'success')
+
   }
 
   status = false
