@@ -9,6 +9,9 @@ import { VentaConsultaClienteDetalleService } from './../ventas-consulta-cliente
 import { forkJoin, Observable } from 'rxjs';
 import { estadoventa } from '../consulta-ventas/estadoventa';
 import { statusVentaservice } from '../consulta-ventas/statusventa.service';
+import { VentaService } from '../ventas/ventas.service';
+import { Venta } from '../ventas/venta';
+
 @Component({
   selector: 'app-consulta-ventas-detalle',
   templateUrl: './consulta-ventas-detalle.component.html'
@@ -24,29 +27,44 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   sortDesde: string = ''
   sortHasta: string = ''
   tipoestado : estadoventa[]
+  ventasLista: Venta[]
+  base:string
+  paginator:any
+  id: number
+  paramIdProyecto: number
+
   constructor(
     private estadoventa : statusVentaservice,
     private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
+    private ventaServi : VentaService,
     public authService: AuthService,
     public router: Router,
+
   ) { }
 
   ngOnInit() {
-    this.obtenerVentas();
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.paramIdProyecto = parseInt(params.get('id'))
+    })
+    this.obtenerVentasProyecto(this.paramIdProyecto)
 
   }
 
-  obtenerVentas(){
-    this.activatedRoute.paramMap.subscribe(() => {
-      this.ventasproyectoService.getVentasProyectos().subscribe(
-        clientesJsonResponse => {
-          this.ventasProyectoLista = clientesJsonResponse;
-        }
-      );
-
-    });
-    this.obtenerEstadoVentas()
+  obtenerVentasProyecto(id:number){
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number =+ params.get('page')
+      if(!page){
+        page = 0
+      }
+      this.ventaServi.getVentasByProyecto(id, name).subscribe((
+        ventasJsonResponse) => {
+          this.ventasLista = ventasJsonResponse.content
+          this.paginator = ventasJsonResponse
+          this.base = 'consulta-ventas-detalle'
+          this.id = this.paramIdProyecto
+        })
+    })
 
   }
 

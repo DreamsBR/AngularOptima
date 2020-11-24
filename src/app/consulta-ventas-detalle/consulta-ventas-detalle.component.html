@@ -75,25 +75,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let ventasProyecto of ventasProyectoLista">
+                            <tr *ngFor="let ventasProyecto of ventasLista">
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.idCliente]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.nombre}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.apepaterno}} {{ventasProyecto.apematerno}}</a></td>
-                                <td>{{ventasProyecto.codigo}}</td>
-
-                                <td>02/11/2020</td>
-                                <td>02/11/2020</td>
-                                <td>02/11/2020</td>
-                                <td>02/11/2020</td>
-                                <td>02/11/2020</td>
-
-                                <td>{{ventasProyecto.totalventa}}</td>
-                                <td>{{ventasProyecto.estado}}</td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.idCliente.nombre}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}} {{ventasProyecto.cliente.apellidos}}</a></td>
+                                <td>{{ventasProyecto.cliente.nroDocumento}}</td>
+                                <td>{{ventasProyecto.total}}</td>
+                                <td>{{ventasProyecto.estadoVenta.nombre}}</td>
 
                             </tr>
                         </tbody>
