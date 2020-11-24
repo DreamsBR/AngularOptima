@@ -71,6 +71,9 @@ import { InmueblesComponent } from './inmuebles/inmuebles.component'
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component'
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
+import { GerenciaService } from './gerencias/gerencia.service'
+
+
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component'
 import { PeriodosComponent } from './periodos/periodos.component'
