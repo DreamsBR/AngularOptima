@@ -44,11 +44,11 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
     })
     this.obtenerVentasProyecto(this.paramIdProyecto)
-
   }
 
   obtenerVentasProyecto(id:number){
