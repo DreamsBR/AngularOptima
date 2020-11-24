@@ -104,12 +104,15 @@ const ROUTES: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'cliente/page/:page', component: ClientesComponent },
   { path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent },
-
+  { path: 'cliente-nuevo-editar/:id/:nrodoc/:idproyecto', component: ClientesNuevoEditarComponent },
+            
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
+  { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
+
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
   { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },

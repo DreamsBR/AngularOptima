@@ -33,6 +33,7 @@ import { VentaService } from './../ventas/ventas.service'
 
 import { Ventainmueble } from './ventainmueble'
 import { VentainmuebleService } from './ventasinmueble.service'
+import { isNull } from 'util'
 
 @Component({
   selector: 'app-ventas-proyecto-nuevo-editar',
@@ -102,6 +103,11 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
+      if(!isNull(params.get('dni'))){
+        console.info(params.get('dni'))
+        this.nrodoc = params.get('dni')
+        this.obtenerClienteSeleccionado(params.get('dni'))
+      }
     })
 
     this.clienteSeleccionado.idCliente = 0
@@ -116,6 +122,16 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.obtenerCanal()
     this.obtenerMotivo()
     this.obtenerCategoria()
+  }
+  
+  agregarCliente(nrodoc: string){
+    console.info(nrodoc);
+    if(nrodoc == '' || nrodoc == undefined){
+      swal('No hizo una busqueda de cliente', '', 'warning')
+      return
+    }
+
+    this.router.navigate(['/cliente-nuevo-editar/0/' + nrodoc + '/' + this.paramIdProyecto])
   }
 
   onFechaInicioAhorro(newdate: string) {
@@ -255,6 +271,77 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   bono: number
 
   guardarFinanciamiento(){
+
+    if(this.clienteSeleccionado.idCliente == 0){
+      swal('No se selecciono ningun cliente', '', 'warning')
+      return
+    }
+
+    if(this.departamentosAgregados.length == 0){
+      swal('No hay departamentos agregados', '', 'warning')
+      return
+    }
+
+    if(this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null){
+      swal('Ingrese la cuota inicial', '', 'warning')
+      return
+    }
+
+    if(this.motivoSeleccionado == 0 || this.motivoSeleccionado == null){
+      swal('Seleccione un motivo', '', 'warning')
+      return
+    }
+
+    if(this.canalSeleccionado == 0 || this.canalSeleccionado == null){
+      swal('Seleccione un canal', '', 'warning')
+      return
+    }
+
+    if(this.categoriaSeleccionado == 0 || this.categoriaSeleccionado == null){
+      swal('Seleccione una categoria', '', 'warning')
+      return
+    }
+
+    if(this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null){
+      swal('Seleccione un tipo de credito', '', 'warning')
+      return
+    }
+
+    if(this.bono == 0 || this.bono == null){
+      swal('Ingrese un bono', '', 'warning')
+      return
+    }
+
+    if(this.afp == 0 || this.afp == null){
+      swal('Ingrese AFP', '', 'warning')
+      return
+    }
+
+    if(this.bancoSeleccionado == 0 || this.bancoSeleccionado == null){
+      swal('Seleccione un banco', '', 'warning')
+      return
+    }
+
+    if(this.asesor == '' || this.asesor == null){
+      swal('Ingrese el nombre del asesor', '', 'warning')
+      return
+    }
+
+    if(this.ahorro == 0 || this.ahorro == null){
+      swal('Ingrese un porcentaje de ahorro', '', 'warning')
+      return
+    }
+
+    if(this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null){
+      swal('Seleccione una fecha de inicio de ahorro', '', 'warning')
+      return
+    }
+
+    if(this.fechaFinAhorro == '' || this.fechaFinAhorro == null){
+      swal('Seleccione una fecha de fin de ahorro', '', 'warning')
+      return
+    }
+
     console.info("guardar financiamiento")
 
     this.financiamiento.idFinanciamiento = 0
