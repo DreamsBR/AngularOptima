@@ -36,6 +36,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.obtenerVentas();
 
   }
+
   obtenerVentas(){
     this.activatedRoute.paramMap.subscribe(() => {
       this.ventasproyectoService.getVentasProyectos().subscribe(

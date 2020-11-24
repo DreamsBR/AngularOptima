@@ -24,6 +24,7 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { ProyectoVentaService } from './consulta-ventas-detalle/ProyectoVentas.service'
 import { ColaboradorService } from './colaboradores/colaborador.service'
 import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'

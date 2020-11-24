@@ -8,6 +8,8 @@ import { Venta } from './venta'
 
 
 
+
+
 @Injectable()
 export class ConsultaVentaService {
   private urlEndPoint : string = URL_BACKEND + 'venta/'
