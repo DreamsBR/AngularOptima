@@ -37,4 +37,9 @@ export class GerenciaNuevoEditarComponent implements OnInit {
       }
     })
   }
+
+
+
+
+
 }
