@@ -38,8 +38,10 @@ export class ColaboradorService {
                 return throwError(e);
             }
             })
-        );
+        );1
         }
 
-
+    obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
+      return this.http.get<Colaborador>(this.urlEndPoint + 'nroDocumento/' + nrdoc)
+    }
 }

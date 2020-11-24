@@ -5,7 +5,10 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../proyectos/proyecto';
-
+import { VentaConsultaClienteDetalleService } from './../ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service';
+import { forkJoin, Observable } from 'rxjs';
+import { estadoventa } from '../consulta-ventas/estadoventa';
+import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 @Component({
   selector: 'app-consulta-ventas-detalle',
   templateUrl: './consulta-ventas-detalle.component.html'
@@ -20,9 +23,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ventasProyectoLista: Ventasproyecto[];
   sortDesde: string = ''
   sortHasta: string = ''
-
-
+  tipoestado : estadoventa[]
   constructor(
+    private estadoventa : statusVentaservice,
     private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
@@ -31,6 +34,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerVentas();
+
   }
   obtenerVentas(){
     this.activatedRoute.paramMap.subscribe(() => {
@@ -41,9 +45,17 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       );
 
     });
+    this.obtenerEstadoVentas()
 
   }
 
+
+  public obtenerEstadoVentas(){
+    this.estadoventa.getEstadoVenta().subscribe((response)=> {
+      this.tipoestado = response
+      console.info(this.estadoventa)
+    })
+  }
 
 
   menuToggle(){

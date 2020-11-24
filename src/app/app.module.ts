@@ -45,6 +45,8 @@ import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmue
 import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 
+import { statusVentaservice } from './consulta-ventas/statusventa.service'
+
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
 import { RecordarContraseniaAvisoComponent } from './recordar-contrasenia-aviso/recordar-contrasenia-aviso.component'
@@ -80,10 +82,13 @@ import { SelectDropdownComponent } from './select-dropdown/select-dropdown.compo
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
 
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
+import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -123,6 +128,12 @@ const ROUTES: Routes = [
   { path: 'periodos', component: PeriodosComponent },
   { path: 'periodo/page/:page', component: PeriodosComponent }
 ]
+
+const maskConfigFunction: () => Partial<IConfig> = () => {
+  return {
+    validation: false,
+  };
+}
 
 @NgModule({
   declarations: [
@@ -166,7 +177,8 @@ const ROUTES: Routes = [
     ReverseStr,
     FormatDate,
     FormatSoles,
-    Paginator2Component
+    Paginator2Component,
+    EstadosVentasComponent
   ],
   imports: [
     BrowserModule,
@@ -183,7 +195,7 @@ const ROUTES: Routes = [
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    //NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(maskConfigFunction)
   ],
   providers: [
     ClienteService,
@@ -204,6 +216,7 @@ const ROUTES: Routes = [
     VentainmuebleService,
     PagosService,
     EstadocivilService,
+    statusVentaservice,
     TipodocumentoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

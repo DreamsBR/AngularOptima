@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
 import { Cliente } from '../clientes/cliente'
-import { Venta } from '../ventas/venta'
+import { VentaNodos } from '../ventas/ventanodos'
 import { Financiamiento } from '../financiamientos/financiamiento'
 
 @Injectable()
@@ -18,6 +18,37 @@ export class VentaConsultaClienteDetalleService {
     return this.http
       .get(this.urlEndPoint + 'venta/' + idVenta)
       .pipe(map((jsonReponse: any) => jsonReponse))
+  }
+
+  updateVenta(venta: VentaNodos): Observable<VentaNodos> {
+    const paramVenta = JSON.parse(JSON.stringify(venta))
+    const upventa = {
+      ayudaInicial: paramVenta.ayudaInicial,
+      descuento: paramVenta.descuento,
+      enable: paramVenta.enable,
+      fechaCaida: paramVenta.fechaCaida,
+      fechaDesembolso: paramVenta.fechaDesembolso,
+      fechaEpp: paramVenta.fechaEpp,
+      fechaMinuta: paramVenta.fechaMinuta,
+      fechaSeparacion: paramVenta.fechaSeparacion,
+      idCanal: paramVenta.canal.idCanal,
+      idCategoria: paramVenta.categoria.idCategoria,
+      idCliente: paramVenta.cliente.idCliente,
+      idEstadoVenta: paramVenta.estadoVenta.idEstadoVenta,
+      idFinanciamiento: paramVenta.financiamiento.idFinanciamiento,
+      idMotivo: paramVenta.motivo.idMotivo,
+      idProyecto: paramVenta.idProyecto,
+      idVendedor: paramVenta.vendedor.idVendedor,
+      idVenta: paramVenta.idVenta,
+      importe: paramVenta.importe,
+      total: paramVenta.total
+    }
+    //console.log('Objeto upventa')
+    //console.log(upventa)
+    //return
+    return this.http
+      .put(this.urlEndPoint + 'venta/' + venta.idVenta, upventa)
+      .pipe(map((jsonReponse: any) => jsonReponse as VentaNodos))
   }
 
   fetchingTipoVista(): Observable<any> {
@@ -38,5 +69,11 @@ export class VentaConsultaClienteDetalleService {
     return this.http
       .get(this.urlEndPoint + 'financiamiento/' + idFinanciamiento)
       .pipe(map((jsonReponse: any) => jsonReponse as Financiamiento))
+  }
+
+  getListaEstadosVenta(): Observable<any> {
+    return this.http
+      .get(this.urlEndPoint + 'estadoventa/')
+      .pipe(map((jsonReponse: any) => jsonReponse))
   }
 }

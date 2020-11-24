@@ -23,7 +23,7 @@ export class ConsultaVentasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.obtenerProyectos(this.pageIndex);
+    this.obtenerProyecto();
   }
 
   public obtenerProyecto(){

@@ -23,24 +23,48 @@
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
                         <label for="nombres">Buscar gerente de ventas</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <input type="text" class="form-control" [(ngModel)]="nrdoc" (keydown.enter)="colaboradorSelecionado(nrdoc)"  id="nombres">
                     </div>
                 </div>
+
+                <div class="col-sm-12 col-md-1">
+                  <div class="form-group">
+                    <label class="label-hidden"></label>
+                      <button type="submit" class="btn btn-optima btn-float-right">Buscar</button>
+                  </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+              <div class="col-xl-8 col-md-12 ">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="cliente-card-titulo"><strong>Nombres</strong></p>
+                        <p class="cliente-nombre"><strong>{{ clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</strong></p>
+                        <p class="cliente-numero"><strong>{{ clienteSeleccionado.nroDocumento }}</strong></p>
+                    </div>
+                </div>
+
+            </div>
+
             </div>
 
             <div class="row">
-                <div class="col-sm-12 col-md-2">
+
+                <div class="col-sm-4 col-md-2">
                     <div class="form-group">
                         <label for="nombres">Fecha de inicio cargo</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <input type="date" class="form-control" id="nombres">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-4 col-md-2">
                     <div class="form-group">
                         <label for="nombres">Fecha de termino cargo</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <input type="date" class="form-control" id="nombres">
                     </div>
                 </div>
+
             </div>
 
             <div class="row">
@@ -53,7 +77,7 @@
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
                         <label for="apellidos">Ingresar metas</label>
-                        <input type="text" class="form-control" id="apellidos">
+                        <input type="number" class="form-control" id="apellidos">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-2">
@@ -234,7 +258,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>            
+            </div>
 
 
 
@@ -243,7 +267,7 @@
                     <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
                 </div>
             </div>
-            
+
             <br>
 
         </div>
