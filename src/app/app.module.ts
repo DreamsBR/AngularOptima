@@ -139,11 +139,12 @@ const ROUTES: Routes = [
   { path: 'reportes', component: ReportesComponent }
 ]
 
-const maskConfigFunction: () => Partial<IConfig> = () => {
+/* 
+const maskConfigFunction: () => Partial<IConfig> = function () {
   return {
     validation: false,
   };
-}
+} */
 
 @NgModule({
   declarations: [
@@ -206,7 +207,7 @@ const maskConfigFunction: () => Partial<IConfig> = () => {
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    NgxMaskModule.forRoot(maskConfigFunction)
+    NgxMaskModule.forRoot()
   ],
   providers: [
     ClienteService,
