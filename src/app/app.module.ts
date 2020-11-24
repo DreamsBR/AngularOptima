@@ -112,7 +112,7 @@ const ROUTES: Routes = [
   { path: 'cliente/page/:page', component: ClientesComponent },
   { path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent },
   { path: 'cliente-nuevo-editar/:id/:nrodoc/:idproyecto', component: ClientesNuevoEditarComponent },
-            
+
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
@@ -141,7 +141,7 @@ const ROUTES: Routes = [
   { path: 'reportes', component: ReportesComponent }
 ]
 
-/* 
+/*
 const maskConfigFunction: () => Partial<IConfig> = function () {
   return {
     validation: false,
