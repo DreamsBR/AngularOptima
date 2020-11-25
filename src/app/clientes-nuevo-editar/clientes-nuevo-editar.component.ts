@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import { Router, ActivatedRoute } from '@angular/router'
@@ -8,6 +8,7 @@ import { EstadocivilService } from './../clientes/estadocivil.service'
 import { Tipodocumento } from './tipodocumento'
 import { TipodocumentoService } from './tipodocumento.service'
 import { isNull } from 'util'
+import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 
 @Component({
   selector: 'app-clientes-nuevo-editar',
@@ -24,6 +25,8 @@ export class ClientesNuevoEditarComponent implements OnInit {
   estadocivil: Estadocivil[]
   tipodocumento: Tipodocumento[]
 
+  @ViewChild('dpFechaDeNacimiento', { static: true }) dpFechaDeNacimiento: DatepickerRoundedComponent
+
   constructor(
     private clienteService: ClienteService,
     private router: Router,
@@ -37,11 +40,13 @@ export class ClientesNuevoEditarComponent implements OnInit {
       this.idCliente = parseInt(params.get('id'))
       this.nrodoc = (params.get('nrodoc'))
       this.idproyecto = parseInt(params.get('idproyecto'))
+      
     })
     if(this.idCliente != 0){
       this.clienteService.obtenerClientesPorId(this.idCliente).subscribe(
         (response) => {
           this.cliente = response
+          this.dpFechaDeNacimiento.setValue(response.fechaNacimiento)
         },
         (err) => {
           this.errores = err.error.errors as string[]
@@ -64,19 +69,16 @@ export class ClientesNuevoEditarComponent implements OnInit {
   public obtenerEstadoCivil() {
     this.estadocivilService.getEstadocivil().subscribe((response) => {
       this.estadocivil = response
-      console.info(this.estadocivil)
     })
   }
 
   public obtenerTipoDocumento() {
     this.tipodocumentoService.getTipodocumento().subscribe((response) => {
       this.tipodocumento = response
-      console.info(this.tipodocumento)
     })
   }
 
   public agregarCliente(): void {
-    console.info(Object.keys(this.cliente).length)
     if(Object.keys(this.cliente).length < 20){
       swal('Campos Incompletos de Cliente', '','error')
       return
