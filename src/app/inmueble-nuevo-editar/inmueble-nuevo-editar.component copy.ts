@@ -11,7 +11,6 @@ import sleep from 'await-sleep'
   templateUrl: './inmueble-nuevo-editar.component.html'
 })
 export class InmuebleNuevoEditarComponent implements OnInit {
-  
   errors: string[] = []
   loading: boolean = false
   status: boolean = false
@@ -23,9 +22,19 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   optionsTipoVista: TipoVista[] = []
   optionsTipoInmuebleCategoria: TipoInmuebleCategoria[] = []
   // Formulario
-  public inmueble: Inmueble = new Inmueble()
-  public errores: string[]
-   
+  formIdInmueble: number = 0
+  formIdProyecto: number = 0
+  formIdTipoInmueble: number = 0
+  formIdTipoInmuebleCategoria: number = 0
+  formNroDptoEstac: string = ''
+  formAreaTechada: number = 0
+  formAreaLibre: number = 0
+  formAreaTotal: number = 0
+  formIdTipoVista: number = 0
+  formCantDorm: number = 0
+  formPrecio: number = 0
+  formOtros: string = ''
+  formEnable: number = 1
 
   constructor(private inmuebleService: InmuebleService, private activatedRoute: ActivatedRoute) {
     this.optionsTipoInmueble = []
@@ -52,19 +61,11 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
       if (paramIdInmueble === 0) {
         // Obtiene el id del queryParam idProyecto
-        this.inmueble.idProyecto = this.pageToBackIdProyecto
+        this.formIdProyecto = this.pageToBackIdProyecto
       } else {
-          
-        this.inmuebleService.getInmueblesByIdInmueble(paramIdInmueble).subscribe(
-          (response) => {
-            this.inmueble = response
-            console.log(response)
-          },
-          (err) => {
-            this.errores = err.error.errors as string[]
-          }
-        )
-
+        // Obtiene el id de la DB
+        console.log('Obtiene el id de la DB')
+        // this.formIdProyecto = this.pageToBackIdProyecto
       }
     })
   }
@@ -93,7 +94,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     }) */
   }
 
-  loadTipoVista() {
+  loadTipoVista(val: number) {
     this.optionsTipoVista = [
       {
         idTipoVista: 1,
@@ -108,7 +109,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     ]
   }
 
-  loadTipoInmuebleCategoria() {
+  loadTipoInmuebleCategoria(val: number) {
     this.optionsTipoInmuebleCategoria = [
       {
         idTipoInmuebleCategoria: 1,
@@ -129,10 +130,23 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     const isValid = this.validarForm()
     if (!isValid) return
 
-    console.log(this.inmueble)
-    
+    const newInmueble = new Inmueble()
+    newInmueble.idInmueble = this.formIdInmueble
+    newInmueble.idProyecto = this.formIdProyecto
+    newInmueble.idTipoInmueble = this.formIdTipoInmueble // Requerido
+    newInmueble.idTipoInmuebleCategoria = this.formIdTipoInmuebleCategoria // Requerido
+    newInmueble.numero = this.formNroDptoEstac
+    newInmueble.areaTechada = this.formAreaTechada
+    newInmueble.areaLibre = this.formAreaLibre
+    newInmueble.areaTotal = this.formAreaTotal
+    newInmueble.idTipoVista = this.formIdTipoVista // Requerido
+    newInmueble.cantidadDormitorio = this.formCantDorm
+    newInmueble.precio = this.formPrecio
+    newInmueble.enable = this.formEnable
+
+    // console.log(newInmueble)
     const __self = this
-    __self.inmuebleService.crearInmueble(this.inmueble).subscribe((resp) => {
+    __self.inmuebleService.crearInmueble(newInmueble).subscribe((resp) => {
       __self.regresar()
     })
   }
@@ -143,24 +157,24 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   // Change Events Selectors
   onChangetTipoInmueble(val: number) {
-    this.isFormDpto = val === 1 // 1 ES Departamento
+    this.isFormDpto = val === 1
 
     if (this.isFormDpto) {
       // Dpto
-      this.loadTipoVista()
-      this.loadTipoInmuebleCategoria()
+      this.loadTipoVista(val)
+      this.loadTipoInmuebleCategoria(val)
     } else {
       // Otros (Estacionamiento)
-      this.inmueble.idTipoInmuebleCategoria = 0
-      this.inmueble.idTipoVista = 0
-      this.inmueble.cantidadDormitorio = 0
+      this.formIdTipoInmuebleCategoria = 0
+      this.formIdTipoVista = 0
+      this.formCantDorm = 0
     }
   }
 
   validarForm() {
     this.errors = []
     let tmpValid = true
-    if (this.inmueble.idTipoInmueble === 0 || this.inmueble.idTipoInmuebleCategoria === 0 || this.inmueble.idTipoVista === 0) {
+    if (this.formIdTipoInmueble === 0 || this.formIdTipoInmuebleCategoria === 0 || this.formIdTipoVista === 0) {
       tmpValid = false
       this.errors = ['Los campos: tipo inmueble, categoría y vista son requeridos']
     } 

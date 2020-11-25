@@ -43,5 +43,11 @@ export class GerenciaService{
 
 
 
+        /*
+         obtenerClientesPorDni(nrodoc): Observable<Cliente> {
+     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
+  }
+        */
+
 
 }

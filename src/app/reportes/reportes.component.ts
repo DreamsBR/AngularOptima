@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
+import { FormControl } from '@angular/forms'
+import { Observable } from 'rxjs'
+import { map, startWith } from 'rxjs/operators'
+import { ProyectoService } from '../proyectos/proyectos.service'
+import { Proyecto } from '../proyectos/proyecto'
 
 import {
   ApexAxisChartSeries,
@@ -13,20 +18,20 @@ import {
   ApexXAxis,
   ApexFill,
   ApexTooltip
-} from "ng-apexcharts";
+} from 'ng-apexcharts'
 
 export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  fill: ApexFill;
-  tooltip: ApexTooltip;
-  stroke: ApexStroke;
-  legend: ApexLegend;
-};
+  series: ApexAxisChartSeries
+  chart: ApexChart
+  dataLabels: ApexDataLabels
+  plotOptions: ApexPlotOptions
+  yaxis: ApexYAxis
+  xaxis: ApexXAxis
+  fill: ApexFill
+  tooltip: ApexTooltip
+  stroke: ApexStroke
+  legend: ApexLegend
+}
 
 @Component({
   selector: 'app-reportes',
@@ -42,34 +47,36 @@ export class ReportesComponent implements OnInit {
   sumaMetas: number = 0
   sumaAvances: number = 0
 
-  public chartOptions: Partial<ChartOptions>;
+  optionsListaProyectos: Proyecto[] = []
+  proyectoSelected: number = null
 
-  constructor() {
+  public chartOptions: Partial<ChartOptions>
 
+  constructor(private proyectoService: ProyectoService) {
     this.chartOptions = {
       series: [
         {
-          name: "Net Profit",
+          name: 'Net Profit',
           data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
         },
         {
-          name: "Revenue",
+          name: 'Revenue',
           data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
         },
         {
-          name: "Free Cash Flow",
+          name: 'Free Cash Flow',
           data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
         }
       ],
       chart: {
-        type: "bar",
+        type: 'bar',
         height: 350
       },
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded"
+          columnWidth: '55%',
+          endingShape: 'rounded'
         }
       },
       dataLabels: {
@@ -78,24 +85,14 @@ export class ReportesComponent implements OnInit {
       stroke: {
         show: true,
         width: 2,
-        colors: ["transparent"]
+        colors: ['transparent']
       },
       xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct"
-        ]
+        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct']
       },
       yaxis: {
         title: {
-          text: "$ (thousands)"
+          text: '$ (thousands)'
         }
       },
       fill: {
@@ -103,17 +100,20 @@ export class ReportesComponent implements OnInit {
       },
       tooltip: {
         y: {
-          formatter: function(val) {
-            return "$ " + val + " thousands";
+          formatter: function (val) {
+            return '$ ' + val + ' thousands'
           }
         }
       }
-    };
-
+    }
   }
 
   ngOnInit() {
     this.fetchData()
+
+    this.proyectoService.getAllProjects().subscribe((resp) => {
+      this.optionsListaProyectos = resp
+    })
   }
 
   menuToggle() {
@@ -152,5 +152,9 @@ export class ReportesComponent implements OnInit {
     this.sumaAvances = tmpSumaAvances
 
     this.itemsTable = new MatTableDataSource<any>(data)
+  }
+
+  onChangeProyecto(obj) {
+    console.log(obj)
   }
 }

@@ -11,6 +11,7 @@ import { estadoventa } from '../consulta-ventas/estadoventa';
 import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 import { VentaService } from '../ventas/ventas.service';
 import { Venta } from '../ventas/venta';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -29,6 +30,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   tipoestado : estadoventa[]
   ventasLista: Venta[]
 
+  filterPost = ""
   base:string
   paginador:any
   id: number
@@ -44,7 +46,11 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
   ) { }
 
+
+
+
   ngOnInit() {
+
     this.obtenerEstadoVentas()
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
@@ -52,6 +58,23 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.obtenerVentasProyecto(this.paramIdProyecto)
 
   }
+  /*
+  public model: any;
+
+  formatter = (result: string) => result.toUpperCase();
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? []
+        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+*/
+
+
+
 
   obtenerVentasProyecto(id:number){
     this.activatedRoute.paramMap.subscribe((params) => {

@@ -123,7 +123,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.obtenerMotivo()
     this.obtenerCategoria()
   }
-  
+
   agregarCliente(nrodoc: string){
     console.info(nrodoc);
     if(nrodoc == '' || nrodoc == undefined){
@@ -242,7 +242,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.adicionalAgregados.splice(i, 1)
   }
 
-  totalInmuebles: number 
+  totalInmuebles: number
 
   porcentaje_cuota_inicial: number
   cuota_inicial: number
@@ -383,7 +383,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   guardarVenta(idFinanciamiento: number){
-    
+
     this.venta.idVenta = 0
 
     this.venta.idVendedor = 2 // id vendedor logueado
