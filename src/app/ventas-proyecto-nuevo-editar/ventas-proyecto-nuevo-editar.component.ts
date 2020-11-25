@@ -346,7 +346,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
     if(this.fechaFinAhorro == '' || this.fechaFinAhorro == null){
       // swal('Seleccione una fecha de fin de ahorro', '', 'warning')
-      this.fechaInicioAhorro = ''
+      this.fechaFinAhorro = ''
       // return
     }
 
@@ -361,15 +361,8 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.idTipoCredito = this.tipocreditoSeleccionado
     this.financiamiento.enable = 1
 
-    //console.info( this.fechaFinAhorro );
-
-    //let ff = this.fechaFinAhorro.split("-");
-    //this.financiamiento.fechaFinAhorro = ( ff[2] + '-' + ff[1] + '-' + ff[0] )
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
-
-    //let fi = this.fechaInicioAhorro.split("-");
-    //this.financiamiento.fechaInicioAhorro = ( fi[2] + '-' + fi[1] + '-' + fi[0] )
-    this.financiamiento.fechaFinAhorro = this.fechaInicioAhorro
+    this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
 
     this.financiamiento.idEstadoFinanciamiento = 1
 
