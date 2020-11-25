@@ -57,7 +57,7 @@ export class ClientesComponent implements OnInit {
     )
   }
 
-  public obtenerClienteSeleccionado(cliente: Cliente) {
+  public obtenerColaboradorSeleccionado(cliente: Cliente) {
     this.clienteSeleccionado = cliente
   }
 

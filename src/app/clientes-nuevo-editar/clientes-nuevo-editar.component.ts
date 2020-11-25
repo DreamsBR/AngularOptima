@@ -40,7 +40,6 @@ export class ClientesNuevoEditarComponent implements OnInit {
       this.idCliente = parseInt(params.get('id'))
       this.nrodoc = (params.get('nrodoc'))
       this.idproyecto = parseInt(params.get('idproyecto'))
-      
     })
     if(this.idCliente != 0){
       this.clienteService.obtenerClientesPorId(this.idCliente).subscribe(

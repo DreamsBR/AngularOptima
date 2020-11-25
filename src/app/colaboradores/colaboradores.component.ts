@@ -14,7 +14,7 @@ import swal from 'sweetalert2';
 
 export class ColaboradoresComponent implements OnInit {
 
-  status: boolean = false;
+  
   colaboradoresLista: Colaborador[];
   paginador: any;
   colaboradorSeleccionado: Colaborador;
@@ -47,12 +47,28 @@ export class ColaboradoresComponent implements OnInit {
     })
   }
 
+  public eliminar(colaborador: Colaborador): void {
+    this.colaboradorService.eliminarColaborador(colaborador.idColaborador).subscribe(
+      (response) => {
+        console.info(response)
+        document.getElementById('cerrarModalEliminar').click()
+        this.obtenerColaborador()
+      },
+      (err) => {
+        console.error(err)
+        document.getElementById('cerrarModalEliminar').click()
+        this.obtenerColaborador()
+      }
+    )
+  }
 
+  public obtenerColaboradorSeleccionado(colaborador: Colaborador) {
+    this.colaboradorSeleccionado = colaborador
+  }
+
+  status: boolean = false;
   menuToggle(){
     this.status = !this.status;
   }
-
-
-
 
 }
