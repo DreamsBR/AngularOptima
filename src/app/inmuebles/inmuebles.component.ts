@@ -21,7 +21,8 @@ export class InmueblesComponent implements OnInit {
     'areaLibre',
     'areaTotal',
     'idTipoVista',
-    'cantidadDormitorio'
+    'cantidadDormitorio',
+    'precio'
   ]
   inmuebleLista = new MatTableDataSource<Inmueble>()
 

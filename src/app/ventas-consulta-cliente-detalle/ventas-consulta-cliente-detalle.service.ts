@@ -76,4 +76,20 @@ export class VentaConsultaClienteDetalleService {
       .get(this.urlEndPoint + 'estadoventa/')
       .pipe(map((jsonReponse: any) => jsonReponse))
   }
+
+  getInmueblesByIdVenta(idVenta: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'ventainmueble/venta/' + idVenta).pipe(
+      map((jsonResponse: any) => {
+        return jsonResponse
+      })
+    )
+  }
+
+  getListaTipoInmuebles(): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'tipoinmueble/').pipe(
+      map((jsonResponse: any) => {
+        return jsonResponse
+      })
+    )
+  }
 }
