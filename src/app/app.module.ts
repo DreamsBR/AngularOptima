@@ -95,6 +95,8 @@ import { Paginator2Component } from './paginator2/paginator2.component';
 import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
 import { ReportesComponent } from './reportes/reportes.component';
 
+import { NgApexchartsModule } from "ng-apexcharts";
+
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -209,7 +211,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgApexchartsModule
   ],
   providers: [
     ClienteService,
