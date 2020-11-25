@@ -36,7 +36,7 @@
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-editar', ventasProyecto.idProyecto , ventasProyecto.idVenta, ventasProyecto.cliente.nroDocumento ]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
