@@ -97,6 +97,7 @@ import { ReportesComponent } from './reportes/reportes.component';
 
 import { NgApexchartsModule } from "ng-apexcharts";
 
+
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -182,9 +183,6 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-
-
-
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
@@ -236,7 +234,6 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     statusVentaservice,
     TipodocumentoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 
   bootstrap: [AppComponent]

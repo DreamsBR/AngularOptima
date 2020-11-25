@@ -1,280 +1,329 @@
-<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+        <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
 
-    <app-sidebar></app-sidebar>
-    <div id="page-content-wrapper">
-        <div class="container-fluid div-ventas">
+            <app-sidebar></app-sidebar>
+            <div id="page-content-wrapper">
+                <div class="container-fluid div-ventas">
 
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nueva / Editar gerencia</h3>
-                </div>
-                <div class="col-sm-12 col-md-7 text-right">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Nombre de gerencia</label>
-                        <input type="text" class="form-control" id="nombres">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                            <h3>Nueva / Editar gerencia</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-7 text-right">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Buscar gerente de ventas</label>
-                    <!--
-                        <input type="text" class="form-control" [(ngModel)]="nrdoc" (keydown.enter)="colaboradorSelecionado(nrdoc)"  id="nombres">
-                    -->
-                      </div>
-                </div>
+                <form>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-3">
+                      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                          <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span class="nav-number">1</span> Cliente</a>
+                          <span class="separator"></span>
+                          <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="nav-number">2</span> Modo de pago</a>
+                          <span class="separator"></span>
+                          <a class="nav-link" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2" aria-selected="false"><span class="nav-number">2</span> Modo de pago</a>
 
-                <div class="col-sm-12 col-md-1">
-                  <div class="form-group">
-                    <label class="label-hidden"></label>
-                      <button type="submit" class="btn btn-optima btn-float-right">Buscar</button>
+
+                      </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-9">
+                      <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+
+                    <div class="row">
+
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label for="nombres">Buscar gerente de ventas</label>
+
+                                <input type="text" class="form-control" [(ngModel)]="nrdoc" name="nombres"  id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
+
+                              </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-1 col-xl-1">
+                          <div class="form-group">
+                            <label class="label-hidden"></label>
+                              <button type="submit" class="btn btn-optima btn-float-right" (click)="obatenerColaboradorPorDni(nrdoc)">Buscar</button>
+                          </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-4 col-md-12 ">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="cliente-card-titulo"><strong>Nombres</strong></p>
+
+                                <p class="cliente-nombre"><strong>{{ colaboradorSelecionado.nombres + ' ' + colaboradorSelecionado.apellidos }}</strong></p>
+                                <p class="cliente-numero"><strong>{{ colaboradorSelecionado.numeroDocumento }}</strong></p>
+
+                              </div>
+                        </div>
+
+                    </div>
+
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                            <label for="fechanacimiento">Fecha Inicio Cargo</label>
+                            <datepicker-rounded
+
+                            [label]="'Fecha'"
+                            ></datepicker-rounded>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-12 col-md-4">
+                      <div class="form-group">
+                          <label for="fechanacimiento">Fecha de Termino Cargo</label>
+                          <datepicker-rounded
+
+                          [label]="'Fecha'"
+                          ></datepicker-rounded>
+                      </div>
+                  </div>
+                    </div>
+
+
+                        </div>
+
+
+
+
+
+
+                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label for="nombres">Buscar periodo</label>
+                                <input type="text" class="form-control" id="nombres">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label for="apellidos">Ingresar metas</label>
+                                <input type="number" class="form-control" id="apellidos">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <div class="form-group">
+                                <label class="label-hidden">&nbsp;</label>
+                                <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+
+                            <table class="table">
+                                <caption>Lista de periodos</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Editar</th>
+                                        <th scope="col">Periodo</th>
+                                        <th scope="col">Meta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Enero 2020</td>
+                                        <td>S/. 250,345.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Enero 2020</td>
+                                        <td>S/. 250,345.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Enero 2020</td>
+                                        <td>S/. 250,345.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                  </div>
+
+
+
+
+
+
+                  <div class="tab-pane fade2" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="form-group">
+                                <label for="nombres">Asignar proyecto</label>
+                                <input type="text" class="form-control" id="nombres">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row item-proyecto">
+                                        <div class="col-sm-12 col-md-10">
+                                            <p>Proyecto 1</p>
+                                            <p><strong>Fecha de asignación 09/12/20</strong></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="btn-float-right">
+                                                <i class="fas fa-times-circle"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row item-proyecto">
+                                        <div class="col-sm-12 col-md-10">
+                                            <p>Proyecto 2</p>
+                                            <p><strong>Fecha de asignación 09/12/20</strong></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="btn-float-right">
+                                                <i class="fas fa-times-circle"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <h3>Jefatura</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 text-right">
+                            <a href="/jefatura-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <table class="table">
+                                <caption>tabla de jefaturas</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Editar</th>
+                                        <th scope="col">Jefe de jefatura</th>
+                                        <th scope="col">Fecha de inicio cargo</th>
+                                        <th scope="col">Fecha de termino</th>
+                                        <th scope="col">Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                        </div>
+                    </div>
+                  </div>
+                    <br>
+                  </div>
                   </div>
                 </div>
-
-
-            </div>
-            <div class="row">
-              <div class="col-xl-8 col-md-12 ">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="cliente-card-titulo"><strong>Nombres</strong></p>
-                    <!--
-                        <p class="cliente-nombre"><strong>{{ clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</strong></p>
-                        <p class="cliente-numero"><strong>{{ clienteSeleccionado.nroDocumento }}</strong></p>
-                    -->
-                      </div>
+                  </form>
                 </div>
 
             </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-sm-4 col-md-2">
-                    <div class="form-group">
-                        <label for="nombres">Fecha de inicio cargo</label>
-                        <input type="date" class="form-control" id="nombres">
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-2">
-                    <div class="form-group">
-                        <label for="nombres">Fecha de termino cargo</label>
-                        <input type="date" class="form-control" id="nombres">
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Buscar periodo</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="apellidos">Ingresar metas</label>
-                        <input type="number" class="form-control" id="apellidos">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group">
-                        <label class="label-hidden">&nbsp;</label>
-                        <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
-
-                    <table class="table">
-                        <caption>Lista de periodos</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Periodo</th>
-                                <th scope="col">Meta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Asignar proyecto</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto 1</p>
-                                    <p><strong>Fecha de asignación 09/12/20</strong></p>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="btn-float-right">
-                                        <i class="fas fa-times-circle"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-sm-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto 2</p>
-                                    <p><strong>Fecha de asignación 09/12/20</strong></p>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="btn-float-right">
-                                        <i class="fas fa-times-circle"></i>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="col-sm-12 col-md-8">
-                    <h3>Jefatura</h3>
-                </div>
-                <div class="col-sm-12 col-md-2 text-right">
-                    <a href="/jefatura-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
-                    <table class="table">
-                        <caption>tabla de jefaturas</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Jefe de jefatura</th>
-                                <th scope="col">Fecha de inicio cargo</th>
-                                <th scope="col">Fecha de termino</th>
-                                <th scope="col">Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-
-
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
-                    <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
-                </div>
-            </div>
-
-            <br>
-
         </div>
-    </div>
-
-</div>

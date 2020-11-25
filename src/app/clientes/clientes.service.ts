@@ -17,6 +17,7 @@ export class ClienteService {
       map((jsonClientesResponse: any) => {
         ;(jsonClientesResponse.content as Cliente[]).map((cliente) => {
           cliente.nombres = cliente.nombres.toUpperCase()
+          cliente.apellidos = cliente.apellidos.toUpperCase()
           return cliente;
         })
         return jsonClientesResponse
