@@ -117,14 +117,16 @@ const ROUTES: Routes = [
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
+
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
-
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
   { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
+  { path: 'consulta-ventas-detalle/page/:page/:id', component: ConsultaVentasDetalleComponent },
+
 
   { path: 'proyectos', component: ProyectosComponent },
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
