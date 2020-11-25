@@ -47,7 +47,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link active"
                 id="profile-tab"
                 data-toggle="tab"
                 href="#tab2"
@@ -71,7 +71,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 id="contact-tab"
                 data-toggle="tab"
                 href="#tab4"
@@ -182,140 +182,141 @@
               </div>
             </div>
 
-            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
+            <div
+              class="tab-pane fade show active"
+              id="tab2"
+              role="tabpanel"
+              aria-labelledby="profile-tab"
+            >
               <br />
 
               <div class="row">
-                <div class="col-sm-12 col-md-4">
-                  <select-dropdown>sdf</select-dropdown>
-                  <!-- <div class="form-group">
-                    <label for="apellidos">Tipo de inmueble</label>
-                    <input type="text" class="form-control" id="apellidos" />
-                  </div> -->
-                </div>
-                <div class="col-sm-12 col-md-4">
-                  <select-dropdown>sdf</select-dropdown>
-                  <!-- <div class="form-group">
-                    <label for="nombres">Dpto</label>
-                    <select class="form-control" id="exampleFormControlSelect1"></select>
-                  </div> -->
-                </div>
-                <div class="col-sm-12 col-md-4">
-                  <select-dropdown>sdf</select-dropdown>
-                  <!-- <div class="form-group">
-                    <label for="apellidos">Nro. Dpto.</label>
-                    <input type="text" class="form-control" id="apellidos" />
-                  </div> -->
+                <div class="col-sm-12 col-md-4" style="max-width: 350px">
+                  <label>Tipo de inmueble:</label>
+                  <select
+                    [(ngModel)]="filterTipoInmuebleSelect"
+                    class="form-control"
+                    id="iptTipoInmueble"
+                  >
+                    <option [ngValue]="0">-- Seleccionar --</option>
+                    <option *ngFor="let o of optionsTipoInmueble" [ngValue]="o.idTipoInmueble">
+                      {{ o.nombre }}
+                    </option>
+                  </select>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-                  <table class="table">
-                    <caption>
-                      tabla
-                    </caption>
-                    <thead>
-                      <tr>
-                        <th scope="col" class="text-center">Editar</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">DPTO</th>
-                        <th scope="col">Estac.</th>
-                        <th scope="col">Dep.</th>
-                        <th scope="col">Closet</th>
-                        <th scope="col">A. Techada</th>
-                        <th scope="col">A. Libre</th>
-                        <th scope="col">A. Total</th>
-                        <th scope="col">Vista</th>
-                        <th scope="col">Dorm</th>
-                        <th scope="col">Precio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                    </tbody>
+                  <table
+                    mat-table
+                    class="tbinm"
+                    [dataSource]="inmuebleLista"
+                    style="width: 100%; margin-top: 20px"
+                  >
+                    <ng-container matColumnDef="editar">
+                      <th mat-header-cell *matHeaderCellDef>Editar</th>
+                      <td mat-cell *matCellDef="let elem">
+                        <a
+                          href="#"
+                          data-toggle="dropdown"
+                          style="margin-left: 20px; color: #ee6f2e"
+                        >
+                          <em class="fas fa-ellipsis-v"></em>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]"
+                          >
+                            <em class="far fa-edit"></em> Editar
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-eliminar-inmueble"
+                            (click)="setObjetoInmuebleDelete(elem.inmueble)"
+                          >
+                            <em class="far fa-trash-alt"></em> Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idTipoInmuebleCategoria">
+                      <th mat-header-cell *matHeaderCellDef>Tipo</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.inmueble.tipoInmuebleCategoria.nombre }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numero">
+                      <th mat-header-cell *matHeaderCellDef>Nro.</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.numero }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaTechada">
+                      <th mat-header-cell *matHeaderCellDef>A. Techada</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaTechada }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaLibre">
+                      <th mat-header-cell *matHeaderCellDef>A. Libre</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaLibre }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaTotal">
+                      <th mat-header-cell *matHeaderCellDef>A. Total</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaTotal }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idTipoVista">
+                      <th mat-header-cell *matHeaderCellDef>Vista</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.tipoVista.nombre }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cantidadDormitorio">
+                      <th mat-header-cell *matHeaderCellDef>Dorm.</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.inmueble.cantidadDormitorio }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precio">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
+                      <td
+                        mat-cell
+                        *matCellDef="let elem"
+                        style="text-align: end; color: var(--primary); font-weight: bold"
+                      >
+                        {{ elem.inmueble.precio | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
                   </table>
+                  <div
+                    *ngIf="inmuebleLista.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-sm-12 col-md-2 offset-md-10">
+              <div class="row mt-4">
+                <div class="col-12 pr-4" style="text-align: end">
                   <p class="titulo"><strong>Precio final</strong></p>
-                  <p>S/ 230,000</p>
+                  <p style="color: var(--primary); font-weight: bold">
+                    {{ sumaTotalInmuebles | formatSoles }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -406,12 +407,7 @@
               </div>
             </div>
 
-            <div
-              class="tab-pane fade show active"
-              id="tab4"
-              role="tabpanel"
-              aria-labelledby="contact-tab"
-            >
+            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
               <br />
 
               <div class="row">
@@ -774,6 +770,39 @@
           class="btn btn-secondary"
           data-dismiss="modal"
           id="cerrarModalEliminarPago"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-inmueble" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar inmueble</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el siguiente inmueble?</p>
+        <p>
+          Nro.: <strong>{{ inmuebleToDelete.numero }}</strong>
+        </p>
+        <p>
+          Precio: <strong>{{ inmuebleToDelete.precio | formatSoles }}</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">Confirmar</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarInmueble"
         >
           Cancelar
         </button>

@@ -20,6 +20,9 @@ import { MatTableDataSource } from '@angular/material/table'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 
 import { EstadoVenta } from '../estados-ventas/estadoventa'
+import { Inmueble } from '../inmuebles/inmueble'
+import { InmuebleService } from '../inmuebles/inmueble.service'
+import { TipoInmueble } from '../inmueble-nuevo-editar/tipoinmueble'
 
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
@@ -68,6 +71,25 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   tempIdFechaEEP: string = ''
   tempIdFechaCaida: string = ''
 
+  displayedColumns: string[] = [
+    'editar',
+    'idTipoInmuebleCategoria',
+    'numero',
+    'areaTechada',
+    'areaLibre',
+    'areaTotal',
+    'idTipoVista',
+    'cantidadDormitorio',
+    'precio'
+  ]
+  inmuebleLista = new MatTableDataSource<Inmueble>()
+  sumaTotalInmuebles: number = 0
+
+  filterTipoInmuebleSelect: number = null
+  optionsTipoInmueble: TipoInmueble[] = []
+
+  inmuebleToDelete = new Inmueble()
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
   @ViewChild('dpFMinuta', { static: true }) dpFMinuta: DatepickerRoundedComponent
@@ -80,7 +102,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     private vccdService: VentaConsultaClienteDetalleService,
     private pagosService: PagosService,
     public authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private inmuebleService: InmuebleService
   ) {}
 
   ngOnInit() {
@@ -438,6 +461,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             this.sumaTotalPagos = sumaPagos
             this.pagos = new MatTableDataSource<Pago>(resp_extra[0])
             this.optionsTiposEstadoVenta = resp_extra[1]
+            this.optionsTipoInmueble = resp_extra[2]
+            this.filterTipoInmuebleSelect = 1 // Selecciona el tipo de Departamento
+            this.refreshListaInmuebles()
             this.loading = false
           },
           (e) => {
@@ -458,7 +484,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   getInfoExtra(): Observable<any[]> {
     let infoPagos = this.pagosService.getPagosByIdVenta(this.paramIdVenta)
     let listaEstadoVenta = this.vccdService.getListaEstadosVenta()
-    return forkJoin([infoPagos, listaEstadoVenta])
+    let listaTiposInmuebles = this.vccdService.getListaTipoInmuebles()
+    // let listaInmuebles = this.vccdService.getInmueblesByIdVenta(this.paramIdVenta)
+    return forkJoin([infoPagos, listaEstadoVenta, listaTiposInmuebles])
   }
 
   refreshTablaPagos() {
@@ -476,6 +504,17 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         console.log(e)
       }
     )
+  }
+
+  refreshListaInmuebles() {
+    this.vccdService.getInmueblesByIdVenta(this.paramIdVenta).subscribe((inmueblesJsonResponse) => {
+      this.inmuebleLista = new MatTableDataSource<Inmueble>(inmueblesJsonResponse)
+      let tmpSumaInm = 0
+      inmueblesJsonResponse.forEach((elem: any) => {
+        tmpSumaInm += elem.precio
+      })
+      this.sumaTotalInmuebles = tmpSumaInm
+    })
   }
 
   menuToggle() {
@@ -506,6 +545,21 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       document.getElementById('cerrarModalEliminarPago').click()
       this.openSnackBar('✓ Pago eliminado con éxito', 'Cerrar', 1500)
       this.refreshTablaPagos()
+    })
+  }
+
+  setObjetoInmuebleDelete(inmuebleToDelete: Inmueble) {
+    this.inmuebleToDelete = new Inmueble()
+    this.inmuebleToDelete = inmuebleToDelete
+  }
+
+  eliminarInmuebleSeleccionado() {
+    this.loading = true
+    this.inmuebleService.deletePago(this.inmuebleToDelete).subscribe((_) => {
+      this.loading = false
+      document.getElementById('cerrarModalEliminarInmueble').click()
+      this.openSnackBar('✓ Inmueble eliminado con éxito', 'Cerrar', 1500)
+      this.refreshListaInmuebles()
     })
   }
 
