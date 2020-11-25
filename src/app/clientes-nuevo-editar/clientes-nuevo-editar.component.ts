@@ -75,6 +75,10 @@ export class ClientesNuevoEditarComponent implements OnInit {
     })
   }
 
+/*
+    AGREGAR CLIENTE
+*/
+
   public agregarCliente(): void {
     console.info(Object.keys(this.cliente).length)
     if(Object.keys(this.cliente).length < 20){
@@ -112,6 +116,13 @@ export class ClientesNuevoEditarComponent implements OnInit {
     }
 
   }
+
+
+
+
+
+
+
 
   siguientePagina(tabName: string){
     document.getElementById(tabName).click()

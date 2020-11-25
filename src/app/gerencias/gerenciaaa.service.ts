@@ -7,7 +7,7 @@ import { URL_BACKEND } from '../config/config';
 //import { Gerencia } from "./gerencia";
 
 @Injectable()
-export class GerenciaService {
+export class GerenciaaaService {
 
   private urlEndPoint : string = URL_BACKEND + 'gerencia/';
 
