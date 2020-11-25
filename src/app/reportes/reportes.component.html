@@ -18,6 +18,17 @@
         <div class="col-sm-12 col-md-7">
           <div class="row">
             <div class="col-sm-12 col-md-7">
+              <select
+                [(ngModel)]="proyectoSelected"
+                (ngModelChange)="onChangeProyecto($event)"
+                class="form-control"
+                id="iptProyectoSelect"
+              >
+                <option [ngValue]="null">-- Seleccionar --</option>
+                <option *ngFor="let proy of optionsListaProyectos" [ngValue]="proy">
+                  {{ proy.nombre }}
+                </option>
+              </select>
               <input type="text" placeholder="Corrales" />
             </div>
             <div class="col-sm-12 col-md-5">
@@ -80,7 +91,7 @@
           <b>Metas y ventas alcanzadas por proyecto</b>
         </div>
       </div>
-      <div class="row mt-4">
+      <!-- <div class="row mt-4">
         <div class="col-sm-12 col-md-6">
           <apx-chart
             #mychart
@@ -113,7 +124,7 @@
             [xaxis]="chartOptions.xaxis"
           ></apx-chart>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

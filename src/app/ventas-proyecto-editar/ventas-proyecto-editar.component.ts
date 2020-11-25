@@ -4,44 +4,48 @@ import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
 
-import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
-import { TipoinmueblecategoriaService } from './tipoinmueblecategoria.service'
+import { Tipoinmueblecategoria } from './../ventas-proyecto-nuevo-editar/tipoinmueblecategoria'
+import { TipoinmueblecategoriaService } from './../ventas-proyecto-nuevo-editar/tipoinmueblecategoria.service'
 
-import { Tipocredito } from './tipocredito'
-import { TipocreditoService } from './tipocredito.service'
+import { Tipocredito } from './../ventas-proyecto-nuevo-editar/tipocredito'
+import { TipocreditoService } from './../ventas-proyecto-nuevo-editar/tipocredito.service'
 
-import { Bancos } from './bancos'
-import { BancosService } from './bancos.service'
+import { Bancos } from './../ventas-proyecto-nuevo-editar/bancos'
+import { BancosService } from './../ventas-proyecto-nuevo-editar/bancos.service'
 
-import { Motivo } from './motivo'
-import { MotivoService } from './motivo.service'
+import { Motivo } from './../ventas-proyecto-nuevo-editar/motivo'
+import { MotivoService } from './../ventas-proyecto-nuevo-editar/motivo.service'
 
-import { Canal } from './canal'
-import { CanalService } from './canal.service'
+import { Canal } from './../ventas-proyecto-nuevo-editar/canal'
+import { CanalService } from './../ventas-proyecto-nuevo-editar/canal.service'
 
-import { Categoria } from './categoria'
-import { CategoriaService } from './categoria.service'
+import { Categoria } from './../ventas-proyecto-nuevo-editar/categoria'
+import { CategoriaService } from './../ventas-proyecto-nuevo-editar/categoria.service'
 
 import { Inmueble } from './../inmuebles/inmueble'
 import { InmuebleService } from './../inmuebles/inmueble.service'
 
-import { Financiamiento } from './financiamiento'
-import { FinanciamientoService } from './financiamiento.service'
+import { Financiamiento } from './../ventas-proyecto-nuevo-editar/financiamiento'
+import { FinanciamientoService } from './../ventas-proyecto-nuevo-editar/financiamiento.service'
 
-import { Venta } from './venta'
+import { Venta } from './../ventas-proyecto-nuevo-editar/venta'
 import { VentaService } from './../ventas/ventas.service'
 
-import { Ventainmueble } from './ventainmueble'
-import { VentainmuebleService } from './ventasinmueble.service'
+import { Ventainmueble } from './../ventas-proyecto-nuevo-editar/ventainmueble'
+import { VentainmuebleService } from './../ventas-proyecto-nuevo-editar/ventasinmueble.service'
 import { isNull } from 'util'
 
+import { Ventanodos } from './ventanodos'
+
 @Component({
-  selector: 'app-ventas-proyecto-nuevo-editar',
-  templateUrl: './ventas-proyecto-nuevo-editar.component.html'
+  selector: 'app-ventas-proyecto-editar',
+  templateUrl: './ventas-proyecto-editar.component.html'
 })
-export class VentasProyectoNuevoEditarComponent implements OnInit {
+export class VentasProyectoEditarComponent implements OnInit {
 
   public errores: string[]
+
+  public ventanodos: Ventanodos = new Ventanodos()
 
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
@@ -107,13 +111,11 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         console.info(params.get('dni'))
         this.nrodoc = params.get('dni')
         this.obtenerClienteSeleccionado(params.get('dni'))
+
+
+
       }
     })
-
-    this.clienteSeleccionado.idCliente = 0
-    this.clienteSeleccionado.nombres = ''
-    this.clienteSeleccionado.apellidos = ''
-    this.clienteSeleccionado.nroDocumento = ''
 
     this.obtenerTipoInmuebleCategoria()
     this.obtenerTipoCredito()
@@ -123,7 +125,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.obtenerMotivo()
     this.obtenerCategoria()
   }
-
+  
   agregarCliente(nrodoc: string){
     console.info(nrodoc);
     if(nrodoc == '' || nrodoc == undefined){
@@ -140,6 +142,14 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   onFechaFinAhorro(newdate: string) {
     this.fechaFinAhorro = newdate
+  }
+
+
+
+  public obtenerDatosDeVenta(idVenta: number) {
+    this.ventaService.getVentasById(idVenta).subscribe((cliente) => {
+      
+    })
   }
 
   public obtenerClienteSeleccionado(nrodoc: string) {
@@ -242,7 +252,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.adicionalAgregados.splice(i, 1)
   }
 
-  totalInmuebles: number
+  totalInmuebles: number 
 
   porcentaje_cuota_inicial: number
   cuota_inicial: number
@@ -390,7 +400,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   guardarVenta(idFinanciamiento: number){
-
+    
     this.venta.idVenta = 0
 
     this.venta.idVendedor = 2 // id vendedor logueado
