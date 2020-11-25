@@ -96,6 +96,8 @@ import { EstadosVentasComponent } from './estados-ventas/estados-ventas.componen
 import { ReportesComponent } from './reportes/reportes.component';
 import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-proyecto-editar.component';
 
+import { NgApexchartsModule } from "ng-apexcharts";
+
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -111,10 +113,11 @@ const ROUTES: Routes = [
   { path: 'cliente/page/:page', component: ClientesComponent },
   { path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent },
   { path: 'cliente-nuevo-editar/:id/:nrodoc/:idproyecto', component: ClientesNuevoEditarComponent },
-            
+
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
+
 
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
@@ -127,6 +130,8 @@ const ROUTES: Routes = [
   { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
+  { path: 'consulta-ventas-detalle/page/:page/:id', component: ConsultaVentasDetalleComponent },
+
 
   { path: 'proyectos', component: ProyectosComponent },
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
@@ -143,7 +148,7 @@ const ROUTES: Routes = [
   { path: 'reportes', component: ReportesComponent }
 ]
 
-/* 
+/*
 const maskConfigFunction: () => Partial<IConfig> = function () {
   return {
     validation: false,
@@ -212,7 +217,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgApexchartsModule
   ],
   providers: [
     ClienteService,

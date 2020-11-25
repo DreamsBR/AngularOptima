@@ -28,8 +28,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   sortHasta: string = ''
   tipoestado : estadoventa[]
   ventasLista: Venta[]
+
   base:string
-  paginator:any
+  paginador:any
   id: number
   paramIdProyecto: number
 
@@ -44,6 +45,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obtenerEstadoVentas()
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
     })
@@ -57,10 +59,11 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       if(!page){
         page = 0
       }
-      this.ventaServi.getVentasByProyecto(id, name).subscribe((
+      this.ventaServi.getVentasByProyecto(id, page).subscribe((
         ventasJsonResponse) => {
+          console.info(ventasJsonResponse)
           this.ventasLista = ventasJsonResponse.content
-          this.paginator = ventasJsonResponse
+          this.paginador = ventasJsonResponse
           this.base = 'consulta-ventas-detalle'
           this.id = this.paramIdProyecto
         })

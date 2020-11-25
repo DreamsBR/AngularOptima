@@ -70,6 +70,7 @@
                                 <th scope="col">Caida</th>
 
                                 <th scope="col">Total de venta</th>
+                                <th scope="col">Financiamiento</th>
                                 <th scope="col">Estado</th>
 
                             </tr>
@@ -82,33 +83,36 @@
                                         <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.idCliente]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.idCliente.nombre}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}} {{ventasProyecto.cliente.apellidos}}</a></td>
+
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos}}</a></td>
                                 <td>{{ventasProyecto.cliente.nroDocumento}}</td>
-                                <td>{{ventasProyecto.total}}</td>
-                                <td>{{ventasProyecto.estadoVenta.nombre}}</td>
+                                <td class="">{{ ventasProyecto.fechaSeparacion }}</td>
+                                <td class="">{{ ventasProyecto.fechaMinuta }}</td>
+                                <td class="">{{ ventasProyecto.fechaDesembolso }} </td>
+                                <td class="">{{ ventasProyecto.FechaEpp }}</td>
+                                <td class="">{{ ventasProyecto.fechaCaida }}</td>
+                                <td class="">{{ ventasProyecto.total }}</td>
+                                <td class="">{{ ventasProyecto.financiamiento.financiamiento }}<td>
+                                <td class="">{{ ventasProyecto.estadoVenta.nombre }}</td>
+
 
                             </tr>
                         </tbody>
                     </table>
 
                 </div>
+                <paginator2 [paginador]="paginador" [base]="base" [id]="id"></paginator2>
+
             </div>
 
             <br>
 
-            <nav aria-label="...">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                </ul>
-            </nav>
+
 
         </div>
     </div>
+
 
 </div>
 
