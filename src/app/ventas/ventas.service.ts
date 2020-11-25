@@ -54,4 +54,8 @@ export class VentaService {
     )
   }
 
+  getVentasById(idVenta): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'venta/' + idVenta).pipe()
+  }
+
 }

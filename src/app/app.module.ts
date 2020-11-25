@@ -94,6 +94,7 @@ import { FormatSoles } from '../pipes/format-soles.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
 import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
 import { ReportesComponent } from './reportes/reportes.component';
+import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-proyecto-editar.component';
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -117,6 +118,9 @@ const ROUTES: Routes = [
 
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
+
+  { path: 'ventas-proyecto-editar/:id/:idventa', component: VentasProyectoEditarComponent },
+  { path: 'ventas-proyecto-editar/:id/:idventa/:dni', component: VentasProyectoEditarComponent },
 
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
@@ -190,7 +194,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     FormatSoles,
     Paginator2Component,
     EstadosVentasComponent,
-    ReportesComponent
+    ReportesComponent,
+    VentasProyectoEditarComponent
   ],
   imports: [
     BrowserModule,
