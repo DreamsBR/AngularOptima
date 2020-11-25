@@ -11,20 +11,24 @@ export class ProyectoService {
   private urlEndPoint: string = URL_BACKEND + 'proyecto'
   constructor(private http: HttpClient, private router: Router) {}
 
+  getAllProjects(): Observable<Proyecto[]> {
+    return this.http
+      .get(this.urlEndPoint + '/')
+      .pipe(map((jsonProyectosResponse: any) => jsonProyectosResponse as Proyecto[]))
+  }
 
   getProyectos(page): Observable<any> {
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       map((jsonProyectosResponse: any) => {
-         (jsonProyectosResponse.content as Proyecto[]).map((
-             proyecto) => {
-               proyecto.nombre = proyecto.nombre.toUpperCase();
-          return proyecto;
+        const respData = jsonProyectosResponse.content as Proyecto[]
+        respData.map((proyecto) => {
+          proyecto.nombre = proyecto.nombre.toUpperCase()
+          return proyecto
         })
-        return jsonProyectosResponse;
+        return jsonProyectosResponse
       })
     )
   }
-
 
   newProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.post<Proyecto>(this.urlEndPoint, proyecto).pipe(
@@ -43,13 +47,14 @@ export class ProyectoService {
         console.log('respondiendo')
         return jsonProyectosResponse
       })
-    )}
+    )
+  }
 
-
-    eliminarProyecto(id:number):Observable<Proyecto>{
-      return this.http.delete<Proyecto>(`${this.urlEndPoint}/${id}`).pipe(
-        catchError((e) => {
-          return throwError(e)
-        })
-      )}
+  eliminarProyecto(id: number): Observable<Proyecto> {
+    return this.http.delete<Proyecto>(`${this.urlEndPoint}/${id}`).pipe(
+      catchError((e) => {
+        return throwError(e)
+      })
+    )
+  }
 }
