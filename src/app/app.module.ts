@@ -134,7 +134,7 @@ const ROUTES: Routes = [
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
   { path: 'consulta-ventas-detalle/page/:page/:id', component: ConsultaVentasDetalleComponent },
-
+  { path: 'consulta-ventas-detalle/:idproyecto/:idestadoventa/:fechaini/:fechafin', component: ConsultaVentasDetalleComponent },
 
   { path: 'proyectos', component: ProyectosComponent },
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },

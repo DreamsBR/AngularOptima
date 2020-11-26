@@ -36,6 +36,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
+  estadoventaSeleccionado: number
   fechaDesde: string
   fechaHasta: string
 
@@ -50,45 +51,46 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   ngOnInit() {
     this.obtenerEstadoVentas()
     this.activatedRoute.paramMap.subscribe((params) => {
-      this.paramIdProyecto = parseInt(params.get('id'))
+      this.paramIdProyecto = parseInt(params.get('idproyecto'))
+      this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
+      this.fechaDesde = (params.get('fechaini'))
+      this.fechaHasta = (params.get('fechafin'))
+
+      this.dpfechaDesde.setValue(this.fechaDesde)
+      this.dpfechaHasta.setValue(this.fechaHasta)
+
+      this.obtenerVentasProyecto()
     })
 
-    var date = new Date();
-    var day = date.getDate();
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
+    // var date = new Date();
+    // var day = date.getDate();
+    // var month = date.getMonth() + 1;
+    // var year = date.getFullYear();
+    // this.fechaDesde = year + '-' + month + '-' + day
+    // this.fechaHasta = year + '-' + month + '-' + day
 
-    this.fechaDesde = year + '-' + month + '-' + day
-    this.fechaHasta = year + '-' + month + '-' + day
-    this.dpfechaDesde.setValue(this.fechaDesde)
-    this.dpfechaHasta.setValue(this.fechaHasta)
-
-    this.obtenerVentasProyecto(this.paramIdProyecto)
   }
 
   onfechaDesde(newdate: string) {
     this.fechaDesde = newdate
+    this.obtenerVentasProyecto()
   }
 
   onfechaHasta(newdate: string) {
     this.fechaHasta = newdate
+    this.obtenerVentasProyecto()
   }
 
-  obtenerVentasProyecto(id:number){
-    this.activatedRoute.paramMap.subscribe((params) => {
-      let page: number =+ params.get('page')
-      if(!page){
-        page = 0
-      }
-      this.ventaService.getVentasByProyecto(id, page).subscribe((
-        ventasJsonResponse) => {
-          console.info(ventasJsonResponse)
-          this.ventasLista = ventasJsonResponse.content
-          this.paginador = ventasJsonResponse
-          this.base = 'consulta-ventas-detalle'
-          this.id = this.paramIdProyecto
-        })
-    })
+  onChangetEstadoVenta(){
+    this.obtenerVentasProyecto()
+  }
+
+  obtenerVentasProyecto(){
+    this.ventaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
+      ventasJsonResponse) => {
+        console.info(ventasJsonResponse)
+        this.ventasLista = ventasJsonResponse
+      })
   }
 
   public obtenerEstadoVentas(){

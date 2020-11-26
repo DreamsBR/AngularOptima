@@ -58,27 +58,17 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as VentaNodos[]).map((VentaNodos) => {
-          console.log(jsonVentasResponse)
-/*
-          VentaNodos.ayudaInicial = jsonVentasResponse.ayudaInicial
-          VentaNodos.descuento = jsonVentasResponse.descuento
-          VentaNodos.enable = jsonVentasResponse.enable
-          VentaNodos.fechaCaida = jsonVentasResponse.fechaCaida
-          VentaNodos.fechaDesembolso = jsonVentasResponse.fechaDesembolso
-          VentaNodos.fechaMinuta = jsonVentasResponse.fechaMinuta
-          VentaNodos.fechaSeparacion = jsonVentasResponse.fechaSeparacion
-          VentaNodos.fechaEpp = jsonVentasResponse.fechaEpp
-          VentaNodos.canal.idCanal = jsonVentasResponse.idCanal
-          VentaNodos.categoria.idCategoria = jsonVentasResponse.idCategoria
-          VentaNodos.cliente.idCliente = jsonVentasResponse.idCliente
-          VentaNodos.estadoVenta.idEstadoVenta = jsonVentasResponse.idEstadoVenta
-          VentaNodos.financiamiento.idFinanciamiento = jsonVentasResponse.idFinanciamiento
-          VentaNodos.motivo.idMotivo = jsonVentasResponse.idMotivo
-          VentaNodos.vendedor.idVendedor = jsonVentasResponse.idVendedor
-          VentaNodos.idVenta = jsonVentasResponse.idVenta
-          VentaNodos.importe = jsonVentasResponse.importe
-          VentaNodos.total = jsonVentasResponse.total
-*/
+          return VentaNodos
+        })
+        return jsonVentasResponse
+      })
+    )
+  }
+
+  getVentasByProyectoEstadoFeciniFecfin(idProyecto, idEstadoVenta, fechaini, fechafin): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'venta/byproyectoandestadorange/' + idProyecto + '/' + idEstadoVenta + '/' + fechaini + '/' + fechafin).pipe(
+      map((jsonVentasResponse: any) => {
+        ;(jsonVentasResponse as VentaNodos[]).map((VentaNodos) => {
           return VentaNodos
         })
         return jsonVentasResponse
