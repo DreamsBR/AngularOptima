@@ -470,18 +470,17 @@ export class VentasProyectoEditarComponent implements OnInit {
   }
 
   guardarVenta(idFinanciamiento: number){
-    
     // this.venta.idVenta = 0
 
     this.venta.idVendedor = 2 // id vendedor logueado
 
     this.venta.enable = 1
     this.venta.idEstadoVenta = 1
-    this.venta.fechaCaida = ""
-    this.venta.fechaDesembolso = ""
-    this.venta.fechaEpp = ""
-    this.venta.fechaMinuta = ""
-    this.venta.fechaSeparacion = ""
+    // this.venta.fechaCaida = ""
+    // this.venta.fechaDesembolso = ""
+    // this.venta.fechaEpp = ""
+    // this.venta.fechaMinuta = ""
+    // this.venta.fechaSeparacion = this.obtenerFechaActual()
 
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idFinanciamiento = idFinanciamiento
@@ -505,6 +504,14 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     )
 
+  }
+
+  obtenerFechaActual(){
+    var date=new Date();  
+    var day=date.getDate();  
+    var month=date.getMonth()+1;  
+    var year=date.getFullYear();  
+    return year+"-"+month+"-"+day;
   }
 
   guardarInmuebles(idVenta: number){
