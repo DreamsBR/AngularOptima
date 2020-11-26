@@ -1,21 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core'
 import { Periodo } from './periodo'
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { map, catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { formatDate } from '@angular/common';
-import { AuthService } from '../usuarios/auth.service';
-import { URL_BACKEND } from '../config/config';
-
+import { map, catchError } from 'rxjs/operators'
+import { Router } from '@angular/router'
+import { formatDate } from '@angular/common'
+import { AuthService } from '../usuarios/auth.service'
+import { URL_BACKEND } from '../config/config'
 
 @Injectable()
 export class PeriodoService {
+  private urlEndPoint: string = URL_BACKEND + 'periodo'
 
-
-  private urlEndPoint: string = URL_BACKEND + 'periodo';
-
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   /*  private agregarAutorizathionHeader() {
      let token = this.authService.token;
@@ -29,14 +26,14 @@ export class PeriodoService {
   getPeriodos(page): Observable<any> {
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       map((data: any) => {
-        (data.content as Periodo[]).map(periodo => {
-          periodo.fechaInicio = formatDate(periodo.fechaInicio, "dd/MM/yyyy", 'en-US');
-          periodo.fechaFin = formatDate(periodo.fechaFin, "dd/MM/yyyy", 'en-US');
-          return periodo;
-        });
-        return data;
+        ;(data.content as Periodo[]).map((periodo) => {
+          periodo.fechaInicio = formatDate(periodo.fechaInicio, 'dd/MM/yyyy', 'en-US')
+          periodo.fechaFin = formatDate(periodo.fechaFin, 'dd/MM/yyyy', 'en-US')
+          return periodo
+        })
+        return data
       })
-    );
+    )
   }
 
   getTodoPeriodos(): Observable<any> {
@@ -51,19 +48,19 @@ export class PeriodoService {
   }
 
   agregarPeriodo(periodo: Periodo): Observable<any> {
-
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
-      catchError(e => {
+      catchError((e) => {
         if (e.status === 400) {
-          return throwError(e);
+          return throwError(e)
         }
       })
-    );
+    )
   }
 
+  getAllPeriodos(): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/').pipe()
+  }
 }
-
-
 
 /*
   agregarCliente(cliente: Cliente): Observable<any> {
