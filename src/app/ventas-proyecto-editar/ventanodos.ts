@@ -46,6 +46,7 @@ export class Ventanodos {
     fechaDesembolso: string
     fechaEpp: string
     fechaMinuta: string
+    fechaRegistro:string
     fechaSeparacion: string
     financiamiento: {
         afp: number

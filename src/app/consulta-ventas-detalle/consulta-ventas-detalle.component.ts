@@ -11,7 +11,9 @@ import { estadoventa } from '../consulta-ventas/estadoventa';
 import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 import { VentaService } from '../ventas/ventas.service';
 import { Venta } from '../ventas/venta';
+import { VentaNodos } from './../ventas/ventanodos';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -28,7 +30,8 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   sortDesde: string = ''
   sortHasta: string = ''
   tipoestado : estadoventa[]
-  ventasLista: Venta[]
+  ventasLista: Ventanodos[]
+  fechaSeparacion : string
 
   filterPost = ""
   base:string

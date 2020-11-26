@@ -1,5 +1,5 @@
 import { Route } from '@angular/compiler/src/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { parse } from 'querystring';
 import swal from 'sweetalert2';
@@ -7,6 +7,7 @@ import { isNull } from 'util';
 import { ClienteService } from '../clientes/clientes.service';
 import { Colaborador } from '../colaboradores/colaborador';
 import { ColaboradorService } from '../colaboradores/colaborador.service';
+import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
 import { Gerencia } from '../gerencias/gerencia';
 import { GerenciaService } from '../gerencias/gerencia.service';
 
@@ -23,11 +24,15 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   public errores: string[]
 
   frmenable :number = 0
-  frmfechaIngreso:Date
+  frmfechaIngreso:string
+  fechaTermino : string
   frmidGerencia:number = 0
   frmidGerente:number = 0
   frmnombre : string = ''
 
+  @ViewChild('dpFechaInicio', { static: true }) dpFechaInicio: DatepickerRoundedComponent
+
+  @ViewChild('dpFechaFin', { static: true }) dpFechaFin: DatepickerRoundedComponent
 
   /*
     enable: number
@@ -61,6 +66,13 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     this.colaboradorSelecionado.numeroDocumento= ""
 
   }
+  onFechaIngresoCargo(newdate:string){
+    this.frmfechaIngreso=newdate
+  }
+  onFechaFinCargo(newdate:string){
+    this.fechaTermino = newdate
+  }
+
 
   status = false;
   menuToggle() {
@@ -72,6 +84,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     this.colaboradorserv.obtenerColaboradorDni(nrdoc).subscribe((colaborador) => {
       if (Object.keys(colaborador).length > 0) {
         this.colaboradorSelecionado = colaborador[0]
+        this.gerencia.idGerente = colaborador[0].idColaborador
         console.info(this.nrdoc)
 
       } else {
@@ -87,27 +100,22 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
 
   public agregarGerencia(): void{
-    /*
-    if(Object.keys(this.gerencia).length < 5 ){
-      swal('Campos Incompletos de Cliente', '','error')
-      return
-    }*/
+    this.gerencia.fechaIngreso = this.frmfechaIngreso
+    console.info(this.gerencia)
     this.gerenciaService.agregarGerencia(this.gerencia).subscribe(
       (response) => {
-        console.log(this.gerencia)
-        this.frmidGerente = response.idGerente
-        this.router.navigate(['/gerencias'])
         swal('Nueva Gerencia', `Gerencia creado con exito`, 'success')
       },
         (err) => {
           this.errores = err.error.erros as string[];
         }
-      )
-
-  }
+      )}
 
 
 
+      siguientePagina(tabName: string){
+        document.getElementById(tabName).click()
+      }
 
 
 }

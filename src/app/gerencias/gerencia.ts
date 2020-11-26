@@ -1,11 +1,11 @@
 export class Gerencia{
 
   enable: number
-  fechaIngreso:Date
+  fechaIngreso:string
   idGerencia:number
   idGerente:number
   nombre:string
-
+  fechaTermino:string
 }
 
 
