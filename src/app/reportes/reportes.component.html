@@ -15,13 +15,15 @@
         </div>
       </div>
 
-      <div class="row" style="background-color: #ececec; padding-top: 5px; padding-bottom: 5px">
+      <div class="row mt-3">
         <div class="col-sm-12 col-md-7">
           <div class="row">
             <div class="col-sm-12 col-md-7">
-              <div style="display: flex; border: 1px solid red">
-                <div style="width: 50px; border: 1px solid green; display: flex">sdf</div>
-                <div style="flex: 1; border: 1px solid green">
+              <div class="clsiptr">
+                <div class="clsiptr-icon">
+                  <em class="fas fa-search"></em>
+                </div>
+                <div class="clsiptr-input">
                   <ng-autocomplete
                     [data]="dataSearch1"
                     [searchKeyword]="keywordSearch1"
@@ -40,20 +42,27 @@
               </div>
             </div>
             <div class="col-sm-12 col-md-5">
-              <ng-autocomplete
-                [data]="dataSearch2"
-                [searchKeyword]="keywordSearch2"
-                (selected)="selectEventSearch2($event)"
-                [itemTemplate]="itemTemplate2"
-                [notFoundTemplate]="notFoundTemplate2"
-              >
-              </ng-autocomplete>
-              <ng-template #itemTemplate2 let-item>
-                <a [innerHTML]="item.nombrePeriodo"></a>
-              </ng-template>
-              <ng-template #notFoundTemplate2 let-notFound>
-                <div style="color: #c1c1c1">-- Periodo no encontrado --</div>
-              </ng-template>
+              <div class="clsiptr">
+                <div class="clsiptr-icon">
+                  <em class="fas fa-search"></em>
+                </div>
+                <div class="clsiptr-input">
+                  <ng-autocomplete
+                    [data]="dataSearch2"
+                    [searchKeyword]="keywordSearch2"
+                    (selected)="selectEventSearch2($event)"
+                    [itemTemplate]="itemTemplate2"
+                    [notFoundTemplate]="notFoundTemplate2"
+                  >
+                  </ng-autocomplete>
+                  <ng-template #itemTemplate2 let-item>
+                    <a [innerHTML]="item.nombrePeriodo"></a>
+                  </ng-template>
+                  <ng-template #notFoundTemplate2 let-notFound>
+                    <div style="color: #c1c1c1">-- Periodo no encontrado --</div>
+                  </ng-template>
+                </div>
+              </div>
             </div>
           </div>
         </div>
