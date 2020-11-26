@@ -26,7 +26,6 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   tipoestado : estadoventa[]
   ventasLista: Ventanodos[]
   fechaSeparacion : string
-  periodogeren : Periodogerencia[]
 
   filterPost = ""
   base:string
@@ -62,14 +61,6 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
       this.obtenerVentasProyecto()
     })
-
-    // var date = new Date();
-    // var day = date.getDate();
-    // var month = date.getMonth() + 1;
-    // var year = date.getFullYear();
-    // this.fechaDesde = year + '-' + month + '-' + day
-    // this.fechaHasta = year + '-' + month + '-' + day
-
   }
 
   onfechaDesde(newdate: string) {
