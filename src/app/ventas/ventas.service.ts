@@ -25,7 +25,8 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as Venta[]).map((venta) => {
-          // venta.nombres = venta.nombres.toUpperCase()
+
+
           return venta
         })
         return jsonVentasResponse
@@ -57,6 +58,26 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as Venta[]).map((venta) => {
+          /*
+          venta.ayudaInicial = jsonVentasResponse.ayudaInicial
+          venta.descuento = jsonVentasResponse.descuento
+          venta.enable = jsonVentasResponse.enable
+          venta.fechaCaida = jsonVentasResponse.fechaCaida
+          venta.fechaDesembolso = jsonVentasResponse.fechaDesembolso
+          venta.fechaMinuta = jsonVentasResponse.fechaMinuta
+          venta.fechaSeparacion = jsonVentasResponse.fechaSeparacion
+          venta.fechaEpp = jsonVentasResponse.fechaEpp
+          venta.idCanal = jsonVentasResponse.idCanal
+          venta.idCategoria = jsonVentasResponse.idCategoria
+          venta.idCliente = jsonVentasResponse.idCliente
+          venta.idEstadoVenta = jsonVentasResponse.idEstadoVenta
+          venta.idFinanciamiento = jsonVentasResponse.idFinanciamiento
+          venta.idMotivo = jsonVentasResponse.idMotivo
+          venta.idVendedor = jsonVentasResponse.idVendedor
+          venta.idVenta = jsonVentasResponse.idVenta
+          venta.importe = jsonVentasResponse.importe
+          venta.total = jsonVentasResponse.total*/
+          console.log(venta)
           return venta
         })
         return jsonVentasResponse

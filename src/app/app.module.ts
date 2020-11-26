@@ -140,6 +140,9 @@ const ROUTES: Routes = [
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+
+
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },

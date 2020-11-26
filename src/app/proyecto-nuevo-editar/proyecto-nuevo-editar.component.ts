@@ -40,6 +40,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
+
     this.activatedRoute.paramMap.subscribe((params) => {
       this.idProyecto = parseInt(params.get('id'))
       if (this.idProyecto != 0) {

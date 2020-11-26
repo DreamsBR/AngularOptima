@@ -22,6 +22,22 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   public gerencia: Gerencia = new Gerencia()
   public errores: string[]
 
+  frmenable :number = 0
+  frmfechaIngreso:Date
+  frmidGerencia:number = 0
+  frmidGerente:number = 0
+  frmnombre : string = ''
+
+
+  /*
+    enable: number
+  fechaIngreso:Date
+  idGerencia:number
+  idGerente:number
+  nombre:string
+
+  */
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private gerenciaService: GerenciaService,
@@ -53,7 +69,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
 
   public obatenerColaboradorPorDni(nrdoc: string) {
-    console.log(this.nrdoc)
     this.colaboradorserv.obtenerColaboradorDni(nrdoc).subscribe((colaborador) => {
       if (Object.keys(colaborador).length > 0) {
         this.colaboradorSelecionado = colaborador[0]
@@ -70,24 +85,27 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     })
   }
 
-/*
+
   public agregarGerencia(): void{
+    /*
     if(Object.keys(this.gerencia).length < 5 ){
       swal('Campos Incompletos de Cliente', '','error')
       return
-    }
+    }*/
     this.gerenciaService.agregarGerencia(this.gerencia).subscribe(
       (response) => {
-        console.log(response)
+        console.log(this.gerencia)
+        this.frmidGerente = response.idGerente
+        this.router.navigate(['/gerencias'])
         swal('Nueva Gerencia', `Gerencia creado con exito`, 'success')
       },
-        err => {
+        (err) => {
           this.errores = err.error.erros as string[];
         }
       )
 
   }
-*/
+
 
 
 
