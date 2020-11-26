@@ -1,5 +1,6 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
   <app-sidebar></app-sidebar>
+  <app-loading [isLoading]="loading"></app-loading>
   <div id="page-content-wrapper">
     <div class="container-fluid">
       <div class="row">
@@ -14,25 +15,54 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-sm-12 col-md-7">
           <div class="row">
             <div class="col-sm-12 col-md-7">
-              <select
-                [(ngModel)]="proyectoSelected"
-                (ngModelChange)="onChangeProyecto($event)"
-                class="form-control"
-                id="iptProyectoSelect"
-              >
-                <option [ngValue]="null">-- Seleccionar --</option>
-                <option *ngFor="let proy of optionsListaProyectos" [ngValue]="proy">
-                  {{ proy.nombre }}
-                </option>
-              </select>
-              <input type="text" placeholder="Corrales" />
+              <div class="clsiptr">
+                <div class="clsiptr-icon">
+                  <em class="fas fa-search"></em>
+                </div>
+                <div class="clsiptr-input">
+                  <ng-autocomplete
+                    [data]="dataSearch1"
+                    [searchKeyword]="keywordSearch1"
+                    (selected)="selectEventSearch1($event)"
+                    [itemTemplate]="itemTemplate1"
+                    [notFoundTemplate]="notFoundTemplate1"
+                  >
+                  </ng-autocomplete>
+                  <ng-template #itemTemplate1 let-item>
+                    <a [innerHTML]="item.nombres"></a>
+                  </ng-template>
+                  <ng-template #notFoundTemplate1 let-notFound>
+                    <div style="color: #c1c1c1">-- Gerente no encontrado --</div>
+                  </ng-template>
+                </div>
+              </div>
             </div>
             <div class="col-sm-12 col-md-5">
-              <input type="text" placeholder="Marzo 2020" />
+              <div class="clsiptr">
+                <div class="clsiptr-icon">
+                  <em class="fas fa-search"></em>
+                </div>
+                <div class="clsiptr-input">
+                  <ng-autocomplete
+                    [data]="dataSearch2"
+                    [searchKeyword]="keywordSearch2"
+                    (selected)="selectEventSearch2($event)"
+                    [itemTemplate]="itemTemplate2"
+                    [notFoundTemplate]="notFoundTemplate2"
+                  >
+                  </ng-autocomplete>
+                  <ng-template #itemTemplate2 let-item>
+                    <a [innerHTML]="item.nombrePeriodo"></a>
+                  </ng-template>
+                  <ng-template #notFoundTemplate2 let-notFound>
+                    <div style="color: #c1c1c1">-- Periodo no encontrado --</div>
+                  </ng-template>
+                </div>
+              </div>
             </div>
           </div>
         </div>

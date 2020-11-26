@@ -30,6 +30,7 @@ import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
+import { PeriodoGerenciaService } from './periodo-gerencia/periodo-gerencia.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
 import { VentaService } from './ventas/ventas.service'
 import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
@@ -45,8 +46,8 @@ import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.servi
 import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
 import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
-
 import { statusVentaservice } from './consulta-ventas/statusventa.service'
+import { GerenciaService } from './gerencias/gerencia.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -72,10 +73,6 @@ import { InmueblesComponent } from './inmuebles/inmuebles.component'
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component'
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
-import { GerenciaService } from './gerencias/gerencia.service'
-import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
-import { TipoVistaService } from './tipovista/tipoVista.service'
-import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 
 
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
@@ -100,6 +97,9 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-proyecto-editar.component';
 
 import { NgApexchartsModule } from "ng-apexcharts";
+
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -143,6 +143,9 @@ const ROUTES: Routes = [
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+
+
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
@@ -190,9 +193,6 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-
-
-
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
@@ -203,7 +203,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     Paginator2Component,
     EstadosVentasComponent,
     ReportesComponent,
-    VentasProyectoEditarComponent
+    VentasProyectoEditarComponent,
+    PeriodoGerenciaComponent
   ],
   imports: [
     BrowserModule,
@@ -221,7 +222,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     MatSnackBarModule,
     NgbModule,
     NgxMaskModule.forRoot(),
-    NgApexchartsModule
+    NgApexchartsModule,
+    AutocompleteLibModule
   ],
   providers: [
     ClienteService,
@@ -229,6 +231,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     ProyectoService,
     VentasproyectoService,
     PeriodoService,
+    PeriodoGerenciaService,
     InmuebleService,
     VentaService,
     VentaConsultaClienteDetalleService,
@@ -244,11 +247,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
-    TipoInmuebleService,
-    TipoVistaService,
-    TipoInmuebleCategoriaService,
+    GerenciaService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 
   bootstrap: [AppComponent]

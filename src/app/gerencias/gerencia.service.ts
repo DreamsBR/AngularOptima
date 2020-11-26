@@ -1,20 +1,17 @@
 import { HttpClient } from '@angular/common/http';
-import { Route } from '@angular/compiler/src/core';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Cliente } from '../clientes/cliente';
 import { URL_BACKEND } from '../config/config';
-import { Gerencia } from "./../gerencias/gerencia";
+import { Gerencia } from "./gerencia";
 
+@Injectable()
+export class GerenciaService {
 
+  private urlEndPoint : string = URL_BACKEND + 'gerencia/';
 
-
-Injectable()
-export class GerenciaService{
-
-  private urlEndPoint : string= URL_BACKEND + 'gerencia/'
-  constructor( private http:HttpClient, private route:Route){}
+  constructor( private http:HttpClient
+     ){}
 
     getGerentes(page):Observable<any>{
       return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
@@ -34,14 +31,18 @@ export class GerenciaService{
           })
         )
       }
-      agregarGerencia(gerencia:Gerencia): Observable<any>{
-        return this.http.post<any>(this.urlEndPoint, gerencia).pipe(
+
+      agregarGerencia(gerencia:Gerencia): Observable<Gerencia>{
+        return this.http.post<Gerencia>(this.urlEndPoint, gerencia).pipe(
           catchError((e) => {
-              return throwError(e)
+            if(e.status === 400){
+              return throwError(e)}
           })
         )}
 
-
-
-
+        getAllGerencias(): Observable<any> {
+          return this.http
+            .get(this.urlEndPoint)
+            .pipe(map((jsonGerenteResponse: any) => jsonGerenteResponse as Gerencia[]))
+        }
 }

@@ -41,7 +41,31 @@ export class ColaboradorService {
         );1
         }
 
+
+
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
-      return this.http.get<Colaborador>(this.urlEndPoint + 'nroDocumento/' + nrdoc)
+      return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
     }
+    obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
+        return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)
+    }
+
+    actualizarColaborador(colaborador: Colaborador, idColaborador: number): Observable<any> {
+        return this.http.put<any>(this.urlEndPoint + '/' + idColaborador, colaborador).pipe(
+            catchError((e) => {
+            if (e.status === 400) {
+                return throwError(e)
+            }
+            })
+        )
+    }
+
+    eliminarColaborador(id: number): Observable<Colaborador> {
+        return this.http.delete<Colaborador>(`${this.urlEndPoint}/${id}`).pipe(
+            catchError((e) => {
+            return throwError(e)
+            })
+        )
+    }
+
 }
