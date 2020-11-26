@@ -73,6 +73,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   displayedColumns: string[] = [
     'editar',
+    'idTipoInmueble',
     'idTipoInmuebleCategoria',
     'numero',
     'areaTechada',

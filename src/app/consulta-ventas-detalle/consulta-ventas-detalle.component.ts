@@ -1,25 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Ventasproyecto } from './../ventas-proyecto/Ventasproyecto';
-import { VentasproyectoService } from './../ventas-proyecto/ventasproyecto.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../proyectos/proyecto';
-import { VentaConsultaClienteDetalleService } from './../ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service';
-import { forkJoin, Observable } from 'rxjs';
 import { estadoventa } from '../consulta-ventas/estadoventa';
 import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 import { VentaService } from '../ventas/ventas.service';
-import { Venta } from '../ventas/venta';
-import { VentaNodos } from './../ventas/ventanodos';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
-import { PeriodoService } from '../periodos/periodo.service';
-
-import { Periodo } from './../periodos/periodo'
-import { Periodogerencia } from './../gerencias/gerenciaPeriodo'
-
-
+import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -31,7 +20,6 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   nombreProyecto:string
 
   proyectoLista: Proyecto[]
-  status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
   sortDesde: string = ''
   sortHasta: string = ''
@@ -46,46 +34,46 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   id: number
   paramIdProyecto: number
 
+  @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
+  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
+
+  fechaDesde: string
+  fechaHasta: string
+
   constructor(
     private estadoventa : statusVentaservice,
-    private ventasproyectoService: VentasproyectoService,
     private activatedRoute: ActivatedRoute,
-    private ventaServi : VentaService,
+    private ventaService : VentaService,
     public authService: AuthService,
-    public router: Router,
-    private periodo: PeriodoService
-
-  ) { }
-
-
-
+    public router: Router
+  ){}
 
   ngOnInit() {
-
     this.obtenerEstadoVentas()
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
     })
+
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    this.fechaDesde = year + '-' + month + '-' + day
+    this.fechaHasta = year + '-' + month + '-' + day
+    this.dpfechaDesde.setValue(this.fechaDesde)
+    this.dpfechaHasta.setValue(this.fechaHasta)
+
     this.obtenerVentasProyecto(this.paramIdProyecto)
-
   }
-  /*
-  public model: any;
 
-  formatter = (result: string) => result.toUpperCase();
+  onfechaDesde(newdate: string) {
+    this.fechaDesde = newdate
+  }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map(term => term === '' ? []
-        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
-    )
-
-*/
-
-
-
+  onfechaHasta(newdate: string) {
+    this.fechaHasta = newdate
+  }
 
   obtenerVentasProyecto(id:number){
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -93,7 +81,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       if(!page){
         page = 0
       }
-      this.ventaServi.getVentasByProyecto(id, page).subscribe((
+      this.ventaService.getVentasByProyecto(id, page).subscribe((
         ventasJsonResponse) => {
           console.info(ventasJsonResponse)
           this.ventasLista = ventasJsonResponse.content
@@ -102,9 +90,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
           this.id = this.paramIdProyecto
         })
     })
-
   }
-
 
   public obtenerEstadoVentas(){
     this.estadoventa.getEstadoVenta().subscribe((response)=> {
@@ -113,16 +99,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     })
   }
 
-
-
-
-
-
-
+  status: boolean = false;
   menuToggle(){
     this.status = !this.status;
   }
 
-
- }
-
+}
