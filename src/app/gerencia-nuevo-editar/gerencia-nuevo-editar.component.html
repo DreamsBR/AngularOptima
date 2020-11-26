@@ -37,7 +37,7 @@
 
                           <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <label for="nombres">Ingrese Proyecto</label>
+                                    <label [(ngModel)]="frmnombre" for="nombres">Ingrese Proyecto</label>
 
                                     <input type="text" class="form-control"  name="nombres"  id="nombres" >
 
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label for="nombres">Buscar gerente de ventas</label>
 
-                                    <input type="text" class="form-control" [(ngModel)]="nrdoc" name="nombres"  id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
+                                    <input type="text" class="form-control"  [(ngModel)]="nrdoc" name="nombres"  id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
 
                                 </div>
                           </div>
@@ -69,8 +69,8 @@
                         <div class="card">
                             <div class="card-body">
                                 <p class="cliente-card-titulo"><strong>Nombres</strong></p>
-
-                                <p class="cliente-nombre"><strong>{{ colaboradorSelecionado.nombres + ' ' + colaboradorSelecionado.apellidos }}</strong></p>
+                                <input type="hidden" [(ngModel)]= "frmidGerente"> {{colaboradorSelecionado.idColaborador}}
+                                <p  class="cliente-nombre"><strong>{{ colaboradorSelecionado.nombres + ' ' + colaboradorSelecionado.apellidos }}</strong></p>
                                 <p class="cliente-numero"><strong>{{ colaboradorSelecionado.numeroDocumento }}</strong></p>
 
                               </div>
@@ -84,7 +84,7 @@
 
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <label for="fechanacimiento">Fecha Inicio Cargo</label>
+                            <label [(ngModel)]="frmfechaIngreso" for="fechanacimiento">Fecha Inicio Cargo</label>
                             <datepicker-rounded
 
                             [label]="'Fecha'"
@@ -324,7 +324,7 @@
 
                     <div class="row">
                         <div class="col-sm-12 col-md-10">
-                            <button type="submit" (click)="agregarGerencia()" class="btn btn-optima btn-float-right">Guardar</button>
+                            <button type="submit" (click) = "agregarGerencia()" class="btn btn-optima btn-float-right">Guardar</button>
                         </div>
                     </div>
                   </div>

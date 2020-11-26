@@ -140,6 +140,9 @@ const ROUTES: Routes = [
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+
+
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
@@ -239,11 +242,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
-<<<<<<< HEAD
-    GerenciaaaService,
-=======
     GerenciaService,
->>>>>>> 8b9c900b939aea2bb7708276ec696dcb8b757d3f
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
