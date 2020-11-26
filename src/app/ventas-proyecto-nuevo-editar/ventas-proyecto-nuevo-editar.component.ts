@@ -393,10 +393,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.fechaDesembolso = ""
     this.venta.fechaEpp = ""
     this.venta.fechaMinuta = ""
-    this.venta.fechaSeparacion = this.obtenerFechaActual()
+    this.venta.fechaSeparacion = ""
 
     this.venta.idCliente = this.clienteSeleccionado.idCliente
-    this.venta.idEstadoVenta = 1
+    this.venta.idEstadoVenta = 15
     this.venta.idFinanciamiento = idFinanciamiento
     this.venta.idProyecto = this.paramIdProyecto
 
