@@ -5,6 +5,10 @@ import { Observable } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 import { ProyectoService } from '../proyectos/proyectos.service'
 import { Proyecto } from '../proyectos/proyecto'
+import { PeriodoService } from '../periodos/periodo.service'
+import { GerenciaService } from '../gerencias/gerencia.service'
+import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
+import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.service'
 
 import {
   ApexAxisChartSeries,
@@ -39,6 +43,7 @@ export type ChartOptions = {
   styleUrls: ['./reportes.component.css']
 })
 export class ReportesComponent implements OnInit {
+  loading = false
   status = false
 
   itemsTable = new MatTableDataSource<any>()
@@ -52,7 +57,19 @@ export class ReportesComponent implements OnInit {
 
   public chartOptions: Partial<ChartOptions>
 
-  constructor(private proyectoService: ProyectoService) {
+  // Variables para buscadores
+  keywordSearch1 = 'nombres'
+  dataSearch1 = []
+
+  keywordSearch2 = 'nombrePeriodo'
+  dataSearch2 = []
+
+  constructor(
+    private proyectoService: ProyectoService,
+    private periodoService: PeriodoService,
+    private gerenciaService: GerenciaService,
+    private periodoGerenciaService: PeriodoGerenciaService
+  ) {
     this.chartOptions = {
       series: [
         {
@@ -108,53 +125,47 @@ export class ReportesComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
-    this.fetchData()
+  selectEventSearch1(item) {
+    this.periodoGerenciaService
+      .getPeriodoByIdGerencia(item.gerencia.idGerencia)
+      .subscribe((resp) => {
+        const listaCustomPeriodo = []
+        resp.forEach((element) => {
+          listaCustomPeriodo.push({
+            ...element,
+            idPeriodo: element.periodo.idPeriodo,
+            nombrePeriodo: element.periodo.nombre
+          })
+        })
+        this.dataSearch2 = listaCustomPeriodo
+      })
+  }
 
-    this.proyectoService.getAllProjects().subscribe((resp) => {
-      this.optionsListaProyectos = resp
+  selectEventSearch2(item) {
+    console.log(item)
+  }
+
+  ngOnInit() {
+    this.loading = true
+    this.gerenciaService.getAllGerencias().subscribe((data) => {
+      const listaGerentes = []
+      data.forEach((elem: any) => {
+        if (elem.colaborador) {
+          listaGerentes.push({
+            ...elem.colaborador,
+            gerencia: {
+              idGerencia: elem.idGerencia,
+              nombre: elem.nombre
+            }
+          })
+        }
+      })
+      this.dataSearch1 = listaGerentes
+      this.loading = false
     })
   }
 
   menuToggle() {
     this.status = !this.status
-  }
-
-  fetchData() {
-    const data = [
-      {
-        proyecto: 'Nesta',
-        meta: 3545951.72,
-        avance: 1345951.54,
-        minuta: 8
-      },
-      {
-        proyecto: 'Town',
-        meta: 1000000.35,
-        avance: 854621.29,
-        minuta: 4
-      },
-      {
-        proyecto: 'Sente 1',
-        meta: 5000000.58,
-        avance: 84621.97,
-        minuta: 2
-      }
-    ]
-
-    let tmpSumaMetas = 0
-    let tmpSumaAvances = 0
-    data.forEach((item) => {
-      tmpSumaMetas += item.meta
-      tmpSumaAvances += item.avance
-    })
-    this.sumaMetas = tmpSumaMetas
-    this.sumaAvances = tmpSumaAvances
-
-    this.itemsTable = new MatTableDataSource<any>(data)
-  }
-
-  onChangeProyecto(obj) {
-    console.log(obj)
   }
 }

@@ -30,6 +30,7 @@ import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
+import { PeriodoGerenciaService } from './periodo-gerencia/periodo-gerencia.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
 import { VentaService } from './ventas/ventas.service'
 import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
@@ -97,6 +98,9 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-proyecto-editar.component';
 
 import { NgApexchartsModule } from "ng-apexcharts";
+
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -200,7 +204,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     Paginator2Component,
     EstadosVentasComponent,
     ReportesComponent,
-    VentasProyectoEditarComponent
+    VentasProyectoEditarComponent,
+    PeriodoGerenciaComponent
   ],
   imports: [
     BrowserModule,
@@ -218,7 +223,8 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     MatSnackBarModule,
     NgbModule,
     NgxMaskModule.forRoot(),
-    NgApexchartsModule
+    NgApexchartsModule,
+    AutocompleteLibModule
   ],
   providers: [
     ClienteService,
@@ -226,6 +232,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     ProyectoService,
     VentasproyectoService,
     PeriodoService,
+    PeriodoGerenciaService,
     InmuebleService,
     VentaService,
     VentaConsultaClienteDetalleService,
@@ -241,6 +248,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
+    GerenciaService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
