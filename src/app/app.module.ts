@@ -73,6 +73,9 @@ import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-n
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
 import { GerenciaService } from './gerencias/gerencia.service'
+import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
+import { TipoVistaService } from './tipovista/tipoVista.service'
+import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 
 
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
@@ -241,6 +244,9 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
+    TipoInmuebleService,
+    TipoVistaService,
+    TipoInmuebleCategoriaService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

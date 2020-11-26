@@ -55,7 +55,6 @@ export class ClientesNuevoEditarComponent implements OnInit {
         this.cliente.idTipoDocumento = 1
         this.cliente.nroDocumento = this.nrodoc
       }
-
     }
     this.obtenerEstadoCivil()
     this.obtenerTipoDocumento()
