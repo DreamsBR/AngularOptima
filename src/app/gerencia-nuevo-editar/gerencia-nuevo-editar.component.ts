@@ -10,6 +10,10 @@ import { ColaboradorService } from '../colaboradores/colaborador.service';
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
 import { Gerencia } from '../gerencias/gerencia';
 import { GerenciaService } from '../gerencias/gerencia.service';
+import { Periodo } from '../periodos/periodo';
+import { PeriodoService } from '../periodos/periodo.service';
+import { Periodogerencia } from './../gerencias/gerenciaPeriodo'
+import { PeriodoGerencia } from './../periodo-gerencia/periodogerencia'
 
 
 @Component({
@@ -22,6 +26,13 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   paramIdProyecto : number
   public gerencia: Gerencia = new Gerencia()
   public errores: string[]
+  periodoGer : Periodo[]
+
+  public periodogeren : Periodogerencia = new Periodogerencia()
+  public perio : PeriodoGerencia = new PeriodoGerencia()
+
+
+
 
   frmenable :number = 0
   frmfechaIngreso:string
@@ -47,11 +58,14 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private gerenciaService: GerenciaService,
     private colaboradorserv:ColaboradorService,
-    private router:Router
+    private router:Router,
+    private periodo: PeriodoService
 
   ) { }
 
   ngOnInit() {
+    this.obtenerPeriodos()
+
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
       if(!isNull(params.get('dni'))){
@@ -64,6 +78,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     this.colaboradorSelecionado.nombres= ""
     this.colaboradorSelecionado.apellidos= ""
     this.colaboradorSelecionado.numeroDocumento= ""
+
 
   }
   onFechaIngresoCargo(newdate:string){
@@ -98,17 +113,33 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     })
   }
 
+
+  public guardarPeriodoGerencia(): void {
+    console.info(this.perio)
+    this.gerenciaService.agregarPeriodoMeta(this.perio).subscribe(
+      (response) => {
+        swal('Nuevo Periodo', `Gerencia creado con exito`, 'success')
+      },
+      (err) => {
+        this.errores = err.console.error as string [];
+
+      }
+    )
+  }
+
+
   public agregarGerencia(): void{
     this.gerencia.fechaIngreso = this.frmfechaIngreso
-    console.info(this.gerencia)
-    this.gerenciaService.agregarGerencia(this.gerencia).subscribe(
+    console.info(this.periodogeren)
+    this.gerenciaService.agregarPeriodoMeta(this.periodogeren).subscribe(
       (response) => {
         swal('Nueva Gerencia', `Gerencia creado con exito`, 'success')
       },
         (err) => {
-          this.errores = err.error.erros as string[];
+          this.errores = err.console.error as string[];
         }
-      )}
+    )}
+
 
 
 
@@ -116,5 +147,14 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         document.getElementById(tabName).click()
       }
 
+
+
+      public obtenerPeriodos(){
+        this.periodo.getTodoPeriodos().subscribe((response) =>{
+          console.log(response)
+          this.periodoGer = response
+          console.info(this.periodo)
+        })
+      }
 
 }

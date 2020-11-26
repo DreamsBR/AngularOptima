@@ -14,6 +14,12 @@ import { Venta } from '../ventas/venta';
 import { VentaNodos } from './../ventas/ventanodos';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
+import { PeriodoService } from '../periodos/periodo.service';
+
+import { Periodo } from './../periodos/periodo'
+import { Periodogerencia } from './../gerencias/gerenciaPeriodo'
+
+
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -32,6 +38,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   tipoestado : estadoventa[]
   ventasLista: Ventanodos[]
   fechaSeparacion : string
+  periodogeren : Periodogerencia[]
 
   filterPost = ""
   base:string
@@ -46,6 +53,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     private ventaServi : VentaService,
     public authService: AuthService,
     public router: Router,
+    private periodo: PeriodoService
 
   ) { }
 
@@ -104,6 +112,9 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       console.info(this.estadoventa)
     })
   }
+
+
+
 
 
 
