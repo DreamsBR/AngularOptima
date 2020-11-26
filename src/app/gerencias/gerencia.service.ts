@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { URL_BACKEND } from '../config/config';
+import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia';
 import { Gerencia } from "./gerencia";
-
+import { Periodogerencia} from './gerenciaPeriodo'
 @Injectable()
 export class GerenciaService {
 
@@ -39,6 +40,16 @@ export class GerenciaService {
               return throwError(e)}
           })
         )}
+
+          agregarPeriodoMeta(gerenciaPerio:PeriodoGerencia){
+            return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
+              catchError((e) => {
+                if(e.status === 400){
+                  return throwError(e)
+                }
+              })
+            )
+          }
 
         getAllGerencias(): Observable<any> {
           return this.http

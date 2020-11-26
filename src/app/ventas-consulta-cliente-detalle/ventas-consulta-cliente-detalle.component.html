@@ -15,7 +15,7 @@
           >
             <em class="fas fa-chevron-left"></em>
           </button>
-          <h3 style="display: inline">Cliente ALBERTO ARMENDARIZ ARTURIAZ</h3>
+          <h3 style="display: inline">Cliente {{ cliente.nombres + ' ' + cliente.apellidos }}</h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
@@ -47,7 +47,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link active"
+                class="nav-link"
                 id="profile-tab"
                 data-toggle="tab"
                 href="#tab2"
@@ -71,7 +71,7 @@
             </li>
             <li class="nav-item">
               <a
-                class="nav-link"
+                class="nav-link active"
                 id="contact-tab"
                 data-toggle="tab"
                 href="#tab4"
@@ -182,12 +182,7 @@
               </div>
             </div>
 
-            <div
-              class="tab-pane fade show active"
-              id="tab2"
-              role="tabpanel"
-              aria-labelledby="profile-tab"
-            >
+            <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
               <br />
 
               <!-- <div class="row">
@@ -414,7 +409,12 @@
               </div>
             </div>
 
-            <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
+            <div
+              class="tab-pane fade show active"
+              id="tab4"
+              role="tabpanel"
+              aria-labelledby="contact-tab"
+            >
               <br />
 
               <div class="row">

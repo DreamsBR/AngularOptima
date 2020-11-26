@@ -40,13 +40,17 @@
                   id="iptTipoInmueble"
                 >
                   <option [ngValue]="0">-- Seleccionar --</option>
-                  <option *ngFor="let o of optionsTipoInmueble" [ngValue]="o.idTipoInmueble">
+                  <option *ngFor="let o of tipoinmueble" [ngValue]="o.idTipoInmueble">
                     {{ o.nombre }}
                   </option>
                 </select>
+
+                
+
+
               </div>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6" *ngIf="isFormDpto">
               <div class="form-group">
                 <label for="iptTipoInmuebleCategoria">Categoria</label>
                 <select
@@ -56,7 +60,7 @@
                 >
                   <option [ngValue]="0">-- Seleccionar --</option>
                   <option
-                    *ngFor="let o of optionsTipoInmuebleCategoria"
+                    *ngFor="let o of tipoinmueblecategoria"
                     [ngValue]="o.idTipoInmuebleCategoria"
                   >
                     {{ o.nombre }}
@@ -132,7 +136,7 @@
                 <label for="iptTipoVista">Vista</label>
                 <select [(ngModel)]="inmueble.idTipoVista" class="form-control" id="iptTipoVista">
                   <option [ngValue]="0">-- Seleccionar --</option>
-                  <option *ngFor="let o of optionsTipoVista" [ngValue]="o.idTipoVista">
+                  <option *ngFor="let o of tipovista" [ngValue]="o.idTipoVista">
                     {{ o.nombre }}
                   </option>
                 </select>
