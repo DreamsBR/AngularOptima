@@ -43,6 +43,16 @@ export class VentaService {
     )
   }
 
+  editarVenta(venta: Venta, idVenta: number): Observable<any> {
+    return this.http.put<any>(this.urlEndPoint + 'venta/' + idVenta, venta).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
   getVentasByProyecto(idProyecto, page): Observable<any> {
     return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
       map((jsonVentasResponse: any) => {

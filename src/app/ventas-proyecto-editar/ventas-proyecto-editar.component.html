@@ -57,7 +57,7 @@
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label class="label-hidden">&nbsp;</label>
-                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarCliente(nrodoc)">Agregar cliente</button>
+                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarCliente(nrodoc)">Nuevo</button>
                                                 </div>
                                             </div>
 
@@ -485,6 +485,7 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <datepicker-rounded
+                                                    #dpfechaInicioAhorro
                                                     [label]="'Inicio ahorro'"
                                                     (onDateChanged)="onFechaInicioAhorro($event)"
                                                     ></datepicker-rounded>
@@ -493,6 +494,7 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <datepicker-rounded
+                                                    #dpfechaFinAhorro
                                                     [label]="'Fin ahorro'"
                                                     (onDateChanged)="onFechaFinAhorro($event)"
                                                     ></datepicker-rounded>

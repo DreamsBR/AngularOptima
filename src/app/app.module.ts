@@ -47,9 +47,6 @@ import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 import { statusVentaservice } from './consulta-ventas/statusventa.service'
 import { GerenciaService } from './gerencias/gerencia.service'
-//import { GerenciaaaService } from './gerencias/gerenciaaa.service'
-
-
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -242,7 +239,11 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
+<<<<<<< HEAD
     GerenciaaaService,
+=======
+    GerenciaService,
+>>>>>>> 8b9c900b939aea2bb7708276ec696dcb8b757d3f
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
