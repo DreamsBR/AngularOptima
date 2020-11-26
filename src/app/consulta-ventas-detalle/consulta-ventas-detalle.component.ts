@@ -106,6 +106,8 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   }
 
 
+
+
   menuToggle(){
     this.status = !this.status;
   }

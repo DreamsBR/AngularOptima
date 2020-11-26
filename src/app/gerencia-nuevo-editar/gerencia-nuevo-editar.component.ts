@@ -98,7 +98,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     })
   }
 
-
   public agregarGerencia(): void{
     this.gerencia.fechaIngreso = this.frmfechaIngreso
     console.info(this.gerencia)
