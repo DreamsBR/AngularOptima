@@ -46,8 +46,8 @@ import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.servi
 import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
 import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
-
 import { statusVentaservice } from './consulta-ventas/statusventa.service'
+import { GerenciaService } from './gerencias/gerencia.service'
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -73,7 +73,6 @@ import { InmueblesComponent } from './inmuebles/inmuebles.component'
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component'
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
-import { GerenciaService } from './gerencias/gerencia.service'
 
 
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
@@ -144,6 +143,9 @@ const ROUTES: Routes = [
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+
+
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
@@ -191,9 +193,6 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-
-
-
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
@@ -250,7 +249,6 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     TipodocumentoService,
     GerenciaService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 
   bootstrap: [AppComponent]

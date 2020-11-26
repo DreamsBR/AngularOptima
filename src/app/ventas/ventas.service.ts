@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
 import { Venta } from './../ventas-proyecto-nuevo-editar/venta'
-
+import {VentaNodos} from './ventanodos'
 @Injectable()
 export class VentaService {
   private urlEndPoint: string = URL_BACKEND
@@ -25,7 +25,8 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as Venta[]).map((venta) => {
-          // venta.nombres = venta.nombres.toUpperCase()
+
+
           return venta
         })
         return jsonVentasResponse
@@ -43,11 +44,42 @@ export class VentaService {
     )
   }
 
+  editarVenta(venta: Venta, idVenta: number): Observable<any> {
+    return this.http.put<any>(this.urlEndPoint + 'venta/' + idVenta, venta).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
   getVentasByProyecto(idProyecto, page): Observable<any> {
     return this.http.get(this.urlEndPoint + 'venta/byproyecto/' + idProyecto + '/' + page).pipe(
       map((jsonVentasResponse: any) => {
-        ;(jsonVentasResponse.content as Venta[]).map((venta) => {
-          return venta
+        ;(jsonVentasResponse.content as VentaNodos[]).map((VentaNodos) => {
+          console.log(jsonVentasResponse)
+/*
+          VentaNodos.ayudaInicial = jsonVentasResponse.ayudaInicial
+          VentaNodos.descuento = jsonVentasResponse.descuento
+          VentaNodos.enable = jsonVentasResponse.enable
+          VentaNodos.fechaCaida = jsonVentasResponse.fechaCaida
+          VentaNodos.fechaDesembolso = jsonVentasResponse.fechaDesembolso
+          VentaNodos.fechaMinuta = jsonVentasResponse.fechaMinuta
+          VentaNodos.fechaSeparacion = jsonVentasResponse.fechaSeparacion
+          VentaNodos.fechaEpp = jsonVentasResponse.fechaEpp
+          VentaNodos.canal.idCanal = jsonVentasResponse.idCanal
+          VentaNodos.categoria.idCategoria = jsonVentasResponse.idCategoria
+          VentaNodos.cliente.idCliente = jsonVentasResponse.idCliente
+          VentaNodos.estadoVenta.idEstadoVenta = jsonVentasResponse.idEstadoVenta
+          VentaNodos.financiamiento.idFinanciamiento = jsonVentasResponse.idFinanciamiento
+          VentaNodos.motivo.idMotivo = jsonVentasResponse.idMotivo
+          VentaNodos.vendedor.idVendedor = jsonVentasResponse.idVendedor
+          VentaNodos.idVenta = jsonVentasResponse.idVenta
+          VentaNodos.importe = jsonVentasResponse.importe
+          VentaNodos.total = jsonVentasResponse.total
+*/
+          return VentaNodos
         })
         return jsonVentasResponse
       })

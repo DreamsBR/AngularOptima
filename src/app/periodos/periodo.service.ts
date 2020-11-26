@@ -36,6 +36,17 @@ export class PeriodoService {
     )
   }
 
+  getTodoPeriodos(): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/').pipe(
+      map((data: any) => {
+        ;(data as Periodo[]).map((periodo) => {
+          return periodo
+        })
+        return data
+      })
+    )
+  }
+
   agregarPeriodo(periodo: Periodo): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
       catchError((e) => {

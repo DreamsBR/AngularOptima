@@ -87,13 +87,17 @@
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos}}</a></td>
                                 <td>{{ventasProyecto.cliente.nroDocumento}}</td>
-                                <td class="">{{ ventasProyecto.fechaSeparacion }}</td>
-                                <td class="">{{ ventasProyecto.fechaMinuta }}</td>
-                                <td class="">{{ ventasProyecto.fechaDesembolso }} </td>
-                                <td class="">{{ ventasProyecto.FechaEpp }}</td>
-                                <td class="">{{ ventasProyecto.fechaCaida }}</td>
-                                <td class="">{{ ventasProyecto.total }}</td>
-                                <td class="">{{ ventasProyecto.financiamiento.financiamiento }}<td>
+<!--
+                                <td value="" class="">{{ ventasProyecto.fechaSeparacion | formatDate}}</td>
+                                <td class="">{{ ventasProyecto.fechaMinuta | formatDate }}</td>
+                                <td class="">{{ ventasProyecto.fechaDesembolso | formatDate}} </td>
+                                <td class="">{{ ventasProyecto.fechaEpp | formatDate }}</td>
+                                <td class="">{{ ventasProyecto.fechaCaida | formatDate }}</td>
+-->
+
+
+                                <td class="">{{ ventasProyecto.total | formatSoles }}</td>
+                                <td class="">{{ ventasProyecto.financiamiento.financiamiento | formatSoles}}</td>
                                 <td class="">{{ ventasProyecto.estadoVenta.nombre }}</td>
 
 

@@ -11,6 +11,9 @@ import { estadoventa } from '../consulta-ventas/estadoventa';
 import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 import { VentaService } from '../ventas/ventas.service';
 import { Venta } from '../ventas/venta';
+import { VentaNodos } from './../ventas/ventanodos';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -27,8 +30,10 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   sortDesde: string = ''
   sortHasta: string = ''
   tipoestado : estadoventa[]
-  ventasLista: Venta[]
+  ventasLista: Ventanodos[]
+  fechaSeparacion : string
 
+  filterPost = ""
   base:string
   paginador:any
   id: number
@@ -44,7 +49,11 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
   ) { }
 
+
+
+
   ngOnInit() {
+
     this.obtenerEstadoVentas()
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
@@ -52,6 +61,23 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.obtenerVentasProyecto(this.paramIdProyecto)
 
   }
+  /*
+  public model: any;
+
+  formatter = (result: string) => result.toUpperCase();
+
+  search = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map(term => term === '' ? []
+        : states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
+    )
+
+*/
+
+
+
 
   obtenerVentasProyecto(id:number){
     this.activatedRoute.paramMap.subscribe((params) => {
