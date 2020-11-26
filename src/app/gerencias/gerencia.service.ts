@@ -32,8 +32,6 @@ export class GerenciaService {
         )
       }
 
-
-
       agregarGerencia(gerencia:Gerencia): Observable<Gerencia>{
         return this.http.post<Gerencia>(this.urlEndPoint, gerencia).pipe(
           catchError((e) => {
