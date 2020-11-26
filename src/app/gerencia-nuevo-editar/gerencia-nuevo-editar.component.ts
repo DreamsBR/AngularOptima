@@ -7,6 +7,8 @@ import { isNull } from 'util';
 import { ClienteService } from '../clientes/clientes.service';
 import { Colaborador } from '../colaboradores/colaborador';
 import { ColaboradorService } from '../colaboradores/colaborador.service';
+import { Gerencia } from '../gerencias/gerencia';
+import { GerenciaService } from '../gerencias/gerencia.service';
 
 
 @Component({
@@ -17,11 +19,12 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   public colaboradorSelecionado:Colaborador = new Colaborador()
   public nrdoc: string
   paramIdProyecto : number
-
+  public gerencia: Gerencia = new Gerencia()
+  public errores: string[]
 
   constructor(
     private activatedRoute: ActivatedRoute,
-
+    private gerenciaService: GerenciaService,
     private colaboradorserv:ColaboradorService,
     private router:Router
 
@@ -67,17 +70,24 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     })
   }
 
-
-  agregarColaborador(nrdoc: string){
-    console.info(nrdoc);
-    if(nrdoc == '' || nrdoc == undefined){
-      swal('No hizo una busqueda de cliente', '', 'warning')
+/*
+  public agregarGerencia(): void{
+    if(Object.keys(this.gerencia).length < 5 ){
+      swal('Campos Incompletos de Cliente', '','error')
       return
     }
+    this.gerenciaService.agregarGerencia(this.gerencia).subscribe(
+      (response) => {
+        console.log(response)
+        swal('Nueva Gerencia', `Gerencia creado con exito`, 'success')
+      },
+        err => {
+          this.errores = err.error.erros as string[];
+        }
+      )
 
-    this.router.navigate(['/gerencia-nuevo-editar/0/' + nrdoc + '/' + this.paramIdProyecto])
   }
-
+*/
 
 
 

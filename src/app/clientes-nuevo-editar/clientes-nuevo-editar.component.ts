@@ -77,6 +77,10 @@ export class ClientesNuevoEditarComponent implements OnInit {
     })
   }
 
+/*
+    AGREGAR CLIENTE
+*/
+
   public agregarCliente(): void {
     if(Object.keys(this.cliente).length < 20){
       swal('Campos Incompletos de Cliente', '','error')
@@ -113,6 +117,13 @@ export class ClientesNuevoEditarComponent implements OnInit {
     }
 
   }
+
+
+
+
+
+
+
 
   siguientePagina(tabName: string){
     document.getElementById(tabName).click()

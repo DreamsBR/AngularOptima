@@ -62,6 +62,8 @@ export class ClienteService {
     return this.http.get<Cliente>(this.urlEndPoint + '/' + idCliente)
   }
 
+
+
   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
     return this.http.put<any>(this.urlEndPoint + '/' + idCliente, cliente).pipe(
       catchError((e) => {

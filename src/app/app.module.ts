@@ -216,6 +216,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     NgbModule,
     NgxMaskModule.forRoot(),
     NgApexchartsModule
+
   ],
   providers: [
     ClienteService,
@@ -238,7 +239,11 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadocivilService,
     statusVentaservice,
     TipodocumentoService,
+<<<<<<< HEAD
+    GerenciaaaService,
+=======
     GerenciaService,
+>>>>>>> 8b9c900b939aea2bb7708276ec696dcb8b757d3f
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
