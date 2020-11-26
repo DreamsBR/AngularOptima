@@ -37,9 +37,9 @@
 
                           <div class="col-sm-12 col-md-4">
                                 <div class="form-group">
-                                    <label [(ngModel)]="frmnombre" for="nombres">Ingrese Proyecto</label>
+                                    <label for="nombres">Nombre de Gerencia</label>
 
-                                    <input type="text" class="form-control"  name="nombres"  id="nombres" >
+                                    <input [(ngModel)]="gerencia.nombre"  type="text" class="form-control"  name="nombre"  id="nombre" >
 
                                 </div>
                           </div>
@@ -48,7 +48,7 @@
                                 <div class="form-group">
                                     <label for="nombres">Buscar gerente de ventas</label>
 
-                                    <input type="text" class="form-control"  [(ngModel)]="nrdoc" name="nombres"  id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
+                                    <input  type="text" class="form-control"  name="nombres" [(ngModel)]="nrdoc" id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
 
                                 </div>
                           </div>
@@ -56,9 +56,11 @@
                         <div class="col-sm-12 col-md-1 col-xl-1">
                           <div class="form-group">
                             <label class="label-hidden"></label>
-                              <button type="submit" class="btn btn-optima btn-float-right" (click)="obatenerColaboradorPorDni(nrdoc)">Buscar</button>
+                              <button type="submit" class="btn btn-optima btn-float-right"  (click)="obatenerColaboradorPorDni(nrdoc)" >Buscar</button>
                           </div>
                         </div>
+
+
 
                     </div>
 
@@ -68,8 +70,12 @@
                       <div class="col-xl-4 col-md-12 ">
                         <div class="card">
                             <div class="card-body">
-                                <p class="cliente-card-titulo"><strong>Nombres</strong></p>
-                                <input type="hidden" [(ngModel)]= "frmidGerente"> {{colaboradorSelecionado.idColaborador}}
+                                <p class="cliente-card-titulo"><strong>Gerente</strong></p>
+
+                                <input  type="hidden" [(ngModel)]="gerencia.idGerente"
+                                name="idGerente" id="idGerente" class="form-control"
+                                value="{{colaboradorSelecionado.idColaborador}}"> <strong>{{colaboradorSelecionado.idColaborador}}</strong>
+
                                 <p  class="cliente-nombre"><strong>{{ colaboradorSelecionado.nombres + ' ' + colaboradorSelecionado.apellidos }}</strong></p>
                                 <p class="cliente-numero"><strong>{{ colaboradorSelecionado.numeroDocumento }}</strong></p>
 
@@ -84,10 +90,12 @@
 
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                            <label [(ngModel)]="frmfechaIngreso" for="fechanacimiento">Fecha Inicio Cargo</label>
+                            <label   for="fechaIngreso">Fecha Inicio Cargo</label>
                             <datepicker-rounded
-
-                            [label]="'Fecha'"
+                            name="fechaIngreso"
+                            #dpFechaInicio
+                            (onDateChanged)="onFechaIngresoCargo($event)"
+                            [label]="'fechaIngreso'"
                             ></datepicker-rounded>
                         </div>
                     </div>
@@ -97,20 +105,18 @@
                       <div class="form-group">
                           <label for="fechanacimiento">Fecha de Termino Cargo</label>
                           <datepicker-rounded
-
+                          #dpFechaFin
+                          (onDateChanged)="onFechaFinCargo($event)"
                           [label]="'Fecha'"
                           ></datepicker-rounded>
                       </div>
                   </div>
                     </div>
 
+                    <button type="submit" (click) = "agregarGerencia(); siguientePagina('v-pills-profile-tab')"  class="btn btn-optima btn-float-right">Guardar</button>
+
 
                         </div>
-
-
-
-
-
 
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 

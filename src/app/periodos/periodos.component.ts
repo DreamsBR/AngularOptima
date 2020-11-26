@@ -59,6 +59,7 @@ export class PeriodosComponent implements OnInit {
   }
 
 
+
   public agregarPeriodo(): void {
 
     if(Object.keys(this.periodo).length < 3){
@@ -71,6 +72,8 @@ export class PeriodosComponent implements OnInit {
 
     this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' + fechaInicioT.day
     this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
+
+
     this.periodoService.agregarPeriodo(this.periodo).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
