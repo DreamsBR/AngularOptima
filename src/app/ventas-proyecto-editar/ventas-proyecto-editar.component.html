@@ -177,13 +177,13 @@
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="departamentoDescuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="text" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
+                                                                                    <input type="number" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                    <input type="number" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
@@ -218,13 +218,6 @@
                                                         </div>
 
                                                         <div class="row">
-                                                            <!-- <div class="col-sm-12 col-md-3">
-                                                                <div class="form-group">
-                                                                    <label for="nombres">Adicionales</label>
-                                                                    <select class="form-control" name="adicionales">
-                                                                    </select>
-                                                                </div>
-                                                            </div> -->
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <div class="col-sm-12 col-md-12">
@@ -310,13 +303,13 @@
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="adicionalDescuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="text" class="form-control" name="adicionalDescuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
+                                                                                    <input type="number" class="form-control" name="adicionalDescuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="adicionalAyudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="adicionalAyudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
+                                                                                    <input type="number" class="form-control" name="adicionalAyudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
