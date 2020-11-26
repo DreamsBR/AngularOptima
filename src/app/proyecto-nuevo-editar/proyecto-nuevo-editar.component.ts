@@ -51,7 +51,6 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.frmNombre  = response.nombre
           this.frmEnable  =  response.enable
           this.frmDireccion =  response.direccion
-
         },
         (err)=> {
           this.errores = err.error.errors as string[]
