@@ -382,10 +382,19 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.dpFSeparacion.setValue('')
   }
 
-  openSnackBar(message: string, action: string, duration: number = 5000) {
+  openSnackBar(type: string, message: string, action: string, duration: number = 5000) {
+    let className = ''
+    switch(type)  {
+      case 'success':
+        className = 'agz-snackbar__success'
+        break
+      case 'error':
+          className = 'agz-snackbar__error'
+          break
+    }
     this._snackBar.open(message, action, {
       duration: duration,
-      panelClass: ['success-snackbar']
+      panelClass: [className]
     })
   }
 
@@ -398,12 +407,14 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   btnPagoGuardar() {
+    this.modalPagoWarnings = []
+    this.modalPagoErrores = []
     if (
       this.pagoModal.fecha === '' ||
       this.pagoModal.monto === 0 ||
       this.pagoModal.monto === null ||
       this.pagoModal.monto.toString() === '' ||
-      this.pagoModal.numeroOperacion === 0 ||
+      this.pagoModal.numeroOperacion === '' ||
       this.pagoModal.numeroOperacion === null ||
       this.pagoModal.numeroOperacion.toString() === ''
     ) {
@@ -433,16 +444,17 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       } else {
         path = this.pagosService.postGuardarPago(this.pagoModal)
       }
-      document.getElementById('btnPagoClose').click()
       path.subscribe(
         (_) => {
+          document.getElementById('btnPagoClose').click()
           this.loading = false
-          this.openSnackBar('✓ Pago guardado', 'Cerrar')
+          this.openSnackBar('success', '✓ Pago guardado', 'Cerrar')
           this.refreshTablaPagos()
         },
         (err) => {
           this.loading = false
-          this.modalPagoErrores = ['Hubo un problema recuperando información adicional de la venta']
+          //this.openSnackBar('error', 'Hubo un error en la acción', 'Cerrar')
+          this.modalPagoErrores = ['Hubo un problema al registrar el pago']
           console.log(err)
         }
       )
@@ -561,7 +573,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.pagosService.deletePago(this.pagoToDelete).subscribe((_) => {
       this.loading = false
       document.getElementById('cerrarModalEliminarPago').click()
-      this.openSnackBar('✓ Pago eliminado con éxito', 'Cerrar', 1500)
+      this.openSnackBar('success', '✓ Pago eliminado con éxito', 'Cerrar', 1500)
       this.refreshTablaPagos()
     })
   }
@@ -576,7 +588,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.inmuebleService.deletePago(this.inmuebleToDelete).subscribe((_) => {
       this.loading = false
       document.getElementById('cerrarModalEliminarInmueble').click()
-      this.openSnackBar('✓ Inmueble eliminado con éxito', 'Cerrar', 1500)
+      this.openSnackBar('success', '✓ Inmueble eliminado con éxito', 'Cerrar', 1500)
       this.refreshListaInmuebles()
     })
   }
