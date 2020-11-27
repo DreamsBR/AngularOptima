@@ -26,9 +26,8 @@ export class CategoriasComponent implements OnInit {
   base : string
 
   public obtenerCategoria(){
-
     this.activatedRoute.paramMap.subscribe((params) => {
-      let page : number =+ params.get('page')
+      let page : number  = +params.get('page')
       if(!page){
         page =0
       }

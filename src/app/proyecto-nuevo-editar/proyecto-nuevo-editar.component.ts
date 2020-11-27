@@ -8,6 +8,9 @@ import { Observable } from 'rxjs'
 import { PeriodoService } from '../periodos/periodo.service'
 import { Periodo } from '../periodos/periodo'
 
+import { PeriodoGerencia } from './../periodo-gerencia/periodogerencia'
+
+
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 
 @Component({
@@ -15,11 +18,11 @@ import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
   templateUrl: './proyecto-nuevo-editar.component.html'
 })
 export class ProyectoNuevoEditarComponent implements OnInit {
-  
+
   editMode: boolean = true
   public errores:string[]
   public proyecto = new Proyecto()
-
+  public newPeriodo:[]
 
   idProyecto:number
   frmIdProyecto: number = 0
@@ -36,7 +39,9 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService,
+    private periodo: PeriodoService
+
   ) {}
 
   ngOnInit() {
@@ -62,7 +67,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
     this.obtenerPeriodos()
   }
-
+/*
   public obtenerPeriodos() {
     this.periodoService.getTodoPeriodos().subscribe((response) => {
       for(let x = 0 ; x < response.length ; x++){
@@ -76,9 +81,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         distinctUntilChanged(),
         map(term => term.length < 2 ? []: this.aryPeriodos.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
       )
-
     })
-  }
+  }*/
 
   status = false
   menuToggle() {
@@ -88,18 +92,36 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   regresar() {
     window.location.href = '/proyectos'
   }
-
   guardar() {
+
     const newProyecto = new Proyecto()
+    console.log(newProyecto)
+
     newProyecto.idProyecto = this.frmIdProyecto
     newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombre
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
 
-    console.log(newProyecto)
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
+    })
+  }
+
+/*****/
+  frmMonto :number = 0
+  fmrPeriodo : number
+
+
+  agregarPeriodoMonto(){
+    const newPeriodo = new PeriodoGerencia
+
+    newPeriodo.periodo.idPeriodo = this.fmrPeriodo
+    newPeriodo.meta = this.frmMonto
+    console.log(newPeriodo)
+    this.proyectoService.getPeriodoMontoPro(newPeriodo).subscribe((_) =>{
+      return newPeriodo
+      console.log(newPeriodo)
     })
   }
 
@@ -117,6 +139,16 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         break
       }
     }
+  }
+  periodoGer : Periodo[]
+
+
+  public obtenerPeriodos(){
+    this.periodo.getTodoPeriodos().subscribe((response) =>{
+      console.log(response)
+      this.periodoGer = response
+      console.info(this.periodo)
+    })
   }
 
 }
