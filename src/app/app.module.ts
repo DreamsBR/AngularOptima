@@ -39,6 +39,7 @@ import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.s
 import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
 import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
 import { PagosService } from './pagos/pagos.service'
+import { ReportesService } from './reportes/reportes.service'
 
 import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
@@ -250,6 +251,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     statusVentaservice,
     TipodocumentoService,
     GerenciaService,
+    ReportesService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
