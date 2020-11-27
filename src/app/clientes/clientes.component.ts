@@ -3,7 +3,6 @@ import { Cliente } from './cliente'
 import { ClienteService } from './clientes.service'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
-import { URL_BACKEND } from '../config/config'
 
 @Component({
   selector: 'app-clientes',
@@ -15,13 +14,13 @@ export class ClientesComponent implements OnInit {
   clienteSeleccionado: Cliente
   paginador: any
   base: string
-  urlBackend: String = URL_BACKEND
 
   constructor(
     private clienteService: ClienteService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService
-  ) {}
+  )
+  {}
 
   ngOnInit() {
     this.obtenerCliente()

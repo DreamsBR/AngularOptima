@@ -1,19 +1,17 @@
 export class Gerencia{
-
+  idGerencia: number
   enable: number
-  fechaIngreso:string
-  idGerencia:number
-  idGerente:number
-  nombre:string
-  fechaTermino:string
+  fechaIngreso: string
+  fechaTermino: null
+  colaborador: {
+    idColaborador: number
+    apellidos: string
+    enable: number
+    nombres: string
+    numeroDocumento: string
+    sexo: string
+    idTipoDocumento: number
+  }
+  nombre: string
+  [key: string]: any
 }
-
-
-
-/*
-  "enable": 0,
-  "fechaIngreso": "2020-11-24T16:40:53.457Z",
-  "idGerencia": 0,
-  "idGerente": 0,
-  "nombre": "string"
-*/

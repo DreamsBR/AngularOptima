@@ -5,55 +5,57 @@ import { catchError, map } from 'rxjs/operators';
 import { URL_BACKEND } from '../config/config';
 import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia';
 import { Gerencia } from "./gerencia";
-import { Periodogerencia} from './gerenciaPeriodo'
+
 @Injectable()
 export class GerenciaService {
 
   private urlEndPoint : string = URL_BACKEND + 'gerencia/';
 
-  constructor( private http:HttpClient
-     ){}
+  constructor(
+    private http:HttpClient
+  ){}
 
-    getGerentes(page):Observable<any>{
-      return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
-        map((jsonGerenteResponse:any) => {
-          ;(jsonGerenteResponse.content as Gerencia[]).map((gerencia) => {
-            gerencia.nombre = gerencia.nombre.toUpperCase()
-            return gerencia;
-          })
-          return jsonGerenteResponse
+  geGerenciasPorPagina(page):Observable<any>{
+    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+      map((jsonGerenteResponse:any) => {
+        ;(jsonGerenteResponse.content as Gerencia[]).map((gerencia) => {
+          let ininom = gerencia.colaborador.nombres.substr(0,1)
+          let iniape = gerencia.colaborador.apellidos.substr(0,1)
+          gerencia.iniciales = ininom.toUpperCase() + iniape.toUpperCase()
+          return gerencia;
         })
-      )}
+        return jsonGerenteResponse
+      })
+    )}
 
-      eliminarGerencia(id:number): Observable<Gerencia>{
-        return this.http.delete<Gerencia>(`${this.urlEndPoint}/${id}`).pipe(
-          catchError((e) => {
-            return throwError(e)
-          })
-        )
-      }
+  eliminarGerencia(id:number): Observable<Gerencia>{
+    return this.http.delete<Gerencia>(this.urlEndPoint + '/' + id).pipe(
+      catchError((e) => {
+        return throwError(e)
+      })
+    )}
 
-      agregarGerencia(gerencia:Gerencia): Observable<Gerencia>{
-        return this.http.post<Gerencia>(this.urlEndPoint, gerencia).pipe(
-          catchError((e) => {
-            if(e.status === 400){
-              return throwError(e)}
-          })
-        )}
+  agregarGerencia(gerencia:Gerencia): Observable<Gerencia>{
+    return this.http.post<Gerencia>(this.urlEndPoint, gerencia).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)}
+      })
+    )}
 
-          agregarPeriodoMeta(gerenciaPerio:PeriodoGerencia){
-            return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
-              catchError((e) => {
-                if(e.status === 400){
-                  return throwError(e)
-                }
-              })
-            )
-          }
-
-        getAllGerencias(): Observable<any> {
-          return this.http
-            .get(this.urlEndPoint)
-            .pipe(map((jsonGerenteResponse: any) => jsonGerenteResponse as Gerencia[]))
+  agregarPeriodoMeta(gerenciaPerio:PeriodoGerencia){
+    return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)
         }
+      })
+    )}
+
+  getAllGerencias(): Observable<any> {
+  return this.http
+    .get(this.urlEndPoint)
+    .pipe(map((jsonGerenteResponse: any) => jsonGerenteResponse as Gerencia[]))
+  }
+
 }
