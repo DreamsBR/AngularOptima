@@ -16,9 +16,9 @@
       </div>
 
       <div class="row mt-3">
-        <div class="col-sm-12 col-md-7">
+        <div class="col-sm-12 col-md-8">
           <div class="row">
-            <div class="col-sm-12 col-md-7">
+            <div class="col-sm-12 col-md-6">
               <div class="clsiptr">
                 <div class="clsiptr-icon">
                   <em class="fas fa-search"></em>
@@ -30,6 +30,7 @@
                     (selected)="selectEventSearch1($event)"
                     [itemTemplate]="itemTemplate1"
                     [notFoundTemplate]="notFoundTemplate1"
+                    [placeHolder]="'Buscar gerente'"
                   >
                   </ng-autocomplete>
                   <ng-template #itemTemplate1 let-item>
@@ -41,7 +42,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-12 col-md-5">
+            <div class="col-sm-12 col-md-6">
               <div class="clsiptr">
                 <div class="clsiptr-icon">
                   <em class="fas fa-search"></em>
@@ -53,6 +54,7 @@
                     (selected)="selectEventSearch2($event)"
                     [itemTemplate]="itemTemplate2"
                     [notFoundTemplate]="notFoundTemplate2"
+                    [placeHolder]="'Buscar periodo'"
                   >
                   </ng-autocomplete>
                   <ng-template #itemTemplate2 let-item>
@@ -66,10 +68,10 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-5">
+        <div class="col-sm-12 col-md-4">
           <button class="btn btn-optima" (click)="buscar()">Buscar</button>
-          <button class="btn btn-optima ml-2">Exportar</button>
-          <button class="btn btn-optima ml-2">Imprimir</button>
+          <!-- <button class="btn btn-optima ml-2">Exportar</button>
+          <button class="btn btn-optima ml-2">Imprimir</button> -->
         </div>
       </div>
       <div class="row">
