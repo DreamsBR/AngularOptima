@@ -112,6 +112,7 @@ import { CanalesComponent } from './mantenimientoMaestros/canales/canales.compon
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
 import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
+import { BancosComponent } from './mantenimientoMaestros/bancos/bancos.component'
 
 
 
@@ -166,8 +167,7 @@ const ROUTES: Routes = [
 
   { path: 'reportes', component: ReportesComponent },
 
-  { path: 'mantenimientos', component: MantenimientosComponent }
-
+  { path: 'categorias', component:CategoriasComponent},
 
 
 ]

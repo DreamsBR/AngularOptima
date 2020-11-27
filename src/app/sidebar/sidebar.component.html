@@ -12,14 +12,18 @@
         <div class="collapse" id="collapseExample">
             <a href="reportes" class="list-group-item sub-item">Consolidado de ventas</a>
         </div>
+
+
         <a  href="#collapseEx" data-toggle="collapse" class="list-group-item" >Mantenimientos</a>
         <div class="collapse" id="collapseEx">
-          <a href="bancos" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Bancos</a>
-          <a href="canales" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Canales</a>
-          <a href="categoria" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Categoria</a>
-          <a href="EstadoFinanciero" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >EstadoFinanciero</a>
-          <a href="EstadoVenta" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >EstadoVenta</a>
+          <a href="bancos" class="list-group-item sub-item" >Bancos</a>
+          <a href="canales" class="list-group-item sub-item" >Canales</a>
+          <a href="categorias" class="list-group-item sub-item" >Categoria</a>
+          <a href="estadoFinanciero" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/estadoFinanciero'}" >EstadoFinanciero</a>
+          <a href="estadoVenta" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/estadoVenta'}" >EstadoVenta</a>
         </div>
+
+
         <br>
         <br>
         <a (click)="logOut()" href="#" class="list-group-item">Cerrar sesión</a>
