@@ -7,9 +7,18 @@
         <a href="proyectos" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/proyectos' }">Proyectos</a>
         <a href="gerencias" class="list-group-item">Gerencias</a>
         <a href="periodos" class="list-group-item">Periodos</a>
+
         <a href="#" class="list-group-item" data-toggle="collapse" href="#collapseExample">Reportes</a>
         <div class="collapse" id="collapseExample">
             <a href="reportes" class="list-group-item sub-item">Consolidado de ventas</a>
+        </div>
+        <a  href="#collapseEx" data-toggle="collapse" class="list-group-item" >Mantenimientos</a>
+        <div class="collapse" id="collapseEx">
+          <a href="bancos" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Bancos</a>
+          <a href="canales" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Canales</a>
+          <a href="categoria" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >Categoria</a>
+          <a href="EstadoFinanciero" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >EstadoFinanciero</a>
+          <a href="EstadoVenta" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/mantenimientos'}" >EstadoVenta</a>
         </div>
         <br>
         <br>

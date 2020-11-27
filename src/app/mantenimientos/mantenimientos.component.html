@@ -1,0 +1,39 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+  <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+                <div class="col-sm-12 col-md-5">
+                  <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                  <h3>Matenimiento</h3>
+              </div>
+              <div class="col-sm-12 col-md-7 text-right">
+                  <a data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+              </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-sm-12 col-md-12 overflow-auto">
+
+
+          </div>
+
+
+        </div>
+
+
+
+
+
+
+
+      </div>
+
+
+
+  </div>
+
+
+
+</div>
