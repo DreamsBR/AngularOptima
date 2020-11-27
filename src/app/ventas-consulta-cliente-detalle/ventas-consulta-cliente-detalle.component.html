@@ -102,10 +102,10 @@
                         <p>{{ cliente.apellidos | formatUppercase }}</p>
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>-- {{ cliente.nroDocumento }}</p>
+                        <p>{{ (cliente.tipoDocumento) ? cliente.tipoDocumento.nombre : '' }} - {{ cliente.nroDocumento }}</p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>--</p>
+                        <p>{{ (cliente.estadoCivil) ? cliente.estadoCivil.nombre : '' }}</p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacion }}</p>
@@ -145,10 +145,10 @@
                         <p>Armendariz Arturiaz</p> -->
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>-- {{ cliente.nroDocConyuge }}</p>
+                        <p>{{ (cliente.tipoDocumentoConyuge) ? cliente.tipoDocumentoConyuge.nombre : '' }} - {{ cliente.nroDocConyuge }}</p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>--</p>
+                        <p>{{ (cliente.estadoCivilConyuge) ? cliente.estadoCivilConyuge.nombre : '' }}</p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacionConyuge }}</p>
@@ -164,19 +164,19 @@
                         <p class="titulo"><strong>Compra</strong></p>
 
                         <p class="label-dato">Ingresos</p>
-                        <p>S/. 3,000.00</p>
+                        <p>{{ cliente.ingresos | formatSoles }}</p>
 
                         <p class="label-dato">Motivo de compra</p>
-                        <p>Vivienda</p>
+                        <p>{{ (venta.motivo) ? venta.motivo.nombre: '' }}</p>
 
                         <p class="label-dato">Canal captación</p>
-                        <p>3DLI</p>
+                        <p>{{ (venta.canal) ? venta.canal.nombre : '' }}</p>
 
                         <p class="label-dato">Categoria</p>
-                        <p>Lead</p>
+                        <p>{{ (venta.categoria) ? venta.categoria.nombre : '' }}</p>
 
                         <p class="label-dato">Asesor de ventas</p>
-                        <p>Alonso Romero</p>
+                        <p>{{ cliente.asesor }}</p>
                       </div>
                     </div>
                   </div>
@@ -707,6 +707,7 @@
           <div class="col-12">
             Nro. Operación<br />
             <input
+              maxlength="20"
               [(ngModel)]="pagoModal.numeroOperacion"
               matInput
               style="border: 1px solid gray; width: 100%"

@@ -7,7 +7,7 @@ import { URL_BACKEND } from '../config/config'
 import { Cliente } from '../clientes/cliente'
 import { VentaNodos } from '../ventas/ventanodos'
 import { Financiamiento } from '../financiamientos/financiamiento'
-
+import { Venta } from '../ventas/venta'
 @Injectable()
 export class VentaConsultaClienteDetalleService {
   private urlEndPoint: string = URL_BACKEND
@@ -21,33 +21,35 @@ export class VentaConsultaClienteDetalleService {
   }
 
   updateVenta(venta: VentaNodos): Observable<VentaNodos> {
-    const paramVenta = JSON.parse(JSON.stringify(venta))
-    const upventa = {
-      ayudaInicial: paramVenta.ayudaInicial,
-      descuento: paramVenta.descuento,
-      enable: paramVenta.enable,
-      fechaCaida: paramVenta.fechaCaida,
-      fechaDesembolso: paramVenta.fechaDesembolso,
-      fechaEpp: paramVenta.fechaEpp,
-      fechaMinuta: paramVenta.fechaMinuta,
-      fechaSeparacion: paramVenta.fechaSeparacion,
-      idCanal: paramVenta.canal.idCanal,
-      idCategoria: paramVenta.categoria.idCategoria,
-      idCliente: paramVenta.cliente.idCliente,
-      idEstadoVenta: paramVenta.estadoVenta.idEstadoVenta,
-      idFinanciamiento: paramVenta.financiamiento.idFinanciamiento,
-      idMotivo: paramVenta.motivo.idMotivo,
-      idProyecto: paramVenta.idProyecto,
-      idVendedor: paramVenta.vendedor.idVendedor,
-      idVenta: paramVenta.idVenta,
-      importe: paramVenta.importe,
-      total: paramVenta.total
-    }
+    // const paramVenta = JSON.parse(JSON.stringify(venta))
+    const ventaCRUD = new Venta()
+
+    ventaCRUD.ayudaInicial = venta.ayudaInicial,
+    ventaCRUD.descuento = venta.descuento,
+    ventaCRUD.enable = venta.enable,
+    ventaCRUD.fechaCaida = venta.fechaCaida,
+    ventaCRUD.fechaDesembolso = venta.fechaDesembolso,
+    ventaCRUD.fechaEpp = venta.fechaEpp,
+    ventaCRUD.fechaMinuta = venta.fechaMinuta,
+    ventaCRUD.fechaRegistro = venta.fechaRegistro,
+    ventaCRUD.fechaSeparacion = venta.fechaSeparacion,
+    ventaCRUD.idCanal = venta.canal.idCanal,
+    ventaCRUD.idCategoria = venta.categoria.idCategoria,
+    ventaCRUD.idCliente = venta.cliente.idCliente,
+    ventaCRUD.idEstadoVenta = venta.estadoVenta.idEstadoVenta,
+    ventaCRUD.idFinanciamiento = venta.financiamiento.idFinanciamiento,
+    ventaCRUD.idMotivo = venta.motivo.idMotivo,
+    ventaCRUD.idProyecto = venta.idProyecto,
+    ventaCRUD.idVendedor = venta.vendedor.idVendedor,
+    ventaCRUD.idVenta = venta.idVenta,
+    ventaCRUD.importe = venta.importe,
+    ventaCRUD.total = venta.total
+
     //console.log('Objeto upventa')
-    //console.log(upventa)
+    //console.log(ventaCRUD)
     //return
     return this.http
-      .put(this.urlEndPoint + 'venta/' + venta.idVenta, upventa)
+      .put(this.urlEndPoint + 'venta/' + venta.idVenta, ventaCRUD)
       .pipe(map((jsonReponse: any) => jsonReponse as VentaNodos))
   }
 

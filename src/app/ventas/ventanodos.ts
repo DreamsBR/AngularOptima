@@ -16,6 +16,7 @@ export class VentaNodos{
   fechaDesembolso: string
   fechaEpp: string
   fechaMinuta: string
+  fechaRegistro: string
   fechaSeparacion: string
   financiamiento: Financiamiento
   idProyecto: number
