@@ -180,9 +180,13 @@
                                                 <div class="form-group">
                                                     <label for="nombreconyugue">Nombres</label>
                                                     <input type="text" class="form-control" [(ngModel)]="cliente.conyuge" name="nombreconyugue" #nombreconyugue="ngModel" required>
+                                                    <!--
                                                     <div *ngIf="nombreconyugue.invalid && (nombreconyugue.dirty || nombreconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="nombreconyugue.errors.required">Dato obligatorio</div>
-                                                    </div>
+
+
+                                                      </div>
+                                                      -->
                                                 </div>
                                             </div>
                                         </div>
@@ -195,20 +199,24 @@
                                                     <select class="form-control" name="tipodocconyugue" [(ngModel)]="cliente.tipoDocConyuge" #tipodocconyugue="ngModel" required>
                                                         <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
                                                     </select>
+                                                <!--
                                                     <div *ngIf="tipodocconyugue.invalid && (tipodocconyugue.dirty || tipodocconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="tipodocconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
-                                                </div>
+                                                -->
+                                                  </div>
                                             </div>
 
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="nrodocdocumentoconyugue">Nro. doc.</label>
                                                     <input type="text" class="form-control" [(ngModel)]="cliente.nroDocConyuge" name="nrodocdocumentoconyugue" #nrodocdocumentoconyugue="ngModel" required>
+                                               <!--
                                                     <div *ngIf="nrodocdocumentoconyugue.invalid && (nrodocdocumentoconyugue.dirty || nrodocdocumentoconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="nrodocdocumentoconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
-                                                </div>
+                                               -->
+                                                  </div>
                                             </div>
 
                                         </div>
@@ -221,9 +229,11 @@
                                                     <select class="form-control" name="estadocivilconyugue" [(ngModel)]="cliente.idEstadoCivilConyuge" #estadocivilconyugue="ngModel" required>
                                                         <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">{{itemEstadocivil.nombre}}</option>
                                                     </select>
+                                                  <!--
                                                     <div *ngIf="estadocivilconyugue.invalid && (estadocivilconyugue.dirty || estadocivilconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="estadocivilconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
+                                                    -->
                                                 </div>
                                             </div>
 
@@ -231,9 +241,11 @@
                                                 <div class="form-group">
                                                     <label for="ocupacionconyugue">Ocupación</label>
                                                     <input type="text" class="form-control" [(ngModel)]="cliente.ocupacionConyuge" name="ocupacionconyugue" #ocupacionconyugue="ngModel" required>
+<!--
                                                     <div *ngIf="ocupacionconyugue.invalid && (ocupacionconyugue.dirty || ocupacionconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="ocupacionconyugue.errors.required">Dato obligatorio</div>
-                                                    </div>
+                                                      </div>
+                                                      -->
                                                 </div>
                                             </div>
 
@@ -253,18 +265,23 @@
                                                 <div class="form-group">
                                                     <label for="lugartrabajo">Lugar de trabajo</label>
                                                     <input type="text" [(ngModel)]="cliente.lugarTrabajo" class="form-control" name="lugartrabajo" #lugartrabajo="ngModel" required>
+<!--
                                                     <div *ngIf="lugartrabajo.invalid && (lugartrabajo.dirty || lugartrabajo.touched)" class="alert alert-danger">
                                                         <div *ngIf="lugartrabajo.errors.required">Dato obligatorio</div>
                                                     </div>
-                                                </div>
-                                            </div>
+    -->
+                                                  </div>
+
+                                              </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="ingresos">Ingresos</label>
                                                     <input type="number" [(ngModel)]="cliente.ingresos" class="form-control" name="ingresos" #ingresos="ngModel" required>
+                                                    <!--
                                                     <div *ngIf="ingresos.invalid && (ingresos.dirty || ingresos.touched)" class="alert alert-danger">
                                                         <div *ngIf="ingresos.errors.required">Dato obligatorio</div>
                                                     </div>
+                                                    -->
                                                 </div>
                                             </div>
                                         </div>
@@ -274,9 +291,11 @@
                                                 <div class="form-group">
                                                     <label for="asesorventa">Asesor de ventas</label>
                                                     <input type="text" [(ngModel)]="cliente.asesor" class="form-control"  name="asesorventa" #asesorventa="ngModel" required>
+                                                    <!--
                                                     <div *ngIf="asesorventa.invalid && (asesorventa.dirty || asesorventa.touched)" class="alert alert-danger">
                                                         <div *ngIf="asesorventa.errors.required">Dato obligatorio</div>
                                                     </div>
+                                                    -->
                                                 </div>
                                             </div>
                                         </div>
