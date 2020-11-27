@@ -27,8 +27,22 @@ export class ColaboradorService {
                 return jsonColaboradorResponse;
             })
         );
-
     }
+
+    getTodosColaboradores(): Observable<any> {
+        return this.http.get(this.urlEndPoint + '/').pipe(
+            map((jsonColaboradorResponse: any) => {
+                (jsonColaboradorResponse as Colaborador[]).map(
+                  colaborador => {
+                    colaborador.nombres = colaborador.nombres.toUpperCase();
+                    colaborador.apellidos = colaborador.apellidos.toUpperCase();
+                    return colaborador;
+                });
+                return jsonColaboradorResponse;
+            })
+        );
+    }
+
     agregarColaborador(colaborador: Colaborador): Observable<any> {
 
         return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
@@ -38,10 +52,8 @@ export class ColaboradorService {
                 return throwError(e);
             }
             })
-        );1
-        }
-
-
+        );
+    }
 
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
       return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)

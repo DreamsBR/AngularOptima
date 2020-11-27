@@ -39,6 +39,7 @@ import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.s
 import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
 import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
 import { PagosService } from './pagos/pagos.service'
+import { ReportesService } from './reportes/reportes.service'
 
 import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
@@ -136,7 +137,6 @@ const ROUTES: Routes = [
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
-
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
 
@@ -155,7 +155,10 @@ const ROUTES: Routes = [
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
   { path: 'inmuebles/:idProyecto', component: InmueblesComponent },
   { path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent },
+
   { path: 'gerencias', component: GerenciasComponent },
+  { path: 'gerencias/page/:page', component: GerenciasComponent },
+
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
 
@@ -271,6 +274,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     statusVentaservice,
     TipodocumentoService,
     GerenciaService,
+    ReportesService,
     TipoVistaService,
     TipoInmuebleCategoriaService,
     TipoInmuebleService,

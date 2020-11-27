@@ -12,134 +12,178 @@
                         <div class="col-sm-12 col-md-7 text-right">
                         </div>
                     </div>
+
                 <form>
+
                   <div class="row">
+
                     <div class="col-sm-12 col-md-3">
-                      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                          <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span class="nav-number">1</span> Cliente</a>
-                          <span class="separator"></span>
-                          <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="nav-number">2</span> Modo de pago</a>
-                          <span class="separator"></span>
-                          <a class="nav-link" id="v-pills-profile-tab2" data-toggle="pill" href="#v-pills-profile2" role="tab" aria-controls="v-pills-profile2" aria-selected="false"><span class="nav-number">2</span> Modo de pago</a>
-                      </div>
-                  </div>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                            <a class="nav-link active" id="v-pills-gerencia-tab" data-toggle="pill" href="#v-pills-gerencia" role="tab" aria-controls="v-pills-gerencia" aria-selected="true"><span class="nav-number">1</span> Gerencia</a>
+                            <span class="separator"></span>
+                            <a class="nav-link" id="v-pills-periodos-tab" data-toggle="pill" href="#v-pills-periodos" role="tab" aria-controls="v-pills-periodos" aria-selected="false"><span class="nav-number">2</span> Periodos</a>
+                            <span class="separator"></span>
+                            <a class="nav-link" id="v-pills-proyectos-tab" data-toggle="pill" href="#v-pills-proyectos" role="tab" aria-controls="v-pills-proyectos" aria-selected="false"><span class="nav-number">3</span> Proyectos</a>
+                        </div>
+                    </div>
 
-                  <div class="col-sm-12 col-md-9">
-                      <div class="tab-content" id="v-pills-tabContent">
-
-
-
-                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    <div class="col-sm-12 col-md-9">
+                        <div class="tab-content" id="v-pills-tabContent">
 
 
-                    <div class="row">
 
-                          <div class="col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="nombres">Nombre de Gerencia</label>
 
-                                    <input [(ngModel)]="gerencia.nombre"  type="text" class="form-control"  name="nombre"  id="nombre" >
 
+
+
+
+
+
+
+
+
+                        <div class="tab-pane fade" id="v-pills-gerencia" role="tabpanel" aria-labelledby="v-pills-gerencia-tab">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombre de Gerencia</label>
+                                        <input type="text" class="form-control"  name="nombre"  id="nombre" >
+                                    </div>
                                 </div>
-                          </div>
 
-                          <div class="col-sm-12 col-md-4">
-                                <div class="form-group">
-                                    <label for="nombres">Buscar gerente de ventas</label>
-
-                                    <input  type="text" class="form-control"  name="nombres" [(ngModel)]="nrdoc" id="nombres" (keydown.enter)="obatenerColaboradorPorDni(nrdoc)" maxlength="8">
-
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Buscar gerente</label>
+                                        <div class="clsiptr-input">
+                                            <ng-autocomplete
+                                                [data]="dataBuscarGerente"
+                                                [searchKeyword]="kwBuscar"
+                                                (selected)="seleccionarItemBusqueda($event)"
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="noFound"
+                                            >
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.nombre"></a>
+                                            </ng-template>
+                                            <ng-template #noFound let-notFound>
+                                                <div style="color: #c1c1c1">-- no encontrado --</div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
                                 </div>
-                          </div>
+                            </div>
 
-                        <div class="col-sm-12 col-md-1 col-xl-1">
-                          <div class="form-group">
-                            <label class="label-hidden"></label>
-                              <button type="submit" class="btn btn-optima btn-float-right"  (click)="obatenerColaboradorPorDni(nrdoc)" >Buscar</button>
-                          </div>
-                        </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label   for="fechaIngreso">Fecha Inicio Cargo</label>
+                                        <datepicker-rounded
+                                        name="fechaIngreso"
+                                        #dpFechaInicio
+                                        (onDateChanged)="onFechaIngresoCargo($event)"
+                                        [label]="'Fecha'"
+                                        ></datepicker-rounded>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="fechanacimiento">Fecha de Termino Cargo</label>
+                                        <datepicker-rounded
+                                        #dpFechaFin
+                                        (onDateChanged)="onFechaFinCargo($event)"
+                                        [label]="'Fecha'"
+                                        ></datepicker-rounded>
+                                    </div>
+                                </div>
+                            </div>
 
-
-
-                    </div>
-
-
-                    <div class="row">
-                      <div class="col-xl-4"></div>
-                      <div class="col-xl-4 col-md-12 ">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="cliente-card-titulo"><strong>Gerente</strong></p>
-
-                                <input  type="hidden" [(ngModel)]="gerencia.idGerente"
-                                name="idGerente" id="idGerente" class="form-control"
-                                value="{{colaboradorSelecionado.idColaborador}}"> <strong>{{colaboradorSelecionado.idColaborador}}</strong>
-
-                                <p  class="cliente-nombre"><strong>{{ colaboradorSelecionado.nombres + ' ' + colaboradorSelecionado.apellidos }}</strong></p>
-                                <p class="cliente-numero"><strong>{{ colaboradorSelecionado.numeroDocumento }}</strong></p>
-
-                              </div>
-                        </div>
-
-                    </div>
-
-                    </div>
-
-                    <div class="row">
-
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                            <label   for="fechaIngreso">Fecha Inicio Cargo</label>
-                            <datepicker-rounded
-                            name="fechaIngreso"
-                            #dpFechaInicio
-                            (onDateChanged)="onFechaIngresoCargo($event)"
-                            [label]="'fechaIngreso'"
-                            ></datepicker-rounded>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-12 col-md-4">
-                      <div class="form-group">
-                          <label for="fechanacimiento">Fecha de Termino Cargo</label>
-                          <datepicker-rounded
-                          #dpFechaFin
-                          (onDateChanged)="onFechaFinCargo($event)"
-                          [label]="'Fecha'"
-                          ></datepicker-rounded>
-                      </div>
-                  </div>
-                    </div>
-
-                    <button type="submit" (click) = "agregarGerencia(); siguientePagina('v-pills-profile-tab')"  class="btn btn-optima btn-float-right">Guardar</button>
-
+                            <button type="submit" (click) = "siguientePagina('v-pills-periodos-tab')"  class="btn btn-optima btn-float-right">Siguiente</button>
 
                         </div>
 
-                        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group">
-                                <label for="nombres">Buscar periodo</label>
-                                <select [(ngModel)]="perio.idPeriodoGerencia" class="form-control" name="periodos" id="periodos">
-                                  <option   [value]="items.idPeriodo" *ngFor="let items of periodoGer">{{items.nombre}}</option>
-                                </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="tab-pane fade show active" id="v-pills-periodos" role="tabpanel" aria-labelledby="v-pills-periodos-tab">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label>Buscar periodo</label>
+                                    <div class="clsiptr-input">
+                                        <ng-autocomplete
+                                            [data]="dataBuscarPeriodo"
+                                            [searchKeyword]="kwBuscar"
+                                            (selected)="seleccionarItemBusquedaPeriodo($event)"
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="noFound"
+                                        >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+                                        <ng-template #noFound let-notFound>
+                                            <div style="color: #c1c1c1">-- no encontrado --</div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="meta">Ingresar metas</label>
+                                    <input type="number" class="form-control" name="meta" [(ngModel)]="metaSeleccionada">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group">
+                                    <label class="label-hidden">&nbsp;</label>
+                                    <button type="submit" (click) = "agregarPeriodoGerencia()"  class="btn btn-optima btn-float-right">Agregar</button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-4">
-                            <div class="form-group">
-                                <label for="meta">Ingresar metas</label>
-                                <input [(ngModel)]="perio.meta" type="number" class="form-control" meta= "meta" id="meta">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10">
+
+                                <table class="table">
+                                    <caption>Lista de periodos</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Editar</th>
+                                            <th scope="col">Periodo</th>
+                                            <th scope="col">Meta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let itemPeriodo of aryPeriodos; index as i">
+                                            <td class="text-center font-color-1">
+                                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                                <div class="dropdown-menu dropdown-menu-left">
+                                                    <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                    <button class="dropdown-item" type="button" (click)="eliminarMeta(i)"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                                </div>
+                                            </td>
+                                            <td>{{itemPeriodo.nombre}}</td>
+                                            <td>{{itemPeriodo.monto}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-2">
-                            <div class="form-group">
-                                <label class="label-hidden">&nbsp;</label>
-                                <button type="submit" (click) = "guardarPeriodoGerencia()"  class="btn btn-optima btn-float-right">Guardar</button>
-                              </div>
-                        </div>
+
                     </div>
 
 
@@ -147,65 +191,15 @@
 
 
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-10">
-
-                            <table class="table">
-                                <caption>Lista de periodos</caption>
-                                <thead>
-                                    <tr>
-                                        <th scope="col" class="text-center">Editar</th>
-                                        <th scope="col">Periodo</th>
-                                        <th scope="col">Meta</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center font-color-1">
-                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                            <div class="dropdown-menu dropdown-menu-left">
-                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                            </div>
-                                        </td>
-                                        <td>Enero 2020</td>
-                                        <td>S/. 250,345.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center font-color-1">
-                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                            <div class="dropdown-menu dropdown-menu-left">
-                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                            </div>
-                                        </td>
-                                        <td>Enero 2020</td>
-                                        <td>S/. 250,345.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center font-color-1">
-                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                            <div class="dropdown-menu dropdown-menu-left">
-                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                            </div>
-                                        </td>
-                                        <td>Enero 2020</td>
-                                        <td>S/. 250,345.00</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                  </div>
 
 
 
 
 
 
-                  <div class="tab-pane fade2" id="v-pills-profile2" role="tabpanel" aria-labelledby="v-pills-profile-tab2">
+
+
+                  <div class="tab-pane fade2" id="v-pills-proyectos" role="tabpanel" aria-labelledby="v-pills-proyectos-tab">
 
                     <div class="row">
                         <div class="col-sm-12 col-md-4">
@@ -335,6 +329,13 @@
                         </div>
                     </div>
                   </div>
+
+
+
+
+
+
+
                     <br>
                   </div>
                   </div>

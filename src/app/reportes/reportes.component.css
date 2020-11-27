@@ -29,3 +29,8 @@
 .clsiptr /deep/ .autocomplete-container .input-container .x i {
   color: var(--primary);
 }
+
+.tblreportes .tblreportes-trhover:hover {
+  background: #e8e8e8;
+  cursor: pointer;
+}
