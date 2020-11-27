@@ -1,0 +1,159 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+  <app-sidebar></app-sidebar>
+  <div id="page-content-wrapper">
+      <div class="container-fluid">
+
+          <div class="row">
+              <div class="col-sm-12 col-md-5">
+                  <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                  <h3>Categorias</h3>
+              </div>
+              <div class="col-sm-12 col-md-7 text-right">
+                  <a data-toggle="modal" data-target="#modal-periodo-nuevo-editar"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-sm-12 col-md-12 overflow-auto">
+
+                  <div class="card-body">
+                      <div class="alert alert-info my-2" *ngIf="categoList?.length==0">No hay peridos registrados</div>
+                      <div class="table-responsive" *ngIf="categoList?.length>0">
+                          <table class="table table-striped table-borderless">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">Editar</th>
+                                      <th scope="col">idCategoria</th>
+                                      <th scope="col">enable</th>
+                                      <th scope="col">nombre</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let catego of categoList">
+                                      <td class="text-center font-color-1">
+                                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                          <div class="dropdown-menu dropdown-menu-left">
+                                              <button class="dropdown-item" type="button" [routerLink]="['/periodo-nuevo-editar']"><em class="far fa-edit"></em> Editar</button>
+                                              <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-periodo"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                          </div>
+                                      </td>
+                                      <td>{{catego.idCategoria}}</td>
+                                      <td>{{catego.enable}}</td>
+                                      <td>{{catego.nombre}}</td>
+
+                                  </tr>
+                              </tbody>
+                          </table>
+
+                      </div>
+                      <paginator [paginador]="paginator" [base]="base"></paginator>
+                  </div>
+              </div>
+          </div>
+
+          <br>
+
+
+
+      </div>
+  </div>
+
+</div>
+
+<div id="modal-periodo-nuevo-editar" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Nuevo / Editar periodo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+              <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                      <label for="nombre">Periodo</label>
+                      <input type="text" name="nombre"  class="form-control" id="periodo" [(ngModel)]="periodo.nombre"
+                      #nombre="ngModel" required >
+
+                      <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+                        <div *ngIf="nombre.errors.required">Dato obligatorio</div>
+                      </div>
+                    </div>
+              </div>
+              <div class="col-sm-12 col-md-6">
+                  <div class="form-group">
+                      <label for="fechainicio">Fecha de inicio</label>
+                      <form class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" type="date" name="fechaInicio" placeholder="yyyy-mm-dd"
+                                     name="dp1" [(ngModel)]="catego.fechaInicio" ngbDatepicker #dfecini="ngbDatepicker" #fechaInicio="ngModel"required>
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="dfecini.toggle()" type="button"></button>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="fechaInicio.invalid && (fechaInicio.dirty || fechaInicio.touched)" class="alert alert-danger">
+                            <div *ngIf="fechaInicio.errors.required">Dato obligatorio</div>
+                          </div>
+                      </form>
+
+                  </div>
+
+              </div>
+
+              <div class="col-sm-12 col-md-6">
+                  <div class="form-group">
+                      <label for="fechafin">Fecha de termino</label>
+                      <form class="form-inline">
+                          <div class="form-group">
+                            <div class="input-group">
+                              <input class="form-control" type="date" name="fechaFin"  placeholder="yyyy-mm-dd"
+                                     name="dp2" [(ngModel)]="periodo.fechaFin" ngbDatepicker #dfecfin="ngbDatepicker" #fechaFin='ngModel' required>
+
+                              <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="dfecfin.toggle()" type="button"></button>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngIf="fechaFin.invalid && (fechaFin.dirty || fechaFin.touched)" class="alert alert-danger">
+                            <div *ngIf="fechaFin.errors.required">Dato obligatorio</div>
+                          </div>
+                        </form>
+
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+          <button type="button"  (click)="agregarPeriodo() " class="btn btn-optima">Guardar</button>
+          <button type="button" class="btn btn-secondary" id="cerrarModalEliminar" data-dismiss="modal">Cancelar</button>
+      </div>
+      </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Eliminar periodo</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body">
+          <p>¿Seguro que deseas eliminar el registro?</p>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-optima">Confirmar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+      </div>
+      </div>
+  </div>
+</div>

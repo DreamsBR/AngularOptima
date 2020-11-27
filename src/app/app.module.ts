@@ -49,6 +49,11 @@ import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 import { statusVentaservice } from './consulta-ventas/statusventa.service'
 import { GerenciaService } from './gerencias/gerencia.service'
+import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
+import { TipoVistaService } from './tipovista/tipoVista.service'
+import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
+
+
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -101,7 +106,16 @@ import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-p
 import { NgApexchartsModule } from "ng-apexcharts";
 
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component'
+import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component';
+import { MantenimientosComponent } from './mantenimientos/mantenimientos.component';
+
+import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
+import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
+import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
+
+
+
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -146,14 +160,16 @@ const ROUTES: Routes = [
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
 
-
-
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
-  { path: 'reportes', component: ReportesComponent }
+  { path: 'reportes', component: ReportesComponent },
+
+  { path: 'categorias', component:CategoriasComponent},
+
+
 ]
 
 /*
@@ -207,7 +223,12 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     EstadosVentasComponent,
     ReportesComponent,
     VentasProyectoEditarComponent,
-    PeriodoGerenciaComponent
+    PeriodoGerenciaComponent,
+    MantenimientosComponent,
+    CanalesComponent,
+    CategoriasComponent,
+    EstadoFinancieroComponent,
+    EstadoVentaComponent
   ],
   imports: [
     BrowserModule,
@@ -252,6 +273,9 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     TipodocumentoService,
     GerenciaService,
     ReportesService,
+    TipoVistaService,
+    TipoInmuebleCategoriaService,
+    TipoInmuebleService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
