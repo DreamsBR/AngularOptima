@@ -35,6 +35,21 @@ export class PeriodoService {
       })
     )
   }
+/*
+
+  getPeriodosGerente(): Observable<any> {
+    return this.http.get(this.urlEndPoint).pipe(
+      map((data: any) => {
+        ;(data.content as Periodo[]).map((periodo) => {
+          periodo.fechaInicio = formatDate(periodo.fechaInicio, 'dd/MM/yyyy', 'en-US')
+          periodo.fechaFin = formatDate(periodo.fechaFin, 'dd/MM/yyyy', 'en-US')
+          return periodo
+        })
+        return data
+      })
+    )
+  }
+*/
 
   getTodoPeriodos(): Observable<any> {
     return this.http.get(this.urlEndPoint + '/').pipe(

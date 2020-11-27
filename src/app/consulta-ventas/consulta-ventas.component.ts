@@ -16,6 +16,9 @@ export class ConsultaVentasComponent implements OnInit {
   nombreProyecto: string
   pageActual: number = 1
 
+  fechaDesde: string
+  fechaHasta: string
+
   constructor(
     private proyectoService: ProyectoService,
     private activatedRoute: ActivatedRoute,
@@ -23,6 +26,15 @@ export class ConsultaVentasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    
+    var date = new Date();
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+
+    this.fechaDesde = year + '-' + month + '-' + day
+    this.fechaHasta = year + '-' + month + '-' + day
+
     this.obtenerProyecto();
   }
 

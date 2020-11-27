@@ -152,9 +152,21 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.router.navigate(['/cliente-nuevo-editar/0/' + nrodoc + '/' + this.paramIdProyecto])
   }
 
+  fechaCaida: string
+  fechaDesembolso: string
+  fechaEpp: string
+  fechaMinuta: string
+  fechaSeparacion: string
+
   public obtenerDatosDeVenta(idVenta: number) {
     this.ventaService.getVentasById(idVenta).subscribe((venta) => {
       this.ventanodos = venta
+
+      this.fechaCaida = this.ventanodos.fechaCaida
+      this.fechaDesembolso = this.ventanodos.fechaDesembolso
+      this.fechaEpp = this.ventanodos.fechaEpp
+      this.fechaMinuta = this.ventanodos.fechaMinuta
+      this.fechaSeparacion = this.ventanodos.fechaSeparacion
 
       this.financiamiento.idFinanciamiento = this.ventanodos.financiamiento.idFinanciamiento
 
@@ -476,11 +488,12 @@ export class VentasProyectoEditarComponent implements OnInit {
 
     this.venta.enable = 1
     this.venta.idEstadoVenta = 1
-    // this.venta.fechaCaida = ""
-    // this.venta.fechaDesembolso = ""
-    // this.venta.fechaEpp = ""
-    // this.venta.fechaMinuta = ""
-    // this.venta.fechaSeparacion = this.obtenerFechaActual()
+
+    this.venta.fechaCaida = this.fechaCaida
+    this.venta.fechaDesembolso = this.fechaDesembolso
+    this.venta.fechaEpp = this.fechaEpp
+    this.venta.fechaMinuta = this.fechaMinuta
+    this.venta.fechaSeparacion = this.fechaSeparacion
 
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idFinanciamiento = idFinanciamiento
