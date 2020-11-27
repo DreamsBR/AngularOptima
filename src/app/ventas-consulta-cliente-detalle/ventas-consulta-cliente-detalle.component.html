@@ -15,7 +15,9 @@
           >
             <em class="fas fa-chevron-left"></em>
           </button>
-          <h3 style="display: inline">Cliente {{ cliente.nombres + ' ' + cliente.apellidos }}</h3>
+          <h3 style="display: inline">
+            Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}
+          </h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
@@ -94,10 +96,10 @@
                         <p class="titulo"><strong>Datos personales</strong></p>
 
                         <p class="label-dato">Nombres</p>
-                        <p>{{ cliente.nombres }}</p>
+                        <p>{{ cliente.nombres | formatUppercase }}</p>
 
                         <p class="label-dato">Apellidos</p>
-                        <p>{{ cliente.apellidos }}</p>
+                        <p>{{ cliente.apellidos | formatUppercase }}</p>
 
                         <p class="label-dato">Tipo doc.</p>
                         <p>-- {{ cliente.nroDocumento }}</p>
@@ -137,7 +139,7 @@
                         <p class="titulo"><strong>Datos conyuge</strong></p>
 
                         <p class="label-dato">Nombres y Apellidos</p>
-                        <p>{{ cliente.conyuge }}</p>
+                        <p>{{ cliente.conyuge | formatUppercase }}</p>
 
                         <!-- <p class="label-dato">Apellidos</p>
                         <p>Armendariz Arturiaz</p> -->
@@ -490,7 +492,6 @@
                       class="form-control"
                       id="iptTipoEstadoVenta"
                     >
-                      <option [ngValue]="0">-- Seleccionar --</option>
                       <option *ngFor="let o of optionsTiposEstadoVenta" [ngValue]="o.idEstadoVenta">
                         {{ o.nombre }}
                       </option>
@@ -500,7 +501,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
                     <label for="nombres">Porcentaje</label><br />
-                    {{ porcentajeFaltante }}
+                    {{ porcentajePagado }}
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-10 col-lg-8 col-xl-7">
@@ -663,7 +664,7 @@
 </div>
 
 <div id="modal-gestion-pago" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Agregar pago</h5>
@@ -703,34 +704,34 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-6">
+          <div class="col-12">
+            Nro. Operación<br />
             <input
               [(ngModel)]="pagoModal.numeroOperacion"
               matInput
               mask="00000000000000"
-              style="border: 1px solid gray"
+              style="border: 1px solid gray; width: 100%"
               placeholder="Nro de recibo"
             />
           </div>
-          <div class="col-6">
-            <!-- <datepicker-rounded
-              [value]="formPagoFechaInitialValue"
-              (onDateChanged)="onPagoModalChanged($event)"
-              [label]="'Fecha'"
-            ></datepicker-rounded> -->
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
             Fecha<br />
-            <input type="date" [(ngModel)]="pagoModal.fecha" />
+            <input type="date" [(ngModel)]="pagoModal.fecha" style="width: 100%" />
           </div>
         </div>
-        <div class="row">
-          <div class="col-6">
+        <div class="row mt-2">
+          <div class="col-12">
+            Monto<br />
             <input
               [(ngModel)]="pagoModal.monto"
               matInput
               mask="separator.2"
               thousandSeparator=","
-              style="border: 1px solid gray"
+              style="border: 1px solid gray; width: 100%"
               placeholder="Monto"
+              style="width: 100%"
             />
           </div>
         </div>

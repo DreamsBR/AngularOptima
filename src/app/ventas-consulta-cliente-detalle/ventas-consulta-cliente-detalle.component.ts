@@ -408,8 +408,18 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       this.pagoModal.enable = 1
       this.pagoModal.pagado = 1
       this.pagoModal.porcentaje = ''
-      //console.log(this.pagoModal)
-      //return
+      // console.log(this.pagoModal)
+      // return
+
+      const montoFaltante =
+        parseFloat(this.venta.financiamiento.financiamiento) - this.sumaTotalPagos
+      if (this.pagoModal.monto > montoFaltante) {
+        this.loading = false
+        const msg =
+          'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
+        this.modalPagoWarnings = [msg]
+        return
+      }
       let path = null
       if (this.modalPagoModeEdit) {
         path = this.pagosService.updatePago(this.pagoModal)
@@ -574,11 +584,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
   }
 
-  get porcentajeFaltante(): string {
-    if (typeof this.venta.total !== 'undefined') {
-      const total = this.venta.total
-      const porc = (this.sumaTotalPagos / total) * 100
+  get porcentajePagado(): string {
+    if (typeof this.venta.financiamiento !== 'undefined') {
+      const totalFinanciamiento = parseFloat(this.venta.financiamiento.financiamiento)
+      const porc = (this.sumaTotalPagos / totalFinanciamiento) * 100
       return `${porc.toFixed(2)} %`
+      //return `${this.venta.financiamiento.financiamiento}`
     } else {
       return '--'
     }
