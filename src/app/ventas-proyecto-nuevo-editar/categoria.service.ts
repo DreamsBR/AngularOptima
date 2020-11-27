@@ -13,6 +13,22 @@ export class CategoriaService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+
+  getCategoriaMantenimiento(page): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+      map((data: any) => {
+        ;(data as Categoria[]).map((categoria) => {
+          return categoria
+        })
+        return data
+      })
+    )
+  }
+
+
+
+
+
   getCategoria(): Observable<any> {
     return this.http.get(this.urlEndPoint).pipe(
       map((data: any) => {

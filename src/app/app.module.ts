@@ -52,7 +52,7 @@ import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 
-TipoVistaService
+
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -112,7 +112,6 @@ import { CanalesComponent } from './mantenimientoMaestros/canales/canales.compon
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
 import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
-import { BancosComponent } from './mantenimientoMaestros/bancos/bancos.component'
 
 
 
