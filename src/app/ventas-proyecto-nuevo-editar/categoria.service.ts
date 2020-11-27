@@ -30,7 +30,7 @@ export class CategoriaService {
 
 
   getCategoria(): Observable<any> {
-    return this.http.get(this.urlEndPoint).pipe(
+    return this.http.get(this.urlEndPoint + '/').pipe(
       map((data: any) => {
         ;(data as Categoria[]).map((categoria) => {
           return categoria

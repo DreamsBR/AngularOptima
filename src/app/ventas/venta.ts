@@ -5,12 +5,13 @@ export class Venta {
   fechaCaida: string
   fechaDesembolso: string
   fechaMinuta: string
+  fechaRegistro: string
   fechaSeparacion: string
-  FechaEpp: string
+  fechaEpp: string
   idCanal: number
   idCategoria: number
   idCliente: number
-  idCopropietario: number
+  idProyecto: number
   idEstadoVenta: number
   idFinanciamiento: number
   idMotivo: number

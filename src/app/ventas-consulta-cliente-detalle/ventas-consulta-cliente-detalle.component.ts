@@ -360,7 +360,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
 
     //console.log('Objecto ventas consulta detalle')
-    //console.log(this.venta)
+    // console.log(this.venta)
+    // return 
     this.venta.estadoVenta.idEstadoVenta = this.idEstadoVentaSelect // Asigna el id al objeto venta
     this.loading = true
     this.vccdService.updateVenta(this.venta).subscribe(

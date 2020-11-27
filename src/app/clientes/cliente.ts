@@ -22,4 +22,8 @@ export class Cliente {
     nroDocConyuge: string
     idEstadoCivilConyuge: number
     ocupacionConyuge: string
+    tipoDocumento: any
+    tipoDocumentoConyuge: any
+    estadoCivil: any
+    estadoCivilConyuge: any
 }

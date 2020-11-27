@@ -114,9 +114,6 @@ import { CategoriasComponent } from './mantenimientoMaestros/categorias/categori
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
 import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
 
-
-
-
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -169,17 +166,8 @@ const ROUTES: Routes = [
 
   { path: 'reportes', component: ReportesComponent },
 
-  { path: 'categorias', component:CategoriasComponent},
-
-
+  { path: 'categorias', component:CategoriasComponent}
 ]
-
-/*
-const maskConfigFunction: () => Partial<IConfig> = function () {
-  return {
-    validation: false,
-  };
-} */
 
 @NgModule({
   declarations: [

@@ -81,6 +81,13 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     console.info(this.aryPeriodos)
   }
 
+  agregarGerencia(){
+    
+  }
+
+
+
+
   onFechaIngresoCargo(newdate:string){
     this.frmfechaIngreso = newdate
   }
