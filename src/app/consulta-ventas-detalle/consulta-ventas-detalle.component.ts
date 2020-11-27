@@ -26,7 +26,6 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   tipoestado : estadoventa[]
   ventasLista: Ventanodos[]
   fechaSeparacion : string
-  periodogeren : Periodogerencia[]
 
   filterPost = ""
   base:string
