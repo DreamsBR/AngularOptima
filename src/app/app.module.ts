@@ -121,7 +121,6 @@ const ROUTES: Routes = [
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
-
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
   { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
 
@@ -140,11 +139,12 @@ const ROUTES: Routes = [
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
   { path: 'inmuebles/:idProyecto', component: InmueblesComponent },
   { path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent },
+
   { path: 'gerencias', component: GerenciasComponent },
+  { path: 'gerencias/page/:page', component: GerenciasComponent },
+
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
-
-
 
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 

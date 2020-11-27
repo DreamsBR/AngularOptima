@@ -64,20 +64,20 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.obtenerPeriodos()
+    // this.obtenerPeriodos()
 
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.paramIdProyecto = parseInt(params.get('id'))
-      if(!isNull(params.get('dni'))){
-        console.info(params.get('dni'))
-        this.nrdoc = params.get('dni')
-        this.obatenerColaboradorPorDni(params.get('dni'))
-      }
-    })
-    this.colaboradorSelecionado.idColaborador=0
-    this.colaboradorSelecionado.nombres= ""
-    this.colaboradorSelecionado.apellidos= ""
-    this.colaboradorSelecionado.numeroDocumento= ""
+    // this.activatedRoute.paramMap.subscribe((params) => {
+    //   this.paramIdProyecto = parseInt(params.get('id'))
+    //   if(!isNull(params.get('dni'))){
+    //     console.info(params.get('dni'))
+    //     this.nrdoc = params.get('dni')
+    //     this.obatenerColaboradorPorDni(params.get('dni'))
+    //   }
+    // })
+    // this.colaboradorSelecionado.idColaborador=0
+    // this.colaboradorSelecionado.nombres= ""
+    // this.colaboradorSelecionado.apellidos= ""
+    // this.colaboradorSelecionado.numeroDocumento= ""
 
 
   }
@@ -95,23 +95,23 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   }
 
 
-  public obatenerColaboradorPorDni(nrdoc: string) {
-    this.colaboradorserv.obtenerColaboradorDni(nrdoc).subscribe((colaborador) => {
-      if (Object.keys(colaborador).length > 0) {
-        this.colaboradorSelecionado = colaborador[0]
-        this.gerencia.idGerente = colaborador[0].idColaborador
-        console.info(this.nrdoc)
+  // public obatenerColaboradorPorDni(nrdoc: string) {
+  //   this.colaboradorserv.obtenerColaboradorDni(nrdoc).subscribe((colaborador) => {
+  //     if (Object.keys(colaborador).length > 0) {
+  //       this.colaboradorSelecionado = colaborador[0]
+  //       this.gerencia.idGerente = colaborador[0].idColaborador
+  //       console.info(this.nrdoc)
 
-      } else {
-        this.colaboradorSelecionado.idColaborador = 0
-        this.colaboradorSelecionado.nombres = ''
-        this.colaboradorSelecionado.apellidos = ''
-        this.colaboradorSelecionado.numeroDocumento = ''
-        swal('consultar Colaborador', 'No se encontro el registro solicitado ', 'warning')
+  //     } else {
+  //       this.colaboradorSelecionado.idColaborador = 0
+  //       this.colaboradorSelecionado.nombres = ''
+  //       this.colaboradorSelecionado.apellidos = ''
+  //       this.colaboradorSelecionado.numeroDocumento = ''
+  //       swal('consultar Colaborador', 'No se encontro el registro solicitado ', 'warning')
 
-      }
-    })
-  }
+  //     }
+  //   })
+  // }
 
 
   public guardarPeriodoGerencia(): void {
