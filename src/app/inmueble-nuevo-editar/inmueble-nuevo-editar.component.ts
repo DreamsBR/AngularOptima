@@ -78,7 +78,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
             this.inmueble.idTipoVista=response.tipoVista.idTipoVista
             this.loadTipoInmuebleCategoria2(this.inmueble.idTipoInmueble)
             this.isFormDpto=this.inmueble.idTipoInmueble==1?true:false
-            console.log(response)
+             
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -99,7 +99,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     
     this.tipoInmuebleService.getTipoInmueble().subscribe((response) => {
       this.tipoinmueble = response
-      console.info(this.tipoinmueble)
+       
     })
 
   }
@@ -129,7 +129,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
     this.tipoVistaService.getTipoVista().subscribe((response) => {
       this.tipovista = response
-      console.info(this.tipovista)
+      
     })
 
   }
@@ -153,7 +153,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
    
       this.tipoInmuebleCategoriaService.getTipoInmuebleCategoria(val).subscribe((response) => {
       this.tipoinmueblecategoria = response
-      console.info(this.tipoinmueblecategoria)
+       
     })
 
   }
@@ -177,7 +177,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   guardar() {
     const isValid = this.validarForm()
-    console.log(this.inmueble)
+    
     if (!isValid) return
 
     if(this.inmueble.idTipoInmueble==2){
@@ -192,7 +192,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   regresar() {
     window.location.href = '/inmuebles/' + this.pageToBackIdProyecto
-   // window.history.back()
+    //window.history.back()
   }
 
   // Change Events Selectors
@@ -203,7 +203,6 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     if (this.isFormDpto) {
       // Dpto
     //  this.loadTipoVista()
-      
       this.loadTipoInmuebleCategoria2(val)
     } else {
       this.loadTipoInmuebleCategoria2(val)
@@ -211,8 +210,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       this.inmueble.idTipoInmuebleCategoria = 0
      // this.inmueble.idTipoVista = 0
       this.inmueble.cantidadDormitorio = 0
-
-       
+      
     }
   }
 
@@ -240,9 +238,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       } 
 
     }else{
-     // alert(this.inmueble.idTipoInmueble)
-     // alert(this.inmueble.idTipoInmuebleCategoria);
-     // alert(this.inmueble.idTipoVista)
+      
       if((this.inmueble.idTipoInmueble === 1&&this.inmueble.idTipoInmuebleCategoria === 0)||this.inmueble.idTipoVista === 0){
         tmpValid = false
         this.errors = ['Los campos: tipo categoría y vista son requeridos']
