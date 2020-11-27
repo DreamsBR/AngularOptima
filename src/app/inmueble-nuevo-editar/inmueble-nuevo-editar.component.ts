@@ -191,8 +191,8 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   }
 
   regresar() {
-   // window.location.href = '/inmuebles/' + this.pageToBackIdProyecto
-    window.history.back()
+    window.location.href = '/inmuebles/' + this.pageToBackIdProyecto
+    //window.history.back()
   }
 
   // Change Events Selectors
