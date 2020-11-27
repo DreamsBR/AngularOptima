@@ -91,6 +91,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
+import { FormatUppercase } from '../pipes/format-uppercase.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
 import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
 import { ReportesComponent } from './reportes/reportes.component';
@@ -200,6 +201,7 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     ReverseStr,
     FormatDate,
     FormatSoles,
+    FormatUppercase,
     Paginator2Component,
     EstadosVentasComponent,
     ReportesComponent,
