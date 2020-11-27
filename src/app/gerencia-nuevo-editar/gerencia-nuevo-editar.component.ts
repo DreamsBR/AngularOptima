@@ -75,7 +75,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     this.aryPeriodos.push(meta)
     console.info(this.aryPeriodos)
   }
-  
+
   eliminarMeta(i: number){
     this.aryPeriodos.splice(i, 1)
     console.info(this.aryPeriodos)

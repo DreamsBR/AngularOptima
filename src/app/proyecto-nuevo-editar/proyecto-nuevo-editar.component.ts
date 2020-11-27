@@ -23,6 +23,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   public errores:string[]
   public proyecto = new Proyecto()
   public newPeriodo:[]
+  metaSeleccionada: number
 
   idProyecto:number
   frmIdProyecto: number = 0
@@ -58,6 +59,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.frmNombre  = response.nombre
           this.frmEnable  =  response.enable
           this.frmDireccion =  response.direccion
+
         },
         (err)=> {
           this.errores = err.error.errors as string[]
@@ -65,7 +67,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       }
     })
 
-    this.obtenerPeriodos()
+    this.obtenerTodosLosPeriodos()
+
   }
 /*
   public obtenerPeriodos() {
@@ -83,6 +86,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       )
     })
   }*/
+  frmfechaIngreso:string
+  onFechaIngresoCargo(newdate:string){
+    this.frmfechaIngreso = newdate
+  }
 
   status = false
   menuToggle() {
@@ -109,21 +116,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   }
 
 /*****/
+  kwBuscar = 'nombre'
+  dataBuscarPeriodo = []
   frmMonto :number = 0
   fmrPeriodo : number
 
-
-  agregarPeriodoMonto(){
-    const newPeriodo = new PeriodoGerencia
-
-    newPeriodo.periodo.idPeriodo = this.fmrPeriodo
-    newPeriodo.meta = this.frmMonto
-    console.log(newPeriodo)
-    this.proyectoService.getPeriodoMontoPro(newPeriodo).subscribe((_) =>{
-      return newPeriodo
-      console.log(newPeriodo)
-    })
-  }
 
   fetchDataById() {
     const proyectToEdit = new Proyecto()
@@ -136,19 +133,60 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         this.frmNombre = proy.nombre
         this.frmEnable = proy.enable
         this.frmDireccion = proy.direccion
+
         break
       }
     }
   }
   periodoGer : Periodo[]
 
-
+/*
   public obtenerPeriodos(){
     this.periodo.getTodoPeriodos().subscribe((response) =>{
       console.log(response)
       this.periodoGer = response
       console.info(this.periodo)
     })
+  }*/
+
+
+
+
+  obtenerTodosLosPeriodos(){
+    this.periodoService.getTodoPeriodos().subscribe((data) => {
+      const listaPeriodos = []
+      data.forEach((elem: any) => {
+        listaPeriodos.push({
+            idPeriodo: elem.idPeriodo,
+            nombre: elem.nombre + " "
+        })
+      })
+      this.dataBuscarPeriodo = listaPeriodos
+    })
+  }
+
+  periodoSeleccionado: any
+  seleccionarItemBusquedaPeriodo(event){
+    this.periodoSeleccionado = event
+  }
+
+  agregarPeriodoGerencia(){
+    let meta: {[k: string]: any} = {};
+    meta.idPeriodo = this.periodoSeleccionado.idPeriodo
+    meta.nombre = this.periodoSeleccionado.nombre
+    meta.monto = this.metaSeleccionada
+    this.aryPeriodos.push(meta)
+    console.info(this.aryPeriodos)
+  }
+
+
+  eliminarMeta(i: number){
+    this.aryPeriodos.splice(i, 1)
+    console.info(this.aryPeriodos)
+  }
+  fechaTermino:string
+  onFechaFinCargo(newdate:string){
+    this.fechaTermino = newdate
   }
 
 }
