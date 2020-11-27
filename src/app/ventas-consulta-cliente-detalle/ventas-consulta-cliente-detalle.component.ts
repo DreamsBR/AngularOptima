@@ -113,18 +113,25 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   onFechaSeparacionChanged(newdate: string) {
     this.tempIdFechaSeparacion = newdate
+    this.idEstadoVentaSelect = 1
   }
+
   onFechaMinutaChanged(newdate: string) {
     this.tempIdFechaMinuta = newdate
+    this.idEstadoVentaSelect = 5
   }
+  
   onFechaDesembolsoChanged(newdate: string) {
     this.tempIdFechaDesembolso = newdate
+    this.idEstadoVentaSelect = 12
   }
   onFechaEEPChanged(newdate: string) {
     this.tempIdFechaEEP = newdate
+    this.idEstadoVentaSelect = 13
   }
   onFechaCaidaChanged(newdate: string) {
     this.tempIdFechaCaida = newdate
+    this.idEstadoVentaSelect = 14
   }
 
   actualizarVenta() {
@@ -625,4 +632,5 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   regresar() {
     window.history.back()
   }
+
 }
