@@ -167,9 +167,7 @@ const ROUTES: Routes = [
 
   { path: 'reportes', component: ReportesComponent },
 
-
-  { path: 'bancos', component: BancosComponent }
-
+  { path: 'categorias', component:CategoriasComponent},
 
 
 ]
