@@ -48,6 +48,11 @@ import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
 import { statusVentaservice } from './consulta-ventas/statusventa.service'
 import { GerenciaService } from './gerencias/gerencia.service'
+import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
+import { TipoVistaService } from './tipovista/tipoVista.service'
+import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
+
+TipoVistaService
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -250,6 +255,9 @@ const maskConfigFunction: () => Partial<IConfig> = function () {
     statusVentaservice,
     TipodocumentoService,
     GerenciaService,
+    TipoVistaService,
+    TipoInmuebleCategoriaService,
+    TipoInmuebleService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
