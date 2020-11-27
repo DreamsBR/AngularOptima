@@ -171,12 +171,11 @@
                                             <td class="text-center font-color-1">
                                                 <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                                 <div class="dropdown-menu dropdown-menu-left">
-                                                    <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
                                                     <button class="dropdown-item" type="button" (click)="eliminarMeta(i)"><em class="far fa-trash-alt"></em> Eliminar</button>
                                                 </div>
                                             </td>
                                             <td>{{itemPeriodo.nombre}}</td>
-                                            <td>{{itemPeriodo.monto}}</td>
+                                            <td><input type="number" class="form-control" name="metamonto{{i}}" [(ngModel)]="itemPeriodo.monto" value="{{itemPeriodo.monto}}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
