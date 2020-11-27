@@ -9,7 +9,7 @@ import { URL_BACKEND } from '../config/config'
 
 @Injectable()
 export class CategoriaService {
-  private urlEndPoint: string = URL_BACKEND + 'categoria/'
+  private urlEndPoint: string = URL_BACKEND + 'categoria'
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -32,8 +32,8 @@ export class CategoriaService {
   getCategoria(): Observable<any> {
     return this.http.get(this.urlEndPoint).pipe(
       map((data: any) => {
-        ;(data as Categoria[]).map((Categoria) => {
-          return Categoria
+        ;(data as Categoria[]).map((categoria) => {
+          return categoria
         })
         return data
       })

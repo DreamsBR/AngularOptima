@@ -44,8 +44,6 @@ export class PeriodosComponent implements OnInit {
       if (!page) {
         page = 0
       }
-
-
       this.periodoService.getPeriodos(page).subscribe(
         periodosJsonResponse => {
           this.periodosLista = periodosJsonResponse.content;

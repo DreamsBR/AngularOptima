@@ -6,3 +6,10 @@ th, td{
     font-size: 10px;
     padding: 3px;
 }
+
+.autocomplete-container .not-found {
+    padding: 0 .75em;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    z-index: 9999;
+}

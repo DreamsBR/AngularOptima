@@ -5,11 +5,14 @@ import { HttpClient } from '@angular/common/http'
 import { catchError, map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
-
+import { GerenciaService} from '../../app/gerencias/gerencia.service'
+import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
 @Injectable()
 export class ProyectoService {
   private urlEndPoint: string = URL_BACKEND + 'proyecto'
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient,
+    private router: Router
+    ) {}
 
   getAllProjects(): Observable<Proyecto[]> {
     return this.http
@@ -30,6 +33,8 @@ export class ProyectoService {
     )
   }
 
+
+
   newProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.post<Proyecto>(this.urlEndPoint, proyecto).pipe(
       map((resp: any) => {
@@ -38,6 +43,16 @@ export class ProyectoService {
       })
     )
   }
+
+  getPeriodoMontoPro(perioo:PeriodoGerencia){
+    return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
+      map((resp : any ) => {
+        console.log(resp)
+        return resp
+      })
+    )
+  }
+
   deleteProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.delete<Proyecto>(this.urlEndPoint + '/' + proyecto.idProyecto).pipe()
   }
