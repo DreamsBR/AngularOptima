@@ -62,8 +62,8 @@
                       </div>
                     </td>
                     <td>{{ periodo.nombre }}</td>
-                    <td>{{ periodo.fechaInicio }}</td>
-                    <td>{{ periodo.fechaFin }}</td>
+                    <td>{{ periodo.fechaFin | formatDate }}</td>
+                    <td>{{ periodo.fechaInicio | formatDate }}</td>
                   </tr>
                 </tbody>
               </table>
