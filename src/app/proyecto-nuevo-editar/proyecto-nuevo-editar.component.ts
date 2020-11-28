@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ɵConsole } from '@angular/core'
 import { Proyecto } from '../proyectos/proyecto'
 import { ProyectoService } from '../proyectos/proyectos.service'
 import { ActivatedRoute } from '@angular/router'
@@ -22,13 +22,18 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   editMode: boolean = true
   public errores:string[]
   public proyecto = new Proyecto()
+  public perioProyecto = new PeriodoGerencia()
   public newPeriodo:[]
   metaSeleccionada: number
+  fechainicio : string
+  fechafin : string
+
+
 
   idProyecto:number
   frmIdProyecto: number = 0
   frmCodigo: string = ''
-  frmNombre: string = ''
+  frmNombrepro: string = ''
   frmEnable: number = 1
   frmDireccion: string = ''
 
@@ -54,12 +59,13 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         this.proyecto.idProyecto = this.idProyecto
         this.proyectoService.getProyectosById(this.proyecto).subscribe(
         (response)=> {
+          console.log(response)
+
           this.frmIdProyecto = response.idProyecto
           this.frmCodigo  = response.codigo
-          this.frmNombre  = response.nombre
+          this.frmNombrepro  = response.nombre
           this.frmEnable  =  response.enable
           this.frmDireccion =  response.direccion
-
         },
         (err)=> {
           this.errores = err.error.errors as string[]
@@ -102,13 +108,13 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   guardar() {
 
     const newProyecto = new Proyecto()
-    console.log(newProyecto)
 
     newProyecto.idProyecto = this.frmIdProyecto
     newProyecto.codigo = this.frmCodigo
-    newProyecto.nombre = this.frmNombre
+    newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
+
 
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
@@ -130,7 +136,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       if (proy.idProyecto === proyectToEdit.idProyecto) {
         this.frmIdProyecto = proy.idProyecto
         this.frmCodigo = proy.codigo
-        this.frmNombre = proy.nombre
+        this.frmNombrepro = proy.nombre
         this.frmEnable = proy.enable
         this.frmDireccion = proy.direccion
 
@@ -175,6 +181,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     meta.idPeriodo = this.periodoSeleccionado.idPeriodo
     meta.nombre = this.periodoSeleccionado.nombre
     meta.monto = this.metaSeleccionada
+
     this.aryPeriodos.push(meta)
     console.info(this.aryPeriodos)
   }
@@ -184,7 +191,9 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     this.aryPeriodos.splice(i, 1)
     console.info(this.aryPeriodos)
   }
+
   fechaTermino:string
+
   onFechaFinCargo(newdate:string){
     this.fechaTermino = newdate
   }
