@@ -108,12 +108,16 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   guardar() {
 
     const newProyecto = new Proyecto()
+    const newPerProyecto = new PeriodoGerencia()
+
 
     newProyecto.idProyecto = this.frmIdProyecto
     newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
+    newPerProyecto.meta = this.frmMonto
+
 
 
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
