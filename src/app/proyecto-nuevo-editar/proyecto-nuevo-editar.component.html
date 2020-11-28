@@ -43,7 +43,7 @@
                       type="text"
                       class="form-control"
                       id="iptNombre"
-                      [(ngModel)]="frmNombre"
+                      [(ngModel)]="frmNombrepro"
                     />
                   </div>
                 </div>
@@ -69,22 +69,32 @@
                 <div class="col-sm-12 col-md-5">
                   <div class="form-group">
                     <label for="periodoseleccionado">Buscar periodo</label>
-                    <select [(ngModel)]="fmrPeriodo" class="form-control" name="periodos" id="periodos">
-                      <option [value]="items.idPeriodo" *ngFor="let items of periodoGer" >
-                      {{items.nombre}}</option>
-                    </select>
+                    <ng-autocomplete
+                    [data]="dataBuscarPeriodo"
+                    [searchKeyword]="kwBuscar"
+                    (selected)="seleccionarItemBusquedaPeriodo($event)"
+                    [itemTemplate]="itemTemplate"
+                    [notFoundTemplate]="noFound"
+                >
+                </ng-autocomplete>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.nombre"></a>
+                </ng-template>
+                <ng-template #noFound let-notFound>
+                    <div style="color: #c1c1c1">-- no encontrado --</div>
+                </ng-template>
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-5">
                   <div class="form-group">
                     <label for="apellidos3">Ingresar metas</label>
-                    <input type="text" class="form-control" [(ngModel)]="frmMonto"/>
+                    <input type="text" class="form-control"name="meta" [(ngModel)]="metaSeleccionada"/>
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-2">
                   <div class="form-group">
                     <label class="label-hidden">&nbsp;</label>
-                    <button type="submit" (click) = "agregarPeriodoMonto()" class="btn btn-optima btn-float-right">
+                    <button type="submit" (click) = "agregarPeriodoGerencia()" class="btn btn-optima btn-float-right">
                       <em class="fas fa-plus"></em>
                     </button>
                   </div>
@@ -93,35 +103,28 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-12">
-                  <table class="table" >
-                    <caption>
-                      Lista de periodos
-                    </caption>
-                    <thead >
-                      <tr>
-                        <th scope="col" class="text-center">Editar</th>
-                        <th scope="col">Periodo</th>
-                        <th scope="col">Meta</th>
-                      </tr>
+                  <table class="table">
+                    <caption>Lista de periodos</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col" class="text-center">Editar</th>
+                            <th scope="col">Periodo</th>
+                            <th scope="col">Meta</th>
+                        </tr>
                     </thead>
-                    <tbody *ngFor = "let item of newPeriodo">
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button class="dropdown-item" type="button">
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                            <button class="dropdown-item" type="button">
-                              <em class="far fa-trash-alt"></em> Eliminar
-                            </button>
-                          </div>
-                        </td>
-                        <td>{{item.nombre}}</td>
-                        <td>{{item.meta}}</td>
-                      </tr>
-
-                  </table>
+                    <tbody>
+                        <tr *ngFor="let itemPeriodo of aryPeriodos; index as i">
+                            <td class="text-center font-color-1">
+                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                <div class="dropdown-menu dropdown-menu-left">
+                                    <button class="dropdown-item" type="button" (click)="eliminarMeta(i)"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                </div>
+                            </td>
+                            <td>{{itemPeriodo.nombre}}</td>
+                            <td><input type="number" class="form-control" name="metamonto{{i}}" [(ngModel)]="itemPeriodo.monto" value="{{itemPeriodo.monto }}"></td>
+                        </tr>
+                    </tbody>
+                </table>
                 </div>
               </div>
 

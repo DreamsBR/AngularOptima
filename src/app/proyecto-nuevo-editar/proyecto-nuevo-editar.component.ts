@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, ɵConsole } from '@angular/core'
 import { Proyecto } from '../proyectos/proyecto'
 import { ProyectoService } from '../proyectos/proyectos.service'
 import { ActivatedRoute } from '@angular/router'
@@ -22,12 +22,18 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   editMode: boolean = true
   public errores:string[]
   public proyecto = new Proyecto()
+  public perioProyecto = new PeriodoGerencia()
   public newPeriodo:[]
+  metaSeleccionada: number
+  fechainicio : string
+  fechafin : string
+
+
 
   idProyecto:number
   frmIdProyecto: number = 0
   frmCodigo: string = ''
-  frmNombre: string = ''
+  frmNombrepro: string = ''
   frmEnable: number = 1
   frmDireccion: string = ''
 
@@ -53,9 +59,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         this.proyecto.idProyecto = this.idProyecto
         this.proyectoService.getProyectosById(this.proyecto).subscribe(
         (response)=> {
+          console.log(response)
+
           this.frmIdProyecto = response.idProyecto
           this.frmCodigo  = response.codigo
-          this.frmNombre  = response.nombre
+          this.frmNombrepro  = response.nombre
           this.frmEnable  =  response.enable
           this.frmDireccion =  response.direccion
         },
@@ -65,7 +73,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       }
     })
 
-    this.obtenerPeriodos()
+    this.obtenerTodosLosPeriodos()
+
   }
 /*
   public obtenerPeriodos() {
@@ -83,6 +92,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       )
     })
   }*/
+  frmfechaIngreso:string
+  onFechaIngresoCargo(newdate:string){
+    this.frmfechaIngreso = newdate
+  }
 
   status = false
   menuToggle() {
@@ -95,13 +108,13 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   guardar() {
 
     const newProyecto = new Proyecto()
-    console.log(newProyecto)
 
     newProyecto.idProyecto = this.frmIdProyecto
     newProyecto.codigo = this.frmCodigo
-    newProyecto.nombre = this.frmNombre
+    newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
+
 
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
@@ -109,21 +122,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   }
 
 /*****/
+  kwBuscar = 'nombre'
+  dataBuscarPeriodo = []
   frmMonto :number = 0
   fmrPeriodo : number
 
-
-  agregarPeriodoMonto(){
-    const newPeriodo = new PeriodoGerencia
-
-    newPeriodo.periodo.idPeriodo = this.fmrPeriodo
-    newPeriodo.meta = this.frmMonto
-    console.log(newPeriodo)
-    this.proyectoService.getPeriodoMontoPro(newPeriodo).subscribe((_) =>{
-      return newPeriodo
-      console.log(newPeriodo)
-    })
-  }
 
   fetchDataById() {
     const proyectToEdit = new Proyecto()
@@ -133,22 +136,66 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       if (proy.idProyecto === proyectToEdit.idProyecto) {
         this.frmIdProyecto = proy.idProyecto
         this.frmCodigo = proy.codigo
-        this.frmNombre = proy.nombre
+        this.frmNombrepro = proy.nombre
         this.frmEnable = proy.enable
         this.frmDireccion = proy.direccion
+
         break
       }
     }
   }
   periodoGer : Periodo[]
 
-
+/*
   public obtenerPeriodos(){
     this.periodo.getTodoPeriodos().subscribe((response) =>{
       console.log(response)
       this.periodoGer = response
       console.info(this.periodo)
     })
+  }*/
+
+
+
+
+  obtenerTodosLosPeriodos(){
+    this.periodoService.getTodoPeriodos().subscribe((data) => {
+      const listaPeriodos = []
+      data.forEach((elem: any) => {
+        listaPeriodos.push({
+            idPeriodo: elem.idPeriodo,
+            nombre: elem.nombre + " "
+        })
+      })
+      this.dataBuscarPeriodo = listaPeriodos
+    })
+  }
+
+  periodoSeleccionado: any
+  seleccionarItemBusquedaPeriodo(event){
+    this.periodoSeleccionado = event
+  }
+
+  agregarPeriodoGerencia(){
+    let meta: {[k: string]: any} = {};
+    meta.idPeriodo = this.periodoSeleccionado.idPeriodo
+    meta.nombre = this.periodoSeleccionado.nombre
+    meta.monto = this.metaSeleccionada
+
+    this.aryPeriodos.push(meta)
+    console.info(this.aryPeriodos)
+  }
+
+
+  eliminarMeta(i: number){
+    this.aryPeriodos.splice(i, 1)
+    console.info(this.aryPeriodos)
+  }
+
+  fechaTermino:string
+
+  onFechaFinCargo(newdate:string){
+    this.fechaTermino = newdate
   }
 
 }

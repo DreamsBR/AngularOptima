@@ -16,8 +16,8 @@ export class PeriodosComponent implements OnInit {
   periodosLista: Periodo[]
   paginador: any
   periodoSeleccionado: Periodo
-  urlBackend: String = URL_BACKEND
-  base: String
+  urlBackend: string = URL_BACKEND
+  base: string
   totalRecords: number
   public errores: string[]
   pageActual: number = 1
@@ -68,9 +68,10 @@ export class PeriodosComponent implements OnInit {
     let fechaInicioT: any = this.periodo.fechaInicio
     let fechaFinT: any = this.periodo.fechaFin
 
-    this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' + fechaInicioT.day
-    this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
 
+
+    this.periodo.fechaInicio = fechaInicioT.year + '-' + fechaInicioT.month + '-' +fechaInicioT.day
+    this.periodo.fechaFin = fechaFinT.year + '-' + fechaFinT.month + '-' + fechaFinT.day
 
     this.periodoService.agregarPeriodo(this.periodo).subscribe(
       (response) => {
