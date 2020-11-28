@@ -51,6 +51,14 @@ export class GerenciaService {
       })
     )}
 
+  editarGerencia(gerencia:Gerencia2, idGerencia:number): Observable<Gerencia>{
+    return this.http.put<Gerencia>(this.urlEndPoint + '/' + idGerencia, gerencia).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)}
+      })
+    )}
+
   agregarPeriodoMeta(gerenciaPerio:PeriodoGerencia){
     return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
       catchError((e) => {
