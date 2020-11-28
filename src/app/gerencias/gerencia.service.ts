@@ -5,6 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { URL_BACKEND } from '../config/config';
 import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia';
 import { Gerencia } from "./gerencia";
+import { Gerencia2 } from "./gerencia2";
 
 @Injectable()
 export class GerenciaService {
@@ -28,6 +29,13 @@ export class GerenciaService {
       })
     )}
 
+  geGerenciasPorId(idGerencia:number): Observable<Gerencia>{
+    return this.http.get<Gerencia>(this.urlEndPoint + '/' + idGerencia).pipe(
+      catchError((e) => {
+        return throwError(e)
+      })
+    )}
+
   eliminarGerencia(id:number): Observable<Gerencia>{
     return this.http.delete<Gerencia>(this.urlEndPoint + '/' + id).pipe(
       catchError((e) => {
@@ -35,7 +43,7 @@ export class GerenciaService {
       })
     )}
 
-  agregarGerencia(gerencia:Gerencia): Observable<Gerencia>{
+  agregarGerencia(gerencia:Gerencia2): Observable<Gerencia>{
     return this.http.post<Gerencia>(this.urlEndPoint, gerencia).pipe(
       catchError((e) => {
         if(e.status === 400){

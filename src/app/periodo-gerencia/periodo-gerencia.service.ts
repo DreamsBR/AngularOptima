@@ -6,6 +6,7 @@ import { Router } from '@angular/router'
 import { formatDate } from '@angular/common'
 import { AuthService } from '../usuarios/auth.service'
 import { URL_BACKEND } from '../config/config'
+import { PeriodoGerencia2 } from './periodogerencia2'
 
 @Injectable()
 export class PeriodoGerenciaService {
@@ -16,4 +17,13 @@ export class PeriodoGerenciaService {
   getPeriodoByIdGerencia(idGerencia: number): Observable<any> {
     return this.http.get(this.urlEndPoint + '/listarperiodos/' + idGerencia).pipe()
   }
+
+  agregarPeriodoGerencia(periodoGerencia:PeriodoGerencia2): Observable<PeriodoGerencia2>{
+    return this.http.post<PeriodoGerencia2>(this.urlEndPoint, periodoGerencia).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)}
+      })
+    )}
+  
 }

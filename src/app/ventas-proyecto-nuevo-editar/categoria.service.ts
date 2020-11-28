@@ -25,10 +25,6 @@ export class CategoriaService {
     )
   }
 
-
-
-
-
   getCategoria(): Observable<any> {
     return this.http.get(this.urlEndPoint + '/').pipe(
       map((data: any) => {
