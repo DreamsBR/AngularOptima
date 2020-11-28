@@ -181,54 +181,67 @@
       </div>
       <!--End::TablaResultados-->
       <div class="row mt-4">
-        <div class="col-12" style="color: var(--primary)">
-          <b>Metas y ventas alcanzadas por proyecto</b>
+        <div class="col-sm-12 col-md-6">
+          <div class="mb-2" style="color: var(--primary)">
+            <b>Metas y ventas alcanzadas por proyecto</b>
+          </div>
+          <div style="border: 1px solid #cacaca; width: 100%">
+            <apx-chart
+              #mychart
+              [colors]="chartOptions.colors"
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [plotOptions]="chartOptions.plotOptions"
+              [xaxis]="chartOptions.xaxis"
+              [labels]="chartOptions.labels"
+            ></apx-chart>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <div class="mb-2" style="color: var(--primary)">
+            <b>Etapas alcanzadas</b>
+          </div>
+          <div style="border: 1px solid #cacaca; width: 100%">
+            <apx-chart
+              #mychartFunnel
+              [series]="chartOptionsFunnel.series"
+              [chart]="chartOptionsFunnel.chart"
+              [dataLabels]="chartOptionsFunnel.dataLabels"
+              [plotOptions]="chartOptionsFunnel.plotOptions"
+              [xaxis]="chartOptionsFunnel.xaxis"
+              [yaxis]="chartOptionsFunnel.yaxis"
+              [stroke]="chartOptionsFunnel.stroke"
+              [colors]="chartOptionsFunnel.colors"
+              [labels]="chartOptionsFunnel.labels"
+              [legend]="chartOptionsFunnel.legend"
+              [states]="chartOptionsFunnel.states"
+            ></apx-chart>
+          </div>
         </div>
       </div>
-      <div class="row mt-4">
-        <div class="col-sm-12 col-md-6">
-          <apx-chart
-            #mychart
-            [colors]="chartOptions.colors"
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [dataLabels]="chartOptions.dataLabels"
-            [plotOptions]="chartOptions.plotOptions"
-            [xaxis]="chartOptions.xaxis"
-            [labels]="chartOptions.labels"
-          ></apx-chart>
-        </div>
-        <div class="col-sm-12 col-md-6">
-          <apx-chart
-            #mychartFunnel
-            [series]="chartOptionsFunnel.series"
-            [chart]="chartOptionsFunnel.chart"
-            [dataLabels]="chartOptionsFunnel.dataLabels"
-            [plotOptions]="chartOptionsFunnel.plotOptions"
-            [xaxis]="chartOptionsFunnel.xaxis"
-            [yaxis]="chartOptionsFunnel.yaxis"
-            [stroke]="chartOptionsFunnel.stroke"
-            [colors]="chartOptionsFunnel.colors"
-            [labels]="chartOptionsFunnel.labels"
-            [legend]="chartOptionsFunnel.legend"
-            [states]="chartOptionsFunnel.states"
-          ></apx-chart>
+      <div class="row mt-5">
+        <div class="col-12" style="text-align: center; color: var(--primary)">
+          <b>FORECAST</b>
         </div>
       </div>
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-12">
-          <apx-chart
-            #mychart
-            [colors]="chartOptions.colors"
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [dataLabels]="chartOptions.dataLabels"
-            [plotOptions]="chartOptions.plotOptions"
-            [xaxis]="chartOptions.xaxis"
-            [labels]="chartOptions.labels"
-          ></apx-chart>
+          <div style="border: 1px solid #cacaca; height: 100%; width: 100%">
+            <apx-chart
+              #mychartForecast
+              [colors]="chartOptions.colors"
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [plotOptions]="chartOptions.plotOptions"
+              [xaxis]="chartOptions.xaxis"
+              [labels]="chartOptions.labels"
+            ></apx-chart>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<br /><br />
