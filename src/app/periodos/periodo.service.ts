@@ -35,7 +35,7 @@ export class PeriodoService {
       })
     )
   }
-/*
+  /*
 
   getPeriodosGerente(): Observable<any> {
     return this.http.get(this.urlEndPoint).pipe(
@@ -62,9 +62,28 @@ export class PeriodoService {
     )
   }
 
-
   agregarPeriodo(periodo: Periodo): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
+  actualizarPeriodo(periodo: Periodo): Observable<any> {
+    return this.http.put(this.urlEndPoint + '/' + periodo.idPeriodo, periodo).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
+  eliminarPeriodo(periodo: Periodo): Observable<any> {
+    return this.http.delete(this.urlEndPoint + '/' + periodo.idPeriodo).pipe(
       catchError((e) => {
         if (e.status === 400) {
           return throwError(e)
