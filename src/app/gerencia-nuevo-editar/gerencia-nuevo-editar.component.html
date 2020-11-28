@@ -51,7 +51,7 @@
                                         <label for="nombres">Buscar gerente</label>
                                         <div class="clsiptr-input">
                                             <ng-autocomplete
-                                                [initialValue]="nombreGerente"
+                                                #gerenteAutocomplete
                                                 [data]="dataBuscarGerente"
                                                 [searchKeyword]="kwBuscar"
                                                 (selected)="seleccionarItemBusqueda($event)"

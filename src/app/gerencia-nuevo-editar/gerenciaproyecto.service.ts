@@ -24,4 +24,20 @@ export class GerenciaproyectoService {
       })
     )}
   
+  editarProyectosGerencia(gerenciaproyecto:Gerenciaproyecto, idProyectogerencia: number): Observable<Gerenciaproyecto>{
+    return this.http.put<Gerenciaproyecto>(this.urlEndPoint + '/' + idProyectogerencia, gerenciaproyecto).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)}
+      })
+    )}
+
+  eliminarProyectosGerencia(idProyectogerencia: number): Observable<Gerenciaproyecto>{
+    return this.http.delete<Gerenciaproyecto>(this.urlEndPoint + '/' + idProyectogerencia).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)}
+      })
+    )}
+
 }

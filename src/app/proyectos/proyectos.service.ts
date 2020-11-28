@@ -33,7 +33,17 @@ export class ProyectoService {
     )
   }
 
-
+  getProyectosByIdGerencia(idGerencia: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/porgerencia/' + idGerencia).pipe(
+      map((jsonProyectosResponse: any) => {
+        const respData = jsonProyectosResponse.content as Proyecto[]
+        respData.map((proyecto) => {
+          return proyecto
+        })
+        return jsonProyectosResponse
+      })
+    )
+  }
 
   newProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.post<Proyecto>(this.urlEndPoint, proyecto).pipe(
