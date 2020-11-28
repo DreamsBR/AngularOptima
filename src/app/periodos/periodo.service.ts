@@ -27,15 +27,13 @@ export class PeriodoService {
     return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
       map((data: any) => {
         ;(data.content as Periodo[]).map((periodo) => {
-          periodo.fechaInicio = formatDate(periodo.fechaInicio, 'dd/MM/yyyy', 'en-US')
-          periodo.fechaFin = formatDate(periodo.fechaFin, 'dd/MM/yyyy', 'en-US')
           return periodo
         })
         return data
       })
     )
   }
-/*
+  /*
 
   getPeriodosGerente(): Observable<any> {
     return this.http.get(this.urlEndPoint).pipe(
@@ -62,9 +60,28 @@ export class PeriodoService {
     )
   }
 
-
   agregarPeriodo(periodo: Periodo): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
+  actualizarPeriodo(periodo: Periodo): Observable<any> {
+    return this.http.put(this.urlEndPoint + '/' + periodo.idPeriodo, periodo).pipe(
+      catchError((e) => {
+        if (e.status === 400) {
+          return throwError(e)
+        }
+      })
+    )
+  }
+
+  eliminarPeriodo(periodo: Periodo): Observable<any> {
+    return this.http.delete(this.urlEndPoint + '/' + periodo.idPeriodo).pipe(
       catchError((e) => {
         if (e.status === 400) {
           return throwError(e)
