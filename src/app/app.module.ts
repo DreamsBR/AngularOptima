@@ -52,7 +52,7 @@ import { GerenciaService } from './gerencias/gerencia.service'
 import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
-
+import { GerenciaproyectoService } from './gerencia-nuevo-editar/gerenciaproyecto.service'
 
 
 import { LoginComponent } from './usuarios/login.component'
@@ -266,6 +266,7 @@ const ROUTES: Routes = [
     TipoVistaService,
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
+    GerenciaproyectoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 

@@ -14,6 +14,7 @@ import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rou
   selector: 'app-clientes-nuevo-editar',
   templateUrl: './clientes-nuevo-editar.component.html'
 })
+
 export class ClientesNuevoEditarComponent implements OnInit {
 
   public cliente: Cliente = new Cliente()

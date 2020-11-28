@@ -13,3 +13,7 @@ th, td{
     background: #fff;
     z-index: 9999;
 }
+
+.tr_periodos input{
+    width: 150px;
+}

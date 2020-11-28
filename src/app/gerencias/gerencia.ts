@@ -2,7 +2,7 @@ export class Gerencia{
   idGerencia: number
   enable: number
   fechaIngreso: string
-  fechaTermino: null
+  fechaTermino: string
   colaborador: {
     idColaborador: number
     apellidos: string
