@@ -112,7 +112,12 @@ import { MantenimientosComponent } from './mantenimientos/mantenimientos.compone
 import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
-import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
+import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+import { JefaturaComponent } from './jefatura/jefatura.component';
+import { JefaturaService } from './jefatura/jefatura.service';
+import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
+import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
+import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -155,9 +160,12 @@ const ROUTES: Routes = [
 
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencias/page/:page', component: GerenciasComponent },
-
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
-  { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+  { path: 'jefatura/:idProyecto/:idGerencia', component: JefaturaComponent },
+  { path: 'jefatura/page/:page/:idProyecto/:idGerencia', component: JefaturaComponent },
+  { path: 'jefatura-nuevo-editar/:id/:idProyecto/:idGerencia', component: JefaturaNuevoEditarComponent },
+  { path: 'colaborador-metas/:id/:idJefatura/:idProyecto/:idGerencia', component: ColaboradorMetasComponent },
 
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
@@ -195,6 +203,7 @@ const ROUTES: Routes = [
     InmuebleNuevoEditarComponent,
     GerenciasComponent,
     GerenciaNuevoEditarComponent,
+    JefaturaComponent,
     JefaturaNuevoEditarComponent,
     VendedorMetaNuevoEditarComponent,
     PeriodosComponent,
@@ -218,7 +227,8 @@ const ROUTES: Routes = [
     CanalesComponent,
     CategoriasComponent,
     EstadoFinancieroComponent,
-    EstadoVentaComponent
+    EstadoVentaComponent,
+    ColaboradorMetasComponent
   ],
   imports: [
     BrowserModule,
@@ -267,6 +277,9 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
     GerenciaproyectoService,
+    JefaturaService,
+    VendedorService,
+    PeriodocolaboradorService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
