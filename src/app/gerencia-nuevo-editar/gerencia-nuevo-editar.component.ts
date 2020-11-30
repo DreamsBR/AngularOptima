@@ -365,14 +365,14 @@ export class GerenciaNuevoEditarComponent implements OnInit {
       this.gerenciaproyectoService.agregarProyectosGerencia(gerenciaproyecto).subscribe(
         (response) => {
           console.info(response)
-          this.router.navigate(['/gerencias/'])
-          swal('Nueva gerencia', `Gerencia registrada`, 'success')
         },
         (err) => {
           this.errores = err.error.errors as string[]
         }
       )
     }
+    this.router.navigate(['/gerencias/'])
+    swal('Gerencia registrada', ``, 'success')
   }
 
   status = false;

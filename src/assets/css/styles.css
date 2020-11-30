@@ -180,6 +180,7 @@ label{
     border-color: #EE6F2E;
     border-radius: 25px;
     text-align: right;
+    margin: 0px 5px 0px 5px;
 }
 
 .btn-optima:hover {
