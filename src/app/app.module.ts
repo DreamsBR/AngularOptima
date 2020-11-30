@@ -282,13 +282,10 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
     GerenciaproyectoService,
-<<<<<<< HEAD
     PeridoProyectoService,
-=======
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
->>>>>>> 809c7116665301304592536bd2970b319fae22c9
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
