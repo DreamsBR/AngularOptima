@@ -10,7 +10,7 @@
                     <h3>Clientes</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                    <a [routerLink]="['/cliente-nuevo-editar', 0]"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
 
@@ -64,18 +64,20 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <paginator [paginador]="paginador" [base]="base"></paginator>
                         </div>
                     </div>
 
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <paginator [paginador]="paginador" [base]="base"></paginator>
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
-
 
 <div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">

@@ -37,7 +37,7 @@ export class VentainmuebleService {
   getInmueblesPorVenta(idVenta): Observable<any> {
     return this.http.get(this.urlEndPoint + 'ventainmueble/venta/' + idVenta).pipe(
       map((jsonVentasResponse: any) => {
-        ;(jsonVentasResponse as Ventainmueblenodos[]).map((ventainmueblenodos) => {
+        (jsonVentasResponse as Ventainmueblenodos[]).map((ventainmueblenodos) => {
           return ventainmueblenodos
         })
         return jsonVentasResponse

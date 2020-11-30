@@ -89,6 +89,8 @@ export class ClientesNuevoEditarComponent implements OnInit {
 
     this.clienteFechanacimiento(this.cliente.fechaNacimiento);
 
+    console.info(this.cliente)
+
     if(this.cliente.idCliente == 0){
       this.clienteService.agregarCliente(this.cliente).subscribe(
         (response) => {

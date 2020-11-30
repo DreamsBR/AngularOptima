@@ -16,6 +16,10 @@ export class GerenciaproyectoService {
     return this.http.get(this.urlEndPoint + '/' + idGerencia).pipe()
   }
 
+  getProyectosByIdGerencia2(idGerencia: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/listarproyectos/' + idGerencia).pipe()
+  }
+
   agregarProyectosGerencia(gerenciaproyecto:Gerenciaproyecto): Observable<Gerenciaproyecto>{
     return this.http.post<Gerenciaproyecto>(this.urlEndPoint, gerenciaproyecto).pipe(
       catchError((e) => {
@@ -23,7 +27,7 @@ export class GerenciaproyectoService {
           return throwError(e)}
       })
     )}
-  
+
   editarProyectosGerencia(gerenciaproyecto:Gerenciaproyecto, idProyectogerencia: number): Observable<Gerenciaproyecto>{
     return this.http.put<Gerenciaproyecto>(this.urlEndPoint + '/' + idProyectogerencia, gerenciaproyecto).pipe(
       catchError((e) => {
