@@ -37,8 +37,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   fechaAsignacionProyecto : string
   fechaTerminoProyecto : string
 
-  nombreGerente: string
-
   kwBuscar = 'nombre'
   dataBuscarGerente = []
   dataBuscarPeriodo = []
@@ -46,8 +44,12 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   aryPeriodos = []
   aryProyectos = []
 
+  periodosEliminados = []
+
   colaboradorSeleccionado: any
   metaSeleccionada: any
+
+  @ViewChild('gerenteAutocomplete',null) gerenteAutocomplete: any;
 
   constructor(
     private router: Router,
@@ -68,12 +70,14 @@ export class GerenciaNuevoEditarComponent implements OnInit {
           (response) => {
             console.info(response)
             this.nombreGerencia = response.gerencia.nombre
-            this.nombreGerente = response.gerente.nombres + ' ' + response.gerente.apellidos
-
-            console.info(this.nombreGerente)
-
+            let nombreGerente = response.gerente.nombres + ' ' + response.gerente.apellidos
+            this.gerenteAutocomplete.searchInput.nativeElement.value = nombreGerente.toUpperCase()
+            this.colaboradorSeleccionado = { idColaborador: response.gerente.idColaborador, nombre: nombreGerente.toUpperCase() }
             this.dpFechaInicio.setValue(response.gerencia.fechaIngreso)
             this.dpFechaFin.setValue(response.gerencia.fechaTermino)
+
+            this.agregarPeriodosExistentes()
+            this.agregarProyectosExistentes()
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -84,6 +88,37 @@ export class GerenciaNuevoEditarComponent implements OnInit {
       this.obtenerTodosLosPeriodos()
       this.obtenerTodosLosProyectos()
     })
+  }
+
+  agregarPeriodosExistentes(){
+    this.periodoGerenciaService
+      .getPeriodoByIdGerencia(this.idGerencia)
+      .subscribe((response) => {
+        for(let x = 0 ; x < response.length ; x++ ){
+          let meta: {[k: string]: any} = {};
+          meta.idPeriodoGerencia = response[x].idPeriodoGerencia
+          meta.idPeriodo = response[x].periodo.idPeriodo
+          meta.nombre = response[x].periodo.nombre
+          meta.monto = response[x].meta
+          this.aryPeriodos.push(meta)
+        }
+      })
+  }
+
+  agregarProyectosExistentes(){
+    // this.proyectoService
+    //   .getProyectosByIdGerencia(this.idGerencia)
+    //   .subscribe((response) => {
+    //     for(let x = 0 ; x < response.length ; x++ ){
+    //       let proyecto: {[k: string]: any} = {};
+    //       proyecto.idProyecto = this.proyectoSeleccionado.idProyecto
+    //       proyecto.idProyecto = this.proyectoSeleccionado.idProyecto
+    //       proyecto.nombre = this.proyectoSeleccionado.nombre
+    //       proyecto.fechaAsignacionProyecto = this.fechaAsignacionProyecto
+    //       proyecto.fechaTerminoProyecto = this.fechaTerminoProyecto
+    //       this.aryProyectos.push(proyecto)
+    //     }
+    //   })
   }
 
   obtenerTodosLosColaboradores(){
@@ -133,7 +168,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   proyectoSeleccionado: any
   seleccionarItemBusquedaProyecto(event){
     this.proyectoSeleccionado = event
-    console.info(event)
   }
 
   periodoSeleccionado: any
@@ -143,16 +177,16 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
   agregarPeriodoGerencia(){
     let meta: {[k: string]: any} = {};
+    meta.idPeriodoGerencia = 0
     meta.idPeriodo = this.periodoSeleccionado.idPeriodo
     meta.nombre = this.periodoSeleccionado.nombre
     meta.monto = this.metaSeleccionada
     this.aryPeriodos.push(meta)
-    console.info(this.aryPeriodos)
   }
 
   eliminarMeta(i: number){
+    this.periodosEliminados.push(this.aryPeriodos[i].idPeriodoGerencia)
     this.aryPeriodos.splice(i, 1)
-    console.info(this.aryPeriodos)
   }
 
   agregarProyectoGerencia(){
@@ -162,12 +196,10 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     proyecto.fechaAsignacionProyecto = this.fechaAsignacionProyecto
     proyecto.fechaTerminoProyecto = this.fechaTerminoProyecto
     this.aryProyectos.push(proyecto)
-    console.info(this.aryProyectos)
   }
 
   eliminarProyectoGerencia(i: number){
     this.aryProyectos.splice(i, 1)
-    console.info(this.aryPeriodos)
   }
 
   onFechaIngresoCargo(newdate:string){
@@ -190,7 +222,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
   agregarGerencia(){
 
-    if(this.gerencia.nombre == '' || this.gerencia.nombre == null){
+    if(this.nombreGerencia == '' || this.nombreGerencia == null){
       swal('Ingrese el nombre de la gerencia', '', 'warning')
       return
     }
@@ -222,18 +254,15 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
     let gerenciaadd: Gerencia2 = new Gerencia2()
 
-    gerenciaadd.idGerencia = 0
     gerenciaadd.enable = 1
     gerenciaadd.fechaIngreso = this.fechaIngreso
     gerenciaadd.fechaTermino = this.fechaTermino
     gerenciaadd.idGerente = this.colaboradorSeleccionado.idColaborador
     gerenciaadd.nombre = this.nombreGerencia
 
-    if(this.gerencia.idGerencia == 0){
+    if(this.idGerencia == 0){
       this.gerenciaService.agregarGerencia(gerenciaadd).subscribe(
         (response) => {
-            //this.router.navigate(['/gerencias/'])
-            //swal('Nueva gerencia', `Gerencia ${response.nombre} creado con exito`, 'success')
             this.guardarPeriodoGerencia(response.idGerencia)
             this.guardarProyectosGerencia(response.idGerencia)
         },
@@ -242,46 +271,98 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         }
       )
     }else{
-      // this.clienteService.actualizarCliente(this.cliente, this.cliente.idCliente).subscribe(
-      //   (response) => {
-      //     this.router.navigate(['/clientes'])
-      //     swal('Editar cliente', `Cliente ${response.nombres} actualizado con exito`, 'success')
-      //   },
-      //   (err) => {
-      //     this.errores = err.error.errors as string[]
-      //   }
-      // )
-    }
-
-  }
-
-  guardarPeriodoGerencia(idGerencia: number){
-    for (var i = 0; i < this.aryPeriodos.length; i++) {
-      var periodoGerencia = new PeriodoGerencia2()
-      periodoGerencia.enable = 1
-      periodoGerencia.idPeriodoGerencia = 0
-      periodoGerencia.idGerencia = idGerencia
-      periodoGerencia.idPeriodo = this.aryPeriodos[i].idPeriodo
-      periodoGerencia.meta = this.aryPeriodos[i].monto
-      this.periodoGerenciaService.agregarPeriodoGerencia(periodoGerencia).subscribe(
+      this.gerenciaService.editarGerencia(gerenciaadd, this.idGerencia).subscribe(
         (response) => {
-          console.info(response)
+            this.guardarPeriodoGerencia(response.idGerencia)
+            //this.guardarProyectosGerencia(response.idGerencia)
         },
         (err) => {
           this.errores = err.error.errors as string[]
         }
       )
     }
+
+  }
+
+  guardarPeriodoGerencia(idGerencia: number){
+
+    if(this.idGerencia == 0){
+      for (var i = 0; i < this.aryPeriodos.length; i++) {
+        var periodoGerencia = new PeriodoGerencia2()
+        periodoGerencia.enable = 1
+        periodoGerencia.idPeriodoGerencia = 0
+        periodoGerencia.idGerencia = idGerencia
+        periodoGerencia.idPeriodo = this.aryPeriodos[i].idPeriodo
+        periodoGerencia.meta = this.aryPeriodos[i].monto
+        this.periodoGerenciaService.agregarPeriodoGerencia(periodoGerencia).subscribe(
+          (response) => {
+            console.info(response)
+          },
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
+    }else{
+
+      if(this.periodosEliminados.length > 0){
+        for (var i = 0; i < this.periodosEliminados.length; i++) {
+          this.periodoGerenciaService.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
+            (response) => {},
+            (err) => {
+              this.errores = err.error.errors as string[]
+            }
+          )
+        }
+      }
+
+      for (var i = 0; i < this.aryPeriodos.length; i++) {
+
+        var periodoGerencia = new PeriodoGerencia2()
+        periodoGerencia.enable = 1
+        periodoGerencia.idGerencia = idGerencia
+        periodoGerencia.idPeriodo = this.aryPeriodos[i].idPeriodo
+        periodoGerencia.meta = this.aryPeriodos[i].monto
+
+        if(this.aryPeriodos[i].idPeriodoGerencia == 0){
+          periodoGerencia.idPeriodoGerencia = 0
+          this.periodoGerenciaService.agregarPeriodoGerencia(periodoGerencia).subscribe(
+            (response) => {
+              console.info(response)
+            },
+            (err) => {
+              this.errores = err.error.errors as string[]
+            }
+          )
+        }else{
+          this.periodoGerenciaService.editarPeriodoGerencia(periodoGerencia, this.aryPeriodos[i].idPeriodoGerencia).subscribe(
+            (response) => {
+              console.info(response)
+            },
+            (err) => {
+              this.errores = err.error.errors as string[]
+            }
+          )       
+        }
+
+      }
+
+    }
+
+
   }
 
 
   guardarProyectosGerencia(idGerencia: number){
-    for (var i = 0; i < this.aryPeriodos.length; i++) {
+    for (var i = 0; i < this.aryProyectos.length; i++) {
       var gerenciaproyecto = new Gerenciaproyecto()
       gerenciaproyecto.idGerenciaProyecto = 0
       gerenciaproyecto.enable = 1
       gerenciaproyecto.idGerencia = idGerencia
       gerenciaproyecto.idProyecto = this.aryProyectos[i].idProyecto
+
+      // faltan campos
+
       this.gerenciaproyectoService.agregarProyectosGerencia(gerenciaproyecto).subscribe(
         (response) => {
           console.info(response)
@@ -291,6 +372,8 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         }
       )
     }
+    this.router.navigate(['/gerencias/'])
+    swal('Gerencia registrada', ``, 'success')
   }
 
   status = false;

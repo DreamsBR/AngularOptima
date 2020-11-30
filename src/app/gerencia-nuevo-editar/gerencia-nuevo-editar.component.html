@@ -51,7 +51,7 @@
                                         <label for="nombres">Buscar gerente</label>
                                         <div class="clsiptr-input">
                                             <ng-autocomplete
-                                                [initialValue]="nombreGerente"
+                                                #gerenteAutocomplete
                                                 [data]="dataBuscarGerente"
                                                 [searchKeyword]="kwBuscar"
                                                 (selected)="seleccionarItemBusqueda($event)"
@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
-                                        <label   for="fechaIngreso">Fecha Inicio Cargo</label>
+                                        <label for="fechaIngreso">Fecha Inicio Cargo</label>
                                         <datepicker-rounded
                                         name="fechaIngreso"
                                         #dpFechaInicio

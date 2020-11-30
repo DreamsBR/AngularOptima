@@ -51,6 +51,7 @@ export type ChartOptions = {
 export class ReportesComponent implements OnInit {
   @ViewChild('mychart', { static: true }) chartObj: ChartComponent
   @ViewChild('mychartFunnel', { static: true }) chartObjFunnel: ChartComponent
+  @ViewChild('mychartForecast', { static: true }) chartObjForecast: ChartComponent
 
   loading = false
   status = false
@@ -74,6 +75,7 @@ export class ReportesComponent implements OnInit {
 
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
+  public chartOptionsForecast: Partial<ChartOptions>
 
   // Variables para buscadores
   keywordSearch1 = 'nombres'
@@ -225,6 +227,51 @@ export class ReportesComponent implements OnInit {
         }
       }
     }
+
+    this.chartOptionsForecast = {
+      colors: ['#579DD3', '#EE7B37'],
+      series: [],
+      chart: {
+        toolbar: {
+          show: false
+        },
+        type: 'bar',
+        height: 350
+      },
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '25%'
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: []
+      },
+      yaxis: {
+        title: {
+          text: ''
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return `${val}`
+          }
+        }
+      },
+      labels: []
+    }
   }
 
   selectEventSearch1(item) {
@@ -284,6 +331,8 @@ export class ReportesComponent implements OnInit {
       return
     }
 
+    this.loading = true
+
     // TODO: QUITAR LA DATA HARCODEADA
     this.reportesService
       .getConsolidadoVentas(this.filterIdGerencia, this.filterIdPeriodo)
@@ -329,17 +378,20 @@ export class ReportesComponent implements OnInit {
             .map((t) => t.caida)
             .reduce((acc, value) => acc + value, 0)
 
+          this.loading = false
+
           this.setDataChart()
           this.drawFunnelChart()
+          this.drawForecastChart()
         },
         (error) => {
+          this.loading = false
           console.log(error)
         }
       )
   }
 
   setDataChart() {
-    console.log(this.itemsTable.data)
     const tmpSeries = [
       {
         name: 'Meta',
@@ -425,6 +477,56 @@ export class ReportesComponent implements OnInit {
     // nOptions.colors = ["#0e469a", "#0e469a"];
     //this.chartObj.updateOptions(nOptions)
     // console.log(nOptions);
+  }
+
+  drawForecastChart() {
+    this.reportesService
+      .getConsolidadoGerencia(this.filterIdGerencia, this.filterIdPeriodo)
+      .subscribe((resp) => {
+        //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
+        // TODO: inicio QUITAR DATA HARDCODEADA
+        /*resp.push({
+          periodoGerencia: {
+            idPeriodoGerencia: 1,
+            enable: 1,
+            idGerencia: 1,
+            periodo: {
+              idPeriodo: 1,
+              enable: 1,
+              fechaFin: '2020-11-30T00:00:00.000+0000',
+              fechaInicio: '2020-11-01T00:00:00.000+0000',
+              nombre: 'DICIEMBRE - 2020'
+            },
+            meta: 80564.45
+          },
+          venta: 50456.03
+        })*/
+        // TODO: fin QUITAR DATA HARDCODEADA
+        //console.log(resp)
+
+        const tmpSeries = [
+          {
+            name: 'Meta',
+            data: []
+          },
+          {
+            name: 'Monto de venta alcanzada',
+            data: []
+          }
+        ]
+        const tmpXaxis = {
+          categories: []
+        }
+
+        resp.forEach((elem) => {
+          tmpSeries[0].data.push(elem.periodoGerencia.meta)
+          tmpSeries[1].data.push(elem.venta)
+          tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
+        })
+        this.chartOptionsForecast.series = tmpSeries
+        this.chartOptionsForecast.xaxis = tmpXaxis
+        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
+      })
   }
 
   goDetails(row) {

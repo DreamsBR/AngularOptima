@@ -42,18 +42,7 @@ export class ClienteService {
       })
     )
   }
-/*
-    agregarCliente(cliente: Cliente): Observable<any> {
-        return this.http.post<any>(this.urlEndPoint, cliente).pipe(
-          catchError(e => {
 
-            if (e.status === 400) {
-              return throwError(e);
-            }
-          })
-        );
-      }
-*/
   obtenerClientesPorDni(nrodoc): Observable<Cliente> {
     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
@@ -73,6 +62,5 @@ export class ClienteService {
       })
     )
   }
-
 
 }

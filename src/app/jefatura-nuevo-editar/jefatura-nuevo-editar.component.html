@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-12">
                     <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nueva / Editar gerencia</h3>
+                    <h3>Jefatura</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
                 </div>
@@ -16,14 +16,30 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="nombres">Nombre de gerencia</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control" [(ngModel)]="nombreJefatura">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="nombres">Buscar gerente de ventas</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <label>Buscar jefe</label>
+                        <div class="clsiptr-input">
+                            <ng-autocomplete
+                                #jefeAutocomplete
+                                [data]="dataBuscarJefe"
+                                [searchKeyword]="kwBuscarJefe"
+                                (selected)="seleccionarJefe($event)"
+                                [itemTemplate]="itemTemplate"
+                                [notFoundTemplate]="noFound"
+                            >
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.nombre"></a>
+                            </ng-template>
+                            <ng-template #noFound let-notFound>
+                                <div style="color: #c1c1c1">-- no encontrado --</div>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -31,14 +47,22 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="nombres">Fecha de inicio cargo</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <label>Fecha de </label>
+                        <datepicker-rounded
+                        #dpFechaInicio
+                        (onDateChanged)="onFechaIngresoCargo($event)"
+                        [label]="'inicio cargo'"
+                        ></datepicker-rounded>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
-                        <label for="nombres">Fecha de termino cargo</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <label>Fecha de </label>
+                        <datepicker-rounded
+                        #dpFechaTermino
+                        (onDateChanged)="onFechaTerminoCargo($event)"
+                        [label]="'termino cargo'"
+                        ></datepicker-rounded>                        
                     </div>
                 </div>
             </div>
@@ -53,15 +77,35 @@
                 <div class="col-sm-12 col-md-4">
                     <div class="form-group">
                         <label for="nombres">Buscar vendedores</label>
-                        <input type="text" class="form-control" id="nombres">
+                        <div class="clsiptr-input">
+                            <ng-autocomplete
+                                #vendedorAutocomplete
+                                [data]="dataBuscarVendedor"
+                                [searchKeyword]="kwBuscarVendedor"
+                                (selected)="seleccionarVendedor($event)"
+                                [itemTemplate]="itemTemplate"
+                                [notFoundTemplate]="noFound"
+                            >
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.nombre"></a>
+                            </ng-template>
+                            <ng-template #noFound let-notFound>
+                                <div style="color: #c1c1c1">-- no encontrado --</div>
+                            </ng-template>
+                        </div>
                     </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <label for="">&nbsp;</label><br>
+                    <button type="button" class="btn btn-optima btn-float-right" (click)="agregarVendedor()">Agregar</button>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-12 col-md-10">
                     <table class="table">
-                        <caption>tabla de jefaturas</caption>
+                        <caption>tabla de vendedores</caption>
                         <thead>
                             <tr>
                                 <th scope="col" class="text-center">Editar</th>
@@ -69,43 +113,25 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let itemVendedor of aryVendedores; index as i">
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/colaborador-metas', itemVendedor.idColaborador, idJefatura, idProyecto, idGerencia]"><em class="far fa-edit"></em> Asignar meta</button>
+                                        <button class="dropdown-item" type="button" (click)="eliminarVendedor(i)"><em class="far fa-edit"></em> Eliminar</button>
                                     </div>
                                 </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/vendedor-meta-nuevo-editar', 0]"><em class="far fa-edit"></em> Asignar meta</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
+                                <td>{{ itemVendedor.nombre }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>            
 
-
-
             <div class="row">
                 <div class="col-sm-12 col-md-10">
-                    <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                    <button type="submit" class="btn btn-optima btn-float-right" (click)="guardarJefatura()">Guardar</button>
+                    <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/jefatura', 1, idGerencia]">Cancelar</button>
                 </div>
             </div>
             
