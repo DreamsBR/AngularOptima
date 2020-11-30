@@ -115,6 +115,7 @@ import { CanalesComponent } from './mantenimientoMaestros/canales/canales.compon
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
 import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+import { ReportesProyectosComponent } from './reportes-proyectos/reportes-proyectos.component'
 import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
@@ -175,6 +176,7 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
 
   { path: 'categorias', component:CategoriasComponent}
 ]
@@ -230,6 +232,7 @@ const ROUTES: Routes = [
     CategoriasComponent,
     EstadoFinancieroComponent,
     EstadoVentaComponent,
+    ReportesProyectosComponent,
     ColaboradorMetasComponent
   ],
   imports: [
@@ -279,10 +282,17 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
     GerenciaproyectoService,
+<<<<<<< HEAD
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
     PeridoProyectoService,
+=======
+    PeridoProyectoService,
+    JefaturaService,
+    VendedorService,
+    PeriodocolaboradorService,
+>>>>>>> c265724274de201e51c476d98c9365c18d96a37c
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
