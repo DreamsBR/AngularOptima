@@ -91,6 +91,8 @@ import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-roun
 import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
+import { PeridoProyectoService } from './proyecto-nuevo-editar/periodoProyecto.service'
+
 
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 
@@ -113,6 +115,7 @@ import { CanalesComponent } from './mantenimientoMaestros/canales/canales.compon
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
 import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+import { ReportesProyectosComponent } from './reportes-proyectos/reportes-proyectos.component'
 import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
@@ -173,6 +176,7 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
 
   { path: 'categorias', component:CategoriasComponent}
 ]
@@ -228,6 +232,7 @@ const ROUTES: Routes = [
     CategoriasComponent,
     EstadoFinancieroComponent,
     EstadoVentaComponent,
+    ReportesProyectosComponent,
     ColaboradorMetasComponent
   ],
   imports: [
@@ -277,6 +282,7 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
     GerenciaproyectoService,
+    PeridoProyectoService,
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,

@@ -350,6 +350,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
   }
 
+
   guardarProyectosGerencia(idGerencia: number){
 
     if(this.idGerencia == 0){
