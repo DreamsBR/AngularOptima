@@ -14,7 +14,7 @@ import swal from 'sweetalert2';
 
 export class ColaboradoresComponent implements OnInit {
 
-  
+
   colaboradoresLista: Colaborador[];
   paginador: any;
   colaboradorSeleccionado: Colaborador;

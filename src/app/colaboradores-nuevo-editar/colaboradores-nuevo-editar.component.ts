@@ -18,11 +18,11 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   status = false
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute
   ) {
-    
+
   }
 
   ngOnInit(){
@@ -32,6 +32,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     if(this.idColaborador != 0){
       this.colaboradorService.obtenerColaboradorPorId(this.idColaborador).subscribe(
         (response) => {
+          console.log(response)
+
           this.colaborador = response
         },
         (err) => {
@@ -45,14 +47,17 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     this.status = !this.status
   }
 
+
   public agregarColaborador(): void {
+
     if(Object.keys(this.colaborador).length < 5){
       swal('Campos Incompletos de Colaboradores', '','error')
       return
 
     }
+    let id = this.idColaborador
+    if(id == 0){
 
-    if(this.colaborador.idColaborador == 0){
       this.colaboradorService.agregarColaborador(this.colaborador).subscribe(
         (response) => {
           this.router.navigate(['/colaboradores'])
@@ -76,6 +81,9 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     }
 
   }
+
+
+
 
   regresar() {
     window.location.href = '/colaboradores'
