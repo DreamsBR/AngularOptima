@@ -56,24 +56,24 @@ export class ProyectoService {
 
   getPeriodoMontoPro(perioo:PeriodoGerencia){
     return this.http.post<PeriodoGerencia>(this.urlEndPoint, PeriodoGerencia).pipe(
-      map((resp : any ) => {
-        console.log(resp)
-        return resp
-      })
-    )
-  }
+        catchError((e) => {
+          if(e.status === 400){
+            return throwError(e);
+          }
+        })
+    )}
+
 
   deleteProyecto(proyecto: Proyecto): Observable<any> {
     return this.http.delete<Proyecto>(this.urlEndPoint + '/' + proyecto.idProyecto).pipe()
   }
-  getProyectosById(proyecto: Proyecto): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/' + proyecto.idProyecto).pipe(
-      map((jsonProyectosResponse: any) => {
-        console.log('respondiendo')
-        return jsonProyectosResponse
+
+  getProyectosById(idProyecto:number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/' + idProyecto).pipe(
+      catchError((e) => {
+        return throwError(e)
       })
-    )
-  }
+    )}
 
   eliminarProyecto(id: number): Observable<Proyecto> {
     return this.http.delete<Proyecto>(`${this.urlEndPoint}/${id}`).pipe(

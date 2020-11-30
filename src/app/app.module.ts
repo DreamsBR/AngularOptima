@@ -91,6 +91,8 @@ import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-roun
 import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
+import { PeridoProyectoService } from './proyecto-nuevo-editar/periodoProyecto.service'
+
 
 import { NgxMaskModule, IConfig } from 'ngx-mask'
 
@@ -280,9 +282,13 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaService,
     TipoInmuebleService,
     GerenciaproyectoService,
+<<<<<<< HEAD
+    PeridoProyectoService,
+=======
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
+>>>>>>> 809c7116665301304592536bd2970b319fae22c9
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
