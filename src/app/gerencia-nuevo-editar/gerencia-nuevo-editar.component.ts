@@ -342,13 +342,9 @@ export class GerenciaNuevoEditarComponent implements OnInit {
             (err) => {
               this.errores = err.error.errors as string[]
             }
-          )       
-        }
+          )}
 
-      }
-
-    }
-
+      }}
 
   }
 

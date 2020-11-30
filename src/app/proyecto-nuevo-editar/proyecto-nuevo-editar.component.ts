@@ -25,7 +25,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   editMode: boolean = true
   public errores:string[]
   public proyecto = new Proyecto()
-  public perioProyecto = new PeriodoGerencia()
+  public perioProyecto = new PeriodoProyecto()
   public newPeriodo:[]
   metaSeleccionada: number
   fechainicio : string
@@ -70,6 +70,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.frmNombrepro  = response.proyecto.nombre
           this.frmEnable  =  response.proyecto.enable
           this.frmDireccion =  response.proyecto.direccion
+          //this.agregarPeriodoProyecto()
+
 
           console.info()
         },
@@ -80,9 +82,12 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     })
 
     this.obtenerTodosLosPeriodos()
-
   }
-/*
+
+
+
+
+
   public obtenerPeriodos() {
     this.periodoService.getTodoPeriodos().subscribe((response) => {
       for(let x = 0 ; x < response.length ; x++){
@@ -97,7 +102,9 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         map(term => term.length < 2 ? []: this.aryPeriodos.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
       )
     })
-  }*/
+  }
+
+
   frmfechaIngreso:string
   onFechaIngresoCargo(newdate:string){
     this.frmfechaIngreso = newdate
@@ -117,10 +124,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   regresar() {
     window.location.href = '/proyectos'
   }
-  guardar() {
+  guardarGerencia() {
 
     const newProyecto = new Proyecto()
-    const newPerProyecto = new PeriodoGerencia()
+    const newPerProyecto = new PeriodoProyecto()
 
 
     newProyecto.idProyecto = this.frmIdProyecto
@@ -128,13 +135,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
-    newPerProyecto.meta = this.frmMonto
-
     if(this.proyecto.idProyecto = 0) {
       this.proyectoService.newProyecto(newProyecto).subscribe(
         (response) => {
           this.guardarPeriodoProyecto(response.idProyecto)
-        }
+        },
       )
     }
 
@@ -222,7 +227,13 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   }
 
 
+
+  periodosEliminados = []
+
+
+
   guardarPeriodoProyecto(idProyecto: number){
+    if(this.idProyecto == 0){
     for (let i = 0; i < this.aryPeriodos.length; i++) {
       var periodoProyecto = new PeriodoProyecto()
       periodoProyecto.idPeriodoProyecto = 0
@@ -236,10 +247,56 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         },
         (err) => {
           this.errores = err.error.errors as string[];
+        }
+      )
+    }
+    }else {
+      if(this.periodosEliminados.length >  0 ){
+        for (var i = 0; i < this.periodosEliminados.length; i++) {
+          this.periodoProyectoSerive.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
+            (response) => {},
+            (err) => {
+              this.errores=err.error.errors as string[]
+            })
+        }}
 
-        })
-    }}
+        for (var i  = 0; i < this.aryPeriodos.length; i++) {
+          var periodop = new PeriodoProyecto()
+          periodop.enable = 1
+          periodop.idProyecto = idProyecto
+          periodop.idPeriodo = this.aryPeriodos[i].idPeriodo
+          periodop.meta = this.aryPeriodos[i].monto
+
+          if (this.aryPeriodos[i].idPeriodoProyecto== 0){
+            periodoProyecto.idPeriodoProyecto = 0
+            this.periodoProyectoSerive.agregarPeriodoProyecto(periodoProyecto).subscribe(
+              (response) => {
+                console.info(response)
+              },
+              (err) => {
+                this.errores=err.error.errors as string []
+              }
+            )
+          }else{
+            this.periodoProyectoSerive.editarPeriodoGerencia(periodoProyecto , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
+              (response) => {
+                console.info(response)
+              },
+              (err) => {
+                this.errores  = err.error.errors as string []
+              }
+            )
+          }
+          }
+        }
+      }
+
+  }
 
 
 
-}
+
+
+
+
+
