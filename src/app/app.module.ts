@@ -112,7 +112,8 @@ import { MantenimientosComponent } from './mantenimientos/mantenimientos.compone
 import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
 import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
-import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component'
+import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+import { ReportesProyectosComponent } from './reportes-proyectos/reportes-proyectos.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -165,6 +166,7 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
 
   { path: 'categorias', component:CategoriasComponent}
 ]
@@ -218,7 +220,8 @@ const ROUTES: Routes = [
     CanalesComponent,
     CategoriasComponent,
     EstadoFinancieroComponent,
-    EstadoVentaComponent
+    EstadoVentaComponent,
+    ReportesProyectosComponent
   ],
   imports: [
     BrowserModule,

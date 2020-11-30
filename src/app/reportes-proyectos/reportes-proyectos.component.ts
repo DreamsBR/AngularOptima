@@ -44,11 +44,11 @@ export type ChartOptions = {
 }
 
 @Component({
-  selector: 'app-reportes',
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.css']
+  selector: 'app-reportes-proyectos',
+  templateUrl: './reportes-proyectos.component.html',
+  styleUrls: ['./reportes-proyectos.component.css']
 })
-export class ReportesComponent implements OnInit {
+export class ReportesProyectosComponent implements OnInit {
   @ViewChild('mychart', { static: true }) chartObj: ChartComponent
   @ViewChild('mychartFunnel', { static: true }) chartObjFunnel: ChartComponent
   @ViewChild('mychartForecast', { static: true }) chartObjForecast: ChartComponent
@@ -326,69 +326,64 @@ export class ReportesComponent implements OnInit {
   }
 
   buscar() {
-    if (!this.filterIdGerencia || !this.filterIdPeriodo) {
+    /* if (!this.filterIdGerencia || !this.filterIdPeriodo) {
       alert('Debe seleccionar un gerente y un periodo')
       return
-    }
+    } */
 
-    this.loading = true
+    //this.loading = true
 
     // TODO: QUITAR LA DATA HARCODEADA
-    this.reportesService
-      .getConsolidadoVentas(this.filterIdGerencia, this.filterIdPeriodo)
-      .subscribe(
-        (resp) => {
-          // TODO: inicio QUITAR LA DATA HARCODEADA
-          /* resp.push({
-          proyecto: {
-            idProyecto: 1,
-            direccion: 'URB SANTO DOMINGO ',
+    this.reportesService.getConsolidadoProyecto(1, 1).subscribe(
+      (resp) => {
+        // TODO: inicio QUITAR LA DATA HARCODEADA
+        resp.push({
+          avance: 150451.25,
+          caida: 1,
+          ci: 1,
+          ev: 2,
+          meta: 236152.42,
+          minuta: 3,
+          preca: 4,
+          sp: 6,
+          vendedor: {
+            idVendedor: 5,
             enable: 1,
-            nombre: 'NEW CASTLE',
-            codigo: '1111'
-          },
-          meta: 56256.76,
-          avance: 25877.51,
-          minuta: 1,
-          ci: 2,
-          preca: 3,
-          ev: 4,
-          sp: 8,
-          caida: 5
-        }) */
-          // TODO: fin QUITAR LA DATA HARCODEADA
+            idColaborador: 1,
+            idJefatura: 6,
+            nombre: 'EDDY ERAZO'
+          }
+        })
+        // TODO: fin QUITAR LA DATA HARCODEADA
 
-          this.itemsTable = new MatTableDataSource<ConsolidadoVentas>(resp)
-          this.totalMinuta = this.itemsTable.data
-            .map((t) => t.minuta)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCI = this.itemsTable.data
-            .map((t) => t.ci)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalPreca = this.itemsTable.data
-            .map((t) => t.preca)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalEV = this.itemsTable.data
-            .map((t) => t.ev)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalSP = this.itemsTable.data
-            .map((t) => t.sp)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCaida = this.itemsTable.data
-            .map((t) => t.caida)
-            .reduce((acc, value) => acc + value, 0)
+        console.log(resp)
+        return
 
-          this.loading = false
+        this.itemsTable = new MatTableDataSource<ConsolidadoVentas>(resp)
+        this.totalMinuta = this.itemsTable.data
+          .map((t) => t.minuta)
+          .reduce((acc, value) => acc + value, 0)
+        this.totalCI = this.itemsTable.data.map((t) => t.ci).reduce((acc, value) => acc + value, 0)
+        this.totalPreca = this.itemsTable.data
+          .map((t) => t.preca)
+          .reduce((acc, value) => acc + value, 0)
+        this.totalEV = this.itemsTable.data.map((t) => t.ev).reduce((acc, value) => acc + value, 0)
+        this.totalSP = this.itemsTable.data.map((t) => t.sp).reduce((acc, value) => acc + value, 0)
+        this.totalCaida = this.itemsTable.data
+          .map((t) => t.caida)
+          .reduce((acc, value) => acc + value, 0)
 
-          this.setDataChart()
-          this.drawFunnelChart()
-          this.drawForecastChart()
-        },
-        (error) => {
-          this.loading = false
-          console.log(error)
-        }
-      )
+        this.loading = false
+
+        this.setDataChart()
+        this.drawFunnelChart()
+        this.drawForecastChart()
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   setDataChart() {
@@ -530,7 +525,6 @@ export class ReportesComponent implements OnInit {
   }
 
   goDetails(row) {
-    const idProyecto = row.proyecto.idProyecto
-    window.location.href = '/reportes-por-proyecto/' + idProyecto
+    console.log(row)
   }
 }
