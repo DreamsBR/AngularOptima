@@ -1,6 +1,8 @@
 export class Gerenciaproyecto{
     enable: number
-    idGerencia: number
+    iGerencia: number
     idGerenciaProyecto: number
     idProyecto: number
+    fechaAsignacion: string
+    fechaTermin: string
   }

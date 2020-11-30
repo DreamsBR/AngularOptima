@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { GerenciaService } from './gerencia.service'
 import { Gerencia } from './gerencia'
+import { ProyectoService } from './../proyectos/proyectos.service'
+import { Proyecto } from './../proyectos/proyecto'
 
 @Component({
   selector: 'app-gerencias',
@@ -10,13 +12,16 @@ import { Gerencia } from './gerencia'
 })
 
 export class GerenciasComponent implements OnInit {
+
   gerenciasLista: Gerencia[]
   gerenciaSeleccionado: Gerencia
   paginador: any
   base: string
+  departamentosAgregados = []
 
   constructor(
     private gerenciaService: GerenciaService,
+    private proyectoService: ProyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService
   )
@@ -35,9 +40,24 @@ export class GerenciasComponent implements OnInit {
       this.gerenciaService.geGerenciasPorPagina(page).subscribe((
         clientesJsonResponse) => {
         this.gerenciasLista = clientesJsonResponse.content
+        this.proyectosPorGerencia = []
+        for (var i = 0 ; i < this.gerenciasLista.length ; i++) {
+          this.obtenerProyectosPorGerencia(this.gerenciasLista[i].idGerencia)
+        }
+        console.info(this.gerenciasLista)
+        console.info(this.proyectosPorGerencia)
+        // console.info(this.gerenciasLista)
         this.paginador = clientesJsonResponse
         this.base = 'gerencias'
       })
+    })
+  }
+
+  proyectosPorGerencia = []
+
+  public obtenerProyectosPorGerencia(idGerencia: number){
+    this.proyectoService.getProyectosByIdGerencia(idGerencia).subscribe((response) => {
+        this.proyectosPorGerencia[idGerencia] = response
     })
   }
 
