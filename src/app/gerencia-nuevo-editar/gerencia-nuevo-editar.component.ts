@@ -274,6 +274,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     }
   }
 
+
   guardarProyectosGerencia(idGerencia: number){
     for (var i = 0; i < this.aryPeriodos.length; i++) {
       var gerenciaproyecto = new Gerenciaproyecto()
@@ -285,7 +286,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         (response) => {
           console.info(response)
         },
-        (err) => {
+      (err) => {
           this.errores = err.error.errors as string[]
         }
       )

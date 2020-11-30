@@ -1,3 +1,4 @@
+import { PeriodoProyecto } from "./../proyectos/periodoproyecto";
 import { Component, OnInit, ɵConsole } from '@angular/core'
 import { Proyecto } from '../proyectos/proyecto'
 import { ProyectoService } from '../proyectos/proyectos.service'
@@ -10,13 +11,15 @@ import { Periodo } from '../periodos/periodo'
 
 import { PeriodoGerencia } from './../periodo-gerencia/periodogerencia'
 
-
+import { PeridoProyectoService } from "./periodoProyecto.service";
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
+import { Gerencia } from '../gerencias/gerencia';
 
 @Component({
   selector: 'app-proyecto-nuevo-editar',
   templateUrl: './proyecto-nuevo-editar.component.html'
 })
+
 export class ProyectoNuevoEditarComponent implements OnInit {
 
   editMode: boolean = true
@@ -30,7 +33,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
 
 
-  idProyecto:number
+  public idProyecto:number
   frmIdProyecto: number = 0
   frmCodigo: string = ''
   frmNombrepro: string = ''
@@ -46,9 +49,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private periodo: PeriodoService
-
+    private periodo: PeriodoService,
+    private periodoProyectoSerive : PeridoProyectoService
   ) {}
+
 
   ngOnInit() {
 
@@ -57,15 +61,17 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       this.idProyecto = parseInt(params.get('id'))
       if (this.idProyecto != 0) {
         this.proyecto.idProyecto = this.idProyecto
-        this.proyectoService.getProyectosById(this.proyecto).subscribe(
+        this.proyectoService.getProyectosById(this.idProyecto).subscribe(
         (response)=> {
           console.log(response)
 
-          this.frmIdProyecto = response.idProyecto
-          this.frmCodigo  = response.codigo
-          this.frmNombrepro  = response.nombre
-          this.frmEnable  =  response.enable
-          this.frmDireccion =  response.direccion
+          this.frmIdProyecto = response.proyecto.idProyecto
+          this.frmCodigo  = response.proyecto.codigo
+          this.frmNombrepro  = response.proyecto.nombre
+          this.frmEnable  =  response.proyecto.enable
+          this.frmDireccion =  response.proyecto.direccion
+
+          console.info()
         },
         (err)=> {
           this.errores = err.error.errors as string[]
@@ -97,6 +103,12 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     this.frmfechaIngreso = newdate
   }
 
+  aryProyectos = []
+  eliminarProyectoPeriodo(i: number){
+    this.aryProyectos.splice(i, 1)
+    console.info(this.aryPeriodos)
+  }
+
   status = false
   menuToggle() {
     this.status = !this.status
@@ -118,7 +130,13 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     newProyecto.direccion = this.frmDireccion
     newPerProyecto.meta = this.frmMonto
 
-
+    if(this.proyecto.idProyecto = 0) {
+      this.proyectoService.newProyecto(newProyecto).subscribe(
+        (response) => {
+          this.guardarPeriodoProyecto(response.idProyecto)
+        }
+      )
+    }
 
     this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
       window.location.href = '/proyectos'
@@ -180,7 +198,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     this.periodoSeleccionado = event
   }
 
-  agregarPeriodoGerencia(){
+
+  agregarPeriodoProyecto(){
     let meta: {[k: string]: any} = {};
     meta.idPeriodo = this.periodoSeleccionado.idPeriodo
     meta.nombre = this.periodoSeleccionado.nombre
@@ -201,5 +220,26 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   onFechaFinCargo(newdate:string){
     this.fechaTermino = newdate
   }
+
+
+  guardarPeriodoProyecto(idProyecto: number){
+    for (let i = 0; i < this.aryPeriodos.length; i++) {
+      var periodoProyecto = new PeriodoProyecto()
+      periodoProyecto.idPeriodoProyecto = 0
+      periodoProyecto.enable = 1
+      periodoProyecto.idProyecto = idProyecto
+      periodoProyecto.idPeriodo = this.aryPeriodos[i].idPeriodo
+      periodoProyecto.meta = this.aryPeriodos[i].monto
+      this.periodoProyectoSerive.agregarPeriodoProyecto(periodoProyecto).subscribe(
+        (response) => {
+          console.info(response)
+        },
+        (err) => {
+          this.errores = err.error.errors as string[];
+
+        })
+    }}
+
+
 
 }
