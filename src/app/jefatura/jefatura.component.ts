@@ -4,6 +4,9 @@ import { AuthService } from '../usuarios/auth.service'
 import { JefaturaService } from './jefatura.service'
 import { Jefatura } from './jefatura'
 import { Jefaturanodo } from './jefaturanodo'
+import { JefaturaproyectoService } from './jefaturaproyecto.service'
+import { Jefaturaproyecto } from './jefaturaproyecto'
+import { Jefaturaproyectonodo } from './jefaturaproyectonodo'
 
 @Component({
   selector: 'app-jefatura',
@@ -14,7 +17,8 @@ export class JefaturaComponent implements OnInit {
 
   idProyecto: number
   idGerencia: number
-  jefaturaLista: Jefatura[]
+  // jefaturaLista: Jefatura[]
+  jefaturaLista: Jefaturaproyectonodo[]
   jefaturaSeleccionado: Jefatura
   paginador: any
   base: string
@@ -22,7 +26,8 @@ export class JefaturaComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    public jefaturaService: JefaturaService
+    public jefaturaService: JefaturaService,
+    public jefaturaproyectoService: JefaturaproyectoService
   ) {}
 
   ngOnInit() {
@@ -33,15 +38,16 @@ export class JefaturaComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.idProyecto = parseInt(params.get('idProyecto'))
       this.idGerencia = parseInt(params.get('idGerencia'))
-      let page: number =+ params.get('page')
-      if (!page) {
-        page = 0
-      }
-      this.jefaturaService.getJefaturas(page,this.idProyecto).subscribe((
+      // let page: number =+ params.get('page')
+      // if (!page) {
+      //   page = 0
+      // }
+      this.jefaturaproyectoService.getJefaturasPorProyecto(this.idProyecto).subscribe((
         jefaturaJsonResponse) => {
-        this.jefaturaLista = jefaturaJsonResponse.content
-        this.paginador = jefaturaJsonResponse
-        this.base = 'jefatura'
+          this.jefaturaLista = jefaturaJsonResponse
+        // this.jefaturaLista = jefaturaJsonResponse
+        // this.paginador = jefaturaJsonResponse
+        // this.base = 'jefatura'
         console.info(this.jefaturaLista)
       })
     })

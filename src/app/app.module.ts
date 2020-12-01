@@ -121,6 +121,7 @@ import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
 import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
 import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
+import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -286,6 +287,7 @@ const ROUTES: Routes = [
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
+    JefaturaproyectoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 

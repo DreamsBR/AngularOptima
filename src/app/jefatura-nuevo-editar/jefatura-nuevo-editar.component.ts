@@ -3,10 +3,12 @@ import { ColaboradorService} from './../colaboradores/colaborador.service'
 import { Router, ActivatedRoute } from '@angular/router'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
 import { JefaturaService } from './../jefatura/jefatura.service'
+import { JefaturaproyectoService } from './../jefatura/jefaturaproyecto.service'
 import { Jefatura } from './../jefatura/jefatura'
 import { Vendedor } from "./vendedor";
 import { VendedorService } from './vendedor.service'
 import swal from 'sweetalert2';
+import { Jefaturaproyecto } from '../jefatura/jefaturaproyecto';
 
 @Component({
   selector: 'app-jefatura-nuevo-editar',
@@ -34,6 +36,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private colaboradorService: ColaboradorService,
     private jefaturaService: JefaturaService,
+    private jefaturaproyectoService: JefaturaproyectoService,
     private VendedorService: VendedorService
   ) { }
 
@@ -43,6 +46,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
   nombreJefatura: string
   
   aryVendedores = []
+  vendedoresEliminados = []
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -61,6 +65,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
             this.dpFechaTermino.setValue(response.fechaTermino)
 
             this.agregarVendedores()
+
           },
           (err) => {
             console.info(err)
@@ -75,7 +80,17 @@ export class JefaturaNuevoEditarComponent implements OnInit {
   }
 
   agregarVendedores(){
-
+    this.VendedorService
+      .getVendedoresPorJefatura(this.idJefatura)
+      .subscribe((response) => {
+        for(let x = 0 ; x < response.length ; x++ ){
+          let vendedor: {[k: string]: any} = {};
+          vendedor.idVendedor = response[x].idVendedor
+          vendedor.idColaborador = response[x].idColaborador
+          vendedor.nombre = response[x].nombre
+          this.aryVendedores.push(vendedor)
+        }
+      })
   }
 
   obtenerTodosLosColaboradores(){
@@ -116,6 +131,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
   }
 
   eliminarVendedor(i: number){
+    this.vendedoresEliminados.push(this.aryVendedores[i].idVendedor)
     this.aryVendedores.splice(i, 1)
   }
 
@@ -149,6 +165,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
       this.jefaturaService.agregarJefatura(jefaturaadd).subscribe(
         (response) => {
           this.guardarVendedores(response.idJefatura)
+          this.guardarJefaturaproyectos(response.idJefatura)
         },
         (err) => {
           this.errores = err.error.errors as string[]
@@ -165,7 +182,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
         }
       )
     }
-
   }
 
   guardarVendedores(idJefatura: number){
@@ -187,6 +203,18 @@ export class JefaturaNuevoEditarComponent implements OnInit {
         )
       }
     }else{
+
+      if(this.vendedoresEliminados.length > 0){
+        for (var i = 0; i < this.vendedoresEliminados.length; i++) {
+          this.VendedorService.eliminarVendedor(this.vendedoresEliminados[i]).subscribe(
+            (response) => {},
+            (err) => {
+              this.errores = err.error.errors as string[]
+            }
+          )
+        }
+      }
+
       for (var i = 0; i < this.aryVendedores.length; i++) {
         var addVendedor = new Vendedor()
         addVendedor.enable = 1
@@ -217,6 +245,20 @@ export class JefaturaNuevoEditarComponent implements OnInit {
     }
     this.router.navigate(['/jefatura/',this.idProyecto,this.idGerencia])
     swal('Jefatura registrada', ``, 'success')
+  }
+
+  guardarJefaturaproyectos(idJefatura: number){
+    var addJefaturaproyecto = new Jefaturaproyecto()
+    addJefaturaproyecto.enable = 1
+    addJefaturaproyecto.idJefaturaProyecto = 0
+    addJefaturaproyecto.idJefatura = idJefatura
+    addJefaturaproyecto.idProyecto = this.idProyecto
+    this.jefaturaproyectoService.agregarJefaturaproyecto(addJefaturaproyecto).subscribe(
+      (response) => {},
+      (err) => {
+        this.errores = err.error.errors as string[]
+      }
+    )
   }
 
   status = false;

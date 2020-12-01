@@ -360,12 +360,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.bono = this.bono
     this.financiamiento.idTipoCredito = this.tipocreditoSeleccionado
     this.financiamiento.enable = 1
-
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
-
     this.financiamiento.idEstadoFinanciamiento = 1
-
     this.financiamiento.nomtoCuotaInicial = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
     this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
     this.financiamiento.financiamiento = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
@@ -394,12 +391,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.fechaEpp = ""
     this.venta.fechaMinuta = ""
     this.venta.fechaSeparacion = ""
-
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idEstadoVenta = 15
     this.venta.idFinanciamiento = idFinanciamiento
     this.venta.idProyecto = this.paramIdProyecto
-
     this.venta.idMotivo = this.motivoSeleccionado
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
