@@ -142,7 +142,7 @@
                         <p class="titulo"><strong>Datos conyuge</strong></p>
 
                         <p class="label-dato">Nombres y Apellidos</p>
-                        <p>{{ cliente.conyuge | formatUppercase }}</p>
+                        <p>{{ cliente.conyuge ? cliente.conyuge : ('' | formatUppercase) }}</p>
 
                         <!-- <p class="label-dato">Apellidos</p>
                         <p>Armendariz Arturiaz</p> -->
