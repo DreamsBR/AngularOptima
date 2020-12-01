@@ -59,7 +59,7 @@ export class InmuebleService {
     return this.http
       .get(
         this.urlEndPoint +
-          '/listarporcategoria/' +
+          '/disponibles/' +
           idProyecto +
           '/' +
           idTipoInmueble +
