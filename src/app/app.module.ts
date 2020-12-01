@@ -53,6 +53,7 @@ import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 import { GerenciaproyectoService } from './gerencia-nuevo-editar/gerenciaproyecto.service'
+import { ExporterService } from './helpers/exporter.service'
 
 
 import { LoginComponent } from './usuarios/login.component'
@@ -120,6 +121,9 @@ import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
 import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
+import { ReportesVendedorComponent } from './reportes-vendedor/reportes-vendedor.component';
+import { AutocompletarComponent } from './autocompletar/autocompletar.component';
+import { PruebaComponent } from './prueba/prueba.component'
 import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
 import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service';
 import { BancosComponent } from './bancos/bancos.component';
@@ -191,7 +195,8 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
-  { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
+  { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
+  { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
 
   // { path: 'categorias', component:CategoriasComponent},
 
@@ -204,6 +209,9 @@ const ROUTES: Routes = [
   { path: 'categoria', component: CategoriaComponent },
   { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent }
 
+  { path: 'categorias', component:CategoriasComponent},
+
+  { path: 'prueba', component:PruebaComponent}
 ]
 
 @NgModule({
@@ -259,6 +267,7 @@ const ROUTES: Routes = [
     // EstadoVentaComponent,
     ReportesProyectosComponent,
     ColaboradorMetasComponent,
+<<<<<<< HEAD
     BancosComponent,
     BancoNuevoEditarComponent,
     CanalesNuevoEditarComponent,
@@ -268,6 +277,11 @@ const ROUTES: Routes = [
     EstadofinanciamientoNuevoEditarComponent,
     EstadoventaComponent,
     EstadoventaNuevoEditarComponent
+=======
+    ReportesVendedorComponent,
+    AutocompletarComponent,
+    PruebaComponent
+>>>>>>> 8863785350ea623a6625ea9e1d2a36f0ef92ba0a
   ],
   imports: [
     BrowserModule,
@@ -320,6 +334,7 @@ const ROUTES: Routes = [
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
+    ExporterService,
     JefaturaproyectoService,
     BancoService,
     CanalesService,

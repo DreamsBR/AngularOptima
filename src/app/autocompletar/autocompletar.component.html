@@ -1,0 +1,25 @@
+<div class="clsiptr">
+  <div class="clsiptr-icon">
+    <em class="fas fa-search"></em>
+  </div>
+  <div class="clsiptr-input">
+    <ng-autocomplete
+      #ngAutoComplete
+      [data]="options"
+      [searchKeyword]="searchKeyword"
+      [itemTemplate]="itemTemplate"
+      [notFoundTemplate]="notFoundTemplate"
+      [placeHolder]="getPlaceHolder"
+      (selected)="onSelectedItem($event)"
+      (inputChanged)="onChangeInput($event)"
+      (inputCleared)="onClearedInput($event)"
+    >
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item[keyToShow]"></a>
+    </ng-template>
+    <ng-template #notFoundTemplate let-notFound>
+      <div style="color: #c1c1c1">-- {{ label }} no encontrado --</div>
+    </ng-template>
+  </div>
+</div>

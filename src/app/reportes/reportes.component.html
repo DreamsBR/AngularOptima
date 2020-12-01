@@ -8,7 +8,7 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <h3>Reportes</h3>
+          <h3>Reportes por gerencia</h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right">
           {{ sumaMetas | formatSoles }} - {{ sumaAvances | formatSoles }}
@@ -19,59 +19,51 @@
         <div class="col-sm-12 col-md-8">
           <div class="row">
             <div class="col-sm-12 col-md-6">
-              <div class="clsiptr">
-                <div class="clsiptr-icon">
-                  <em class="fas fa-search"></em>
-                </div>
-                <div class="clsiptr-input">
-                  <ng-autocomplete
-                    [data]="dataSearch1"
-                    [searchKeyword]="keywordSearch1"
-                    (selected)="selectEventSearch1($event)"
-                    [itemTemplate]="itemTemplate1"
-                    [notFoundTemplate]="notFoundTemplate1"
-                    [placeHolder]="'Buscar gerente'"
-                  >
-                  </ng-autocomplete>
-                  <ng-template #itemTemplate1 let-item>
-                    <a [innerHTML]="item.nombres"></a>
-                  </ng-template>
-                  <ng-template #notFoundTemplate1 let-notFound>
-                    <div style="color: #c1c1c1">-- Gerente no encontrado --</div>
-                  </ng-template>
-                </div>
-              </div>
+              <autocompletar
+                #autocompleteSearch1
+                [options]="dataSearch1"
+                [searchKeyword]="keywordSearch1"
+                [keyToShow]="keywordSearch1"
+                [label]="'Gerente'"
+                (onSelected)="selectEventSearch1($event)"
+                (onCleared)="clearedSearch1($event)"
+                (onInputChanged)="clearedSearch1($event)"
+              >
+              </autocompletar>
             </div>
             <div class="col-sm-12 col-md-6">
-              <div class="clsiptr">
-                <div class="clsiptr-icon">
-                  <em class="fas fa-search"></em>
-                </div>
-                <div class="clsiptr-input">
-                  <ng-autocomplete
-                    [data]="dataSearch2"
-                    [searchKeyword]="keywordSearch2"
-                    (selected)="selectEventSearch2($event)"
-                    [itemTemplate]="itemTemplate2"
-                    [notFoundTemplate]="notFoundTemplate2"
-                    [placeHolder]="'Buscar periodo'"
-                  >
-                  </ng-autocomplete>
-                  <ng-template #itemTemplate2 let-item>
-                    <a [innerHTML]="item.nombrePeriodo"></a>
-                  </ng-template>
-                  <ng-template #notFoundTemplate2 let-notFound>
-                    <div style="color: #c1c1c1">-- Periodo no encontrado --</div>
-                  </ng-template>
-                </div>
-              </div>
+              <autocompletar
+                #autocompleteSearch2
+                [options]="dataSearch2"
+                [searchKeyword]="keywordSearch2"
+                [keyToShow]="keywordSearch2"
+                [label]="'Periodo'"
+                (onSelected)="selectEventSearch2($event)"
+                (onCleared)="clearedSearch2($event)"
+                (onInputChanged)="clearedSearch2($event)"
+              >
+              </autocompletar>
             </div>
           </div>
         </div>
         <div class="col-sm-12 col-md-4">
-          <button class="btn btn-optima" (click)="buscar()">Buscar</button>
-          <!-- <button class="btn btn-optima ml-2">Exportar</button>
-          <button class="btn btn-optima ml-2">Imprimir</button> -->
+          <button
+            class="btn btn-optima"
+            (click)="buscar()"
+            style="text-decoration: none !important"
+            [disabled]="!filterIdGerencia || !filterIdPeriodo"
+          >
+            Buscar
+          </button>
+          <button
+            class="btn btn-optima ml-2"
+            (click)="exportar()"
+            style="text-decoration: none !important"
+            [disabled]="!filterIdGerencia || !filterIdPeriodo"
+          >
+            Exportar
+          </button>
+          <!-- <button class="btn btn-optima ml-2">Imprimir</button> -->
         </div>
       </div>
       <div class="row">
@@ -230,13 +222,13 @@
           <div style="border: 1px solid #cacaca; height: 100%; width: 100%">
             <apx-chart
               #mychartForecast
-              [colors]="chartOptions.colors"
-              [series]="chartOptions.series"
-              [chart]="chartOptions.chart"
-              [dataLabels]="chartOptions.dataLabels"
-              [plotOptions]="chartOptions.plotOptions"
-              [xaxis]="chartOptions.xaxis"
-              [labels]="chartOptions.labels"
+              [colors]="chartOptionsForecast.colors"
+              [series]="chartOptionsForecast.series"
+              [chart]="chartOptionsForecast.chart"
+              [dataLabels]="chartOptionsForecast.dataLabels"
+              [plotOptions]="chartOptionsForecast.plotOptions"
+              [xaxis]="chartOptionsForecast.xaxis"
+              [labels]="chartOptionsForecast.labels"
             ></apx-chart>
           </div>
         </div>

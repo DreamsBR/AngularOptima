@@ -10,7 +10,7 @@ import { GerenciaService } from '../gerencias/gerencia.service'
 import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
 import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.service'
 import { ReportesService } from '../reportes/reportes.service'
-import { ConsolidadoProyecto } from './consolidadoproyecto'
+import { ConsolidadoVendedor } from './consolidadovendedor'
 import { ActivatedRoute } from '@angular/router'
 import { ColaboradorService } from '../colaboradores/colaborador.service'
 
@@ -28,7 +28,6 @@ import {
   ApexTooltip,
   ApexStates
 } from 'ng-apexcharts'
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 
 export type ChartOptions = {
   series: ApexAxisChartSeries
@@ -47,11 +46,11 @@ export type ChartOptions = {
 }
 
 @Component({
-  selector: 'app-reportes-proyectos',
-  templateUrl: './reportes-proyectos.component.html',
-  styleUrls: ['./reportes-proyectos.component.css']
+  selector: 'app-reportes-vendedor',
+  templateUrl: './reportes-vendedor.component.html',
+  styleUrls: ['./reportes-vendedor.component.css']
 })
-export class ReportesProyectosComponent implements OnInit {
+export class ReportesVendedorComponent implements OnInit {
   @ViewChild('mychart', { static: true }) chartObj: ChartComponent
   @ViewChild('mychartFunnel', { static: true }) chartObjFunnel: ChartComponent
   @ViewChild('mychartForecast', { static: true }) chartObjForecast: ChartComponent
@@ -62,7 +61,7 @@ export class ReportesProyectosComponent implements OnInit {
   loading = false
   status = false
 
-  itemsTable = new MatTableDataSource<ConsolidadoProyecto>()
+  itemsTable = new MatTableDataSource<ConsolidadoVendedor>()
   fieldsTable: string[] = [
     'numero',
     'proyecto',
@@ -84,7 +83,7 @@ export class ReportesProyectosComponent implements OnInit {
   public chartOptionsForecast: Partial<ChartOptions>
 
   // Variables para buscadores
-  keywordSearch1 = 'nombre'
+  keywordSearch1 = 'nombres'
   dataSearch1 = []
 
   keywordSearch2 = 'nombrePeriodo'
@@ -107,7 +106,7 @@ export class ReportesProyectosComponent implements OnInit {
   totalSP = 0
   totalCaida = 0
 
-  filterIdProyecto: number = null
+  filterIdColaborador: number = null
   filterIdPeriodo: number = null
 
   constructor(
@@ -115,8 +114,8 @@ export class ReportesProyectosComponent implements OnInit {
     private periodoService: PeriodoService,
     private gerenciaService: GerenciaService,
     private periodoGerenciaService: PeriodoGerenciaService,
-    private activatedRoute: ActivatedRoute,
     private reportesService: ReportesService,
+    private activatedRoute: ActivatedRoute,
     private colaboradorService: ColaboradorService
   ) {
     this.chartOptions = {
@@ -284,15 +283,15 @@ export class ReportesProyectosComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
-      const paramIdProyecto: number = parseInt(params.get('idproyecto')) // Id del Proyecto
+      const paramIdColaborador: number = parseInt(params.get('idcolaborador')) // Id del Proyecto
       const paramIdPeriodo: number = parseInt(params.get('idperiodo')) // Id del Proyecto
 
       this.loading = true
-      this.proyectoService.getAllProjects().subscribe(
+      this.colaboradorService.getTodosColaboradores().subscribe(
         (data) => {
           this.dataSearch1 = data
 
-          this.periodoService.getPeriodoProyectoByIdProyecto(paramIdProyecto).subscribe(
+          this.periodoService.getPeriodoColaboradorByIdColaborador(paramIdColaborador).subscribe(
             (resp) => {
               const customDataSearch = []
               resp.forEach((elem: any) => {
@@ -306,8 +305,8 @@ export class ReportesProyectosComponent implements OnInit {
 
               // Seteando los valores de la Url
               for (const elem of data) {
-                if (elem.idProyecto === paramIdProyecto) {
-                  this.autocompleteSearch1.changeOnlyText(elem.nombre)
+                if (elem.idColaborador === paramIdColaborador) {
+                  this.autocompleteSearch1.changeOnlyText(elem.nombres)
                   break
                 }
               }
@@ -319,7 +318,7 @@ export class ReportesProyectosComponent implements OnInit {
                 }
               }
 
-              this.filterIdProyecto = paramIdProyecto
+              this.filterIdColaborador = paramIdColaborador
               this.filterIdPeriodo = paramIdPeriodo
 
               this.buscar()
@@ -341,7 +340,7 @@ export class ReportesProyectosComponent implements OnInit {
   }
 
   clearedSearch1() {
-    this.filterIdProyecto = null
+    this.filterIdColaborador = null
     // Cuando se limpia el primer buscador, limpiamos el segundo
     this.filterIdPeriodo = null
     this.dataSearch2 = []
@@ -353,11 +352,11 @@ export class ReportesProyectosComponent implements OnInit {
   }
 
   selectEventSearch1(item: any) {
-    this.filterIdProyecto = item.idProyecto
+    this.filterIdColaborador = item.idColaborador
 
     this.loading = true
     this.dataSearch2 = []
-    this.periodoService.getPeriodoProyectoByIdProyecto(item.idProyecto).subscribe(
+    this.periodoService.getPeriodoColaboradorByIdColaborador(item.idColaborador).subscribe(
       (resp) => {
         const customDataSearch = []
         resp.forEach((elem: any) => {
@@ -386,8 +385,8 @@ export class ReportesProyectosComponent implements OnInit {
   }
 
   buscar() {
-    if (!this.filterIdProyecto || !this.filterIdPeriodo) {
-      alert('Debe seleccionar un proyecto y un periodo')
+    if (!this.filterIdColaborador || !this.filterIdPeriodo) {
+      alert('Debe seleccionar un vendedor y un periodo')
       return
     }
 
@@ -395,47 +394,47 @@ export class ReportesProyectosComponent implements OnInit {
 
     // TODO: QUITAR LA DATA HARCODEADA
     this.reportesService
-      .getConsolidadoProyecto(this.filterIdProyecto, this.filterIdPeriodo)
+      .getConsolidadoVendedor(this.filterIdColaborador, this.filterIdPeriodo)
       .subscribe(
         (resp) => {
           // TODO: inicio QUITAR LA DATA HARCODEADA
           resp.push({
-            avance: 150451.25,
-            caida: 1,
+            avance: 464125.98,
+            caida: 0,
             ci: 1,
-            ev: 2,
-            meta: 236152.42,
-            minuta: 3,
-            preca: 4,
-            sp: 6,
-            vendedor: {
-              idVendedor: 5,
-              enable: 1,
-              idColaborador: 1,
-              idJefatura: 6,
-              nombre: 'EDDY ERAZO'
-            }
+            ev: 1,
+            meta: 765412.45,
+            minuta: 2,
+            preca: 2,
+            proyecto: {
+              codigo: 'string',
+              direccion: 'string',
+              enable: 0,
+              idProyecto: 1,
+              nombre: 'Nessssstaaaa'
+            },
+            sp: 5
           })
           resp.push({
-            avance: 702461.25,
-            caida: 1,
+            avance: 211125.98,
+            caida: 0,
             ci: 1,
-            ev: 2,
-            meta: 53545.42,
-            minuta: 3,
-            preca: 4,
-            sp: 6,
-            vendedor: {
-              idVendedor: 6,
-              enable: 1,
-              idColaborador: 6,
-              idJefatura: 6,
-              nombre: 'RAUL CARRILLO'
-            }
+            ev: 1,
+            meta: 541927.29,
+            minuta: 2,
+            preca: 2,
+            proyecto: {
+              codigo: 'string',
+              direccion: 'string',
+              enable: 0,
+              idProyecto: 2,
+              nombre: 'Groño'
+            },
+            sp: 5
           })
           // TODO: fin QUITAR LA DATA HARCODEADA
 
-          this.itemsTable = new MatTableDataSource<ConsolidadoProyecto>(resp)
+          this.itemsTable = new MatTableDataSource<ConsolidadoVendedor>(resp)
           this.totalMinuta = this.itemsTable.data
             .map((t) => t.minuta)
             .reduce((acc, value) => acc + value, 0)
@@ -490,7 +489,7 @@ export class ReportesProyectosComponent implements OnInit {
       categories: []
     }
     this.itemsTable.data.forEach((elem) => {
-      tmpXaxis.categories.push(elem.vendedor.nombre)
+      tmpXaxis.categories.push(elem.proyecto.nombre)
     })
     this.chartOptions.labels = ['opa']
     this.chartOptions.series = tmpSeries
@@ -547,27 +546,27 @@ export class ReportesProyectosComponent implements OnInit {
   }
 
   drawForecastChart() {
-    this.reportesService
-      .getConsolidadoGerencia(this.filterIdProyecto, this.filterIdPeriodo)
+    /* this.reportesService
+      .getConsolidadoGerencia(this.filterIdGerencia, this.filterIdPeriodo)
       .subscribe((resp) => {
         //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
         // TODO: inicio QUITAR DATA HARDCODEADA
-        /*resp.push({
-          periodoGerencia: {
-            idPeriodoGerencia: 1,
-            enable: 1,
-            idGerencia: 1,
-            periodo: {
-              idPeriodo: 1,
-              enable: 1,
-              fechaFin: '2020-11-30T00:00:00.000+0000',
-              fechaInicio: '2020-11-01T00:00:00.000+0000',
-              nombre: 'DICIEMBRE - 2020'
-            },
-            meta: 80564.45
-          },
-          venta: 50456.03
-        })*/
+        //resp.push({
+        //  periodoGerencia: {
+        //    idPeriodoGerencia: 1,
+        //    enable: 1,
+        //    idGerencia: 1,
+        //    periodo: {
+        //      idPeriodo: 1,
+        //      enable: 1,
+        //      fechaFin: '2020-11-30T00:00:00.000+0000',
+        //      fechaInicio: '2020-11-01T00:00:00.000+0000',
+        //      nombre: 'DICIEMBRE - 2020'
+        //    },
+        //    meta: 80564.45
+        //  },
+        //  venta: 50456.03
+        //})
         // TODO: fin QUITAR DATA HARDCODEADA
         //console.log(resp)
 
@@ -593,7 +592,7 @@ export class ReportesProyectosComponent implements OnInit {
         this.chartOptionsForecast.series = tmpSeries
         this.chartOptionsForecast.xaxis = tmpXaxis
         this.chartObjForecast.updateOptions(this.chartOptionsForecast)
-      })
+      }) */
   }
 
   goDetails(row) {

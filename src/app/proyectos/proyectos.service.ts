@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
 import { GerenciaService} from '../../app/gerencias/gerencia.service'
 import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
+import { Categoria } from '../ventas-proyecto-nuevo-editar/categoria'
 @Injectable()
 export class ProyectoService {
   private urlEndPoint: string = URL_BACKEND + 'proyecto'
@@ -19,6 +20,18 @@ export class ProyectoService {
       .get(this.urlEndPoint + '/')
       .pipe(map((jsonProyectosResponse: any) => jsonProyectosResponse as Proyecto[]))
   }
+
+  editarProyecto(proyecto:Proyecto, idProyecto:number):Observable<Proyecto>{
+    return this.http.put<Proyecto>(this.urlEndPoint+"/"+idProyecto,proyecto).pipe(
+      catchError((e) => {
+        if(e.status === 400){
+          return throwError(e)
+        }
+      })
+    )
+  }
+
+
 
 
   getProyectos(page): Observable<any> {

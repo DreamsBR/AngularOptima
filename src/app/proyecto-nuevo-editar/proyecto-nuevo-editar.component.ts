@@ -2,7 +2,7 @@ import { PeriodoProyecto } from "./../proyectos/periodoproyecto";
 import { Component, OnInit, ɵConsole } from '@angular/core'
 import { Proyecto } from '../proyectos/proyecto'
 import { ProyectoService } from '../proyectos/proyectos.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { hardCodeProyectos } from '../proyectos/hardCodeProyectos'
 import { Observable } from 'rxjs'
@@ -14,6 +14,7 @@ import { PeriodoGerencia } from './../periodo-gerencia/periodogerencia'
 import { PeridoProyectoService } from "./periodoProyecto.service";
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { Gerencia } from '../gerencias/gerencia';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proyecto-nuevo-editar',
@@ -45,6 +46,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   searchPeriodos: any
 
   constructor(
+    private router: Router,
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
@@ -71,6 +73,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.frmEnable  =  response.proyecto.enable
           this.frmDireccion =  response.proyecto.direccion
           //this.agregarPeriodoProyecto()
+          this.agregarPeriodoExistentes()
 
 
           console.info()
@@ -78,6 +81,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         (err)=> {
           this.errores = err.error.errors as string[]
         })
+      }else{
+          this.proyecto.idProyecto = 0
       }
     })
 
@@ -124,28 +129,60 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   regresar() {
     window.location.href = '/proyectos'
   }
-  guardarGerencia() {
 
+  guardarProyecto() {
+
+    if(this.frmCodigo == '' || this.frmCodigo == null){
+      swal('Ingrese el Codigo del Proyecto', '', 'warning')
+      return
+    }
+    if(this.frmNombrepro == '' || this.frmNombrepro == null){
+      swal('Ingrese el nombre de la Proyecto', '', 'warning')
+      return
+    }
+    if(this.frmDireccion == '' || this.frmDireccion == null){
+      swal('Ingrese la direccion del Proyecto', '', 'warning')
+      return
+    }
+    if(this.aryPeriodos.length == 0 ){
+      swal('Ingrese la periodo del Proyecto', '', 'warning')
+      return
+    }
     const newProyecto = new Proyecto()
     const newPerProyecto = new PeriodoProyecto()
 
 
-    newProyecto.idProyecto = this.frmIdProyecto
+    newProyecto.idProyecto = this.idProyecto
     newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
-    if(this.proyecto.idProyecto = 0) {
+
+    console.info(this.proyecto.idProyecto)
+
+    if(this.idProyecto == 0) {
       this.proyectoService.newProyecto(newProyecto).subscribe(
         (response) => {
           this.guardarPeriodoProyecto(response.idProyecto)
         },
+        (err)=>{
+          this.errores = err.error.errors as string[]
+        }
+      )
+
+    }else{
+      this.proyectoService.editarProyecto(newProyecto, this.idProyecto).subscribe(
+        (response) => {
+          this.guardarPeriodoProyecto(response.idProyecto)
+        },
+        (err)=> {
+          this.errores = err.error.errros as string[]
+        }
       )
     }
+    this.router.navigate(['/proyectos/'])
+    swal('Gerencia registrada', ``, 'success')
 
-    this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
-      window.location.href = '/proyectos'
-    })
   }
 
 /*****/
@@ -206,6 +243,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   agregarPeriodoProyecto(){
     let meta: {[k: string]: any} = {};
+    meta.idPeriodoProyecto = 0
     meta.idPeriodo = this.periodoSeleccionado.idPeriodo
     meta.nombre = this.periodoSeleccionado.nombre
     meta.monto = this.metaSeleccionada
@@ -216,6 +254,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
 
   eliminarMeta(i: number){
+    this.periodosEliminados.push(this.aryPeriodos[i].idPeriodoProyecto)
     this.aryPeriodos.splice(i, 1)
     console.info(this.aryPeriodos)
   }
@@ -234,7 +273,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   guardarPeriodoProyecto(idProyecto: number){
     if(this.idProyecto == 0){
-    for (let i = 0; i < this.aryPeriodos.length; i++) {
+    for (var i = 0; i < this.aryPeriodos.length; i++) {
       var periodoProyecto = new PeriodoProyecto()
       periodoProyecto.idPeriodoProyecto = 0
       periodoProyecto.enable = 1
@@ -251,9 +290,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       )
     }
     }else {
+      console.info(this.aryPeriodos)
       if(this.periodosEliminados.length >  0 ){
         for (var i = 0; i < this.periodosEliminados.length; i++) {
-          this.periodoProyectoSerive.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
+          this.periodoProyectoSerive.eliminarPeriodoProyecto(this.periodosEliminados[i]).subscribe(
             (response) => {},
             (err) => {
               this.errores=err.error.errors as string[]
@@ -266,10 +306,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           periodop.idProyecto = idProyecto
           periodop.idPeriodo = this.aryPeriodos[i].idPeriodo
           periodop.meta = this.aryPeriodos[i].monto
+          console.info(periodop)
 
           if (this.aryPeriodos[i].idPeriodoProyecto== 0){
-            periodoProyecto.idPeriodoProyecto = 0
-            this.periodoProyectoSerive.agregarPeriodoProyecto(periodoProyecto).subscribe(
+            periodop.idPeriodoProyecto = 0
+            this.periodoProyectoSerive.agregarPeriodoProyecto(periodop).subscribe(
               (response) => {
                 console.info(response)
               },
@@ -278,7 +319,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
               }
             )
           }else{
-            this.periodoProyectoSerive.editarPeriodoGerencia(periodoProyecto , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
+            this.periodoProyectoSerive.editarPeriodoProyecto(periodop , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
               (response) => {
                 console.info(response)
               },
@@ -290,6 +331,34 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           }
         }
       }
+
+
+
+      agregarPeriodoExistentes(){
+        this.periodoProyectoSerive
+        .getPeriodoByIdProyecto(this.idProyecto)
+        .subscribe((response)=> {
+          for( let x = 0; x <  response.length ; x++){
+            let meta: {[k : string]: any} = {};
+            meta.idPeriodoProyecto = response[x].idPeriodoProyecto
+            meta.idPeriodo = response[x].periodo.idPeriodo
+            meta.nombre = response[x].periodo.nombre
+            meta.monto = response[x].meta
+            this.aryPeriodos.push(meta)
+
+
+          }
+        })
+      }
+
+
+
+
+
+
+
+
+
 
   }
 

@@ -53,6 +53,7 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('idproyecto'))
       this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
+
       this.fechaDesde = (params.get('fechaini'))
       this.fechaHasta = (params.get('fechafin'))
 
