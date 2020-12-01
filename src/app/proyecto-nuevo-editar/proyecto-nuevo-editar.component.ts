@@ -79,6 +79,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         (err)=> {
           this.errores = err.error.errors as string[]
         })
+      }else{
+          this.proyecto.idProyecto = 0
       }
     })
 
@@ -132,13 +134,15 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     const newPerProyecto = new PeriodoProyecto()
 
 
-    newProyecto.idProyecto = this.frmIdProyecto
+    newProyecto.idProyecto = this.idProyecto
     newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
 
-    if(this.proyecto.idProyecto = 0) {
+    console.info(this.proyecto.idProyecto)
+
+    if(this.idProyecto == 0) {
       this.proyectoService.newProyecto(newProyecto).subscribe(
         (response) => {
           this.guardarPeriodoProyecto(response.idProyecto)
@@ -147,11 +151,22 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[]
         }
       )
+    }else{
+      this.proyectoService.editarProyecto(newProyecto, this.idProyecto).subscribe(
+        (response) => {
+          this.guardarPeriodoProyecto(response.idProyecto)
+        },
+        (err)=> {
+          this.errores = err.error.errros as string[]
+        }
+      )
     }
+    //window.location.href = '/proyectos'
+/*
+    //this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
 
-    this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
-      window.location.href = '/proyectos'
-    })
+    //})
+*/
   }
 
 /*****/
@@ -257,6 +272,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       )
     }
     }else {
+
       if(this.periodosEliminados.length >  0 ){
         for (var i = 0; i < this.periodosEliminados.length; i++) {
           this.periodoProyectoSerive.eliminarPeriodoProyecto(this.periodosEliminados[i]).subscribe(
