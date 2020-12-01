@@ -135,7 +135,7 @@ import { CanalesComponent } from './canales/canales.component';
 import { CategoriaNuevoEditarComponent } from './categoria-nuevo-editar/categoria-nuevo-editar.component';
 import { CategoriaComponent } from './categoria/categoria.component'
 import { Categoria2Service } from './categoria/categoria.service'
-import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+// import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
 import { EstadofinanciamientoComponent } from './estadofinanciamiento/estadofinanciamiento.component';
 import { EstadofinanciamientoNuevoEditarComponent } from './estadofinanciamiento-nuevo-editar/estadofinanciamiento-nuevo-editar.component';
 import { EstadoventaComponent } from './estadoventa/estadoventa.component';
@@ -209,7 +209,7 @@ const ROUTES: Routes = [
   { path: 'categoria', component: CategoriaComponent },
   { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent },
 
-  { path: 'categorias', component: CategoriasComponent},
+  { path: 'categorias', component: CategoriaComponent},
 
   { path: 'prueba', component:PruebaComponent}
 ]
