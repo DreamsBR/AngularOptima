@@ -55,6 +55,10 @@ export class ColaboradorService {
         );
     }
 
+
+
+
+
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
       return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
     }
@@ -63,6 +67,7 @@ export class ColaboradorService {
     obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
         return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)
     }
+
 
     actualizarColaborador(colaborador: Colaborador, idColaborador: number): Observable<any> {
         return this.http.put<any>(this.urlEndPoint + '/' + idColaborador, colaborador).pipe(
