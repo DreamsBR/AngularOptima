@@ -56,7 +56,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
       if(this.idJefatura != 0){
         this.jefaturaService.getJefaturaPorId(this.idJefatura).subscribe(
           (response) => {
-            console.info(response)
             this.nombreJefatura = response.nombre
             let nombreJefe = response.colaborador.nombres + ' ' + response.colaborador.apellidos
             this.jefeAutocomplete.searchInput.nativeElement.value = nombreJefe.toUpperCase()
@@ -68,7 +67,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
 
           },
           (err) => {
-            console.info(err)
             this.errores = err.error.errors as string[]
           }
         )
@@ -109,12 +107,10 @@ export class JefaturaNuevoEditarComponent implements OnInit {
 
   seleccionarJefe(event){
     this.jefeSeleccionado = event
-    console.info(event)
   }
 
   seleccionarVendedor(event){
     this.vendedorSeleccionado = event
-    console.info(event)
   }
 
   onFechaIngresoCargo(newdate:string){
@@ -195,7 +191,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
         addVendedor.idVendedor = 0
         this.VendedorService.agregarVendedor(addVendedor).subscribe(
           (response) => {
-            console.info(response)
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -225,7 +220,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
           addVendedor.idVendedor = 0
           this.VendedorService.agregarVendedor(addVendedor).subscribe(
             (response) => {
-              console.info(response)
             },
             (err) => {
               this.errores = err.error.errors as string[]
@@ -234,7 +228,6 @@ export class JefaturaNuevoEditarComponent implements OnInit {
         }else{
           this.VendedorService.editarVendedor(addVendedor, this.aryVendedores[i].idVendedor ).subscribe(
             (response) => {
-              console.info(response)
             },
             (err) => {
               this.errores = err.error.errors as string[]

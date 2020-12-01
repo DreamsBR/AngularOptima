@@ -382,8 +382,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         }
       }
 
-      console.info(this.aryProyectos)
-
       for (var i = 0; i < this.aryProyectos.length; i++) {
 
         var gerenciaproyecto = new Gerenciaproyecto()
