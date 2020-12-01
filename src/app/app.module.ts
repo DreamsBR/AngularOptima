@@ -53,6 +53,7 @@ import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 import { GerenciaproyectoService } from './gerencia-nuevo-editar/gerenciaproyecto.service'
+import { ExporterService } from './helpers/exporter.service'
 
 
 import { LoginComponent } from './usuarios/login.component'
@@ -120,7 +121,10 @@ import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
 import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
-import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
+import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service';
+import { ReportesVendedorComponent } from './reportes-vendedor/reportes-vendedor.component';
+import { AutocompletarComponent } from './autocompletar/autocompletar.component';
+import { PruebaComponent } from './prueba/prueba.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -176,9 +180,12 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
-  { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
+  { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
+  { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
 
-  { path: 'categorias', component:CategoriasComponent}
+  { path: 'categorias', component:CategoriasComponent},
+
+  { path: 'prueba', component:PruebaComponent}
 ]
 
 @NgModule({
@@ -233,7 +240,10 @@ const ROUTES: Routes = [
     EstadoFinancieroComponent,
     EstadoVentaComponent,
     ReportesProyectosComponent,
-    ColaboradorMetasComponent
+    ColaboradorMetasComponent,
+    ReportesVendedorComponent,
+    AutocompletarComponent,
+    PruebaComponent
   ],
   imports: [
     BrowserModule,
@@ -286,6 +296,7 @@ const ROUTES: Routes = [
     JefaturaService,
     VendedorService,
     PeriodocolaboradorService,
+    ExporterService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 

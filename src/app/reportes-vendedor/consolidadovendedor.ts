@@ -1,5 +1,5 @@
-import { Vendedor } from '../jefatura-nuevo-editar/vendedor'
-export class ConsolidadoProyecto {
+import { Proyecto } from '../proyectos/proyecto'
+export class ConsolidadoVendedor {
   avance: number
   caida: number
   ci: number
@@ -8,5 +8,5 @@ export class ConsolidadoProyecto {
   minuta: number
   preca: number
   sp: number
-  vendedor: Vendedor
+  proyecto: Proyecto
 }

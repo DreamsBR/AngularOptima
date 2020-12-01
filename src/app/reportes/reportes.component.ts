@@ -11,6 +11,7 @@ import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
 import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.service'
 import { ReportesService } from '../reportes/reportes.service'
 import { ConsolidadoVentas } from './consolidadoventas'
+import { ExporterService } from '../helpers/exporter.service'
 
 import {
   ApexAxisChartSeries,
@@ -53,6 +54,9 @@ export class ReportesComponent implements OnInit {
   @ViewChild('mychartFunnel', { static: true }) chartObjFunnel: ChartComponent
   @ViewChild('mychartForecast', { static: true }) chartObjForecast: ChartComponent
 
+  @ViewChild('autocompleteSearch1', { static: true }) autocompleteSearch1: any
+  @ViewChild('autocompleteSearch2', { static: true }) autocompleteSearch2: any
+
   loading = false
   status = false
 
@@ -78,7 +82,7 @@ export class ReportesComponent implements OnInit {
   public chartOptionsForecast: Partial<ChartOptions>
 
   // Variables para buscadores
-  keywordSearch1 = 'nombres'
+  keywordSearch1 = 'nombreColaborador'
   dataSearch1 = []
 
   keywordSearch2 = 'nombrePeriodo'
@@ -109,7 +113,8 @@ export class ReportesComponent implements OnInit {
     private periodoService: PeriodoService,
     private gerenciaService: GerenciaService,
     private periodoGerenciaService: PeriodoGerenciaService,
-    private reportesService: ReportesService
+    private reportesService: ReportesService,
+    private exporterService: ExporterService
   ) {
     this.chartOptions = {
       colors: ['#579DD3', '#EE7B37'],
@@ -274,32 +279,6 @@ export class ReportesComponent implements OnInit {
     }
   }
 
-  selectEventSearch1(item) {
-    this.filterIdGerencia = null
-    this.filterIdPeriodo = null
-
-    this.loading = true
-    this.periodoGerenciaService
-      .getPeriodoByIdGerencia(item.gerencia.idGerencia)
-      .subscribe((resp) => {
-        const listaCustomPeriodo = []
-        resp.forEach((element) => {
-          listaCustomPeriodo.push({
-            ...element,
-            idPeriodo: element.periodo.idPeriodo,
-            nombrePeriodo: element.periodo.nombre
-          })
-        })
-        this.dataSearch2 = listaCustomPeriodo
-        this.loading = false
-      })
-  }
-
-  selectEventSearch2(item) {
-    this.filterIdGerencia = item.idGerencia
-    this.filterIdPeriodo = item.idPeriodo
-  }
-
   ngOnInit() {
     this.loading = true
     this.gerenciaService.getAllGerencias().subscribe((data) => {
@@ -307,18 +286,58 @@ export class ReportesComponent implements OnInit {
       data.forEach((elem: any) => {
         if (elem.colaborador) {
           listaGerentes.push({
-            ...elem.colaborador,
-            gerencia: {
-              idGerencia: elem.idGerencia,
-              nombre: elem.nombre
-            }
+            ...elem,
+            idColaborador: elem.colaborador.idColaborador,
+            nombreColaborador: elem.colaborador.nombres
           })
         }
       })
       this.dataSearch1 = listaGerentes
       this.loading = false
     })
-    //this.buscar()
+  }
+
+  ////////////////////////////////////////////
+
+  clearedSearch1() {
+    this.filterIdGerencia = null
+    // Cuando se limpia el primer buscador, limpiamos el segundo
+    this.filterIdPeriodo = null
+    this.dataSearch2 = []
+    this.autocompleteSearch2.changeOnlyText(null)
+  }
+
+  clearedSearch2() {
+    this.filterIdPeriodo = null
+  }
+
+  selectEventSearch1(item: any) {
+    this.filterIdGerencia = item.idGerencia
+
+    this.loading = true
+    this.dataSearch2 = []
+    this.periodoGerenciaService.getPeriodoByIdGerencia(item.idGerencia).subscribe(
+      (resp) => {
+        const customDataSearch = []
+        resp.forEach((elem: any) => {
+          customDataSearch.push({
+            ...elem,
+            idPeriodo: elem.periodo.idPeriodo,
+            nombrePeriodo: elem.periodo.nombre
+          })
+        })
+        this.dataSearch2 = customDataSearch
+        this.loading = false
+      },
+      (error) => {
+        this.loading = false
+        console.error(error)
+      }
+    )
+  }
+
+  selectEventSearch2(item: any) {
+    this.filterIdPeriodo = item.idPeriodo
   }
 
   menuToggle() {
@@ -333,31 +352,10 @@ export class ReportesComponent implements OnInit {
 
     this.loading = true
 
-    // TODO: QUITAR LA DATA HARCODEADA
     this.reportesService
       .getConsolidadoVentas(this.filterIdGerencia, this.filterIdPeriodo)
       .subscribe(
         (resp) => {
-          // TODO: inicio QUITAR LA DATA HARCODEADA
-          /* resp.push({
-          proyecto: {
-            idProyecto: 1,
-            direccion: 'URB SANTO DOMINGO ',
-            enable: 1,
-            nombre: 'NEW CASTLE',
-            codigo: '1111'
-          },
-          meta: 56256.76,
-          avance: 25877.51,
-          minuta: 1,
-          ci: 2,
-          preca: 3,
-          ev: 4,
-          sp: 8,
-          caida: 5
-        }) */
-          // TODO: fin QUITAR LA DATA HARCODEADA
-
           this.itemsTable = new MatTableDataSource<ConsolidadoVentas>(resp)
           this.totalMinuta = this.itemsTable.data
             .map((t) => t.minuta)
@@ -422,7 +420,6 @@ export class ReportesComponent implements OnInit {
   }
 
   drawFunnelChart() {
-    //console.log(this.itemsTable)
     const itemsvalues = [
       this.totalSP,
       this.totalEV,
@@ -430,11 +427,6 @@ export class ReportesComponent implements OnInit {
       this.totalCI,
       this.totalMinuta
     ]
-    /* itemsvalues
-      .sort(function (a, b) {
-        return a - b
-      })
-      .reverse() */
 
     const maxValue = typeof itemsvalues[0] !== 'undefined' ? itemsvalues[0] : 0
 
@@ -473,37 +465,12 @@ export class ReportesComponent implements OnInit {
     ]
     this.chartObjFunnel.updateSeries(staticData)
     this.chartObjFunnel.updateOptions(this.chartOptionsFunnel)
-    // const nOptions = JSON.parse(JSON.stringify(this.chartOptions));
-    // nOptions.colors = ["#0e469a", "#0e469a"];
-    //this.chartObj.updateOptions(nOptions)
-    // console.log(nOptions);
   }
 
   drawForecastChart() {
     this.reportesService
       .getConsolidadoGerencia(this.filterIdGerencia, this.filterIdPeriodo)
       .subscribe((resp) => {
-        //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
-        // TODO: inicio QUITAR DATA HARDCODEADA
-        /*resp.push({
-          periodoGerencia: {
-            idPeriodoGerencia: 1,
-            enable: 1,
-            idGerencia: 1,
-            periodo: {
-              idPeriodo: 1,
-              enable: 1,
-              fechaFin: '2020-11-30T00:00:00.000+0000',
-              fechaInicio: '2020-11-01T00:00:00.000+0000',
-              nombre: 'DICIEMBRE - 2020'
-            },
-            meta: 80564.45
-          },
-          venta: 50456.03
-        })*/
-        // TODO: fin QUITAR DATA HARDCODEADA
-        //console.log(resp)
-
         const tmpSeries = [
           {
             name: 'Meta',
@@ -532,5 +499,17 @@ export class ReportesComponent implements OnInit {
   goDetails(row) {
     const idProyecto = row.proyecto.idProyecto
     window.location.href = '/reportes-por-proyecto/' + idProyecto
+  }
+
+  exportar() {
+    this.exporterService.exportToExcel(
+      [
+        {
+          id: '1',
+          nombre: 'sdfafa'
+        }
+      ],
+      'reporte'
+    )
   }
 }
