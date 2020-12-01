@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { GerenciaService } from './gerencia.service'
 import { Gerencia } from './gerencia'
+import { ProyectoService } from './../proyectos/proyectos.service'
 
 @Component({
   selector: 'app-gerencias',
@@ -10,13 +11,16 @@ import { Gerencia } from './gerencia'
 })
 
 export class GerenciasComponent implements OnInit {
+
   gerenciasLista: Gerencia[]
   gerenciaSeleccionado: Gerencia
   paginador: any
   base: string
+  departamentosAgregados = []
 
   constructor(
     private gerenciaService: GerenciaService,
+    private proyectoService: ProyectoService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService
   )
@@ -35,9 +39,21 @@ export class GerenciasComponent implements OnInit {
       this.gerenciaService.geGerenciasPorPagina(page).subscribe((
         clientesJsonResponse) => {
         this.gerenciasLista = clientesJsonResponse.content
+        this.proyectosPorGerencia = []
+        for (var i = 0 ; i < this.gerenciasLista.length ; i++) {
+          this.obtenerProyectosPorGerencia(this.gerenciasLista[i].idGerencia)
+        }
         this.paginador = clientesJsonResponse
         this.base = 'gerencias'
       })
+    })
+  }
+
+  proyectosPorGerencia = []
+
+  public obtenerProyectosPorGerencia(idGerencia: number){
+    this.proyectoService.getProyectosByIdGerencia(idGerencia).subscribe((response) => {
+        this.proyectosPorGerencia[idGerencia] = response
     })
   }
 
@@ -48,12 +64,10 @@ export class GerenciasComponent implements OnInit {
   public eliminar(gerencia: Gerencia): void {
     this.gerenciaService.eliminarGerencia(gerencia.idGerencia).subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerGerencias()
       },
       (err) => {
-        console.error(err)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerGerencias()
       }

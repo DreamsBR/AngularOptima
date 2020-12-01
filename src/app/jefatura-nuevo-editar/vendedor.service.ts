@@ -32,10 +32,21 @@ export class VendedorService {
     )}
 
     eliminarVendedor(idVendedor:number): Observable<Vendedor>{
-    return this.http.delete<Vendedor>(this.urlEndPoint + '/' + idVendedor).pipe(
+    return this.http.delete<Vendedor>(this.urlEndPoint + idVendedor).pipe(
         catchError((e) => {
         return throwError(e)
         })
     )}
+
+    getVendedoresPorJefatura(idJefatura: number): Observable<any> {
+        return this.http.get(this.urlEndPoint + 'listaporjefatura/' + idJefatura).pipe(
+            map((vendedor: any) => {
+                ;(vendedor as Vendedor[]).map((vendedor) => {
+                    return vendedor;
+                })
+                return vendedor
+            })
+        )
+    }
 
 }

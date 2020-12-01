@@ -1,9 +1,11 @@
+import { TipoDocumento } from "./tipoDocumento"
+
 export class Colaborador{
     idColaborador: number;
     nombres: string;
     apellidos: string;
     numeroDocumento:string;
     sexo:string;
-    idTipoDocumento:number;
+    tipoDocumento : TipoDocumento
     enable: number;
 }

@@ -121,10 +121,11 @@ import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
 import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
-import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service';
 import { ReportesVendedorComponent } from './reportes-vendedor/reportes-vendedor.component';
 import { AutocompletarComponent } from './autocompletar/autocompletar.component';
 import { PruebaComponent } from './prueba/prueba.component'
+import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
+import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -297,6 +298,7 @@ const ROUTES: Routes = [
     VendedorService,
     PeriodocolaboradorService,
     ExporterService,
+    JefaturaproyectoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
