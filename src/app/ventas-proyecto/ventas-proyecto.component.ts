@@ -25,6 +25,9 @@ export class VentasProyectoComponent implements OnInit {
   /*
   FILTRO
   */
+ @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
+  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
+
 
 
   constructor(
@@ -41,7 +44,8 @@ export class VentasProyectoComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
       this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
-
+      this.dpfechaDesde.setValue("2000/01/01")
+      this.dpfechaHasta.setValue("2020/01/01")
       this.fechaDesde = (params.get('fechaini'))
       this.fechaHasta = (params.get('fechafin'))
 
@@ -95,9 +99,6 @@ export class VentasProyectoComponent implements OnInit {
   estadoventaSeleccionado: number
   fechaDesde: string
   fechaHasta: string
-
-  @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
-  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
 
   onfechaDesde(newdate: string) {
