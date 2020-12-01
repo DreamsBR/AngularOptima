@@ -120,7 +120,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.tempIdFechaMinuta = newdate
     this.idEstadoVentaSelect = 5
   }
-  
+
   onFechaDesembolsoChanged(newdate: string) {
     this.tempIdFechaDesembolso = newdate
     this.idEstadoVentaSelect = 12
@@ -361,7 +361,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
     //console.log('Objecto ventas consulta detalle')
     // console.log(this.venta)
-    // return 
+    // return
     this.venta.estadoVenta.idEstadoVenta = this.idEstadoVentaSelect // Asigna el id al objeto venta
     this.loading = true
     this.vccdService.updateVenta(this.venta).subscribe(
@@ -385,13 +385,13 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   openSnackBar(type: string, message: string, action: string, duration: number = 5000) {
     let className = ''
-    switch(type)  {
+    switch (type) {
       case 'success':
         className = 'agz-snackbar__success'
         break
       case 'error':
-          className = 'agz-snackbar__error'
-          break
+        className = 'agz-snackbar__error'
+        break
     }
     this._snackBar.open(message, action, {
       duration: duration,
@@ -431,7 +431,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       // return
 
       const montoFaltante =
-        parseFloat(this.venta.financiamiento.financiamiento) - this.sumaTotalPagos
+        parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
       if (this.pagoModal.monto > montoFaltante) {
         this.loading = false
         const msg =
@@ -606,7 +606,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   get porcentajePagado(): string {
     if (typeof this.venta.financiamiento !== 'undefined') {
-      const totalFinanciamiento = parseFloat(this.venta.financiamiento.financiamiento)
+      const totalFinanciamiento = parseFloat(this.venta.financiamiento.montoFinanciado)
       const porc = (this.sumaTotalPagos / totalFinanciamiento) * 100
       return `${porc.toFixed(2)} %`
       //return `${this.venta.financiamiento.financiamiento}`
@@ -645,5 +645,4 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   regresar() {
     window.history.back()
   }
-
 }

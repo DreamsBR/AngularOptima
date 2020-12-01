@@ -288,7 +288,7 @@ export class ReportesComponent implements OnInit {
           listaGerentes.push({
             ...elem,
             idColaborador: elem.colaborador.idColaborador,
-            nombreColaborador: elem.colaborador.nombres
+            nombreColaborador: elem.colaborador.nombres + ' ' + elem.colaborador.apellidos
           })
         }
       })
