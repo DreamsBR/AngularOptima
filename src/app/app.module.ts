@@ -111,17 +111,31 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component';
 import { MantenimientosComponent } from './mantenimientos/mantenimientos.component';
 
-import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
-import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
-import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
-import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+// import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
+// import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+// import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
+// import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
 import { ReportesProyectosComponent } from './reportes-proyectos/reportes-proyectos.component'
 import { JefaturaComponent } from './jefatura/jefatura.component';
 import { JefaturaService } from './jefatura/jefatura.service';
 import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
 import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
 import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
-import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service'
+import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service';
+import { BancosComponent } from './bancos/bancos.component';
+import { BancoNuevoEditarComponent } from './banco-nuevo-editar/banco-nuevo-editar.component'
+import { BancoService } from './bancos/banco.service';
+import { CanalesNuevoEditarComponent } from './canales-nuevo-editar/canales-nuevo-editar.component'
+import { CanalesService } from './canales/canales.service'
+import { CanalesComponent } from './canales/canales.component';
+import { CategoriaNuevoEditarComponent } from './categoria-nuevo-editar/categoria-nuevo-editar.component';
+import { CategoriaComponent } from './categoria/categoria.component'
+import { Categoria2Service } from './categoria/categoria.service'
+import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+import { EstadofinanciamientoComponent } from './estadofinanciamiento/estadofinanciamiento.component';
+import { EstadofinanciamientoNuevoEditarComponent } from './estadofinanciamiento-nuevo-editar/estadofinanciamiento-nuevo-editar.component';
+import { EstadoventaComponent } from './estadoventa/estadoventa.component';
+import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/estadoventa-nuevo-editar.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -179,7 +193,17 @@ const ROUTES: Routes = [
   { path: 'reportes', component: ReportesComponent },
   { path: 'reportes-por-proyecto/:idproyecto', component: ReportesProyectosComponent },
 
-  { path: 'categorias', component:CategoriasComponent}
+  // { path: 'categorias', component:CategoriasComponent},
+
+  { path: 'bancos', component: BancosComponent },
+  { path: 'banco-nuevo-editar/:id', component: BancoNuevoEditarComponent },
+
+  { path: 'canales', component: CanalesComponent },
+  { path: 'canales-nuevo-editar/:id', component: CanalesNuevoEditarComponent },
+
+  { path: 'categoria', component: CategoriaComponent },
+  { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent }
+
 ]
 
 @NgModule({
@@ -230,11 +254,20 @@ const ROUTES: Routes = [
     PeriodoGerenciaComponent,
     MantenimientosComponent,
     CanalesComponent,
-    CategoriasComponent,
-    EstadoFinancieroComponent,
-    EstadoVentaComponent,
+    // CategoriasComponent,
+    // EstadoFinancieroComponent,
+    // EstadoVentaComponent,
     ReportesProyectosComponent,
-    ColaboradorMetasComponent
+    ColaboradorMetasComponent,
+    BancosComponent,
+    BancoNuevoEditarComponent,
+    CanalesNuevoEditarComponent,
+    CategoriaNuevoEditarComponent,
+    CategoriaComponent,
+    EstadofinanciamientoComponent,
+    EstadofinanciamientoNuevoEditarComponent,
+    EstadoventaComponent,
+    EstadoventaNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
@@ -288,6 +321,9 @@ const ROUTES: Routes = [
     VendedorService,
     PeriodocolaboradorService,
     JefaturaproyectoService,
+    BancoService,
+    CanalesService,
+    Categoria2Service,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
