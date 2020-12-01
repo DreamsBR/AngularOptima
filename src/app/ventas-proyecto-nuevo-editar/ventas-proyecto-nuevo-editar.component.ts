@@ -40,7 +40,6 @@ import { isNull } from 'util'
   templateUrl: './ventas-proyecto-nuevo-editar.component.html'
 })
 export class VentasProyectoNuevoEditarComponent implements OnInit {
-
   public errores: string[]
 
   public clienteSeleccionado: Cliente = new Cliente()
@@ -83,7 +82,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   ventainmueble: Ventainmueble = new Ventainmueble()
 
-
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -103,7 +101,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
-      if(!isNull(params.get('dni'))){
+      if (!isNull(params.get('dni'))) {
         console.info(params.get('dni'))
         this.nrodoc = params.get('dni')
         this.obtenerClienteSeleccionado(params.get('dni'))
@@ -124,9 +122,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.obtenerCategoria()
   }
 
-  agregarCliente(nrodoc: string){
-    console.info(nrodoc);
-    if(nrodoc == '' || nrodoc == undefined){
+  agregarCliente(nrodoc: string) {
+    console.info(nrodoc)
+    if (nrodoc == '' || nrodoc == undefined) {
       swal('No hizo una busqueda de cliente', '', 'warning')
       return
     }
@@ -249,19 +247,25 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   total_financiamiento: number
 
   getTotalVenta() {
-    let totalDepartamentos = 0;
-    let totalAdicional = 0;
+    let totalDepartamentos = 0
+    let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
-      totalDepartamentos += this.departamentosAgregados[i].precio - ( ( this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento ) / 100 ) - this.departamentosAgregados[i].ayudainicial;
+      totalDepartamentos +=
+        this.departamentosAgregados[i].precio -
+        (this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento) / 100 -
+        this.departamentosAgregados[i].ayudainicial
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
-      totalAdicional += this.adicionalAgregados[i].precio - ( ( this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento ) / 100 ) - this.adicionalAgregados[i].ayudainicial;
+      totalAdicional +=
+        this.adicionalAgregados[i].precio -
+        (this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento) / 100 -
+        this.adicionalAgregados[i].ayudainicial
     }
-    this.totalInmuebles = totalDepartamentos + totalAdicional;
-    return this.totalInmuebles;
+    this.totalInmuebles = totalDepartamentos + totalAdicional
+    return this.totalInmuebles
   }
 
-  siguientePagina(){
+  siguientePagina() {
     document.getElementById('v-pills-profile-tab').click()
   }
 
@@ -270,87 +274,86 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   ahorro: number
   bono: number
 
-  guardarFinanciamiento(){
-
-    if(this.clienteSeleccionado.idCliente == 0){
+  guardarFinanciamiento() {
+    if (this.clienteSeleccionado.idCliente == 0) {
       swal('No se selecciono ningun cliente', '', 'warning')
       return
     }
 
-    if(this.departamentosAgregados.length == 0){
+    if (this.departamentosAgregados.length == 0) {
       swal('No hay departamentos agregados', '', 'warning')
       return
     }
 
-    if(this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null){
+    if (this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null) {
       swal('Ingrese la cuota inicial', '', 'warning')
       return
     }
 
-    if(this.motivoSeleccionado == 0 || this.motivoSeleccionado == null){
+    if (this.motivoSeleccionado == 0 || this.motivoSeleccionado == null) {
       swal('Seleccione un motivo', '', 'warning')
       return
     }
 
-    if(this.canalSeleccionado == 0 || this.canalSeleccionado == null){
+    if (this.canalSeleccionado == 0 || this.canalSeleccionado == null) {
       swal('Seleccione un canal', '', 'warning')
       return
     }
 
-    if(this.categoriaSeleccionado == 0 || this.categoriaSeleccionado == null){
+    if (this.categoriaSeleccionado == 0 || this.categoriaSeleccionado == null) {
       swal('Seleccione una categoria', '', 'warning')
       return
     }
 
-    if(this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null){
+    if (this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null) {
       swal('Seleccione un tipo de credito', '', 'warning')
       // this.tipocreditoSeleccionado = 0
       return
     }
 
-    if(this.bono == 0 || this.bono == null){
+    if (this.bono == 0 || this.bono == null) {
       // swal('Ingrese un bono', '', 'warning')
       this.bono = 0
       // return
     }
 
-    if(this.afp == 0 || this.afp == null){
+    if (this.afp == 0 || this.afp == null) {
       // swal('Ingrese AFP', '', 'warning')
       this.afp = 0
       // return
     }
 
-    if(this.bancoSeleccionado == 0 || this.bancoSeleccionado == null){
+    if (this.bancoSeleccionado == 0 || this.bancoSeleccionado == null) {
       swal('Seleccione un banco', '', 'warning')
       // this.bancoSeleccionado = 0
       return
     }
 
-    if(this.asesor == '' || this.asesor == null){
+    if (this.asesor == '' || this.asesor == null) {
       // swal('Ingrese el nombre del asesor', '', 'warning')
       this.asesor = ''
       // return
     }
 
-    if(this.ahorro == 0 || this.ahorro == null){
+    if (this.ahorro == 0 || this.ahorro == null) {
       // swal('Ingrese un porcentaje de ahorro', '', 'warning')
       this.ahorro = 0
       // return
     }
 
-    if(this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null){
+    if (this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null) {
       // swal('Seleccione una fecha de inicio de ahorro', '', 'warning')
       this.fechaInicioAhorro = ''
       // return
     }
 
-    if(this.fechaFinAhorro == '' || this.fechaFinAhorro == null){
+    if (this.fechaFinAhorro == '' || this.fechaFinAhorro == null) {
       // swal('Seleccione una fecha de fin de ahorro', '', 'warning')
       this.fechaFinAhorro = ''
       // return
     }
 
-    console.info("guardar financiamiento")
+    console.info('guardar financiamiento')
 
     this.financiamiento.idFinanciamiento = 0
     this.financiamiento.afp = this.afp
@@ -363,9 +366,11 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
+    this.financiamiento.nomtoCuotaInicial =
+      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
-    this.financiamiento.financiamiento = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+    this.financiamiento.montoFinanciado =
+      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
@@ -376,21 +381,19 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.errores = err.error.errors as string[]
       }
     )
-
   }
 
-  guardarVenta(idFinanciamiento: number){
-
+  guardarVenta(idFinanciamiento: number) {
     this.venta.idVenta = 0
 
     this.venta.idVendedor = 2 // id vendedor logueado
 
     this.venta.enable = 1
-    this.venta.fechaCaida = ""
-    this.venta.fechaDesembolso = ""
-    this.venta.fechaEpp = ""
-    this.venta.fechaMinuta = ""
-    this.venta.fechaSeparacion = ""
+    this.venta.fechaCaida = ''
+    this.venta.fechaDesembolso = ''
+    this.venta.fechaEpp = ''
+    this.venta.fechaMinuta = ''
+    this.venta.fechaSeparacion = ''
     this.venta.idCliente = this.clienteSeleccionado.idCliente
     this.venta.idEstadoVenta = 15
     this.venta.idFinanciamiento = idFinanciamiento
@@ -402,7 +405,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     let totalVenta: number = this.getTotalVenta()
 
     this.venta.ayudaInicial = this.porcentaje_cuota_inicial
-    this.venta.descuento = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
+    this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.venta.importe = this.totalInmuebles
     this.venta.total = this.venta.importe - this.venta.descuento
 
@@ -417,19 +420,18 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.errores = err.error.errors as string[]
       }
     )
-
   }
 
-  obtenerFechaActual(){
-    var date=new Date();  
-    var day=date.getDate();  
-    var month=date.getMonth()+1;  
-    var year=date.getFullYear();  
-    return year+"-"+month+"-"+day;
+  obtenerFechaActual() {
+    var date = new Date()
+    var day = date.getDate()
+    var month = date.getMonth() + 1
+    var year = date.getFullYear()
+    return year + '-' + month + '-' + day
   }
 
-  guardarInmuebles(idVenta: number){
-    if(this.departamentosAgregados.length > 0){
+  guardarInmuebles(idVenta: number) {
+    if (this.departamentosAgregados.length > 0) {
       for (var i = 0; i < this.departamentosAgregados.length; i++) {
         this.ventainmueble.idVentaInmueble = 0
         this.ventainmueble.areaLibre = this.departamentosAgregados[i].areaLibre
@@ -440,10 +442,13 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.ventainmueble.idInmueble = this.departamentosAgregados[i].idInmueble
         this.ventainmueble.idVenta = idVenta
         this.ventainmueble.precio = this.departamentosAgregados[i].precio
-        this.ventainmueble.vista = ""
+        this.ventainmueble.vista = ''
         this.ventainmueble.ayudainicial = this.departamentosAgregados[i].ayudainicial
         this.ventainmueble.descuento = this.departamentosAgregados[i].descuento
-        this.ventainmueble.importe = this.departamentosAgregados[i].total - ( (this.departamentosAgregados[i].total * this.departamentosAgregados[i].descuento) / 100 ) - this.departamentosAgregados[i].ayudainicial
+        this.ventainmueble.importe =
+          this.departamentosAgregados[i].total -
+          (this.departamentosAgregados[i].total * this.departamentosAgregados[i].descuento) / 100 -
+          this.departamentosAgregados[i].ayudainicial
         this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
           (response) => {
             console.info(`Venta ${response.idVentaInmueble}`)
@@ -454,7 +459,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
-    if(this.adicionalAgregados.length > 0){
+    if (this.adicionalAgregados.length > 0) {
       for (var i = 0; i < this.adicionalAgregados.length; i++) {
         this.ventainmueble.idVentaInmueble = 0
         this.ventainmueble.areaLibre = this.adicionalAgregados[i].areaLibre
@@ -465,10 +470,13 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.ventainmueble.idInmueble = this.adicionalAgregados[i].idInmueble
         this.ventainmueble.idVenta = idVenta
         this.ventainmueble.precio = this.adicionalAgregados[i].precio
-        this.ventainmueble.vista = ""
+        this.ventainmueble.vista = ''
         this.ventainmueble.ayudainicial = this.adicionalAgregados[i].ayudainicial
         this.ventainmueble.descuento = this.adicionalAgregados[i].descuento
-        this.ventainmueble.importe = this.adicionalAgregados[i].total - ( (this.adicionalAgregados[i].total * this.adicionalAgregados[i].descuento) / 100 ) - this.adicionalAgregados[i].ayudainicial
+        this.ventainmueble.importe =
+          this.adicionalAgregados[i].total -
+          (this.adicionalAgregados[i].total * this.adicionalAgregados[i].descuento) / 100 -
+          this.adicionalAgregados[i].ayudainicial
         this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
           (response) => {
             console.info(`Venta ${response.idVentaInmueble}`)
@@ -482,12 +490,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
     this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
     swal('Venta registrada correctamente', '', 'success')
-
   }
 
   status = false
   menuToggle() {
     this.status = !this.status
   }
-
 }

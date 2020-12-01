@@ -11,6 +11,6 @@ export class Financiamiento {
   idEstadoFinanciamiento: number
   idTipoCredito: number
   nomtoCuotaInicial: string
-  financiamiento: string
+  montoFinanciado: string
   porcCuotaInicial: string
 }

@@ -53,10 +53,6 @@ export class VentasProyectoComponent implements OnInit {
     })
     this.obtenerVentas(this.paramIdProyecto)
 
-
-
-
-
   }
 
   ventasLista: Venta[]

@@ -1,16 +1,16 @@
 export class Financiamiento {
-    afp: number
-    ahorro: number
-    asesor: string
-    bono: number
-    enable: number
-    fechaFinAhorro: string
-    fechaInicioAhorro: string
-    idBanco: number
-    idEstadoFinanciamiento: number
-    idFinanciamiento: number
-    idTipoCredito: number
-    nomtoCuotaInicial: number
-    financiamiento: number
-    porcCuotaInicial: number
+  afp: number
+  ahorro: number
+  asesor: string
+  bono: number
+  enable: number
+  fechaFinAhorro: string
+  fechaInicioAhorro: string
+  idBanco: number
+  idEstadoFinanciamiento: number
+  idFinanciamiento: number
+  idTipoCredito: number
+  nomtoCuotaInicial: number
+  montoFinanciado: number
+  porcCuotaInicial: number
 }
