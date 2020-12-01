@@ -468,7 +468,7 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.financiamiento.idEstadoFinanciamiento = 1
     this.financiamiento.nomtoCuotaInicial = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
     this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
-    this.financiamiento.financiamiento = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+    this.financiamiento.montoFinanciado = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
 
     this.financiamientoService.editarFinanciamiento(this.financiamiento, this.financiamiento.idFinanciamiento).subscribe(
       (response) => {
