@@ -110,6 +110,18 @@
                                                     ></datepicker-rounded>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label for="sexocliente">Sexo</label>
+                                                    <select class="form-control" name="sexocliente" [(ngModel)]="cliente.sexo" #sexocliente="ngModel" required>
+                                                        <option value="M">Masculino</option>
+                                                        <option value="F">Femenino</option>
+                                                    </select>
+                                                    <div *ngIf="sexocliente.invalid && (sexocliente.dirty || sexocliente.touched)" class="alert alert-danger">
+                                                        <div *ngIf="sexocliente.errors.required">Dato obligatorio</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div class="row">
@@ -196,7 +208,7 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="tipodocconyugue">Tipo de documento</label>
-                                                    <select class="form-control" name="tipodocconyugue" [(ngModel)]="cliente.tipoDocConyuge" #tipodocconyugue="ngModel" required>
+                                                    <select class="form-control" name="tipodocconyugue" [(ngModel)]="cliente.idTipoDocumentoConyuge" #tipodocconyugue="ngModel" required>
                                                         <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
                                                     </select>
                                                 <!--
@@ -210,7 +222,7 @@
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label for="nrodocdocumentoconyugue">Nro. doc.</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.nroDocConyuge" name="nrodocdocumentoconyugue" #nrodocdocumentoconyugue="ngModel" required>
+                                                    <input type="text" class="form-control" [(ngModel)]="cliente.nroDocumentoConyuge" name="nrodocdocumentoconyugue" #nrodocdocumentoconyugue="ngModel" required>
                                                <!--
                                                     <div *ngIf="nrodocdocumentoconyugue.invalid && (nrodocdocumentoconyugue.dirty || nrodocdocumentoconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="nrodocdocumentoconyugue.errors.required">Dato obligatorio</div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Cliente } from './cliente'
+import { Clientenodo } from './../clientes/clientenodo'
 import { Observable, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
@@ -25,6 +26,10 @@ export class ClienteService {
     )
   }
 
+  obtenerClientesPorId(idCliente): Observable<Clientenodo> {
+    return this.http.get<Clientenodo>(this.urlEndPoint + '/' + idCliente)
+  }
+
   eliminarCliente(id: number): Observable<Cliente> {
     return this.http.delete<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
       catchError((e) => {
@@ -47,9 +52,7 @@ export class ClienteService {
     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
 
-  obtenerClientesPorId(idCliente): Observable<Cliente> {
-    return this.http.get<Cliente>(this.urlEndPoint + '/' + idCliente)
-  }
+
 
 
 
