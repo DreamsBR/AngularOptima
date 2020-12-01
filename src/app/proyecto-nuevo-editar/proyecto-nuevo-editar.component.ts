@@ -71,6 +71,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.frmEnable  =  response.proyecto.enable
           this.frmDireccion =  response.proyecto.direccion
           //this.agregarPeriodoProyecto()
+          this.agregarPeriodoExistentes()
 
 
           console.info()
@@ -124,7 +125,8 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   regresar() {
     window.location.href = '/proyectos'
   }
-  guardarGerencia() {
+
+  guardarProyecto() {
 
     const newProyecto = new Proyecto()
     const newPerProyecto = new PeriodoProyecto()
@@ -135,11 +137,15 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     newProyecto.nombre = this.frmNombrepro
     newProyecto.enable = this.frmEnable
     newProyecto.direccion = this.frmDireccion
+
     if(this.proyecto.idProyecto = 0) {
       this.proyectoService.newProyecto(newProyecto).subscribe(
         (response) => {
           this.guardarPeriodoProyecto(response.idProyecto)
         },
+        (err)=>{
+          this.errores = err.error.errors as string[]
+        }
       )
     }
 
@@ -234,7 +240,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   guardarPeriodoProyecto(idProyecto: number){
     if(this.idProyecto == 0){
-    for (let i = 0; i < this.aryPeriodos.length; i++) {
+    for (var i = 0; i < this.aryPeriodos.length; i++) {
       var periodoProyecto = new PeriodoProyecto()
       periodoProyecto.idPeriodoProyecto = 0
       periodoProyecto.enable = 1
@@ -253,7 +259,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     }else {
       if(this.periodosEliminados.length >  0 ){
         for (var i = 0; i < this.periodosEliminados.length; i++) {
-          this.periodoProyectoSerive.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
+          this.periodoProyectoSerive.eliminarPeriodoProyecto(this.periodosEliminados[i]).subscribe(
             (response) => {},
             (err) => {
               this.errores=err.error.errors as string[]
@@ -278,7 +284,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
               }
             )
           }else{
-            this.periodoProyectoSerive.editarPeriodoGerencia(periodoProyecto , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
+            this.periodoProyectoSerive.editarPeriodoProyecto(periodoProyecto , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
               (response) => {
                 console.info(response)
               },
@@ -290,6 +296,34 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           }
         }
       }
+
+
+
+      agregarPeriodoExistentes(){
+        this.periodoProyectoSerive
+        .getPeriodoByIdProyecto(this.idProyecto)
+        .subscribe((response)=> {
+          for( let x = 0; x <  response.length ; x++){
+            let meta: {[k : string]: any} = {};
+            meta.idPeriodoProyecto = response[x].idPeriodoProyecto
+            meta.idPeriodo = response[x].periodo.idPeriodo
+            meta.nombre = response[x].periodo.nombre
+            meta.monto = response[x].meta
+            this.aryPeriodos.push(meta)
+
+
+          }
+        })
+      }
+
+
+
+
+
+
+
+
+
 
   }
 

@@ -358,9 +358,9 @@ export class GerenciaNuevoEditarComponent implements OnInit {
         gerenciaproyecto.idProyecto = this.aryProyectos[i].idProyecto
         gerenciaproyecto.fechaAsignacion = this.aryProyectos[i].fechaAsignacionProyecto
         gerenciaproyecto.fechaTermin = this.aryProyectos[i].fechaTerminoProyecto
-  
+
         // faltan campos
-  
+
         this.gerenciaproyectoService.agregarProyectosGerencia(gerenciaproyecto).subscribe(
           (response) => {
           },
@@ -410,7 +410,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
             (err) => {
               this.errores = err.error.errors as string[]
             }
-          )       
+          )
         }
 
       }

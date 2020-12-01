@@ -13,8 +13,8 @@ export class PeridoProyectoService{
   private urlEndPoint: string= URL_BACKEND + 'periodoproyecto'
   constructor (private http: HttpClient, private router: Router){}
 
-  getPeriodoByIdProyecto(idProyecto: number ):Observable<any>{
-    return this.http.get(this.urlEndPoint + '/periodoproyecto/' + idProyecto)
+  getPeriodoByIdProyecto(idGerencia: number ):Observable<any>{
+    return this.http.get(this.urlEndPoint + '/porProyecto/' +idGerencia)
   }
 
 
@@ -28,7 +28,7 @@ export class PeridoProyectoService{
     )
   }
 
-  eliminarPeriodoGerencia(idPeriodoProyecto: number): Observable<PeriodoProyecto>{
+  eliminarPeriodoProyecto(idPeriodoProyecto: number): Observable<PeriodoProyecto>{
     return this.http.delete<PeriodoProyecto>(this.urlEndPoint + '/' + idPeriodoProyecto).pipe(
       catchError((e) => {
         if(e.status === 400){
@@ -37,8 +37,8 @@ export class PeridoProyectoService{
     )}
 
 
-    editarPeriodoGerencia(periodoGerencia:PeriodoProyecto, idPeriodogerencia: number): Observable<PeriodoProyecto>{
-      return this.http.put<PeriodoProyecto>(this.urlEndPoint + '/' + idPeriodogerencia, periodoGerencia).pipe(
+    editarPeriodoProyecto(periodoProyecto:PeriodoProyecto, idPeriodoProyecto: number): Observable<PeriodoProyecto>{
+      return this.http.put<PeriodoProyecto>(this.urlEndPoint + '/' + idPeriodoProyecto, periodoProyecto).pipe(
         catchError((e) => {
           if(e.status === 400){
             return throwError(e)}

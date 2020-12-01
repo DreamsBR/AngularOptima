@@ -25,7 +25,7 @@ export class PeriodoGerenciaService {
           return throwError(e)}
       })
     )}
-  
+
   editarPeriodoGerencia(periodoGerencia:PeriodoGerencia2, idPeriodogerencia: number): Observable<PeriodoGerencia2>{
     return this.http.put<PeriodoGerencia2>(this.urlEndPoint + '/' + idPeriodogerencia, periodoGerencia).pipe(
       catchError((e) => {
