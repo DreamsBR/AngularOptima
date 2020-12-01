@@ -227,6 +227,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   agregarPeriodoProyecto(){
     let meta: {[k: string]: any} = {};
+    meta.idPeriodoProyecto = 0
     meta.idPeriodo = this.periodoSeleccionado.idPeriodo
     meta.nombre = this.periodoSeleccionado.nombre
     meta.monto = this.metaSeleccionada
@@ -237,6 +238,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
 
   eliminarMeta(i: number){
+    this.periodosEliminados.push(this.aryPeriodos[i].idPeriodoProyecto)
     this.aryPeriodos.splice(i, 1)
     console.info(this.aryPeriodos)
   }
@@ -272,7 +274,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       )
     }
     }else {
-
+      console.info(this.aryPeriodos)
       if(this.periodosEliminados.length >  0 ){
         for (var i = 0; i < this.periodosEliminados.length; i++) {
           this.periodoProyectoSerive.eliminarPeriodoProyecto(this.periodosEliminados[i]).subscribe(
@@ -288,10 +290,11 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           periodop.idProyecto = idProyecto
           periodop.idPeriodo = this.aryPeriodos[i].idPeriodo
           periodop.meta = this.aryPeriodos[i].monto
+          console.info(periodop)
 
           if (this.aryPeriodos[i].idPeriodoProyecto== 0){
-            periodoProyecto.idPeriodoProyecto = 0
-            this.periodoProyectoSerive.agregarPeriodoProyecto(periodoProyecto).subscribe(
+            periodop.idPeriodoProyecto = 0
+            this.periodoProyectoSerive.agregarPeriodoProyecto(periodop).subscribe(
               (response) => {
                 console.info(response)
               },
@@ -300,7 +303,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
               }
             )
           }else{
-            this.periodoProyectoSerive.editarPeriodoProyecto(periodoProyecto , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
+            this.periodoProyectoSerive.editarPeriodoProyecto(periodop , this.aryPeriodos[i].idPeriodoProyecto).subscribe(
               (response) => {
                 console.info(response)
               },
