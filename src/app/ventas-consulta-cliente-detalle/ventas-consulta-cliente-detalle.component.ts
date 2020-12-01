@@ -9,6 +9,7 @@ import { Pago } from '../pagos/pago'
 import sleep from 'await-sleep'
 import { Observable, of, throwError, forkJoin } from 'rxjs'
 import { Cliente } from '../clientes/cliente'
+import { Clientenodo } from '../clientes/clientenodo'
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
 import * as moment from 'moment'
 import { Financiamiento } from '../financiamientos/financiamiento'
@@ -37,7 +38,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   errors: string[] = []
 
   venta: VentaNodos = new VentaNodos()
-  cliente: Cliente = new Cliente()
+  cliente: Clientenodo = new Clientenodo()
   financiamiento: Financiamiento = new Financiamiento()
   pago: Pago = new Pago()
 

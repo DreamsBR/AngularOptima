@@ -102,10 +102,13 @@
                         <p>{{ cliente.apellidos | formatUppercase }}</p>
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>{{ (cliente.tipoDocumento) ? cliente.tipoDocumento.nombre : '' }} - {{ cliente.nroDocumento }}</p>
+                        <p>
+                          {{ cliente.tipoDocumento ? cliente.tipoDocumento.nombre : '' }} -
+                          {{ cliente.nroDocumento }}
+                        </p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>{{ (cliente.estadoCivil) ? cliente.estadoCivil.nombre : '' }}</p>
+                        <p>{{ cliente.estadoCivil ? cliente.estadoCivil.nombre : '' }}</p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacion }}</p>
@@ -145,10 +148,17 @@
                         <p>Armendariz Arturiaz</p> -->
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>{{ (cliente.tipoDocumentoConyuge) ? cliente.tipoDocumentoConyuge.nombre : '' }} - {{ cliente.nroDocConyuge }}</p>
+                        <p>
+                          {{
+                            cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : ''
+                          }}
+                          - {{ cliente.nroDocConyuge }}
+                        </p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>{{ (cliente.estadoCivilConyuge) ? cliente.estadoCivilConyuge.nombre : '' }}</p>
+                        <p>
+                          {{ cliente.estadoCivilConyuge ? cliente.estadoCivilConyuge.nombre : '' }}
+                        </p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacionConyuge }}</p>
@@ -167,13 +177,13 @@
                         <p>{{ cliente.ingresos | formatSoles }}</p>
 
                         <p class="label-dato">Motivo de compra</p>
-                        <p>{{ (venta.motivo) ? venta.motivo.nombre: '' }}</p>
+                        <p>{{ venta.motivo ? venta.motivo.nombre : '' }}</p>
 
                         <p class="label-dato">Canal captación</p>
-                        <p>{{ (venta.canal) ? venta.canal.nombre : '' }}</p>
+                        <p>{{ venta.canal ? venta.canal.nombre : '' }}</p>
 
                         <p class="label-dato">Categoria</p>
-                        <p>{{ (venta.categoria) ? venta.categoria.nombre : '' }}</p>
+                        <p>{{ venta.categoria ? venta.categoria.nombre : '' }}</p>
 
                         <p class="label-dato">Asesor de ventas</p>
                         <p>{{ cliente.asesor }}</p>
@@ -349,7 +359,7 @@
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Financiamiento</p>
-                          <p>{{ financiamiento.financiamiento | formatSoles }}</p>
+                          <p>{{ financiamiento.montoFinanciado | formatSoles }}</p>
                         </div>
                       </div>
 
