@@ -2,7 +2,7 @@ import { PeriodoProyecto } from "./../proyectos/periodoproyecto";
 import { Component, OnInit, ɵConsole } from '@angular/core'
 import { Proyecto } from '../proyectos/proyecto'
 import { ProyectoService } from '../proyectos/proyectos.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { hardCodeProyectos } from '../proyectos/hardCodeProyectos'
 import { Observable } from 'rxjs'
@@ -14,6 +14,7 @@ import { PeriodoGerencia } from './../periodo-gerencia/periodogerencia'
 import { PeridoProyectoService } from "./periodoProyecto.service";
 import {debounceTime, distinctUntilChanged, map} from 'rxjs/operators';
 import { Gerencia } from '../gerencias/gerencia';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proyecto-nuevo-editar',
@@ -45,6 +46,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
   searchPeriodos: any
 
   constructor(
+    private router: Router,
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private activatedRoute: ActivatedRoute,
@@ -130,6 +132,22 @@ export class ProyectoNuevoEditarComponent implements OnInit {
 
   guardarProyecto() {
 
+    if(this.frmCodigo == '' || this.frmCodigo == null){
+      swal('Ingrese el Codigo del Proyecto', '', 'warning')
+      return
+    }
+    if(this.frmNombrepro == '' || this.frmNombrepro == null){
+      swal('Ingrese el nombre de la Proyecto', '', 'warning')
+      return
+    }
+    if(this.frmDireccion == '' || this.frmDireccion == null){
+      swal('Ingrese la direccion del Proyecto', '', 'warning')
+      return
+    }
+    if(this.aryPeriodos.length == 0 ){
+      swal('Ingrese la periodo del Proyecto', '', 'warning')
+      return
+    }
     const newProyecto = new Proyecto()
     const newPerProyecto = new PeriodoProyecto()
 
@@ -151,6 +169,7 @@ export class ProyectoNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[]
         }
       )
+
     }else{
       this.proyectoService.editarProyecto(newProyecto, this.idProyecto).subscribe(
         (response) => {
@@ -161,12 +180,9 @@ export class ProyectoNuevoEditarComponent implements OnInit {
         }
       )
     }
-    //window.location.href = '/proyectos'
-/*
-    //this.proyectoService.newProyecto(newProyecto).subscribe((_) => {
+    this.router.navigate(['/proyectos/'])
+    swal('Gerencia registrada', ``, 'success')
 
-    //})
-*/
   }
 
 /*****/
