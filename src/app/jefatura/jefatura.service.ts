@@ -57,24 +57,4 @@ export class JefaturaService {
       })
     )}
 
-//   obtenerClientesPorDni(nrodoc): Observable<Cliente> {
-//     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
-//   }
-
-//   obtenerClientesPorId(idCliente): Observable<Cliente> {
-//     return this.http.get<Cliente>(this.urlEndPoint + '/' + idCliente)
-//   }
-
-
-
-//   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
-//     return this.http.put<any>(this.urlEndPoint + '/' + idCliente, cliente).pipe(
-//       catchError((e) => {
-//         if (e.status === 400) {
-//           return throwError(e)
-//         }
-//       })
-//     )
-//   }
-
 }

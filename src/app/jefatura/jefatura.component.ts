@@ -3,7 +3,8 @@ import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { JefaturaService } from './jefatura.service'
 import { Jefatura } from './jefatura'
-import { Jefaturanodo } from './jefaturanodo'
+import { JefaturaproyectoService } from './jefaturaproyecto.service'
+import { Jefaturaproyectonodo } from './jefaturaproyectonodo'
 
 @Component({
   selector: 'app-jefatura',
@@ -14,7 +15,7 @@ export class JefaturaComponent implements OnInit {
 
   idProyecto: number
   idGerencia: number
-  jefaturaLista: Jefatura[]
+  jefaturaLista: Jefaturaproyectonodo[]
   jefaturaSeleccionado: Jefatura
   paginador: any
   base: string
@@ -22,7 +23,8 @@ export class JefaturaComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    public jefaturaService: JefaturaService
+    public jefaturaService: JefaturaService,
+    public jefaturaproyectoService: JefaturaproyectoService
   ) {}
 
   ngOnInit() {
@@ -33,30 +35,20 @@ export class JefaturaComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.idProyecto = parseInt(params.get('idProyecto'))
       this.idGerencia = parseInt(params.get('idGerencia'))
-      let page: number =+ params.get('page')
-      if (!page) {
-        page = 0
-      }
-      this.jefaturaService.getJefaturas(page,this.idProyecto).subscribe((
+      this.jefaturaproyectoService.getJefaturasPorProyecto(this.idProyecto).subscribe((
         jefaturaJsonResponse) => {
-        this.jefaturaLista = jefaturaJsonResponse.content
-        this.paginador = jefaturaJsonResponse
-        this.base = 'jefatura'
-        console.info(this.jefaturaLista)
+          this.jefaturaLista = jefaturaJsonResponse
       })
     })
   }
 
   public eliminar(jefatura: Jefatura): void {
-    console.info(jefatura)
     this.jefaturaService.eliminarJefatura(jefatura.idJefatura).subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerJefaturas()
       },
       (err) => {
-        console.error(err)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerJefaturas()
       }

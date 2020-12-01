@@ -4,7 +4,6 @@ import { AuthService } from '../usuarios/auth.service'
 import { GerenciaService } from './gerencia.service'
 import { Gerencia } from './gerencia'
 import { ProyectoService } from './../proyectos/proyectos.service'
-import { Proyecto } from './../proyectos/proyecto'
 
 @Component({
   selector: 'app-gerencias',
@@ -44,9 +43,6 @@ export class GerenciasComponent implements OnInit {
         for (var i = 0 ; i < this.gerenciasLista.length ; i++) {
           this.obtenerProyectosPorGerencia(this.gerenciasLista[i].idGerencia)
         }
-        console.info(this.gerenciasLista)
-        console.info(this.proyectosPorGerencia)
-        // console.info(this.gerenciasLista)
         this.paginador = clientesJsonResponse
         this.base = 'gerencias'
       })
@@ -68,12 +64,10 @@ export class GerenciasComponent implements OnInit {
   public eliminar(gerencia: Gerencia): void {
     this.gerenciaService.eliminarGerencia(gerencia.idGerencia).subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerGerencias()
       },
       (err) => {
-        console.error(err)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerGerencias()
       }

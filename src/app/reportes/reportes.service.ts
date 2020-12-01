@@ -31,4 +31,10 @@ export class ReportesService {
       .get(this.urlEndPoint + '/consolidadoproyecto/' + idGerencia + '/' + idPeriodo)
       .pipe()
   }
+
+  getConsolidadoVendedor(idColaborador: number, idPeriodo: number): Observable<any> {
+    return this.http
+      .get(this.urlEndPoint + '/consolidadovendedor/' + idColaborador + '/' + idPeriodo)
+      .pipe()
+  }
 }

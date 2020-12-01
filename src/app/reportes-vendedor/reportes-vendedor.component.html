@@ -8,7 +8,7 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <h3>Reportes por proyecto</h3>
+          <h3>Reportes por vendedor</h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right">
           {{ sumaMetas | formatSoles }} - {{ sumaAvances | formatSoles }}
@@ -78,8 +78,8 @@
           </ng-container>
 
           <ng-container matColumnDef="proyecto">
-            <th mat-header-cell *matHeaderCellDef>Vendedor</th>
-            <td mat-cell *matCellDef="let element">{{ element.vendedor.nombre }}</td>
+            <th mat-header-cell *matHeaderCellDef>Proyecto</th>
+            <td mat-cell *matCellDef="let element">{{ element.proyecto.nombre }}</td>
             <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
 

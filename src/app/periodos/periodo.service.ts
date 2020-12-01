@@ -93,6 +93,14 @@ export class PeriodoService {
   getAllPeriodos(): Observable<any> {
     return this.http.get(this.urlEndPoint + '/').pipe()
   }
+
+  getPeriodoProyectoByIdProyecto(idProyecto: number): Observable<any> {
+    return this.http.get(URL_BACKEND + '/periodoproyecto/porProyecto/' + idProyecto).pipe()
+  }
+
+  getPeriodoColaboradorByIdColaborador(idColaborador: number): Observable<any> {
+    return this.http.get(URL_BACKEND + '/periodocolaborador/listarperido/' + idColaborador).pipe()
+  }
 }
 
 /*
