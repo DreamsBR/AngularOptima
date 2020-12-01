@@ -207,9 +207,9 @@ const ROUTES: Routes = [
   { path: 'canales-nuevo-editar/:id', component: CanalesNuevoEditarComponent },
 
   { path: 'categoria', component: CategoriaComponent },
-  { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent }
+  { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent },
 
-  { path: 'categorias', component:CategoriasComponent},
+  { path: 'categorias', component: CategoriasComponent},
 
   { path: 'prueba', component:PruebaComponent}
 ]
@@ -267,7 +267,6 @@ const ROUTES: Routes = [
     // EstadoVentaComponent,
     ReportesProyectosComponent,
     ColaboradorMetasComponent,
-<<<<<<< HEAD
     BancosComponent,
     BancoNuevoEditarComponent,
     CanalesNuevoEditarComponent,
@@ -276,12 +275,10 @@ const ROUTES: Routes = [
     EstadofinanciamientoComponent,
     EstadofinanciamientoNuevoEditarComponent,
     EstadoventaComponent,
-    EstadoventaNuevoEditarComponent
-=======
+    EstadoventaNuevoEditarComponent,
     ReportesVendedorComponent,
     AutocompletarComponent,
     PruebaComponent
->>>>>>> 8863785350ea623a6625ea9e1d2a36f0ef92ba0a
   ],
   imports: [
     BrowserModule,
