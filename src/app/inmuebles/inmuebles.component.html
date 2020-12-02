@@ -43,7 +43,7 @@
               <button
                 class="dropdown-item"
                 type="button"
-                [routerLink]="['/inmueble-nuevo-editar', 1]"
+                [routerLink]="['/inmueble-nuevo-editar', elem.idInmueble]"
               >
                 <em class="far fa-edit"></em> Editar
               </button>
@@ -61,7 +61,7 @@
 
         <ng-container matColumnDef="idTipoInmuebleCategoria">
           <th mat-header-cell *matHeaderCellDef>Tipo</th>
-          <td mat-cell *matCellDef="let elem">{{ elem.idTipoInmuebleCategoria }}</td>
+          <td mat-cell *matCellDef="let elem">{{ elem.tipoInmuebleCategoria.nombre }}</td>
         </ng-container>
 
         <ng-container matColumnDef="numero">
@@ -86,12 +86,23 @@
 
         <ng-container matColumnDef="idTipoVista">
           <th mat-header-cell *matHeaderCellDef>Vista</th>
-          <td mat-cell *matCellDef="let elem">{{ elem.idTipoVista }}</td>
+          <td mat-cell *matCellDef="let elem">{{ elem.tipoVista.nombre }}</td>
         </ng-container>
 
         <ng-container matColumnDef="cantidadDormitorio">
           <th mat-header-cell *matHeaderCellDef>Dorm.</th>
           <td mat-cell *matCellDef="let elem">{{ elem.cantidadDormitorio }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
+          <td
+            mat-cell
+            *matCellDef="let elem"
+            style="text-align: end; color: var(--primary); font-weight: bold"
+          >
+            {{ elem.precio | formatSoles }}
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

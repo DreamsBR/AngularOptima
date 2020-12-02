@@ -32,17 +32,17 @@
                                 <div class="tab-content" id="v-pills-tabContent">
 
 
-                                    
+
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
                                         <div class="row">
                                             <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="busqueda-nrodoc">Nro Doc</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="nrodoc" (keydown.enter)="obtenerClienteSeleccionado(nrodoc)" name="busqueda-nrodoc">
+                                                    <input type="text" class="form-control" [(ngModel)]="nrodoc" (keydown.enter)="obtenerClienteSeleccionado(nrodoc)" name="busqueda-nrodoc" maxlength="8">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-5">
+                                            <div class="col-sm-12 col-md-3">
                                                 <div class="form-group">
                                                     <label for="busqueda-nombres">Nombres y Apellidos</label>
                                                     <input type="text" class="form-control" [(ngModel)]="clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos" name="busqueda-nombres" disabled="disabled">
@@ -54,11 +54,17 @@
                                                     <button type="submit" class="btn btn-optima btn-float-right" (click)="obtenerClienteSeleccionado(nrodoc)">Buscar</button>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label class="label-hidden">&nbsp;</label>
+                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarCliente(nrodoc)">Nuevo</button>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="row div-vendedores">
                                             <div class="col-sm-12 col-md-9">
-
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <p class="cliente-card-titulo"><strong>Nombres</strong></p>
@@ -119,7 +125,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-12 col-md-12" >
                                                                         <p>{{itemDepartamento.numero}}</p>
-                                                                    </div>   
+                                                                    </div>
                                                                 </div>
 
                                                                 <div class="row">
@@ -195,7 +201,7 @@
 
                                                         </div>
 
-                                                        
+
                                                     </div>
 
                                                 </div>
@@ -252,7 +258,7 @@
                                                                 <div class="row">
                                                                     <div class="col-sm-12 col-md-12" >
                                                                         <p>{{itemAdicional.numero}}</p>
-                                                                    </div>   
+                                                                    </div>
                                                                 </div>
 
                                                                 <div class="row">
@@ -435,13 +441,13 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <label for="bono">Bono MMV</label>
-                                                    <input type="text" class="form-control" name="bono" [(ngModel)]="bono">
+                                                    <input type="number" class="form-control" name="bono" [(ngModel)]="bono">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <label for="afp">AFP</label>
-                                                    <input type="text" class="form-control" name="afp" [(ngModel)]="afp">
+                                                    <input type="number" class="form-control" name="afp" [(ngModel)]="afp">
                                                 </div>
                                             </div>
                                         </div>
@@ -473,12 +479,12 @@
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <label for="ahorro">Ahorro</label>
-                                                    <input type="text" class="form-control" name="ahorro" [(ngModel)]="ahorro">
+                                                    <input type="number" class="form-control" name="ahorro" [(ngModel)]="ahorro" maxlength="2">
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <datepicker-rounded 
+                                                    <datepicker-rounded
                                                     [label]="'Inicio ahorro'"
                                                     (onDateChanged)="onFechaInicioAhorro($event)"
                                                     ></datepicker-rounded>
@@ -486,7 +492,7 @@
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <datepicker-rounded 
+                                                    <datepicker-rounded
                                                     [label]="'Fin ahorro'"
                                                     (onDateChanged)="onFechaFinAhorro($event)"
                                                     ></datepicker-rounded>
@@ -513,7 +519,7 @@
 
                 </div>
             </div>
-        
+
         </div>
     </div>
 

@@ -45,6 +45,12 @@ export class InmuebleService {
     )
   }
 
+  deletePago(inmueble: Inmueble): Observable<Inmueble> {
+    return this.http
+      .delete<Inmueble>(this.urlEndPoint + '/' + inmueble.idInmueble)
+      .pipe(map((jsonReponse: any) => jsonReponse as Inmueble))
+  }
+
   getInmueblesByListarPorCategoria(
     idProyecto: number,
     idTipoInmueble: number,
@@ -53,7 +59,7 @@ export class InmuebleService {
     return this.http
       .get(
         this.urlEndPoint +
-          '/listarporcategoria/' +
+          '/disponibles/' +
           idProyecto +
           '/' +
           idTipoInmueble +

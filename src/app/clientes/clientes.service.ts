@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Cliente } from './cliente'
+import { Clientenodo } from './../clientes/clientenodo'
 import { Observable, throwError } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
@@ -17,11 +18,16 @@ export class ClienteService {
       map((jsonClientesResponse: any) => {
         ;(jsonClientesResponse.content as Cliente[]).map((cliente) => {
           cliente.nombres = cliente.nombres.toUpperCase()
+          cliente.apellidos = cliente.apellidos.toUpperCase()
           return cliente;
         })
         return jsonClientesResponse
       })
     )
+  }
+
+  obtenerClientesPorId(idCliente): Observable<Clientenodo> {
+    return this.http.get<Clientenodo>(this.urlEndPoint + '/' + idCliente)
   }
 
   eliminarCliente(id: number): Observable<Cliente> {
@@ -41,25 +47,14 @@ export class ClienteService {
       })
     )
   }
-/*
-    agregarCliente(cliente: Cliente): Observable<any> {
-        return this.http.post<any>(this.urlEndPoint, cliente).pipe(
-          catchError(e => {
 
-            if (e.status === 400) {
-              return throwError(e);
-            }
-          })
-        );
-      }
-*/
   obtenerClientesPorDni(nrodoc): Observable<Cliente> {
     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
 
-  obtenerClientesPorId(idCliente): Observable<Cliente> {
-    return this.http.get<Cliente>(this.urlEndPoint + '/' + idCliente)
-  }
+
+
+
 
   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
     return this.http.put<any>(this.urlEndPoint + '/' + idCliente, cliente).pipe(

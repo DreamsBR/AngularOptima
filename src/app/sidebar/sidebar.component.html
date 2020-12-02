@@ -1,16 +1,29 @@
 <div id="sidebar-wrapper">
     <div class="list-group">
-        <a href="clientes" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/clientes' }">Clientes</a>
-        <a href="ventas" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/ventas' }">Ventas</a>
-        <a href="consulta-ventas" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/consulta-ventas' }">Consultas ventas</a>
-        <a href="colaboradores" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/colaboradores' }">Colaboradores</a>
-        <a href="proyectos" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/proyectos' }">Proyectos</a>
-        <a href="gerencias" class="list-group-item">Gerencias</a>
-        <a href="periodos" class="list-group-item">Periodos</a>
+        <a [routerLink]="['/clientes/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/clientes' }">Clientes</a>
+        <a [routerLink]="['/ventas/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/ventas' }">Ventas</a>
+        <a [routerLink]="['/consulta-ventas/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/consulta-ventas' }">Consultas ventas</a>
+        <a [routerLink]="['/colaboradores/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/colaboradores' }">Colaboradores</a>
+        <a [routerLink]="['/proyectos/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/proyectos' }">Proyectos</a>
+        <a [routerLink]="['/gerencias/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/gerencias' }">Gerencias</a>
+        <a [routerLink]="['/periodos/']" class="list-group-item" [ngClass]="{'list-item-active': router.url === '/periodos' }">Periodos</a>
+
         <a href="#" class="list-group-item" data-toggle="collapse" href="#collapseExample">Reportes</a>
         <div class="collapse" id="collapseExample">
-            <a href="#" class="list-group-item sub-item">Consolidado de ventas</a>
+            <a [routerLink]="['/reportes/']" class="list-group-item sub-item">Consolidado de ventas</a>
         </div>
+
+
+        <a  href="#collapseEx" data-toggle="collapse" class="list-group-item" >Mantenimientos</a>
+        <div class="collapse" id="collapseEx">
+          <a [routerLink]="['/bancos/']" class="list-group-item sub-item" >Bancos</a>
+          <a [routerLink]="['/canales/']" class="list-group-item sub-item" >Canales</a>
+          <a [routerLink]="['/categoria/']" class="list-group-item sub-item" >Categoria</a>
+          <a [routerLink]="['/estadoFinanciero/']" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/estadoFinanciero'}" >EstadoFinanciero</a>
+          <a [routerLink]="['/estadoVenta/']" class="list-group-item sub-item" [ngClass]="{'list-item-active': router.url === '/estadoVenta'}" >EstadoVenta</a>
+        </div>
+
+
         <br>
         <br>
         <a (click)="logOut()" href="#" class="list-group-item">Cerrar sesión</a>

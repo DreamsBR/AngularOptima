@@ -13,4 +13,19 @@ export class Inmueble {
   // Esta faltando Otros
   enable: number;
   [key: string]: any
+
+  constructor () {
+    this.idInmueble = 0
+    this.idProyecto = 0
+    this.idTipoInmueble = 0
+    this.idTipoInmuebleCategoria = 0
+    this.numero = ""
+    this.areaTechada = 0
+    this.areaLibre = 0
+    this.areaTotal = 0
+    this.idTipoVista = 0
+    this.cantidadDormitorio = 0
+    this.precio = 0
+    this.enable = 0
+  }
 }

@@ -34,29 +34,33 @@
               <div class="form-group">
                 <label for="iptTipoInmueble">Tipo de inmueble</label>
                 <select
-                  [(ngModel)]="formIdTipoInmueble"
+                  [(ngModel)]="inmueble.idTipoInmueble"
                   (ngModelChange)="onChangetTipoInmueble($event)"
                   class="form-control"
                   id="iptTipoInmueble"
                 >
                   <option [ngValue]="0">-- Seleccionar --</option>
-                  <option *ngFor="let o of optionsTipoInmueble" [ngValue]="o.idTipoInmueble">
+                  <option *ngFor="let o of tipoinmueble" [ngValue]="o.idTipoInmueble">
                     {{ o.nombre }}
                   </option>
                 </select>
+
+                
+
+
               </div>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-6" *ngIf="isFormDpto">
               <div class="form-group">
                 <label for="iptTipoInmuebleCategoria">Categoria</label>
                 <select
-                  [(ngModel)]="formIdTipoInmuebleCategoria"
+                  [(ngModel)]="inmueble.idTipoInmuebleCategoria"
                   class="form-control"
                   id="iptTipoInmuebleCategoria"
                 >
                   <option [ngValue]="0">-- Seleccionar --</option>
                   <option
-                    *ngFor="let o of optionsTipoInmuebleCategoria"
+                    *ngFor="let o of tipoinmueblecategoria"
                     [ngValue]="o.idTipoInmuebleCategoria"
                   >
                     {{ o.nombre }}
@@ -72,7 +76,7 @@
                   >{{ isFormDpto ? 'Nro. Departamento' : 'Nro. Estacionamiento' }}
                 </label>
                 <input
-                  [(ngModel)]="formNroDptoEstac"
+                  [(ngModel)]="inmueble.numero"
                   type="text"
                   class="form-control"
                   id="iptNroDptoEstac"
@@ -86,7 +90,7 @@
               <div class="form-group">
                 <label for="iptAreaTechada">Área techada</label>
                 <input
-                  [(ngModel)]="formAreaTechada"
+                  [(ngModel)]="inmueble.areaTechada"
                   type="text"
                   class="form-control"
                   id="iptAreaTechada"
@@ -97,7 +101,7 @@
               <div class="form-group">
                 <label for="iptAreaLibre">Área libre</label>
                 <input
-                  [(ngModel)]="formAreaLibre"
+                  [(ngModel)]="inmueble.areaLibre"
                   type="text"
                   class="form-control"
                   id="iptAreaLibre"
@@ -117,7 +121,7 @@
               <div class="form-group">
                 <label for="iptAreaTotal">Área total</label>
                 <input
-                  [(ngModel)]="formAreaTotal"
+                  [(ngModel)]="inmueble.areaTotal"
                   type="text"
                   class="form-control"
                   id="iptAreaTotal"
@@ -130,9 +134,9 @@
             <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="iptTipoVista">Vista</label>
-                <select [(ngModel)]="formIdTipoVista" class="form-control" id="iptTipoVista">
+                <select [(ngModel)]="inmueble.idTipoVista" class="form-control" id="iptTipoVista">
                   <option [ngValue]="0">-- Seleccionar --</option>
-                  <option *ngFor="let o of optionsTipoVista" [ngValue]="o.idTipoVista">
+                  <option *ngFor="let o of tipovista" [ngValue]="o.idTipoVista">
                     {{ o.nombre }}
                   </option>
                 </select>
@@ -142,7 +146,7 @@
               <div class="form-group">
                 <label for="iptCantDorm">Cant. de dormitorios</label>
                 <input
-                  [(ngModel)]="formCantDorm"
+                  [(ngModel)]="inmueble.cantidadDormitorio"
                   type="text"
                   class="form-control"
                   id="iptCantDorm"
@@ -170,15 +174,15 @@
             <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="iptPrecio">Precio</label>
-                <input [(ngModel)]="formPrecio" type="text" class="form-control" id="iptPrecio" />
+                <input [(ngModel)]="inmueble.precio" type="text" class="form-control" id="iptPrecio" />
               </div>
             </div>
-            <div class="col-sm-12 col-md-12">
+            <!-- <div class="col-sm-12 col-md-12">
               <div class="form-group">
                 <label for="iptOtros">Otros</label>
                 <input [(ngModel)]="formOtros" type="text" class="form-control" id="iptOtros" />
               </div>
-            </div>
+            </div> -->
           </div>
 
           <button type="submit" (click)="guardar()" class="btn btn-optima btn-float-right">

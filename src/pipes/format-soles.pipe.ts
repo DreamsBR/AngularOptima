@@ -3,10 +3,9 @@ import numeral from 'numeral'
 
 @Pipe({ name: 'formatSoles' })
 export class FormatSoles implements PipeTransform {
-  transform(value: number): string {
+  transform(value: any): string {
     if (typeof value !== 'undefined') {
       if (value > 0) {
-        console.log(value)
         const n = 'S/. ' + numeral(value).format('0,0.00')
         return n
       }

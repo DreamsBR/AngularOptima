@@ -4,7 +4,7 @@ export class Pago {
   fecha: string
   idVenta: number
   monto: number
-  numeroOperacion: number
+  numeroOperacion: string
   pagado: number
   porcentaje: string
 
@@ -14,7 +14,7 @@ export class Pago {
     this.fecha = ''
     this.idVenta = 0
     this.monto = 0
-    this.numeroOperacion = 0
+    this.numeroOperacion = ''
     this.pagado = 1
     this.porcentaje = ''
   }

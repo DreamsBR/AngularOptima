@@ -14,11 +14,50 @@
                 </div>
             </div>
 
+
+
+
+            <div class="row">
+              <div class="col-sm-12 col-md-4 col-xl-3">
+                  <div class="form-group">
+                      <label for="status">Status</label>
+                      <select class="form-control" name="statusventa"  id="exampleFormControlSelect1" [(ngModel)]="estadoventaSeleccionado" (ngModelChange)="onChangetEstadoVenta()">
+                          <option [value]="items.idEstadoVenta" *ngFor="let items of tipoestado">{{items.nombre}}</option>
+                      </select>
+                  </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-xl-2">
+                  <div class="form-group">
+                      <label for="status">Desde</label>
+                      <datepicker-rounded
+                      #dpfechaDesde
+                      [label]="'Fecha'"
+                      (onDateChanged)="onfechaDesde($event)"
+                      ></datepicker-rounded>
+                  </div>
+              </div>
+
+              <div class="col-sm-12 col-md-4 col-xl-2">
+                  <div class="form-group">
+                      <label for="status">Hasta</label>
+                      <datepicker-rounded
+                      #dpfechaHasta
+                      [label]="'Fecha'"
+                      (onDateChanged)="onfechaHasta($event)"
+                      ></datepicker-rounded>
+                  </div>
+              </div>
+          </div>
+
+
+
+
+
+
             <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-
                     <br>
-
                     <table class="table">
                         <caption>Lista de ventas por proyecto</caption>
                         <thead>
@@ -27,6 +66,7 @@
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Apellidos</th>
                                 <th scope="col">Nº doc.</th>
+                                <th scope="col">Fecha Registro</th>
                                 <th scope="col">Total de venta</th>
                                 <th scope="col">Estado</th>
                             </tr>
@@ -36,12 +76,14 @@
                                 <td class="text-center font-color-1">
                                     <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                     <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', ventasProyecto.codigo]"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-editar', ventasProyecto.idProyecto , ventasProyecto.idVenta, ventasProyecto.cliente.nroDocumento ]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.nombres}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.codigo}}">{{ventasProyecto.cliente.apellidos}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos}}</a></td>
                                 <td>{{ventasProyecto.cliente.nroDocumento}}</td>
+                                <td>{{ventasProyecto.fechaRegistro |formatDate}} </td>
+
                                 <td>{{ventasProyecto.total}}</td>
                                 <td>{{ventasProyecto.estadoVenta.nombre}}</td>
                             </tr>

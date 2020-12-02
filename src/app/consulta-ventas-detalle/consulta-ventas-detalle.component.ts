@@ -1,10 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Ventasproyecto } from './../ventas-proyecto/Ventasproyecto';
-import { VentasproyectoService } from './../ventas-proyecto/ventasproyecto.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { Proyecto } from '../proyectos/proyecto';
+import { estadoventa } from '../consulta-ventas/estadoventa';
+import { statusVentaservice } from '../consulta-ventas/statusventa.service';
+import { VentaService } from '../ventas/ventas.service';
+import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
+import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -16,40 +20,82 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   nombreProyecto:string
 
   proyectoLista: Proyecto[]
-  status: boolean = false;
   ventasProyectoLista: Ventasproyecto[];
   sortDesde: string = ''
   sortHasta: string = ''
+  tipoestado : estadoventa[]
+  ventasLista: Ventanodos[]
+  fechaSeparacion : string
 
+  filterPost = ""
+  base:string
+  paginador:any
+  id: number
+  paramIdProyecto: number
+
+  @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
+  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
+
+  estadoventaSeleccionado: number
+  fechaDesde: string
+  fechaHasta: string
 
   constructor(
-    private ventasproyectoService: VentasproyectoService,
+    private estadoventa : statusVentaservice,
     private activatedRoute: ActivatedRoute,
+    private ventaService : VentaService,
     public authService: AuthService,
-    public router: Router,
-  ) { }
+    public router: Router
+  ){}
 
   ngOnInit() {
-    this.obtenerVentas();
+    this.obtenerEstadoVentas()
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.paramIdProyecto = parseInt(params.get('idproyecto'))
+      this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
+
+      this.fechaDesde = (params.get('fechaini'))
+      this.fechaHasta = (params.get('fechafin'))
+
+      this.dpfechaDesde.setValue(this.fechaDesde)
+      this.dpfechaHasta.setValue(this.fechaHasta)
+
+      this.obtenerVentasProyecto()
+    })
   }
-  obtenerVentas(){
-    this.activatedRoute.paramMap.subscribe(() => {
-      this.ventasproyectoService.getVentasProyectos().subscribe(
-        clientesJsonResponse => {
-          this.ventasProyectoLista = clientesJsonResponse;
-        }
-      );
 
-    });
-
+  onfechaDesde(newdate: string) {
+    this.fechaDesde = newdate
+    this.obtenerVentasProyecto()
   }
 
+  onfechaHasta(newdate: string) {
+    this.fechaHasta = newdate
+    this.obtenerVentasProyecto()
+  }
 
+  onChangetEstadoVenta(){
+    this.obtenerVentasProyecto()
+  }
 
+  obtenerVentasProyecto(){
+    this.ventaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
+      ventasJsonResponse) => {
+        console.info(ventasJsonResponse)
+        this.ventasLista = ventasJsonResponse
+      })
+  }
+
+  public obtenerEstadoVentas(){
+    this.estadoventa.getEstadoVenta().subscribe((response)=> {
+      this.tipoestado = response
+      console.info(this.estadoventa)
+    })
+  }
+
+  status: boolean = false;
   menuToggle(){
     this.status = !this.status;
   }
 
-
- }
-
+}

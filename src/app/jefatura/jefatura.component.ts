@@ -1,0 +1,67 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
+import { AuthService } from '../usuarios/auth.service'
+import { JefaturaService } from './jefatura.service'
+import { Jefatura } from './jefatura'
+import { JefaturaproyectoService } from './jefaturaproyecto.service'
+import { Jefaturaproyectonodo } from './jefaturaproyectonodo'
+
+@Component({
+  selector: 'app-jefatura',
+  templateUrl: './jefatura.component.html'
+})
+
+export class JefaturaComponent implements OnInit {
+
+  idProyecto: number
+  idGerencia: number
+  jefaturaLista: Jefaturaproyectonodo[]
+  jefaturaSeleccionado: Jefatura
+  paginador: any
+  base: string
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthService,
+    public jefaturaService: JefaturaService,
+    public jefaturaproyectoService: JefaturaproyectoService
+  ) {}
+
+  ngOnInit() {
+    this.obtenerJefaturas()
+  }
+
+  public obtenerJefaturas() {
+    this.activatedRoute.paramMap.subscribe((params) => {
+      this.idProyecto = parseInt(params.get('idProyecto'))
+      this.idGerencia = parseInt(params.get('idGerencia'))
+      this.jefaturaproyectoService.getJefaturasPorProyecto(this.idProyecto).subscribe((
+        jefaturaJsonResponse) => {
+          this.jefaturaLista = jefaturaJsonResponse
+      })
+    })
+  }
+
+  public eliminar(jefatura: Jefatura): void {
+    this.jefaturaService.eliminarJefatura(jefatura.idJefatura).subscribe(
+      (response) => {
+        document.getElementById('cerrarModalEliminar').click()
+        this.obtenerJefaturas()
+      },
+      (err) => {
+        document.getElementById('cerrarModalEliminar').click()
+        this.obtenerJefaturas()
+      }
+    )
+  }
+
+  public obtenerJefaturaSeleccionado(jefatura: Jefatura) {
+    this.jefaturaSeleccionado = jefatura
+  }
+
+  status = false;
+  menuToggle() {
+    this.status = !this.status;
+  }
+
+}

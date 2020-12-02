@@ -1,16 +1,21 @@
 import { Component, OnInit } from '@angular/core'
-import { TipoInmueble } from './tipoinmueble'
-import { TipoVista } from './tipovista'
-import { TipoInmuebleCategoria } from './tipoinmueblecategoria'
+import { TipoInmueble } from './../tipoinmueble/tipoInmueble'
+import { TipoVista } from './../tipovista/tipoVista'
+import { TipoInmuebleCategoria } from './../tipoinmueblecategoria/tipoInmuebleCategoria'
 import { Inmueble } from '../inmuebles/inmueble'
 import { InmuebleService } from '../inmuebles/inmueble.service'
 import { ActivatedRoute } from '@angular/router'
+import { TipoInmuebleService } from './../tipoinmueble/tipoInmueble.service'
+import { TipoVistaService } from './../tipovista/tipoVista.service'
+import { TipoInmuebleCategoriaService } from './../tipoinmueblecategoria/tipoInmuebleCategoria.service'
+ 
 import sleep from 'await-sleep'
 @Component({
   selector: 'app-inmueble-nuevo-editar',
   templateUrl: './inmueble-nuevo-editar.component.html'
 })
 export class InmuebleNuevoEditarComponent implements OnInit {
+  
   errors: string[] = []
   loading: boolean = false
   status: boolean = false
@@ -22,21 +27,20 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   optionsTipoVista: TipoVista[] = []
   optionsTipoInmuebleCategoria: TipoInmuebleCategoria[] = []
   // Formulario
-  formIdInmueble: number = 0
-  formIdProyecto: number = 0
-  formIdTipoInmueble: number = 0
-  formIdTipoInmuebleCategoria: number = 0
-  formNroDptoEstac: string = ''
-  formAreaTechada: number = 0
-  formAreaLibre: number = 0
-  formAreaTotal: number = 0
-  formIdTipoVista: number = 0
-  formCantDorm: number = 0
-  formPrecio: number = 0
-  formOtros: string = ''
-  formEnable: number = 1
+  public inmueble: Inmueble = new Inmueble()
+  
+  public errores: string[]
 
-  constructor(private inmuebleService: InmuebleService, private activatedRoute: ActivatedRoute) {
+  tipoinmueble: TipoInmueble[]
+  tipovista: TipoVista[]
+  tipoinmueblecategoria:TipoInmuebleCategoria[]
+    
+  constructor(
+    private inmuebleService: InmuebleService, 
+    private activatedRoute: ActivatedRoute,
+    private tipoInmuebleService:TipoInmuebleService,
+    private tipoVistaService:TipoVistaService,
+    private tipoInmuebleCategoriaService:TipoInmuebleCategoriaService) {
     this.optionsTipoInmueble = []
   }
 
@@ -45,12 +49,14 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   }
 
   async initFunctions() {
+
     this.loading = true
     await sleep(1000)
-    this.loadTipoInmueble()
+    this.loadTipoInmueble2()
+    this.loadTipoVista2()
+        
     this.loading = false
-    // console.log(this.optionsTipoInmueble)
-
+     
     const __self = this
     __self.activatedRoute.paramMap.subscribe((params) => {
       const paramIdInmueble: number = parseInt(params.get('id')) // Id del inmueble
@@ -61,20 +67,45 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
       if (paramIdInmueble === 0) {
         // Obtiene el id del queryParam idProyecto
-        this.formIdProyecto = this.pageToBackIdProyecto
+        this.inmueble.idProyecto = this.pageToBackIdProyecto
       } else {
-        // Obtiene el id de la DB
-        console.log('Obtiene el id de la DB')
-        // this.formIdProyecto = this.pageToBackIdProyecto
+          
+        this.inmuebleService.getInmueblesByIdInmueble(paramIdInmueble).subscribe(
+          (response) => {
+            this.inmueble = response
+            this.inmueble.idTipoInmueble=response.tipoInmueble.idTipoInmueble
+            this.inmueble.idTipoInmuebleCategoria=response.tipoInmuebleCategoria.idTipoInmuebleCategoria
+            this.inmueble.idTipoVista=response.tipoVista.idTipoVista
+            this.loadTipoInmuebleCategoria2(this.inmueble.idTipoInmueble)
+            this.isFormDpto=this.inmueble.idTipoInmueble==1?true:false
+             
+          },
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+
       }
     })
+
   }
 
   menuToggle() {
     this.status = !this.status
   }
 
+
+  loadTipoInmueble2() {
+    
+    this.tipoInmuebleService.getTipoInmueble().subscribe((response) => {
+      this.tipoinmueble = response
+       
+    })
+
+  }
+  
   loadTipoInmueble() {
+
     this.optionsTipoInmueble = [
       {
         idTipoInmueble: 1,
@@ -94,7 +125,16 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     }) */
   }
 
-  loadTipoVista(val: number) {
+  loadTipoVista2() {
+
+    this.tipoVistaService.getTipoVista().subscribe((response) => {
+      this.tipovista = response
+      
+    })
+
+  }
+
+  loadTipoVista() {
     this.optionsTipoVista = [
       {
         idTipoVista: 1,
@@ -108,8 +148,17 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       }
     ]
   }
+  
+  loadTipoInmuebleCategoria2(val: number) {
+   
+      this.tipoInmuebleCategoriaService.getTipoInmuebleCategoria(val).subscribe((response) => {
+      this.tipoinmueblecategoria = response
+       
+    })
 
-  loadTipoInmuebleCategoria(val: number) {
+  }
+
+  loadTipoInmuebleCategoria() {
     this.optionsTipoInmuebleCategoria = [
       {
         idTipoInmuebleCategoria: 1,
@@ -128,56 +177,86 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   guardar() {
     const isValid = this.validarForm()
+    
     if (!isValid) return
 
-    const newInmueble = new Inmueble()
-    newInmueble.idInmueble = this.formIdInmueble
-    newInmueble.idProyecto = this.formIdProyecto
-    newInmueble.idTipoInmueble = this.formIdTipoInmueble // Requerido
-    newInmueble.idTipoInmuebleCategoria = this.formIdTipoInmuebleCategoria // Requerido
-    newInmueble.numero = this.formNroDptoEstac
-    newInmueble.areaTechada = this.formAreaTechada
-    newInmueble.areaLibre = this.formAreaLibre
-    newInmueble.areaTotal = this.formAreaTotal
-    newInmueble.idTipoVista = this.formIdTipoVista // Requerido
-    newInmueble.cantidadDormitorio = this.formCantDorm
-    newInmueble.precio = this.formPrecio
-    newInmueble.enable = this.formEnable
-
-    // console.log(newInmueble)
-    const __self = this
-    __self.inmuebleService.crearInmueble(newInmueble).subscribe((resp) => {
+    if(this.inmueble.idTipoInmueble==2){
+      this.inmueble.idTipoInmuebleCategoria=0
+    }
+    
+      const __self = this
+    __self.inmuebleService.crearInmueble(this.inmueble).subscribe((resp) => {
       __self.regresar()
     })
   }
 
   regresar() {
     window.location.href = '/inmuebles/' + this.pageToBackIdProyecto
+    //window.history.back()
   }
 
   // Change Events Selectors
   onChangetTipoInmueble(val: number) {
-    this.isFormDpto = val === 1
+     
+    this.isFormDpto = val === 1 // 1 ES Departamento
 
     if (this.isFormDpto) {
       // Dpto
-      this.loadTipoVista(val)
-      this.loadTipoInmuebleCategoria(val)
+    //  this.loadTipoVista()
+      this.loadTipoInmuebleCategoria2(val)
     } else {
+      this.loadTipoInmuebleCategoria2(val)
       // Otros (Estacionamiento)
-      this.formIdTipoInmuebleCategoria = 0
-      this.formIdTipoVista = 0
-      this.formCantDorm = 0
+      this.inmueble.idTipoInmuebleCategoria = 0
+     // this.inmueble.idTipoVista = 0
+      this.inmueble.cantidadDormitorio = 0
+      
     }
   }
 
   validarForm() {
     this.errors = []
     let tmpValid = true
-    if (this.formIdTipoInmueble === 0 || this.formIdTipoInmuebleCategoria === 0 || this.formIdTipoVista === 0) {
-      tmpValid = false
-      this.errors = ['Los campos: tipo inmueble, categoría y vista son requeridos']
-    } 
+    if(this.inmueble.idInmueble===0){
+      
+      if(this.inmueble.idTipoInmueble===2&&this.inmueble.idTipoVista === 0){
+        tmpValid = false
+        this.errors = ['Los campos: tipo  vista son requeridos']
+      }
+
+      if (this.inmueble.idTipoInmueble === 0  && this.inmueble.idTipoVista === 0) {
+        tmpValid = false
+        this.errors = ['Los campos: tipo inmueble, vista son requeridos']
+      } 
+      if (this.inmueble.idTipoInmueble === 1  && this.inmueble.idTipoInmuebleCategoria==0 && this.inmueble.idTipoVista === 0) {
+        tmpValid = false
+        this.errors = ['Los campos: tipo inmueble,categoría, vista son requeridos']
+      } 
+      if (this.inmueble.idTipoInmueble === 1  && this.inmueble.idTipoInmuebleCategoria==1 && this.inmueble.idTipoVista === 0) {
+        tmpValid = false
+        this.errors = ['Los campos: tipo vista son requeridos']
+      } 
+
+    }else{
+      
+      if((this.inmueble.idTipoInmueble === 1&&this.inmueble.idTipoInmuebleCategoria === 0)||this.inmueble.idTipoVista === 0){
+        tmpValid = false
+        this.errors = ['Los campos: tipo categoría y vista son requeridos']
+        }
+       if(this.inmueble.idTipoInmueble === 1&&this.inmueble.idTipoInmuebleCategoria === 1&&this.inmueble.idTipoVista === 0){
+        tmpValid = false
+        this.errors = ['Los campos: tipo vista son requeridos']
+      }
+      if(this.inmueble.idTipoInmueble ===2&&this.inmueble.idTipoVista === 0){
+        tmpValid = false
+        this.errors = ['Los campos: tipo vista son requeridos']
+      }
+      if(this.inmueble.idTipoInmueble ===0&&this.inmueble.idTipoVista != 0){
+        tmpValid = false
+        this.errors = ['Los campos: tipo vista son requeridos']
+      }
+    }
+    
     return tmpValid
   }
 }

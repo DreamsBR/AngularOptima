@@ -17,6 +17,18 @@ export class PagosService {
       .pipe(map((jsonReponse: any) => jsonReponse as Pago))
   }
 
+  updatePago(pago: Pago): Observable<Pago> {
+    return this.http
+      .put<Pago>(this.urlEndPoint + 'pago/' + pago.idPago, pago)
+      .pipe(map((jsonReponse: any) => jsonReponse as Pago))
+  }
+
+  deletePago(pago: Pago): Observable<Pago> {
+    return this.http
+      .delete<Pago>(this.urlEndPoint + 'pago/' + pago.idPago)
+      .pipe(map((jsonReponse: any) => jsonReponse as Pago))
+  }
+
   getPagosByIdVenta(idVenta: number): Observable<Pago[]> {
     return this.http
       .get<Pago>(this.urlEndPoint + 'pago/venta/' + idVenta)

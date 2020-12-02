@@ -8,7 +8,16 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <h3>Cliente ALBERTO ARMENDARIZ ARTURIAZ</h3>
+          <button
+            (click)="regresar()"
+            class="btn btn-optima btn-sm"
+            style="margin-right: 10px; display: inline; margin-top: -7px"
+          >
+            <em class="fas fa-chevron-left"></em>
+          </button>
+          <h3 style="display: inline">
+            Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}
+          </h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
@@ -87,16 +96,19 @@
                         <p class="titulo"><strong>Datos personales</strong></p>
 
                         <p class="label-dato">Nombres</p>
-                        <p>{{ cliente.nombres }}</p>
+                        <p>{{ cliente.nombres | formatUppercase }}</p>
 
                         <p class="label-dato">Apellidos</p>
-                        <p>{{ cliente.apellidos }}</p>
+                        <p>{{ cliente.apellidos | formatUppercase }}</p>
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>-- {{ cliente.nroDocumento }}</p>
+                        <p>
+                          {{ cliente.tipoDocumento ? cliente.tipoDocumento.nombre : '' }} -
+                          {{ cliente.nroDocumento }}
+                        </p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>--</p>
+                        <p>{{ cliente.estadoCivil ? cliente.estadoCivil.nombre : '' }}</p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacion }}</p>
@@ -130,16 +142,23 @@
                         <p class="titulo"><strong>Datos conyuge</strong></p>
 
                         <p class="label-dato">Nombres y Apellidos</p>
-                        <p>{{ cliente.conyuge }}</p>
+                        <p>{{ cliente.conyuge ? cliente.conyuge : ('' | formatUppercase) }}</p>
 
                         <!-- <p class="label-dato">Apellidos</p>
                         <p>Armendariz Arturiaz</p> -->
 
                         <p class="label-dato">Tipo doc.</p>
-                        <p>-- {{ cliente.nroDocConyuge }}</p>
+                        <p>
+                          {{
+                            cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : ''
+                          }}
+                          - {{ cliente.nroDocConyuge }}
+                        </p>
 
                         <p class="label-dato">Estado civil</p>
-                        <p>--</p>
+                        <p>
+                          {{ cliente.estadoCivilConyuge ? cliente.estadoCivilConyuge.nombre : '' }}
+                        </p>
 
                         <p class="label-dato">Ocupación</p>
                         <p>{{ cliente.ocupacionConyuge }}</p>
@@ -154,6 +173,7 @@
                       <div class="col-sm-12 col-md-12 offset-md-12">
                         <p class="titulo"><strong>Compra</strong></p>
 
+<<<<<<< HEAD
                     <ul class="nav nav-tabs nav-pills nav-fill" id="myTab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Datos</a>
@@ -292,18 +312,22 @@
                             </div>
                         <p class="label-dato">Ingresos</p>
                         <p>S/. 3,000.00</p>
+=======
+                        <p class="label-dato">Ingresos</p>
+                        <p>{{ cliente.ingresos | formatSoles }}</p>
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 
                         <p class="label-dato">Motivo de compra</p>
-                        <p>Vivienda</p>
+                        <p>{{ venta.motivo ? venta.motivo.nombre : '' }}</p>
 
                         <p class="label-dato">Canal captación</p>
-                        <p>3DLI</p>
+                        <p>{{ venta.canal ? venta.canal.nombre : '' }}</p>
 
                         <p class="label-dato">Categoria</p>
-                        <p>Lead</p>
+                        <p>{{ venta.categoria ? venta.categoria.nombre : '' }}</p>
 
                         <p class="label-dato">Asesor de ventas</p>
-                        <p>Alonso Romero</p>
+                        <p>{{ cliente.asesor }}</p>
                       </div>
                     </div>
                   </div>
@@ -314,6 +338,7 @@
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
               <br />
 
+<<<<<<< HEAD
               <div class="row">
                 <div class="col-sm-12 col-md-3">
                   <div class="form-group">
@@ -332,116 +357,142 @@
                     <label for="apellidos">Nro. Dpto.</label>
                     <input type="text" class="form-control" id="apellidos" />
                   </div>
+=======
+              <!-- <div class="row">
+                <div class="col-sm-12 col-md-4" style="max-width: 350px">
+                  <label>Tipo de inmueble:</label>
+                  <select
+                    [(ngModel)]="filterTipoInmuebleSelect"
+                    class="form-control"
+                    id="iptTipoInmueble"
+                  >
+                    <option [ngValue]="0">-- Seleccionar --</option>
+                    <option *ngFor="let o of optionsTipoInmueble" [ngValue]="o.idTipoInmueble">
+                      {{ o.nombre }}
+                    </option>
+                  </select>
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                 </div>
-              </div>
+              </div> -->
 
               <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-                  <table class="table">
-                    <caption>
-                      tabla
-                    </caption>
-                    <thead>
-                      <tr>
-                        <th scope="col" class="text-center">Editar</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">DPTO</th>
-                        <th scope="col">Estac.</th>
-                        <th scope="col">Dep.</th>
-                        <th scope="col">Closet</th>
-                        <th scope="col">A. Techada</th>
-                        <th scope="col">A. Libre</th>
-                        <th scope="col">A. Total</th>
-                        <th scope="col">Vista</th>
-                        <th scope="col">Dorm</th>
-                        <th scope="col">Precio</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                      <tr>
-                        <td class="text-center font-color-1">
-                          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                          <div class="dropdown-menu dropdown-menu-left">
-                            <button
-                              class="dropdown-item"
-                              type="button"
-                              [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"
-                            >
-                              <em class="far fa-edit"></em> Editar
-                            </button>
-                          </div>
-                        </td>
-                        <td>A</td>
-                        <td>908</td>
-                        <td>64.78</td>
-                        <td>234</td>
-                        <td>2</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>64.56</td>
-                        <td>Exterior</td>
-                        <td>3</td>
-                        <td>S/. 30,000</td>
-                      </tr>
-                    </tbody>
+                  <table
+                    mat-table
+                    class="tbinm"
+                    [dataSource]="inmuebleLista"
+                    style="width: 100%; margin-top: 20px"
+                  >
+                    <ng-container matColumnDef="editar">
+                      <th mat-header-cell *matHeaderCellDef>Editar</th>
+                      <td mat-cell *matCellDef="let elem">
+                        <a
+                          href="#"
+                          data-toggle="dropdown"
+                          style="margin-left: 20px; color: #ee6f2e"
+                        >
+                          <em class="fas fa-ellipsis-v"></em>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-left">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]"
+                          >
+                            <em class="far fa-edit"></em> Editar
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-eliminar-inmueble"
+                            (click)="setObjetoInmuebleDelete(elem.inmueble)"
+                          >
+                            <em class="far fa-trash-alt"></em> Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idTipoInmueble">
+                      <th mat-header-cell *matHeaderCellDef>Tipo</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.inmueble.tipoInmueble.nombre }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idTipoInmuebleCategoria">
+                      <th mat-header-cell *matHeaderCellDef>Categ.</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.inmueble.tipoInmuebleCategoria.nombre }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numero">
+                      <th mat-header-cell *matHeaderCellDef>Nro.</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.numero }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaTechada">
+                      <th mat-header-cell *matHeaderCellDef>A. Techada</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaTechada }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaLibre">
+                      <th mat-header-cell *matHeaderCellDef>A. Libre</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaLibre }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="areaTotal">
+                      <th mat-header-cell *matHeaderCellDef>A. Total</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.areaTotal }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idTipoVista">
+                      <th mat-header-cell *matHeaderCellDef>Vista</th>
+                      <td mat-cell *matCellDef="let elem">{{ elem.inmueble.tipoVista.nombre }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cantidadDormitorio">
+                      <th mat-header-cell *matHeaderCellDef>Dorm.</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.inmueble.cantidadDormitorio }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="precio">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
+                      <td
+                        mat-cell
+                        *matCellDef="let elem"
+                        style="text-align: end; color: var(--primary); font-weight: bold"
+                      >
+                        {{ elem.inmueble.precio | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
                   </table>
+                  <div
+                    *ngIf="inmuebleLista.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-sm-12 col-md-2 offset-md-10">
+              <div class="row mt-4">
+                <div class="col-12 pr-4" style="text-align: end">
                   <p class="titulo"><strong>Precio final</strong></p>
-                  <p>S/ 230,000</p>
+                  <p style="color: var(--primary); font-weight: bold">
+                    {{ sumaTotalInmuebles | formatSoles }}
+                  </p>
                 </div>
               </div>
             </div>
@@ -449,6 +500,7 @@
             <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="contact-tab">
               <br />
 
+<<<<<<< HEAD
                         <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
 
                             <br>
@@ -566,6 +618,8 @@
                                     <p>S/ 230,000</p>
                                 </div>
                             </div>
+=======
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
               <div class="row">
                 <div class="col-sm-12 col-md-12">
                   <div class="card">
@@ -579,6 +633,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
+<<<<<<< HEAD
                           <p>10%</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -681,6 +736,20 @@
 
                                 </div>
                             </div>
+=======
+                          <p>{{ financiamiento.porcCuotaInicial }} %</p>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                          <p class="label-dato">Cuota inicial</p>
+                          <p>{{ computedMontoInicial | formatSoles }}</p>
+                        </div>
+                        <div class="col-sm-12 col-md-4">
+                          <p class="label-dato">Financiamiento</p>
+                          <p>{{ financiamiento.montoFinanciado | formatSoles }}</p>
+                        </div>
+                      </div>
+
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                       <div class="row">
                         <div class="col-sm-12 col-md-12">
                           <p class="titulo"><strong>Tipo de crédito</strong></p>
@@ -692,6 +761,7 @@
                           <p class="label-dato">Tipo de crédito</p>
                           <p>Ahorro MMV</p>
                         </div>
+<<<<<<< HEAD
 
                         <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
 
@@ -831,6 +901,8 @@
                                 </div>
 
                             </div>
+=======
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Bono MMV</p>
                           <p>0</p>
@@ -877,8 +949,11 @@
                 </div>
               </div>
             </div>
+<<<<<<< HEAD
 
             <br>
+=======
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 
             <div
               class="tab-pane fade show active"
@@ -896,75 +971,238 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                  <datepicker-rounded [label]="'Fecha de separación'"></datepicker-rounded>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded [label]="'Fecha de minuta'"></datepicker-rounded>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
-                  <datepicker-rounded [label]="'Fecha de desembolso'"></datepicker-rounded>
-                </div>
-                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded [label]="'Fecha de EEP'"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFSeparacion
+                    [label]="'Fecha de separación'"
+                    (onDateChanged)="onFechaSeparacionChanged($event)"
+                  ></datepicker-rounded>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
+                    #dpFMinuta
+                    [label]="'Fecha de minuta'"
+                    (onDateChanged)="onFechaMinutaChanged($event)"
+                  ></datepicker-rounded>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
+                  <datepicker-rounded
+                    #dpFDesembolso
+                    [label]="'Fecha de desembolso'"
+                    (onDateChanged)="onFechaDesembolsoChanged($event)"
+                  ></datepicker-rounded>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
+                  <datepicker-rounded
+                    #dpFEEP
+                    [label]="'Fecha de EEP'"
+                    (onDateChanged)="onFechaEEPChanged($event)"
+                  ></datepicker-rounded>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
+                  <datepicker-rounded
+<<<<<<< HEAD
                     [value]="svFechaCaida"
                     [label]="'Fecha de salida'"
+=======
+                    #dpFCaida
+                    [label]="'Fecha de caída'"
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                     (onDateChanged)="onFechaCaidaChanged($event)"
                   ></datepicker-rounded>
                 </div>
               </div>
 
               <div class="row">
-                <div class="col-sm-12 col-md-12">
-                  <h5 style="color: black">Status</h5>
+                <div class="col-sm-8 col-md-8">
+                  <h5 style="color: var(--primary)">
+                    Status actual:
+                    {{ computedNombreStatusActual }}
+                  </h5>
+                </div>
+
+                <div class="col-sm-4 col-md-4" style="text-align: end">
+                  <button
+                    type="button"
+                    class="btn btn-optima"
+                    (click)="actualizarVenta()"
+                    style="text-decoration: none"
+                  >
+                    Guardar
+                  </button>
                 </div>
               </div>
 
               <div class="row">
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
-                    <label for="nombres">Status actual</label>
-                    <select class="form-control" id="exampleFormControlSelect1"></select>
+                    <label for="nombres">Cambiar estado</label>
+                    <select
+                      [(ngModel)]="idEstadoVentaSelect"
+                      class="form-control"
+                      id="iptTipoEstadoVenta"
+                    >
+                      <option *ngFor="let o of optionsTiposEstadoVenta" [ngValue]="o.idEstadoVenta">
+                        {{ o.nombre }}
+                      </option>
+                    </select>
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
-                    <label for="nombres">Tipo de pago</label>
-                    <input type="text" class="form-control" id="nombres" />
+                    <label for="nombres">Porcentaje</label><br />
+                    {{ porcentajePagado }}
                   </div>
                 </div>
                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
                   <ol class="stw">
+<<<<<<< HEAD
                     <li class="">
                       <div class="stw-label">Separación</div>
                     </li>
                     <li class="current">
+=======
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Inicio'
+                      }"
+                    >
+                      <div class="stw-label">Inicio</div>
+                    </li>
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Separacion'
+                      }"
+                    >
+                      <div class="stw-label">Separación</div>
+                    </li>
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Minuta'
+                      }"
+                    >
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                       <div class="stw-label">Minuta</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'Desembolso'
+                      }"
+                    >
                       <div class="stw-label">Desembolso</div>
                     </li>
-                    <li class="">
+                    <li
+                      [ngClass]="{
+                        current: timelimeActive === 'EEP'
+                      }"
+                    >
                       <div class="stw-label">EEPP</div>
                     </li>
                   </ol>
                 </div>
               </div>
-
+              <hr />
               <div class="row">
                 <div class="col-sm-12 col-md-5">
                   <h3>Pagos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
+<<<<<<< HEAD
                   <a href="/cliente-nuevo-editar/0"
                     ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
                   ></a>
+=======
+                  <a
+                    id="#btnAgregarPago"
+                    (click)="abrirModalAgregarPago()"
+                    data-toggle="modal"
+                    data-target="#modal-gestion-pago"
+                    ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
+                  ></a>
+                  <!-- <a href="/cliente-nuevo-editar/0"
+                    ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
+                  ></a> -->
                 </div>
               </div>
 
               <div class="row">
+                <div class="col-12">
+                  <table
+                    mat-table
+                    [dataSource]="pagos"
+                    class="tbproy"
+                    style="width: 100%; margin-top: 20px"
+                  >
+                    <ng-container matColumnDef="editar">
+                      <th mat-header-cell *matHeaderCellDef style="max-width: 150px">Editar</th>
+                      <td mat-cell *matCellDef="let element">
+                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                        <div class="dropdown-menu dropdown-menu-left">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-gestion-pago"
+                            (click)="setObjetoPagoEdit(element)"
+                          >
+                            <em class="far fa-edit"></em> Editar
+                          </button>
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            data-toggle="modal"
+                            data-target="#modal-eliminar-pago"
+                            (click)="setObjetoPagoDelete(element)"
+                          >
+                            <em class="far fa-trash-alt"></em> Eliminar
+                          </button>
+                        </div>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="numeroOperacion">
+                      <th mat-header-cell *matHeaderCellDef>Nº Recibo</th>
+                      <td mat-cell *matCellDef="let element">{{ element.numeroOperacion }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="fecha">
+                      <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                      <td mat-cell *matCellDef="let element">{{ element.fecha | formatDate }}</td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="monto">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Monto</th>
+                      <td mat-cell *matCellDef="let element" style="text-align: end">
+                        {{ element.monto | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="fieldsTblPagos"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: fieldsTblPagos"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
+                  </table>
+                  <div
+                    *ngIf="pagos.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
+
+                  <!-- <mat-paginator
+                    [length]="totalData"
+                    [pageIndex]="pageIndex"
+                    [pageSize]="pageSize"
+                    showFirstLastButtons
+                    class="ptproy"
+                  ></mat-paginator> -->
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
+                </div>
+              </div>
+
+              <div class="row">
+<<<<<<< HEAD
                 <table class="table">
                   <caption>
                     tabla
@@ -1046,12 +1284,16 @@
               </div>
 
               <div class="row">
+=======
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                 <div class="col-sm-12 col-md-12">
                   <div class="card">
                     <div class="card-body">
                       <div class="col-sm-12 col-md-2 offset-md-10">
                         <p><strong>Total</strong></p>
-                        <p class="label-dato"><strong>S/. 30,000.00</strong></p>
+                        <p class="label-dato">
+                          <strong>{{ sumaTotalPagos | formatSoles }}</strong>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1062,10 +1304,169 @@
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       <br />
     </div>
   </div>
+<<<<<<< HEAD
 >>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
+=======
+</div>
+
+<div id="modal-gestion-pago" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar pago</h5>
+        <button
+          id="btnPagoClose"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row">
+          <div class="col-12">
+            <div
+              class="alert alert-warning"
+              role="alert"
+              *ngIf="modalPagoWarnings.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoWarning of modalPagoWarnings">
+                <strong>Advertencia:</strong> {{ modalPagoWarning }}<br />
+              </div>
+            </div>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="modalPagoErrores.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoError of modalPagoErrores">
+                <strong>Error:</strong> {{ modalPagoError }}<br />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            Nro. Operación<br />
+            <input
+              maxlength="20"
+              [(ngModel)]="pagoModal.numeroOperacion"
+              matInput
+              style="border: 1px solid gray; width: 100%"
+              placeholder="Nro de recibo"
+            />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            Fecha<br />
+            <input type="date" [(ngModel)]="pagoModal.fecha" style="width: 100%" />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12">
+            Monto<br />
+            <input
+              [(ngModel)]="pagoModal.monto"
+              matInput
+              mask="separator.2"
+              thousandSeparator=","
+              style="border: 1px solid gray; width: 100%"
+              placeholder="Monto"
+              style="width: 100%"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="btnPagoGuardar()"
+          class="btn btn-optima"
+          style="text-decoration: none"
+        >
+          Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-pago" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el siguiente pago?</p>
+        <p>
+          Nro. Recibo: <b>{{ pagoToDelete.numeroOperacion }}</b
+          ><br />
+          Monto: <b>{{ pagoToDelete.monto }}</b
+          ><br />
+          Fecha: <b>{{ pagoToDelete.fecha | formatDate }}</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarPago"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-inmueble" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar inmueble</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el siguiente inmueble?</p>
+        <p>
+          Nro.: <strong>{{ inmuebleToDelete.numero }}</strong>
+        </p>
+        <p>
+          Precio: <strong>{{ inmuebleToDelete.precio | formatSoles }}</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarInmueble"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 </div>

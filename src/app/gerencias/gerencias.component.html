@@ -16,21 +16,20 @@
 
             <div class="row">
 
+                <div class="col-sm-12 col-md-3" *ngFor="let gerencia of gerenciasLista; let i = index">
 
-                <div class="col-sm-12 col-md-4">
                     <div class="card">
                         <div class="card-body">
-
                             <div class="row item-proyecto">
                                 <div class="col-sm-12 col-md-10">
-                                    <p><a data-toggle="collapse" href="#collapseExample1" aria-expanded="false"><strong>Nombre de Gerencia</strong></a></p>
+                                    <p><a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="false"><strong>{{gerencia.nombre}}</strong></a></p>
                                 </div>
                                 <div class="col-sm-12 col-md-2">
                                     <div class="btn-float-right">
                                         <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                         <div class="dropdown-menu dropdown-menu-left">
-                                            <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                            <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            <button class="dropdown-item" type="button" [routerLink]="['/gerencia-nuevo-editar', gerencia.idGerencia]"><em class="far fa-edit"></em> Editar</button>
+                                            <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-gerencia" (click)='obtenerGerenciaSeleccionado(gerencia)'><em class="far fa-trash-alt"></em> Eliminar</button>
                                         </div>
                                     </div>
                                   </div>
@@ -38,131 +37,78 @@
                         </div>
                     </div>
 
-                    <div class="collapse" id="collapseExample1">
+                    <div class="collapse" id="collapseExample{{i}}">
                         <div class="card">
                             <div class="card-body">
-
                                 <div class="row item-proyecto">
                                     <div class="col-sm-12 col-md-3">
-                                        <div class="logo-user">SR</div>
+                                        <div class="logo-user">{{ gerencia.iniciales }}</div>
                                     </div>
                                     <div class="col-sm-12 col-md-9">
                                         <p><strong>Gerente</strong></p>
-                                        <p>Samantha Rodriguez López</p>
+                                        <p>{{gerencia.colaborador.nombres}} {{gerencia.colaborador.apellidos}}</p>
                                         <p><strong>Fecha de inicio</strong></p>
-                                        <p>12/12/20</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto</p>
-                                    <p><a href="#collapseExample4"><strong>Proyecto 12</strong></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto</p>
-                                    <p><a href="#collapseExample4"><strong>Proyecto 13</strong></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-
-                <div class="col-sm-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p><a data-toggle="collapse" href="#collapseExample1" aria-expanded="false"><strong>Nombre de Gerencia</strong></a></p>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="btn-float-right">
-                                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                        <div class="dropdown-menu dropdown-menu-left">
-                                            <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                            <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                        </div>
+                                        <p>{{gerencia.fechaIngreso}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="collapse" id="collapseExample1">
-                        <div class="card">
+                        <div class="card" *ngFor="let itemProyecto of proyectosPorGerencia[gerencia.idGerencia]">
                             <div class="card-body">
-
                                 <div class="row item-proyecto">
-                                    <div class="col-sm-12 col-md-3">
-                                        <div class="logo-user">SR</div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-9">
-                                        <p><strong>Gerente</strong></p>
-                                        <p>Samantha Rodriguez López</p>
-                                        <p><strong>Fecha de inicio</strong></p>
-                                        <p>12/12/20</p>
+                                    <div class="col-sm-12 col-md-12">
+                                        <p><a [routerLink]="['/jefatura', itemProyecto.idProyecto, gerencia.idGerencia]">{{ itemProyecto.nombre }}</a></p>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto</p>
-                                    <p><a href="#collapseExample4"><strong>Proyecto 12</strong></a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-body">
-
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto</p>
-                                    <p><a href="#collapseExample4"><strong>Proyecto 13</strong></a></p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
+<<<<<<< HEAD
 
 
 
 
+=======
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 
             </div>
 
             <br>
 
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <paginator [paginador]="paginador" [base]="base"></paginator>
+                </div>
+            </div>
+
         </div>
     </div>
 
 </div>
+<<<<<<< HEAD
+=======
+
+<div id="modal-eliminar-gerencia" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar gerencia</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el registro?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima" (click)='eliminar(gerenciaSeleccionado)'>Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>
+>>>>>>> 194e5e7b139518794d7cd72457455628332389e2

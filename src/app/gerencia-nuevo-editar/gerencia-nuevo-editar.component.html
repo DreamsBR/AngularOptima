@@ -1,252 +1,373 @@
-<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+        <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
 
-    <app-sidebar></app-sidebar>
-    <div id="page-content-wrapper">
-        <div class="container-fluid div-ventas">
+            <app-sidebar></app-sidebar>
+            <div id="page-content-wrapper">
+                <div class="container-fluid div-ventas">
 
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nueva / Editar gerencia</h3>
-                </div>
-                <div class="col-sm-12 col-md-7 text-right">
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Nombre de gerencia</label>
-                        <input type="text" class="form-control" id="nombres">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                            <h3>Nueva / Editar gerencia</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-7 text-right">
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Buscar gerente de ventas</label>
-                        <input type="text" class="form-control" id="nombres">
+
+                <form>
+
+                  <div class="row">
+
+                    <div class="col-sm-12 col-md-3">
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                            <a class="nav-link active" id="v-pills-gerencia-tab" data-toggle="pill" href="#v-pills-gerencia" role="tab" aria-controls="v-pills-gerencia" aria-selected="true"><span class="nav-number">1</span> Gerencia</a>
+                            <span class="separator"></span>
+                            <a class="nav-link" id="v-pills-periodos-tab" data-toggle="pill" href="#v-pills-periodos" role="tab" aria-controls="v-pills-periodos" aria-selected="false"><span class="nav-number">2</span> Periodos</a>
+                            <span class="separator"></span>
+                            <a class="nav-link" id="v-pills-proyectos-tab" data-toggle="pill" href="#v-pills-proyectos" role="tab" aria-controls="v-pills-proyectos" aria-selected="false"><span class="nav-number">3</span> Proyectos</a>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group">
-                        <label for="nombres">Fecha de inicio cargo</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group">
-                        <label for="nombres">Fecha de termino cargo</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-            </div>
+                    <div class="col-sm-12 col-md-9">
+                        <div class="tab-content" id="v-pills-tabContent">
 
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Buscar periodo</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="apellidos">Ingresar metas</label>
-                        <input type="text" class="form-control" id="apellidos">
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                    <div class="form-group">
-                        <label class="label-hidden">&nbsp;</label>
-                        <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
 
-                    <table class="table">
-                        <caption>Lista de periodos</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Periodo</th>
-                                <th scope="col">Meta</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Enero 2020</td>
-                                <td>S/. 250,345.00</td>
-                            </tr>
-                        </tbody>
-                    </table>
 
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="form-group">
-                        <label for="nombres">Asignar proyecto</label>
-                        <input type="text" class="form-control" id="nombres">
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
 
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto 1</p>
-                                    <p><strong>Fecha de asignación 09/12/20</strong></p>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="btn-float-right">
-                                        <i class="fas fa-times-circle"></i>
+
+                        <div class="tab-pane fade show active" id="v-pills-gerencia" role="tabpanel" aria-labelledby="v-pills-gerencia-tab">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Nombre de Gerencia</label>
+                                        <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="nombreGerencia">
                                     </div>
                                 </div>
+
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="nombres">Buscar gerente</label>
+                                        <div class="clsiptr-input">
+                                            <ng-autocomplete
+                                                #gerenteAutocomplete
+                                                [data]="dataBuscarGerente"
+                                                [searchKeyword]="kwBuscar"
+                                                (selected)="seleccionarItemBusqueda($event)"
+                                                [itemTemplate]="itemTemplate"
+                                                [notFoundTemplate]="noFound"
+                                            >
+                                            </ng-autocomplete>
+                                            <ng-template #itemTemplate let-item>
+                                                <a [innerHTML]="item.nombre"></a>
+                                            </ng-template>
+                                            <ng-template #noFound let-notFound>
+                                                <div style="color: #c1c1c1">-- no encontrado --</div>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="fechaIngreso">Fecha Inicio Cargo</label>
+                                        <datepicker-rounded
+                                        name="fechaIngreso"
+                                        #dpFechaInicio
+                                        (onDateChanged)="onFechaIngresoCargo($event)"
+                                        [label]="'Fecha'"
+                                        ></datepicker-rounded>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-4">
+                                    <div class="form-group">
+                                        <label for="fechanacimiento">Fecha de Termino Cargo</label>
+                                        <datepicker-rounded
+                                        #dpFechaFin
+                                        (onDateChanged)="onFechaFinCargo($event)"
+                                        [label]="'Fecha'"
+                                        ></datepicker-rounded>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <button type="submit" (click) = "siguientePagina('v-pills-periodos-tab')"  class="btn btn-optima btn-float-right">Siguiente</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        <div class="tab-pane fade" id="v-pills-periodos" role="tabpanel" aria-labelledby="v-pills-periodos-tab">
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label>Buscar periodo</label>
+                                    <div class="clsiptr-input">
+                                        <ng-autocomplete
+                                            [data]="dataBuscarPeriodo"
+                                            [searchKeyword]="kwBuscar"
+                                            (selected)="seleccionarItemBusquedaPeriodo($event)"
+                                            [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="noFound"
+                                        >
+                                        </ng-autocomplete>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.nombre"></a>
+                                        </ng-template>
+                                        <ng-template #noFound let-notFound>
+                                            <div style="color: #c1c1c1">-- no encontrado --</div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-4">
+                                <div class="form-group">
+                                    <label for="meta">Ingresar metas</label>
+                                    <input type="number" class="form-control" name="meta" [(ngModel)]="metaSeleccionada">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-2">
+                                <div class="form-group">
+                                    <label class="label-hidden">&nbsp;</label>
+                                    <button type="submit" (click) = "agregarPeriodoGerencia()"  class="btn btn-optima btn-float-right">Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10">
+
+                                <table class="table">
+                                    <caption>Lista de periodos</caption>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="text-center">Editar</th>
+                                            <th scope="col">Periodo</th>
+                                            <th scope="col">Meta</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="tr_periodos" *ngFor="let itemPeriodo of aryPeriodos; index as i">
+                                            <td class="text-center font-color-1">
+                                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                                <div class="dropdown-menu dropdown-menu-left">
+                                                    <button class="dropdown-item" type="button" (click)="eliminarMeta(i)"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                                </div>
+                                            </td>
+                                            <td>{{itemPeriodo.nombre}}</td>
+                                            <td><input type="number" class="form-control" name="metamonto{{i}}" [(ngModel)]="itemPeriodo.monto" value="{{itemPeriodo.monto}}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12">
+                                <button type="submit" (click) = "siguientePagina('v-pills-proyectos-tab')"  class="btn btn-optima btn-float-right">Siguiente</button>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
 
-                <div class="col-sm-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body">
 
-                            <div class="row item-proyecto">
-                                <div class="col-sm-12 col-md-10">
-                                    <p>Proyecto 2</p>
-                                    <p><strong>Fecha de asignación 09/12/20</strong></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                  <div class="tab-pane fade" id="v-pills-proyectos" role="tabpanel" aria-labelledby="v-pills-proyectos-tab">
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label for="nombres">Buscar proyecto</label>
+                                <div class="clsiptr-input">
+                                    <ng-autocomplete
+                                        [data]="dataBuscarProyecto"
+                                        [searchKeyword]="kwBuscar"
+                                        (selected)="seleccionarItemBusquedaProyecto($event)"
+                                        [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="noFound"
+                                    >
+                                    </ng-autocomplete>
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.nombre"></a>
+                                    </ng-template>
+                                    <ng-template #noFound let-notFound>
+                                        <div style="color: #c1c1c1">-- no encontrado --</div>
+                                    </ng-template>
                                 </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="btn-float-right">
-                                        <i class="fas fa-times-circle"></i>
-                                    </div>
-                                </div>
-
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label for="FechaAsignacionProyecto">Fecha de asignacion</label>
+                                <datepicker-rounded
+                                name="FechaAsignacion"
+                                #dpFechaAsignacionProyecto
+                                (onDateChanged)="onFechaAsignacionProyecto($event)"
+                                [label]="'Fecha'"
+                                ></datepicker-rounded>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label for="FechaTerminoProyecto">Fecha de Termino</label>
+                                <datepicker-rounded
+                                #dpFechaTerminoProyecto
+                                (onDateChanged)="onFechaTerminoProyecto($event)"
+                                [label]="'Fecha'"
+                                ></datepicker-rounded>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="form-group">
+                                <label class="label-hidden">&nbsp;</label>
+                                <button type="submit" (click) = "agregarProyectoGerencia()"  class="btn btn-optima btn-float-right">Agregar</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
+                    <div class="row">
+                        <div class="col-sm-12 col-md-4" *ngFor="let itemProyecto of aryProyectos; index as i">
+                            <div class="card">
+                                <div class="card-body">
 
-
-            <div class="row">
-                <div class="col-sm-12 col-md-8">
-                    <h3>Jefatura</h3>
-                </div>
-                <div class="col-sm-12 col-md-2 text-right">
-                    <a href="/jefatura-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
-                    <table class="table">
-                        <caption>tabla de jefaturas</caption>
-                        <thead>
-                            <tr>
-                                <th scope="col" class="text-center">Editar</th>
-                                <th scope="col">Jefe de jefatura</th>
-                                <th scope="col">Fecha de inicio cargo</th>
-                                <th scope="col">Fecha de termino</th>
-                                <th scope="col">Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                    <div class="row item-proyecto">
+                                        <div class="col-sm-12 col-md-10">
+                                            <p>{{itemProyecto.nombre}}</p>
+                                            <p><strong>Fecha de asignación {{itemProyecto.fechaAsignacionProyecto}}</strong></p>
+                                        </div>
+                                        <div class="col-sm-12 col-md-2">
+                                            <div class="btn-float-right">
+                                                <a (click) = "eliminarProyectoGerencia(i)"><i class="fas fa-times-circle"></i></a>
+                                            </div>
+                                        </div>
                                     </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center font-color-1">
-                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-left">
-                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                        <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                    </div>
-                                </td>
-                                <td>Valeria Sarmiento Sanchez</td>
-                                <td>02/06/20</td>
-                                <td>02/06/20</td>
-                                <td>Descripción</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- <div class="row">
+                        <div class="col-sm-12 col-md-8">
+                            <h3>Jefatura</h3>
+                        </div>
+                        <div class="col-sm-12 col-md-2 text-right">
+                            <a href="/jefatura-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-10">
+                            <table class="table">
+                                <caption>tabla de jefaturas</caption>
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center">Editar</th>
+                                        <th scope="col">Jefe de jefatura</th>
+                                        <th scope="col">Fecha de inicio cargo</th>
+                                        <th scope="col">Fecha de termino</th>
+                                        <th scope="col">Descripción</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                            </div>
+                                        </td>
+                                        <td>Valeria Sarmiento Sanchez</td>
+                                        <td>02/06/20</td>
+                                        <td>02/06/20</td>
+                                        <td>Descripción</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> -->
+
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <button type="button" (click)="agregarGerencia()" class="btn btn-optima btn-float-right">Guardar</button>
+                        </div>
+                    </div>
+
+                  </div>
+
+
+
+
+
+
+
+                    <br>
+                  </div>
+                  </div>
                 </div>
-            </div>            
-
-
-
-            <div class="row">
-                <div class="col-sm-12 col-md-10">
-                    <button type="submit" class="btn btn-optima btn-float-right">Guardar</button>
+                  </form>
                 </div>
+
             </div>
-            
-            <br>
-
         </div>
-    </div>
-
-</div>

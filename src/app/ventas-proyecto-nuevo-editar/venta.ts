@@ -14,6 +14,7 @@ export class Venta {
     idEstadoVenta: number
     idFinanciamiento: number
     idMotivo: number
+    idProyecto: number
     idVendedor: number
     idVenta: number
     importe: number

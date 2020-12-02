@@ -24,11 +24,13 @@ import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { ProyectoVentaService } from './consulta-ventas-detalle/ProyectoVentas.service'
 import { ColaboradorService } from './colaboradores/colaborador.service'
 import { ClienteService } from './clientes/clientes.service'
 import { ProyectoService } from './proyectos/proyectos.service'
 import { VentasproyectoService } from './ventas-proyecto/ventasproyecto.service'
 import { PeriodoService } from './periodos/periodo.service'
+import { PeriodoGerenciaService } from './periodo-gerencia/periodo-gerencia.service'
 import { InmuebleService } from './inmuebles/inmueble.service'
 import { VentaService } from './ventas/ventas.service'
 import { VentaConsultaClienteDetalleService } from './ventas-consulta-cliente-detalle/ventas-consulta-cliente-detalle.service'
@@ -37,6 +39,7 @@ import { TipocreditoService } from './ventas-proyecto-nuevo-editar/tipocredito.s
 import { BancosService } from './ventas-proyecto-nuevo-editar/bancos.service'
 import { FinanciamientoService } from './ventas-proyecto-nuevo-editar/financiamiento.service'
 import { PagosService } from './pagos/pagos.service'
+import { ReportesService } from './reportes/reportes.service'
 
 import { MotivoService } from './ventas-proyecto-nuevo-editar/motivo.service'
 import { CanalService } from './ventas-proyecto-nuevo-editar/canal.service'
@@ -44,6 +47,14 @@ import { CategoriaService } from './ventas-proyecto-nuevo-editar/categoria.servi
 import { VentainmuebleService } from './ventas-proyecto-nuevo-editar/ventasinmueble.service'
 import { EstadocivilService } from './clientes/estadocivil.service'
 import { TipodocumentoService } from './clientes-nuevo-editar/tipodocumento.service'
+import { statusVentaservice } from './consulta-ventas/statusventa.service'
+import { GerenciaService } from './gerencias/gerencia.service'
+import { TipoInmuebleService } from './tipoinmueble/tipoInmueble.service'
+import { TipoVistaService } from './tipovista/tipoVista.service'
+import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
+import { GerenciaproyectoService } from './gerencia-nuevo-editar/gerenciaproyecto.service'
+import { ExporterService } from './helpers/exporter.service'
+
 
 import { LoginComponent } from './usuarios/login.component'
 import { RecordarContraseniaComponent } from './recordar-contrasenia/recordar-contrasenia.component'
@@ -69,6 +80,8 @@ import { InmueblesComponent } from './inmuebles/inmuebles.component'
 import { InmuebleNuevoEditarComponent } from './inmueble-nuevo-editar/inmueble-nuevo-editar.component'
 import { GerenciasComponent } from './gerencias/gerencias.component'
 import { GerenciaNuevoEditarComponent } from './gerencia-nuevo-editar/gerencia-nuevo-editar.component'
+
+
 import { JefaturaNuevoEditarComponent } from './jefatura-nuevo-editar/jefatura-nuevo-editar.component'
 import { VendedorMetaNuevoEditarComponent } from './vendedor-meta-nuevo-editar/vendedor-meta-nuevo-editar.component'
 import { PeriodosComponent } from './periodos/periodos.component'
@@ -79,11 +92,54 @@ import { DatepickerRoundedComponent } from './datepicker-rounded/datepicker-roun
 import { SelectDropdownComponent } from './select-dropdown/select-dropdown.component';
 import { FinanciamientosComponent } from './financiamientos/financiamientos.component';
 import { PagosComponent } from './pagos/pagos.component'
+import { PeridoProyectoService } from './proyecto-nuevo-editar/periodoProyecto.service'
+
+
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 import { ReverseStr } from '../pipes/reverse-str.pipe';
 import { FormatDate } from '../pipes/format-date.pipe';
 import { FormatSoles } from '../pipes/format-soles.pipe';
+import { FormatUppercase } from '../pipes/format-uppercase.pipe';
 import { Paginator2Component } from './paginator2/paginator2.component';
+import { EstadosVentasComponent } from './estados-ventas/estados-ventas.component';
+import { ReportesComponent } from './reportes/reportes.component';
+import { VentasProyectoEditarComponent } from './ventas-proyecto-editar/ventas-proyecto-editar.component';
+
+import { NgApexchartsModule } from "ng-apexcharts";
+
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { PeriodoGerenciaComponent } from './periodo-gerencia/periodo-gerencia.component';
+import { MantenimientosComponent } from './mantenimientos/mantenimientos.component';
+
+// import { CanalesComponent } from './mantenimientoMaestros/canales/canales.component';
+// import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+// import { EstadoFinancieroComponent } from './mantenimientoMaestros/estado-financiero/estado-financiero.component';
+// import { EstadoVentaComponent } from './mantenimientoMaestros/estado-venta/estado-venta.component';
+import { ReportesProyectosComponent } from './reportes-proyectos/reportes-proyectos.component'
+import { JefaturaComponent } from './jefatura/jefatura.component';
+import { JefaturaService } from './jefatura/jefatura.service';
+import { VendedorService } from './jefatura-nuevo-editar/vendedor.service';
+import { ColaboradorMetasComponent } from './colaborador-metas/colaborador-metas.component'
+import { ReportesVendedorComponent } from './reportes-vendedor/reportes-vendedor.component';
+import { AutocompletarComponent } from './autocompletar/autocompletar.component';
+import { PruebaComponent } from './prueba/prueba.component'
+import { PeriodocolaboradorService } from './colaborador-metas/periodocolaborador.service'
+import { JefaturaproyectoService } from './jefatura/jefaturaproyecto.service';
+import { BancosComponent } from './bancos/bancos.component';
+import { BancoNuevoEditarComponent } from './banco-nuevo-editar/banco-nuevo-editar.component'
+import { BancoService } from './bancos/banco.service';
+import { CanalesNuevoEditarComponent } from './canales-nuevo-editar/canales-nuevo-editar.component'
+import { CanalesService } from './canales/canales.service'
+import { CanalesComponent } from './canales/canales.component';
+import { CategoriaNuevoEditarComponent } from './categoria-nuevo-editar/categoria-nuevo-editar.component';
+import { CategoriaComponent } from './categoria/categoria.component'
+import { Categoria2Service } from './categoria/categoria.service'
+// import { CategoriasComponent } from './mantenimientoMaestros/categorias/categorias.component';
+import { EstadofinanciamientoComponent } from './estadofinanciamiento/estadofinanciamiento.component';
+import { EstadofinanciamientoNuevoEditarComponent } from './estadofinanciamiento-nuevo-editar/estadofinanciamiento-nuevo-editar.component';
+import { EstadoventaComponent } from './estadoventa/estadoventa.component';
+import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/estadoventa-nuevo-editar.component'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -99,29 +155,63 @@ const ROUTES: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'cliente/page/:page', component: ClientesComponent },
   { path: 'cliente-nuevo-editar/:id', component: ClientesNuevoEditarComponent },
+  { path: 'cliente-nuevo-editar/:id/:nrodoc/:idproyecto', component: ClientesNuevoEditarComponent },
 
   { path: 'ventas', component: VentasComponent },
   { path: 'ventas-proyecto/:id', component: VentasProyectoComponent },
   { path: 'ventas-proyecto/page/:page/:id', component: VentasProyectoComponent },
 
   { path: 'ventas-proyecto-nuevo-editar/:id', component: VentasProyectoNuevoEditarComponent },
+  { path: 'ventas-proyecto-nuevo-editar/:id/:dni', component: VentasProyectoNuevoEditarComponent },
+
+  { path: 'ventas-proyecto-editar/:id/:idventa', component: VentasProyectoEditarComponent },
+  { path: 'ventas-proyecto-editar/:id/:idventa/:dni', component: VentasProyectoEditarComponent },
+
   { path: 'ventas-consulta-cliente-detalle/:id', component: VentasConsultaClienteDetalleComponent },
 
   { path: 'consulta-ventas/page/:page', component: ConsultaVentasComponent },
   { path: 'consulta-ventas', component: ConsultaVentasComponent },
   { path: 'consulta-ventas-detalle/:id', component: ConsultaVentasDetalleComponent },
+  { path: 'consulta-ventas-detalle/page/:page/:id', component: ConsultaVentasDetalleComponent },
+  { path: 'consulta-ventas-detalle/:idproyecto/:idestadoventa/:fechaini/:fechafin', component: ConsultaVentasDetalleComponent },
 
   { path: 'proyectos', component: ProyectosComponent },
   { path: 'proyecto-nuevo-editar/:id', component: ProyectoNuevoEditarComponent },
   { path: 'inmuebles/:idProyecto', component: InmueblesComponent },
   { path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent },
+
   { path: 'gerencias', component: GerenciasComponent },
+  { path: 'gerencias/page/:page', component: GerenciasComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
-  { path: 'jefatura-nuevo-editar/:id', component: JefaturaNuevoEditarComponent },
+
+  { path: 'jefatura/:idProyecto/:idGerencia', component: JefaturaComponent },
+  { path: 'jefatura/page/:page/:idProyecto/:idGerencia', component: JefaturaComponent },
+  { path: 'jefatura-nuevo-editar/:id/:idProyecto/:idGerencia', component: JefaturaNuevoEditarComponent },
+  { path: 'colaborador-metas/:id/:idJefatura/:idProyecto/:idGerencia', component: ColaboradorMetasComponent },
+
   { path: 'vendedor-meta-nuevo-editar/:id', component: VendedorMetaNuevoEditarComponent },
 
   { path: 'periodos', component: PeriodosComponent },
-  { path: 'periodo/page/:page', component: PeriodosComponent }
+  { path: 'periodo/page/:page', component: PeriodosComponent },
+
+  { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
+  { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
+
+  // { path: 'categorias', component:CategoriasComponent},
+
+  { path: 'bancos', component: BancosComponent },
+  { path: 'banco-nuevo-editar/:id', component: BancoNuevoEditarComponent },
+
+  { path: 'canales', component: CanalesComponent },
+  { path: 'canales-nuevo-editar/:id', component: CanalesNuevoEditarComponent },
+
+  { path: 'categoria', component: CategoriaComponent },
+  { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent },
+
+  { path: 'categorias', component: CategoriaComponent},
+
+  { path: 'prueba', component:PruebaComponent}
 ]
 
 @NgModule({
@@ -150,15 +240,13 @@ const ROUTES: Routes = [
     InmuebleNuevoEditarComponent,
     GerenciasComponent,
     GerenciaNuevoEditarComponent,
+    JefaturaComponent,
     JefaturaNuevoEditarComponent,
     VendedorMetaNuevoEditarComponent,
     PeriodosComponent,
     PeriodoNuevoEditarComponent,
     PeriodosProyectosComponent,
     AppLoadingComponent,
-
-
-
     DatepickerRoundedComponent,
     SelectDropdownComponent,
     FinanciamientosComponent,
@@ -166,7 +254,31 @@ const ROUTES: Routes = [
     ReverseStr,
     FormatDate,
     FormatSoles,
-    Paginator2Component
+    FormatUppercase,
+    Paginator2Component,
+    EstadosVentasComponent,
+    ReportesComponent,
+    VentasProyectoEditarComponent,
+    PeriodoGerenciaComponent,
+    MantenimientosComponent,
+    CanalesComponent,
+    // CategoriasComponent,
+    // EstadoFinancieroComponent,
+    // EstadoVentaComponent,
+    ReportesProyectosComponent,
+    ColaboradorMetasComponent,
+    BancosComponent,
+    BancoNuevoEditarComponent,
+    CanalesNuevoEditarComponent,
+    CategoriaNuevoEditarComponent,
+    CategoriaComponent,
+    EstadofinanciamientoComponent,
+    EstadofinanciamientoNuevoEditarComponent,
+    EstadoventaComponent,
+    EstadoventaNuevoEditarComponent,
+    ReportesVendedorComponent,
+    AutocompletarComponent,
+    PruebaComponent
   ],
   imports: [
     BrowserModule,
@@ -183,7 +295,9 @@ const ROUTES: Routes = [
     MatSelectModule,
     MatSnackBarModule,
     NgbModule,
-    //NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgApexchartsModule,
+    AutocompleteLibModule
   ],
   providers: [
     ClienteService,
@@ -191,6 +305,7 @@ const ROUTES: Routes = [
     ProyectoService,
     VentasproyectoService,
     PeriodoService,
+    PeriodoGerenciaService,
     InmuebleService,
     VentaService,
     VentaConsultaClienteDetalleService,
@@ -204,9 +319,24 @@ const ROUTES: Routes = [
     VentainmuebleService,
     PagosService,
     EstadocivilService,
+    statusVentaservice,
     TipodocumentoService,
+    GerenciaService,
+    ReportesService,
+    TipoVistaService,
+    TipoInmuebleCategoriaService,
+    TipoInmuebleService,
+    GerenciaproyectoService,
+    PeridoProyectoService,
+    JefaturaService,
+    VendedorService,
+    PeriodocolaboradorService,
+    ExporterService,
+    JefaturaproyectoService,
+    BancoService,
+    CanalesService,
+    Categoria2Service,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
   styleUrls: ['./datepicker-rounded.component.css']
 })
 export class DatepickerRoundedComponent implements OnInit {
-  @Input() value: NgbDateStruct // = this.calendar.getToday()
+  value: NgbDateStruct // = this.calendar.getToday()
   @Input() label: string
 
   @Output() onDateChanged = new EventEmitter<string>()
@@ -18,18 +18,39 @@ export class DatepickerRoundedComponent implements OnInit {
     //console.log(this.value)
   }
 
-  onDateSelection(ngbdate) {
+  setValue(datestring: string) {
+    if (datestring === '' || datestring === null) {
+      this.value = undefined
+      this.emitEventChange('')
+    } else {
+      const year = parseInt(datestring.substring(0, 10).split('-')[0])
+      const month = parseInt(datestring.substring(0, 10).split('-')[1])
+      const day = parseInt(datestring.substring(0, 10).split('-')[2])
+      this.value = {
+        year: year,
+        month: month,
+        day: day
+      }
+      this.onDateSelection(this.value)
+    }
+  }
+
+  onDateSelection(ngbdate: any) {
     if (typeof ngbdate !== 'undefined') {
       const day = ngbdate.day < 10 ? '0' + ngbdate.day : ngbdate.day
       const month = ngbdate.month < 10 ? '0' + ngbdate.month : ngbdate.month
       const year = ngbdate.year
-      const sendDateValue = `${day}-${month}-${year}`
+      const sendDateValue = `${year}-${month}-${day}`
       this.emitEventChange(sendDateValue)
     }
   }
 
   emitEventChange(date: string) {
     this.onDateChanged.emit(date)
+  }
+
+  printValue() {
+    console.log(this.value)
   }
 
   get getLabelString(): string {

@@ -27,8 +27,22 @@ export class ColaboradorService {
                 return jsonColaboradorResponse;
             })
         );
-
     }
+
+    getTodosColaboradores(): Observable<any> {
+        return this.http.get(this.urlEndPoint + '/').pipe(
+            map((jsonColaboradorResponse: any) => {
+                (jsonColaboradorResponse as Colaborador[]).map(
+                  colaborador => {
+                    colaborador.nombres = colaborador.nombres.toUpperCase();
+                    colaborador.apellidos = colaborador.apellidos.toUpperCase();
+                    return colaborador;
+                });
+                return jsonColaboradorResponse;
+            })
+        );
+    }
+
     agregarColaborador(colaborador: Colaborador): Observable<any> {
 
         return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
@@ -39,7 +53,38 @@ export class ColaboradorService {
             }
             })
         );
-        }
+    }
 
+
+
+
+
+    obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
+      return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
+    }
+
+
+    obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
+        return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)
+    }
+
+
+    actualizarColaborador(colaborador: Colaborador, idColaborador: number): Observable<any> {
+        return this.http.put<any>(this.urlEndPoint + '/' + idColaborador, colaborador).pipe(
+            catchError((e) => {
+            if (e.status === 400) {
+                return throwError(e)
+            }
+            })
+        )
+    }
+
+    eliminarColaborador(id: number): Observable<Colaborador> {
+        return this.http.delete<Colaborador>(`${this.urlEndPoint}/${id}`).pipe(
+            catchError((e) => {
+            return throwError(e)
+            })
+        )
+    }
 
 }
