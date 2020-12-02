@@ -44,7 +44,6 @@ import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rou
   templateUrl: './ventas-proyecto-editar.component.html'
 })
 export class VentasProyectoEditarComponent implements OnInit {
-
   public errores: string[]
 
   public idVenta: number
@@ -93,7 +92,8 @@ export class VentasProyectoEditarComponent implements OnInit {
   ventainmueble: Ventainmueble = new Ventainmueble()
   ventainmueblenodos: Ventainmueblenodos = new Ventainmueblenodos()
 
-  @ViewChild('dpfechaInicioAhorro', { static: true }) dpfechaInicioAhorro: DatepickerRoundedComponent
+  @ViewChild('dpfechaInicioAhorro', { static: true })
+  dpfechaInicioAhorro: DatepickerRoundedComponent
   @ViewChild('dpfechaFinAhorro', { static: true }) dpfechaFinAhorro: DatepickerRoundedComponent
 
   constructor(
@@ -115,7 +115,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
-      if(!isNull(params.get('dni'))){
+      if (!isNull(params.get('dni'))) {
         this.nrodoc = params.get('dni')
         this.idVenta = parseInt(params.get('idventa'))
         this.obtenerClienteSeleccionado(params.get('dni'))
@@ -134,7 +134,7 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.agregarDepartamentoExistente()
     this.agregarEstacionamientoExistente()
   }
-  
+
   onFechaInicioAhorro(newdate: string) {
     this.fechaInicioAhorro = newdate
   }
@@ -143,8 +143,8 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.fechaFinAhorro = newdate
   }
 
-  agregarCliente(nrodoc: string){
-    if(nrodoc == '' || nrodoc == undefined){
+  agregarCliente(nrodoc: string) {
+    if (nrodoc == '' || nrodoc == undefined) {
       swal('No hizo una busqueda de cliente', '', 'warning')
       return
     }
@@ -172,7 +172,7 @@ export class VentasProyectoEditarComponent implements OnInit {
 
       this.porcentaje_cuota_inicial = parseInt(this.ventanodos.financiamiento.porcCuotaInicial)
       this.cuota_inicial = this.ventanodos.financiamiento.nomtoCuotaInicial
-      this.total_financiamiento = this.ventanodos.financiamiento.financiamiento
+      this.total_financiamiento = this.ventanodos.financiamiento.montoFinanciado
 
       this.motivoSeleccionado = this.ventanodos.motivo.idMotivo
       this.canalSeleccionado = this.ventanodos.canal.idCanal
@@ -188,8 +188,8 @@ export class VentasProyectoEditarComponent implements OnInit {
       this.fechaInicioAhorro = this.ventanodos.financiamiento.fechaInicioAhorro
       this.fechaFinAhorro = this.ventanodos.financiamiento.fechaFinAhorro
 
-      this.dpfechaInicioAhorro.setValue( this.ventanodos.financiamiento.fechaInicioAhorro )
-      this.dpfechaFinAhorro.setValue( this.ventanodos.financiamiento.fechaFinAhorro )
+      this.dpfechaInicioAhorro.setValue(this.ventanodos.financiamiento.fechaInicioAhorro)
+      this.dpfechaFinAhorro.setValue(this.ventanodos.financiamiento.fechaFinAhorro)
 
       this.totalInmuebles
     })
@@ -262,53 +262,49 @@ export class VentasProyectoEditarComponent implements OnInit {
   }
 
   public agregarDepartamentoExistente() {
-    this.ventainmuebleService
-      .getInmueblesPorVenta(this.idVenta)
-      .subscribe((response) => {
-        for(let x = 0 ; x < response.length ; x++ ){
-          if(response[x].inmueble.tipoInmueble.idTipoInmueble == 1){
-            let tInmueble = new Inmueble()
-            tInmueble.numero = response[x].inmueble.numero
-            tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
-            tInmueble.idInmueble = response[x].inmueble.idInmueble
-            tInmueble.idProyecto = response[x].inmueble.idProyecto
-            tInmueble.idVentaInmueble = response[x].idVentaInmueble
-            tInmueble.precio = response[x].precio
-            tInmueble.descuento = response[x].descuento
-            tInmueble.ayudainicial = response[x].ayudainicial
-            tInmueble.areaLibre = response[x].areaLibre
-            tInmueble.areaTechada = response[x].areaTechada
-            tInmueble.areaTotal = response[x].areaTotal
-            tInmueble.total = response[x].precio
-            this.departamentosAgregados.push(tInmueble)
-          }
+    this.ventainmuebleService.getInmueblesPorVenta(this.idVenta).subscribe((response) => {
+      for (let x = 0; x < response.length; x++) {
+        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1) {
+          let tInmueble = new Inmueble()
+          tInmueble.numero = response[x].inmueble.numero
+          tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
+          tInmueble.idInmueble = response[x].inmueble.idInmueble
+          tInmueble.idProyecto = response[x].inmueble.idProyecto
+          tInmueble.idVentaInmueble = response[x].idVentaInmueble
+          tInmueble.precio = response[x].precio
+          tInmueble.descuento = response[x].descuento
+          tInmueble.ayudainicial = response[x].ayudainicial
+          tInmueble.areaLibre = response[x].areaLibre
+          tInmueble.areaTechada = response[x].areaTechada
+          tInmueble.areaTotal = response[x].areaTotal
+          tInmueble.total = response[x].precio
+          this.departamentosAgregados.push(tInmueble)
         }
-      })
+      }
+    })
   }
 
   public agregarEstacionamientoExistente() {
-    this.ventainmuebleService
-      .getInmueblesPorVenta(this.idVenta)
-      .subscribe((response) => {
-        for(let x = 0 ; x < response.length ; x++ ){
-          if(response[x].inmueble.tipoInmueble.idTipoInmueble == 2){
-            let tInmueble = new Inmueble()
-            tInmueble.numero = response[x].inmueble.numero
-            tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
-            tInmueble.idInmueble = response[x].inmueble.idInmueble
-            tInmueble.idProyecto = response[x].inmueble.idProyecto
-            tInmueble.idVentaInmueble = response[x].idVentaInmueble
-            tInmueble.precio = response[x].precio
-            tInmueble.descuento = response[x].descuento
-            tInmueble.ayudainicial = response[x].ayudainicial
-            tInmueble.areaLibre = response[x].areaLibre
-            tInmueble.areaTechada = response[x].areaTechada
-            tInmueble.areaTotal = response[x].areaTotal
-            tInmueble.total = response[x].precio
-            this.adicionalAgregados.push(tInmueble)
-          }
+    this.ventainmuebleService.getInmueblesPorVenta(this.idVenta).subscribe((response) => {
+      for (let x = 0; x < response.length; x++) {
+        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 2) {
+          let tInmueble = new Inmueble()
+          tInmueble.numero = response[x].inmueble.numero
+          tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
+          tInmueble.idInmueble = response[x].inmueble.idInmueble
+          tInmueble.idProyecto = response[x].inmueble.idProyecto
+          tInmueble.idVentaInmueble = response[x].idVentaInmueble
+          tInmueble.precio = response[x].precio
+          tInmueble.descuento = response[x].descuento
+          tInmueble.ayudainicial = response[x].ayudainicial
+          tInmueble.areaLibre = response[x].areaLibre
+          tInmueble.areaTechada = response[x].areaTechada
+          tInmueble.areaTotal = response[x].areaTotal
+          tInmueble.total = response[x].precio
+          this.adicionalAgregados.push(tInmueble)
         }
-      })
+      }
+    })
   }
 
   public agregarAdicionalExistente() {
@@ -363,25 +359,31 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.adicionalAgregados.splice(i, 1)
   }
 
-  totalInmuebles: number 
+  totalInmuebles: number
   porcentaje_cuota_inicial: number
   cuota_inicial: number
   total_financiamiento: number
 
   getTotalVenta() {
-    let totalDepartamentos = 0;
-    let totalAdicional = 0;
+    let totalDepartamentos = 0
+    let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
-      totalDepartamentos += this.departamentosAgregados[i].precio - ( ( this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento ) / 100 ) - this.departamentosAgregados[i].ayudainicial;
+      totalDepartamentos +=
+        this.departamentosAgregados[i].precio -
+        (this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento) / 100 -
+        this.departamentosAgregados[i].ayudainicial
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
-      totalAdicional += this.adicionalAgregados[i].precio - ( ( this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento ) / 100 ) - this.adicionalAgregados[i].ayudainicial;
+      totalAdicional +=
+        this.adicionalAgregados[i].precio -
+        (this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento) / 100 -
+        this.adicionalAgregados[i].ayudainicial
     }
-    this.totalInmuebles = totalDepartamentos + totalAdicional;
-    return this.totalInmuebles;
+    this.totalInmuebles = totalDepartamentos + totalAdicional
+    return this.totalInmuebles
   }
 
-  siguientePagina(){
+  siguientePagina() {
     document.getElementById('v-pills-profile-tab').click()
   }
 
@@ -390,69 +392,68 @@ export class VentasProyectoEditarComponent implements OnInit {
   ahorro: number
   bono: number
 
-  guardarFinanciamiento(){
-
-    if(this.clienteSeleccionado.idCliente == 0){
+  guardarFinanciamiento() {
+    if (this.clienteSeleccionado.idCliente == 0) {
       swal('No se selecciono ningun cliente', '', 'warning')
       return
     }
 
-    if(this.departamentosAgregados.length == 0){
+    if (this.departamentosAgregados.length == 0) {
       swal('No hay departamentos agregados', '', 'warning')
       return
     }
 
-    if(this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null){
+    if (this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null) {
       swal('Ingrese la cuota inicial', '', 'warning')
       return
     }
 
-    if(this.motivoSeleccionado == 0 || this.motivoSeleccionado == null){
+    if (this.motivoSeleccionado == 0 || this.motivoSeleccionado == null) {
       swal('Seleccione un motivo', '', 'warning')
       return
     }
 
-    if(this.canalSeleccionado == 0 || this.canalSeleccionado == null){
+    if (this.canalSeleccionado == 0 || this.canalSeleccionado == null) {
       swal('Seleccione un canal', '', 'warning')
       return
     }
 
-    if(this.categoriaSeleccionado == 0 || this.categoriaSeleccionado == null){
+    if (this.categoriaSeleccionado == 0 || this.categoriaSeleccionado == null) {
       swal('Seleccione una categoria', '', 'warning')
       return
     }
 
-    if(this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null){
+    if (this.tipocreditoSeleccionado == 0 || this.tipocreditoSeleccionado == null) {
       swal('Seleccione un tipo de credito', '', 'warning')
       return
     }
 
-    if(this.bono == 0 || this.bono == null){
+    if (this.bono == 0 || this.bono == null) {
       this.bono = 0
     }
 
-    if(this.afp == 0 || this.afp == null){
+    if (this.afp == 0 || this.afp == null) {
       this.afp = 0
     }
 
-    if(this.bancoSeleccionado == 0 || this.bancoSeleccionado == null){
+    if (this.bancoSeleccionado == 0 || this.bancoSeleccionado == null) {
       swal('Seleccione un banco', '', 'warning')
       return
     }
 
-    if(this.asesor == '' || this.asesor == null){
+    if (this.asesor == '' || this.asesor == null) {
       this.asesor = ''
     }
 
-    if(this.ahorro == 0 || this.ahorro == null){
+    if (this.ahorro == 0 || this.ahorro == null) {
       this.ahorro = 0
     }
 
-    if(this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null){
+    if (this.fechaInicioAhorro == '' || this.fechaInicioAhorro == null) {
       this.fechaInicioAhorro = ''
     }
 
-    if(this.fechaFinAhorro == '' || this.fechaFinAhorro == null){
+    if (this.fechaFinAhorro == '' || this.fechaFinAhorro == null) {
       this.fechaFinAhorro = ''
     }
     // this.financiamiento.idFinanciamiento = 0
@@ -466,22 +467,25 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
+    this.financiamiento.nomtoCuotaInicial =
+      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
-    this.financiamiento.montoFinanciado = this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+    this.financiamiento.montoFinanciado =
+      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
 
-    this.financiamientoService.editarFinanciamiento(this.financiamiento, this.financiamiento.idFinanciamiento).subscribe(
-      (response) => {
-        this.guardarVenta(response.idFinanciamiento)
-      },
-      (err) => {
-        this.errores = err.error.errors as string[]
-      }
-    )
-
+    this.financiamientoService
+      .editarFinanciamiento(this.financiamiento, this.financiamiento.idFinanciamiento)
+      .subscribe(
+        (response) => {
+          this.guardarVenta(response.idFinanciamiento)
+        },
+        (err) => {
+          this.errores = err.error.errors as string[]
+        }
+      )
   }
 
-  guardarVenta(idFinanciamiento: number){
+  guardarVenta(idFinanciamiento: number) {
     // this.venta.idVenta = 0
 
     this.venta.idVendedor = 2 // id vendedor logueado
@@ -505,7 +509,7 @@ export class VentasProyectoEditarComponent implements OnInit {
 
     this.venta.ayudaInicial = this.porcentaje_cuota_inicial
     this.venta.importe = this.totalInmuebles
-    this.venta.descuento = ( ( this.totalInmuebles * this.porcentaje_cuota_inicial ) / 100 )
+    this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.venta.total = this.venta.importe - this.venta.descuento
 
     this.ventaService.editarVenta(this.venta, this.idVenta).subscribe(
@@ -516,21 +520,19 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.errores = err.error.errors as string[]
       }
     )
-
   }
 
-  obtenerFechaActual(){
-    var date=new Date();  
-    var day=date.getDate();  
-    var month=date.getMonth()+1;  
-    var year=date.getFullYear();  
-    return year+"-"+month+"-"+day;
+  obtenerFechaActual() {
+    var date = new Date()
+    var day = date.getDate()
+    var month = date.getMonth() + 1
+    var year = date.getFullYear()
+    return year + '-' + month + '-' + day
   }
 
-  guardarInmuebles(idVenta: number){
-
+  guardarInmuebles(idVenta: number) {
     console.info(this.inmueblesEliminados)
-    if(this.inmueblesEliminados.length > 0){
+    if (this.inmueblesEliminados.length > 0) {
       for (var i = 0; i < this.inmueblesEliminados.length; i++) {
         this.ventainmuebleService.eliminarVentainmueble(this.inmueblesEliminados[i]).subscribe(
           (response) => {},
@@ -541,7 +543,7 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     }
 
-    if(this.departamentosAgregados.length > 0){
+    if (this.departamentosAgregados.length > 0) {
       console.info(this.departamentosAgregados)
       for (var i = 0; i < this.departamentosAgregados.length; i++) {
         this.ventainmueble.areaLibre = this.departamentosAgregados[i].areaLibre
@@ -551,30 +553,34 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.ventainmueble.enable = 1
         this.ventainmueble.idInmueble = this.departamentosAgregados[i].idInmueble
         this.ventainmueble.idVenta = idVenta
-        this.ventainmueble.vista = ""
+        this.ventainmueble.vista = ''
         this.ventainmueble.precio = this.departamentosAgregados[i].precio
         this.ventainmueble.ayudainicial = this.departamentosAgregados[i].ayudainicial
         this.ventainmueble.descuento = this.departamentosAgregados[i].descuento
-        this.ventainmueble.importe = this.departamentosAgregados[i].total - ( (this.departamentosAgregados[i].total * this.departamentosAgregados[i].descuento) / 100 ) - this.departamentosAgregados[i].ayudainicial
-        if( this.departamentosAgregados[i].idVentaInmueble == 0 ){
+        this.ventainmueble.importe =
+          this.departamentosAgregados[i].total -
+          (this.departamentosAgregados[i].total * this.departamentosAgregados[i].descuento) / 100 -
+          this.departamentosAgregados[i].ayudainicial
+        if (this.departamentosAgregados[i].idVentaInmueble == 0) {
           this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
             (response) => {},
             (err) => {
               this.errores = err.error.errors as string[]
             }
           )
-        }else{
-          this.ventainmuebleService.editarVentainmueble(this.ventainmueble, this.departamentosAgregados[i].idVentaInmueble).subscribe(
-            (response) => {},
-            (err) => {
-              this.errores = err.error.errors as string[]
-            }
-          )
+        } else {
+          this.ventainmuebleService
+            .editarVentainmueble(this.ventainmueble, this.departamentosAgregados[i].idVentaInmueble)
+            .subscribe(
+              (response) => {},
+              (err) => {
+                this.errores = err.error.errors as string[]
+              }
+            )
         }
-
       }
     }
-    if(this.adicionalAgregados.length > 0){
+    if (this.adicionalAgregados.length > 0) {
       console.info(this.adicionalAgregados)
       for (var i = 0; i < this.adicionalAgregados.length; i++) {
         this.ventainmueble.areaLibre = this.adicionalAgregados[i].areaLibre
@@ -585,36 +591,39 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.ventainmueble.idInmueble = this.adicionalAgregados[i].idInmueble
         this.ventainmueble.idVenta = idVenta
         this.ventainmueble.precio = this.adicionalAgregados[i].precio
-        this.ventainmueble.vista = ""
+        this.ventainmueble.vista = ''
         this.ventainmueble.ayudainicial = this.adicionalAgregados[i].ayudainicial
         this.ventainmueble.descuento = this.adicionalAgregados[i].descuento
-        this.ventainmueble.importe = this.adicionalAgregados[i].total - ( (this.adicionalAgregados[i].total * this.adicionalAgregados[i].descuento) / 100 ) - this.adicionalAgregados[i].ayudainicial
-        if( this.adicionalAgregados[i].idVentaInmueble == 0 ){
+        this.ventainmueble.importe =
+          this.adicionalAgregados[i].total -
+          (this.adicionalAgregados[i].total * this.adicionalAgregados[i].descuento) / 100 -
+          this.adicionalAgregados[i].ayudainicial
+        if (this.adicionalAgregados[i].idVentaInmueble == 0) {
           this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
             (response) => {},
             (err) => {
               this.errores = err.error.errors as string[]
             }
           )
-        }else{
-          this.ventainmuebleService.editarVentainmueble(this.ventainmueble, this.adicionalAgregados[i].idVentaInmueble).subscribe(
-            (response) => {},
-            (err) => {
-              this.errores = err.error.errors as string[]
-            }
-          )
+        } else {
+          this.ventainmuebleService
+            .editarVentainmueble(this.ventainmueble, this.adicionalAgregados[i].idVentaInmueble)
+            .subscribe(
+              (response) => {},
+              (err) => {
+                this.errores = err.error.errors as string[]
+              }
+            )
         }
       }
     }
 
     this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
     swal('Venta registrada correctamente', '', 'success')
-
   }
 
   status = false
   menuToggle() {
     this.status = !this.status
   }
-
 }

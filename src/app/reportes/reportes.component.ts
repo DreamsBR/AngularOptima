@@ -288,7 +288,7 @@ export class ReportesComponent implements OnInit {
           listaGerentes.push({
             ...elem,
             idColaborador: elem.colaborador.idColaborador,
-            nombreColaborador: elem.colaborador.nombres + ' ' + elem.colaborador.apellidos
+            nombreColaborador: 'Gte. ' + elem.colaborador.nombres + ' ' + elem.colaborador.apellidos
           })
         }
       })
@@ -497,11 +497,13 @@ export class ReportesComponent implements OnInit {
   }
 
   goDetails(row) {
+    // console.log(row)
     const idProyecto = row.proyecto.idProyecto
-    window.location.href = '/reportes-por-proyecto/' + idProyecto
+    window.location.href = '/reportes-por-proyecto/' + idProyecto + '/' + this.filterIdPeriodo
   }
 
   exportar() {
+    console.log(this.itemsTable.data)
     this.exporterService.exportToExcel(
       [
         {

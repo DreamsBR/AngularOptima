@@ -398,43 +398,6 @@ export class ReportesProyectosComponent implements OnInit {
       .getConsolidadoProyecto(this.filterIdProyecto, this.filterIdPeriodo)
       .subscribe(
         (resp) => {
-          // TODO: inicio QUITAR LA DATA HARCODEADA
-          resp.push({
-            avance: 150451.25,
-            caida: 1,
-            ci: 1,
-            ev: 2,
-            meta: 236152.42,
-            minuta: 3,
-            preca: 4,
-            sp: 6,
-            vendedor: {
-              idVendedor: 5,
-              enable: 1,
-              idColaborador: 1,
-              idJefatura: 6,
-              nombre: 'EDDY ERAZO'
-            }
-          })
-          resp.push({
-            avance: 702461.25,
-            caida: 1,
-            ci: 1,
-            ev: 2,
-            meta: 53545.42,
-            minuta: 3,
-            preca: 4,
-            sp: 6,
-            vendedor: {
-              idVendedor: 6,
-              enable: 1,
-              idColaborador: 6,
-              idJefatura: 6,
-              nombre: 'RAUL CARRILLO'
-            }
-          })
-          // TODO: fin QUITAR LA DATA HARCODEADA
-
           this.itemsTable = new MatTableDataSource<ConsolidadoProyecto>(resp)
           this.totalMinuta = this.itemsTable.data
             .map((t) => t.minuta)
