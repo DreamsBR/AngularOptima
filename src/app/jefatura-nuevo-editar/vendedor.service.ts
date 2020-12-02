@@ -49,4 +49,15 @@ export class VendedorService {
         )
     }
 
+    getTodosVendedores() {
+        return this.http.get(this.urlEndPoint).pipe(
+            map((vendedor: any) => {
+                ;(vendedor as Vendedor[]).map((vendedor) => {
+                    return vendedor;
+                })
+                return vendedor
+            })
+        )
+    }
+
 }

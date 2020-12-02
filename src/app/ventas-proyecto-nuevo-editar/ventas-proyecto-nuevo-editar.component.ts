@@ -36,6 +36,7 @@ import { VentainmuebleService } from './ventasinmueble.service'
 import { isNull } from 'util'
 
 import { ColaboradorService } from '../colaboradores/colaborador.service'
+import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
 
 @Component({
   selector: 'app-ventas-proyecto-nuevo-editar',
@@ -84,7 +85,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   ventainmueble: Ventainmueble = new Ventainmueble()
 
-  keywordSearchVendedor = 'nombreCompleto'
+  keywordSearchVendedor = 'nombre'
   dataSearchVendedor = []
   vendedorSelected: number = 0
 
@@ -103,6 +104,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     private categoriaService: CategoriaService,
     private ventainmuebleService: VentainmuebleService,
     private colaboradorService: ColaboradorService,
+    private vendedorService: VendedorService
   ) {}
 
   ngOnInit() {
@@ -149,7 +151,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   selectEventSearchVendedor(item: any) {
-    this.vendedorSelected = item.idColaborador
+    this.vendedorSelected = item.idVendedor
   }
 
   clearedSearchVendedor() {
@@ -172,15 +174,8 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   public obtenerVendedores() {
-    this.colaboradorService.getTodosColaboradores().subscribe((response) => {
-      const listaVendedores = []
-      response.forEach(element => {
-        listaVendedores.push({
-          ...element,
-          nombreCompleto: element.nombres + ' ' + element.apellidos
-        })
-      });
-      this.dataSearchVendedor = listaVendedores
+    this.vendedorService.getTodosVendedores().subscribe((response) => {
+      this.dataSearchVendedor = response
     })
   }
 
@@ -421,7 +416,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       // this.bancoSeleccionado = 0
       return
     }
-    this.venta.idVendedor = this.vendedorSelected // Reemplazar por id vendedor logueado
+    this.venta.idVendedor = 2 // Reemplazar por id vendedor logueado
 
     this.venta.enable = 1
     this.venta.fechaCaida = ''
