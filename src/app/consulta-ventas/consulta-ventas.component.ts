@@ -15,6 +15,7 @@ export class ConsultaVentasComponent implements OnInit {
   base: string
   nombreProyecto: string
   pageActual: number = 1
+  idProyectoSelected:string= ""
 
   constructor(
     private proyectoService: ProyectoService,
