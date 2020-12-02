@@ -12,7 +12,7 @@
       [placeHolder]="getPlaceHolder"
       (selected)="onSelectedItem($event)"
       (inputChanged)="onChangeInput($event)"
-      (inputCleared)="onClearedInput($event)"
+      (inputCleared)="onClearedInput()"
     >
     </ng-autocomplete>
     <ng-template #itemTemplate let-item>
