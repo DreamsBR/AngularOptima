@@ -140,6 +140,9 @@ import { EstadofinanciamientoComponent } from './estadofinanciamiento/estadofina
 import { EstadofinanciamientoNuevoEditarComponent } from './estadofinanciamiento-nuevo-editar/estadofinanciamiento-nuevo-editar.component';
 import { EstadoventaComponent } from './estadoventa/estadoventa.component';
 import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/estadoventa-nuevo-editar.component'
+import { Estadofinanciamiento2Service } from './estadofinanciamiento/estadofinanciamiento.service'
+import { Estadoventa } from './estadoventa/estadoventa'
+import { Estadoventa2Service } from './estadoventa/estadoventa.service'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -208,6 +211,12 @@ const ROUTES: Routes = [
 
   { path: 'categoria', component: CategoriaComponent },
   { path: 'categoria-nuevo-editar/:id', component: CategoriaNuevoEditarComponent },
+
+  { path: 'estadofinanciamiento', component: EstadofinanciamientoComponent },
+  { path: 'estadofinanciamiento-nuevo-editar/:id', component: EstadofinanciamientoNuevoEditarComponent },
+
+  { path: 'estadoventa', component: EstadoventaComponent },
+  { path: 'estadoventa-nuevo-editar/:id', component: EstadoventaNuevoEditarComponent },
 
   { path: 'categorias', component: CategoriaComponent},
 
@@ -336,6 +345,8 @@ const ROUTES: Routes = [
     BancoService,
     CanalesService,
     Categoria2Service,
+    Estadofinanciamiento2Service,
+    Estadoventa2Service,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 

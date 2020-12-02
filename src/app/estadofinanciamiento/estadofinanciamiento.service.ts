@@ -8,7 +8,7 @@ import { URL_BACKEND } from '../config/config'
 
 @Injectable()
 export class Estadofinanciamiento2Service {
-  private urlEndPoint: string = URL_BACKEND + 'Estadofinanciamiento/'
+  private urlEndPoint: string = URL_BACKEND + 'estadofinanciamiento/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
