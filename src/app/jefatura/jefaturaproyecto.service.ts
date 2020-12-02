@@ -44,4 +44,12 @@ export class JefaturaproyectoService {
         )
     }
 
+    eliminarJefaturaproyecto(id: number): Observable<Jefatura> {
+        return this.http.delete<Jefatura>(`${this.urlEndPoint}/${id}`).pipe(
+          catchError((e) => {
+            return throwError(e)
+          })
+        )
+      }
+
 }

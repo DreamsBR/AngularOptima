@@ -41,8 +41,8 @@
                                         </td>
                                         <td>{{ jefatura.jefatura.nombre }}</td>
                                         <td>{{ jefatura.jefatura.colaborador.nombres }} {{ jefatura.jefatura.colaborador.apellidos }}</td>
-                                        <td>{{ jefatura.jefatura.fechaIngreso }}</td>
-                                        <td>{{ jefatura.jefatura.fechaTermino }}</td>
+                                        <td>{{ jefatura.jefatura.fechaIngreso | formatDate }}</td>
+                                        <td>{{ jefatura.jefatura.fechaTermino | formatDate }}</td>
                                     </tr>
                                 </tbody>
                             </table>

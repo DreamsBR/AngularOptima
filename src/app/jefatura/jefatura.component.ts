@@ -5,6 +5,7 @@ import { JefaturaService } from './jefatura.service'
 import { Jefatura } from './jefatura'
 import { JefaturaproyectoService } from './jefaturaproyecto.service'
 import { Jefaturaproyectonodo } from './jefaturaproyectonodo'
+import { Jefaturaproyecto } from './jefaturaproyecto';
 
 @Component({
   selector: 'app-jefatura',
@@ -42,8 +43,9 @@ export class JefaturaComponent implements OnInit {
     })
   }
 
-  public eliminar(jefatura: Jefatura): void {
-    this.jefaturaService.eliminarJefatura(jefatura.idJefatura).subscribe(
+  public eliminar(jefatura: Jefaturaproyecto): void {
+    console.info(jefatura)
+    this.jefaturaproyectoService.eliminarJefaturaproyecto(jefatura.idJefaturaProyecto).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerJefaturas()
