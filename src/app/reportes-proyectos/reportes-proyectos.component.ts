@@ -291,46 +291,53 @@ export class ReportesProyectosComponent implements OnInit {
       this.proyectoService.getAllProjects().subscribe(
         (data) => {
           this.dataSearch1 = data
+          this.loading = false
 
-          this.periodoService.getPeriodoProyectoByIdProyecto(paramIdProyecto).subscribe(
-            (resp) => {
-              const customDataSearch = []
-              resp.forEach((elem: any) => {
-                customDataSearch.push({
-                  ...elem,
-                  idPeriodo: elem.periodo.idPeriodo,
-                  nombrePeriodo: elem.periodo.nombre
+          // Si los parámetros existen hace una búsqueda inicial
+          if (params.get('idproyecto') && params.get('idperiodo')) {
+            this.loading = true
+            this.periodoService.getPeriodoProyectoByIdProyecto(paramIdProyecto).subscribe(
+              (resp) => {
+                const customDataSearch = []
+                resp.forEach((elem: any) => {
+                  customDataSearch.push({
+                    ...elem,
+                    idPeriodo: elem.periodo.idPeriodo,
+                    nombrePeriodo: elem.periodo.nombre
+                  })
                 })
-              })
-              this.dataSearch2 = customDataSearch
-
-              // Seteando los valores de la Url
-              for (const elem of data) {
-                if (elem.idProyecto === paramIdProyecto) {
-                  this.autocompleteSearch1.changeOnlyText(elem.nombre)
-                  break
+                this.dataSearch2 = customDataSearch
+  
+                // Seteando los valores de la Url
+                for (const elem of data) {
+                  if (elem.idProyecto === paramIdProyecto) {
+                    this.autocompleteSearch1.changeOnlyText(elem.nombre)
+                    break
+                  }
                 }
-              }
-
-              for (const elem of customDataSearch) {
-                if (elem.idPeriodo === paramIdPeriodo) {
-                  this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
-                  break
+  
+                for (const elem of customDataSearch) {
+                  if (elem.idPeriodo === paramIdPeriodo) {
+                    this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
+                    break
+                  }
                 }
+  
+                this.filterIdProyecto = paramIdProyecto
+                this.filterIdPeriodo = paramIdPeriodo
+  
+                this.buscar()
+  
+                this.loading = false
+              },
+              (error) => {
+                this.loading = false
+                console.error(error)
               }
+            )
 
-              this.filterIdProyecto = paramIdProyecto
-              this.filterIdPeriodo = paramIdPeriodo
-
-              this.buscar()
-
-              this.loading = false
-            },
-            (error) => {
-              this.loading = false
-              console.error(error)
-            }
-          )
+          }
+          
         },
         (error) => {
           this.loading = false

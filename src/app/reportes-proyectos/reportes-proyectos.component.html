@@ -51,6 +51,7 @@
             class="btn btn-optima"
             (click)="buscar()"
             style="text-decoration: none !important"
+            [disabled]="!filterIdProyecto || !filterIdPeriodo"
           >
             Buscar
           </button>

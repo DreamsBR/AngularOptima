@@ -198,7 +198,9 @@ const ROUTES: Routes = [
   { path: 'periodo/page/:page', component: PeriodosComponent },
 
   { path: 'reportes', component: ReportesComponent },
+  { path: 'reportes-por-proyecto', component: ReportesProyectosComponent },
   { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
+  { path: 'reportes-por-vendedor', component: ReportesVendedorComponent },
   { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
 
   // { path: 'categorias', component:CategoriasComponent},
