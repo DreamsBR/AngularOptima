@@ -44,10 +44,6 @@
                     {{ o.nombre }}
                   </option>
                 </select>
-
-                
-
-
               </div>
             </div>
             <div class="col-sm-12 col-md-6" *ngIf="isFormDpto">
@@ -174,7 +170,12 @@
             <div class="col-sm-12 col-md-6">
               <div class="form-group">
                 <label for="iptPrecio">Precio</label>
-                <input [(ngModel)]="inmueble.precio" type="text" class="form-control" id="iptPrecio" />
+                <input
+                  [(ngModel)]="inmueble.precio"
+                  type="text"
+                  class="form-control"
+                  id="iptPrecio"
+                />
               </div>
             </div>
             <!-- <div class="col-sm-12 col-md-12">
