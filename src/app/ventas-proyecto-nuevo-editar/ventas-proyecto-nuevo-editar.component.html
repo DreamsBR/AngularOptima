@@ -48,16 +48,11 @@
                                                     <input type="text" class="form-control" [(ngModel)]="clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos" name="busqueda-nombres" disabled="disabled">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-12 col-md-2">
+                                            <div class="col-sm-12 col-md-6">
                                                 <div class="form-group">
                                                     <label class="label-hidden">&nbsp;</label>
-                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="obtenerClienteSeleccionado(nrodoc)">Buscar</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-3">
-                                                <div class="form-group">
-                                                    <label class="label-hidden">&nbsp;</label>
-                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarCliente(nrodoc)">Nuevo</button>
+                                                    <button type="submit" class="btn btn-optima" (click)="obtenerClienteSeleccionado(nrodoc)">Buscar</button>
+                                                    <button type="submit" class="btn btn-optima" (click)="agregarCliente(nrodoc)">Agregar cliente</button>
                                                 </div>
                                             </div>
 
@@ -393,6 +388,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
                                                 <button type="button" class="btn btn-optima btn-float-right" (click)="siguientePagina()">Siguiente</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/ventas-proyecto', paramIdProyecto]">Cancelar</button>
                                             </div>
                                         </div>
 
@@ -538,6 +534,7 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-12">
                                                 <button type="submit" class="btn btn-optima btn-float-right" style="margin-bottom: 200px;" (click)="guardarFinanciamiento()">Guardar</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/ventas-proyecto', paramIdProyecto]">Cancelar</button>
                                             </div>
                                         </div>
 
