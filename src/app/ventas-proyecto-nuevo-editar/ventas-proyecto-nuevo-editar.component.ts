@@ -35,6 +35,9 @@ import { Ventainmueble } from './ventainmueble'
 import { VentainmuebleService } from './ventasinmueble.service'
 import { isNull } from 'util'
 
+import { ColaboradorService } from '../colaboradores/colaborador.service'
+import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
+
 @Component({
   selector: 'app-ventas-proyecto-nuevo-editar',
   templateUrl: './ventas-proyecto-nuevo-editar.component.html'
@@ -82,6 +85,10 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   ventainmueble: Ventainmueble = new Ventainmueble()
 
+  keywordSearchVendedor = 'nombre'
+  dataSearchVendedor = []
+  vendedorSelected: number = 0
+
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -95,7 +102,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     private motivoService: MotivoService,
     private canalService: CanalService,
     private categoriaService: CategoriaService,
-    private ventainmuebleService: VentainmuebleService
+    private ventainmuebleService: VentainmuebleService,
+    private colaboradorService: ColaboradorService,
+    private vendedorService: VendedorService
   ) {}
 
   ngOnInit() {
@@ -120,6 +129,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.obtenerCanal()
     this.obtenerMotivo()
     this.obtenerCategoria()
+    this.obtenerVendedores()
   }
 
   agregarCliente(nrodoc: string) {
@@ -140,6 +150,15 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.fechaFinAhorro = newdate
   }
 
+  selectEventSearchVendedor(item: any) {
+    this.vendedorSelected = item.idVendedor
+  }
+
+  clearedSearchVendedor() {
+    this.vendedorSelected = null
+  }
+
+
   public obtenerClienteSeleccionado(nrodoc: string) {
     this.clienteService.obtenerClientesPorDni(nrodoc).subscribe((cliente) => {
       if (Object.keys(cliente).length > 0) {
@@ -151,6 +170,12 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.clienteSeleccionado.nroDocumento = ''
         swal('consultar cliente', 'No se encontro el registro solicitado ', 'warning')
       }
+    })
+  }
+
+  public obtenerVendedores() {
+    this.vendedorService.getTodosVendedores().subscribe((response) => {
+      this.dataSearchVendedor = response
     })
   }
 
@@ -386,7 +411,12 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   guardarVenta(idFinanciamiento: number) {
     this.venta.idVenta = 0
 
-    this.venta.idVendedor = 2 // id vendedor logueado
+    if (this.vendedorSelected == 0 || this.vendedorSelected == null) {
+      swal('Falta selecionar un vendedor', '', 'warning')
+      // this.bancoSeleccionado = 0
+      return
+    }
+    this.venta.idVendedor = this.vendedorSelected // Reemplazar por id vendedor logueado
 
     this.venta.enable = 1
     this.venta.fechaCaida = ''
@@ -410,7 +440,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.total = this.venta.importe - this.venta.descuento
 
     console.info(this.venta)
-
+    //return
     this.ventaService.agregarVenta(this.venta).subscribe(
       (response) => {
         console.info(`Venta ${response.idVenta}`)

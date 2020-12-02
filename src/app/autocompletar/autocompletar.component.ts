@@ -31,31 +31,31 @@ export class AutocompletarComponent implements OnInit {
   }
 
   // Métodos internos
-  protected onSelectedItem(optionObj) {
+  onSelectedItem(optionObj) {
     this.emitEventSelected(optionObj)
   }
 
-  protected onChangeInput(newtext) {
+  onChangeInput(newtext) {
     this.emitEventChangedInput(newtext)
   }
 
-  protected onClearedInput() {
+  onClearedInput() {
     this.emitEventCleared()
   }
 
-  protected emitEventSelected(optionSelected: any) {
+  emitEventSelected(optionSelected: any) {
     this.onSelected.emit(optionSelected)
   }
 
-  protected emitEventChangedInput(newtext) {
+  emitEventChangedInput(newtext) {
     this.onInputChanged.emit(newtext)
   }
 
-  protected emitEventCleared() {
+  emitEventCleared() {
     this.onCleared.emit()
   }
 
-  protected get getPlaceHolder() {
+  get getPlaceHolder() {
     return 'Buscar ' + this.label.toLowerCase()
   }
 }

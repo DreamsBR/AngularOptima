@@ -9,7 +9,6 @@ import { MatTableDataSource } from '@angular/material/table'
   templateUrl: './ventas.component.html',
   styleUrls: ['./ventas.component.css']
 })
-
 export class VentasComponent implements OnInit {
   proyectoLista = new MatTableDataSource<Proyecto>()
   displayedColumns: string[] = ['nombre']

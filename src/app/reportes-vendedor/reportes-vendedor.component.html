@@ -24,10 +24,10 @@
                 [options]="dataSearch1"
                 [searchKeyword]="keywordSearch1"
                 [keyToShow]="keywordSearch1"
-                [label]="'Proyecto'"
+                [label]="'Vendedor'"
                 (onSelected)="selectEventSearch1($event)"
-                (onCleared)="clearedSearch1($event)"
-                (onInputChanged)="clearedSearch1($event)"
+                (onCleared)="clearedSearch1()"
+                (onInputChanged)="clearedSearch1()"
               >
               </autocompletar>
             </div>
@@ -39,8 +39,8 @@
                 [keyToShow]="keywordSearch2"
                 [label]="'Periodo'"
                 (onSelected)="selectEventSearch2($event)"
-                (onCleared)="clearedSearch2($event)"
-                (onInputChanged)="clearedSearch2($event)"
+                (onCleared)="clearedSearch2()"
+                (onInputChanged)="clearedSearch2()"
               >
               </autocompletar>
             </div>
@@ -51,6 +51,7 @@
             class="btn btn-optima"
             (click)="buscar()"
             style="text-decoration: none !important"
+            [disabled]="!filterIdColaborador || !filterIdPeriodo"
           >
             Buscar
           </button>
