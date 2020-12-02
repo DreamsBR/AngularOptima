@@ -44,7 +44,7 @@ export class VentasProyectoComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
       this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
-      this.dpfechaDesde.setValue("2020-11-01T00:00:00.000+0000")
+      this.dpfechaDesde.setValue("2010-11-01T00:00:00.000+0000")
       this.dpfechaHasta.setValue("2020-11-04T00:00:00.000+0000")
       // this.fechaDesde = (params.get('fechaini'))
       // this.fechaHasta = (params.get('fechafin'))
