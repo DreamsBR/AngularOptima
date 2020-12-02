@@ -11,7 +11,7 @@ import { Categoria2Service } from './categoria.service';
 })
 export class CategoriaComponent implements OnInit {
   categoriaLista: Categoria[]
-  registroSeleccionado: Canal
+  registroSeleccionado: Categoria
 
   constructor(
     private categoria2Service: Categoria2Service,
@@ -45,8 +45,8 @@ export class CategoriaComponent implements OnInit {
     )
   }
 
-  public obtenerSeleccionado(canal: Canal) {
-    this.registroSeleccionado = canal
+  public obtenerSeleccionado(categoria: Categoria) {
+    this.registroSeleccionado = categoria
   }
 
   status = false
