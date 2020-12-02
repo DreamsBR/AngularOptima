@@ -416,6 +416,11 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   guardarVenta(idFinanciamiento: number) {
     this.venta.idVenta = 0
 
+    if (this.vendedorSelected == 0 || this.vendedorSelected == null) {
+      swal('Falta selecionar un vendedor', '', 'warning')
+      // this.bancoSeleccionado = 0
+      return
+    }
     this.venta.idVendedor = this.vendedorSelected // Reemplazar por id vendedor logueado
 
     this.venta.enable = 1
