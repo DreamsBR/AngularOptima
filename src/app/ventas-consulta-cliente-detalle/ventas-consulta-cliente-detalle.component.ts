@@ -643,6 +643,14 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     return name
   }
 
+  get computedMontoInicial(): number {
+    let porc = 0
+    if (this.financiamiento && this.venta.importe) {
+      porc = (parseFloat(this.financiamiento.porcCuotaInicial) * this.venta.importe) / 100
+    }
+    return porc
+  }
+
   regresar() {
     window.history.back()
   }
