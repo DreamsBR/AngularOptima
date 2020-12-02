@@ -416,7 +416,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       // this.bancoSeleccionado = 0
       return
     }
-    this.venta.idVendedor = 2 // Reemplazar por id vendedor logueado
+    this.venta.idVendedor = this.vendedorSelected // Reemplazar por id vendedor logueado
 
     this.venta.enable = 1
     this.venta.fechaCaida = ''
