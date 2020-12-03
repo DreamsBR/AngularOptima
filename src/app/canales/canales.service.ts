@@ -22,7 +22,7 @@ export class CanalesService {
     )}
 
     obtenerCanalPorId(idcanal): Observable<Canal> {
-        return this.http.get<Canal>(this.urlEndPoint + '/' + idcanal)
+        return this.http.get<Canal>(this.urlEndPoint + idcanal)
     }
 
     agregar(canal: Canal): Observable<any> {
@@ -36,7 +36,7 @@ export class CanalesService {
     }
 
     actualizar(canal: Canal, idcanal: number): Observable<any> {
-        return this.http.put<any>(this.urlEndPoint + '/' + idcanal, canal).pipe(
+        return this.http.put<any>(this.urlEndPoint + idcanal, canal).pipe(
           catchError((e) => {
             if (e.status === 400) {
               return throwError(e)
