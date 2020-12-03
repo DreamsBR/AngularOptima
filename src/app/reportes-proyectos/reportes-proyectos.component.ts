@@ -429,7 +429,7 @@ export class ReportesProyectosComponent implements OnInit {
 
           this.setDataChart()
           this.drawFunnelChart()
-          //this.drawForecastChart()
+          this.drawForecastChart()
         },
         (error) => {
           this.loading = false
@@ -518,7 +518,7 @@ export class ReportesProyectosComponent implements OnInit {
 
   drawForecastChart() {
     this.reportesService
-      .getConsolidadoGerencia(this.filterIdProyecto, this.filterIdPeriodo)
+      .getConsolidadoProyectoPeriodo(this.filterIdProyecto, this.filterIdPeriodo)
       .subscribe((resp) => {
         //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
         // TODO: inicio QUITAR DATA HARDCODEADA
@@ -556,9 +556,9 @@ export class ReportesProyectosComponent implements OnInit {
         }
 
         resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoGerencia.meta)
+          tmpSeries[0].data.push(elem.periodoProyecto.meta)
           tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
+          tmpXaxis.categories.push(elem.periodoProyecto.periodo.nombre)
         })
         this.chartOptionsForecast.series = tmpSeries
         this.chartOptionsForecast.xaxis = tmpXaxis
