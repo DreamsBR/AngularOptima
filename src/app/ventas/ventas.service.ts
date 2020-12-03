@@ -17,9 +17,11 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'tipovista/').pipe()
   }
 
+
   fetchingTipoDocumento(): Observable<any> {
     return this.http.get(this.urlEndPoint + 'tipodocumento/').pipe()
   }
+
 
   getVentas(page): Observable<any> {
     return this.http.get(this.urlEndPoint + 'page/' + page).pipe(

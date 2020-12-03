@@ -8,6 +8,7 @@ import { TipoDocumento } from '../colaboradores/tipoDocumento'
 import { VentaService } from '../ventas/ventas.service'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 import { Roles } from '../colaboradores/roles'
+import { EstadocivilService } from '../clientes/estadocivil.service'
 
 
 //fetchingTipoDocumento
@@ -38,6 +39,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
     private ventaService: VentaService,
+    private estadoService : EstadocivilService
   ) {
     this.colaborador.idColaborador = 0
     this.colaborador.nombres = ''
@@ -53,7 +55,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true
-    this.ventaService.fetchingTipoDocumento().subscribe(
+    this.estadoService.getEstadocivil().subscribe(
       (resp) => {
         this.optionsTiposDocumento = resp
 
