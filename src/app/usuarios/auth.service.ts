@@ -59,14 +59,14 @@ export class AuthService {
 
     // { headers: httpHeaders }
 
-    console.log(params.toString());
     return this.http.post<any>(urlEndPoint, params);
   }
 
   public guardarUsuario(accessToken: string): void {
     const payLoad = this.obtenerDatosToken(accessToken);
+    console.info(payLoad)
     this._usuario = new Usuario();
-    this._usuario.userName = payLoad.user_name;
+    this._usuario.userName = payLoad.sub;
     this._usuario.roles = payLoad.authorities;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
@@ -85,7 +85,7 @@ export class AuthService {
 
   public isAuthenticated(): boolean {
     const payload = this.obtenerDatosToken(this.token);
-    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+    if (payload != null && payload.sub && payload.sub.length > 0) {
       return true;
     }
     return false;

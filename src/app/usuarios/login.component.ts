@@ -44,10 +44,10 @@ export class LoginComponent implements OnInit {
       this.authService.guardarUsuario(response.accessToken);
       this.authService.guardarToken(response.accessToken);
 
-      let user = this.authService.usuario;
+      // let user = this.authService.usuario;
 
       this.router.navigate(['/clientes']);
-      this.mostrarAlerta('Aviso','Bienvenido');
+      // this.mostrarAlerta('Aviso','Bienvenido');
 
     }, err =>{
       if (err.status == 400){

@@ -14,8 +14,7 @@ export class HeaderComponent implements OnInit {
     private router: Router
     ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   logOut():void {
     swal('Logout','Ha cerrado sesión correctamente','success');
