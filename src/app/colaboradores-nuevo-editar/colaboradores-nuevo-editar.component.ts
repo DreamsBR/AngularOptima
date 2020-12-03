@@ -8,6 +8,10 @@ import { TipoDocumento } from '../colaboradores/tipoDocumento'
 import { VentaService } from '../ventas/ventas.service'
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 import { Roles } from '../colaboradores/roles'
+import { EstadocivilService } from '../clientes/estadocivil.service'
+import { TipodocumentoService } from '../clientes-nuevo-editar/tipodocumento.service'
+import { RolesServices } from '../colaboradores/roles.service'
+
 
 
 //fetchingTipoDocumento
@@ -16,6 +20,8 @@ import { Roles } from '../colaboradores/roles'
   selector: 'app-colaboradores-nuevo-editar',
   templateUrl: './colaboradores-nuevo-editar.component.html'
 })
+
+
 export class ColaboradoresNuevoEditarComponent implements OnInit {
   loading: boolean = false
 
@@ -36,6 +42,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
     private ventaService: VentaService,
+    private tipoDocu : TipodocumentoService,
+    private rolesService: RolesServices
   ) {
     this.colaborador.idColaborador = 0
     this.colaborador.nombres = ''
@@ -51,7 +59,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true
-    this.ventaService.fetchingTipoDocumento().subscribe(
+    this.tipoDocu.getTipodocumento().subscribe(
       (resp) => {
         this.optionsTiposDocumento = resp
 
@@ -89,13 +97,19 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   menuToggle() {
     this.status = !this.status
   }
+
+
   roles : Roles[]
-  /*
+
   public obtenerRoles(){
-    this.rolesService.getTodoRoles().subscribe((response)=> {
+    this.rolesService.getRoles().subscribe((response)=> {
       this.roles = response
     })
-  }*/
+  }
+
+
+
+
 
   public agregarColaborador(): void {
     let id = this.idColaborador
