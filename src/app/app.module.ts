@@ -116,6 +116,7 @@ import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/esta
 import { Estadofinanciamiento2Service } from './estadofinanciamiento/estadofinanciamiento.service'
 import { Estadoventa2Service } from './estadoventa/estadoventa.service'
 import { RolesServices } from './colaboradores/roles.service'
+import { UsuarioLoginService } from './colaboradores/usuarioLogin.service'
 
 const ROUTES: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -298,6 +299,7 @@ const ROUTES: Routes = [
     Estadofinanciamiento2Service,
     Estadoventa2Service,
     RolesServices,
+    UsuarioLoginService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

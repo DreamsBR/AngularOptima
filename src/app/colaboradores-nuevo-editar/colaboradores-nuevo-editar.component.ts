@@ -11,6 +11,8 @@ import { Roles } from '../colaboradores/roles'
 import { EstadocivilService } from '../clientes/estadocivil.service'
 import { TipodocumentoService } from '../clientes-nuevo-editar/tipodocumento.service'
 import { RolesServices } from '../colaboradores/roles.service'
+import { UsuarioLoginService } from '../colaboradores/usuarioLogin.service'
+import { UsuarioLogin } from '../colaboradores/usuarioLogin'
 
 
 
@@ -43,7 +45,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private ventaService: VentaService,
     private tipoDocu : TipodocumentoService,
-    private rolesService: RolesServices
+    private rolesService: RolesServices,
+    private usuarioLoginService:UsuarioLoginService
   ) {
     this.colaborador.idColaborador = 0
     this.colaborador.nombres = ''
@@ -122,6 +125,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     if (id == 0) {
       this.colaboradorService.agregarColaborador(newColaborador).subscribe(
         (response) => {
+          console.log(response)
           this.router.navigate(['/colaboradores'])
           swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
         },
@@ -147,6 +151,12 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         )
     }
   }
+
+
+  public EnviarUsiario(idCola: number):void {
+
+  }
+
 
   get isValidForm() {
     let isValid = true
