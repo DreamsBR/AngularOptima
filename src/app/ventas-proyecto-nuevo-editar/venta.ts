@@ -2,6 +2,7 @@ export class Venta {
     ayudaInicial: number
     descuento: number
     enable:	number
+    fechaRegistro: string
     fechaCaida: string
     fechaDesembolso: string
     fechaEpp: string

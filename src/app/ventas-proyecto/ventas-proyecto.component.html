@@ -81,11 +81,11 @@
                                 </td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres | uppercase }}</a></td>
                                 <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos | uppercase }}</a></td>
-                                <td>{{ventasProyecto.cliente.nroDocumento}}</td>
-                                <td>{{ventasProyecto.fechaRegistro |formatDate}} </td>
+                                <td>{{ ventasProyecto.cliente.nroDocumento }}</td>
+                                <td>{{ (ventasProyecto.fechaRegistro !== null) ? (ventasProyecto.fechaRegistro | formatDate) : "" }} </td>
 
-                                <td>{{ventasProyecto.total}}</td>
-                                <td>{{ventasProyecto.estadoVenta.nombre}}</td>
+                                <td>{{ ventasProyecto.total }}</td>
+                                <td>{{ ventasProyecto.estadoVenta.nombre }}</td>
                             </tr>
                         </tbody>
                     </table>

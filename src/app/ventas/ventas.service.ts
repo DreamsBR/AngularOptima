@@ -25,8 +25,6 @@ export class VentaService {
     return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as Venta[]).map((venta) => {
-
-
           return venta
         })
         return jsonVentasResponse
