@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router
-    ) 
+    )
   {
     this.usuario = new Usuario();
   }
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.authService.logIn(this.usuario).subscribe(response =>{
-      
+
       this.authService.guardarUsuario(response.accessToken);
       this.authService.guardarToken(response.accessToken);
 

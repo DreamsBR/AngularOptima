@@ -24,7 +24,7 @@ export class ColaboradorService {
     constructor(private http: HttpClient, private router: Router) { }
 
     getColaboradores(page): Observable<any> {
-        return this.http.get(this.urlEndPoint + '/page/' + page   ).pipe(
+        return this.http.get(this.urlEndPoint + '/page/' + page + '/10'  ).pipe(
             map((jsonColaboradorResponse: any) => {
                 (jsonColaboradorResponse.content as Colaborador[]).map(
                   colaborador => {

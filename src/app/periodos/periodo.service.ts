@@ -24,7 +24,7 @@ export class PeriodoService {
   */
 
   getPeriodos(page): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+    return this.http.get(this.urlEndPoint + '/page/' + page + '/10' ).pipe(
       map((data: any) => {
         ;(data.content as Periodo[]).map((periodo) => {
           return periodo
