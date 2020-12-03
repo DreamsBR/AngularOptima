@@ -154,14 +154,12 @@
                 </div>
               </div>
             </div>
-
-
             <div class="row">
               <div class="col-sm-12 col-md-6">
                 <div class="form-goup">
-                  <label for="Usuario">Rol Asignado</label>
+                  <label for="Rol">Rol Asignado</label>
                   <select name="" id="" class="form-control">
-
+                    <option [value]="rol.id" *ngFor="let rol of roles"> {{rol.name}}</option>
                   </select>
                 </div>
               </div>

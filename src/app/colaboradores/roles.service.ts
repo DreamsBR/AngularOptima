@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { URL_BACKEND, URL_BACKENDOUT } from '../config/config';
+import {  URL_BACKENDOUT } from '../config/config';
 import { Roles } from './roles';
 
 
-
+@Injectable()
 export class RolesService {
 
   private urlEndPoint : string = URL_BACKENDOUT + 'roles'

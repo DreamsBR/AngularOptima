@@ -11,16 +11,16 @@ import swal from 'sweetalert2'
 export class CategoriaNuevoEditarComponent implements OnInit {
 
     public errores: string[]
-  
+
     idCategoria: number
     public categoria: Categoria = new Categoria()
-  
+
     constructor(
       private router: Router,
       private activatedRoute: ActivatedRoute,
       private categoriaService: Categoria2Service,
     ) { }
-  
+
     ngOnInit() {
       this.activatedRoute.paramMap.subscribe((params) => {
         this.idCategoria = parseInt(params.get('id'))
@@ -34,13 +34,13 @@ export class CategoriaNuevoEditarComponent implements OnInit {
         }
       })
     }
-  
+
     public guardar(): void {
       if(this.categoria.nombre == '' || this.categoria.nombre == undefined){
         swal('Falta ingresar el nombre de la categoria', '','error')
         return
       }
-  
+
       if( this.categoria.idCategoria == 0 ){
         this.categoriaService.agregar(this.categoria).subscribe(
           (response) => {
@@ -62,12 +62,12 @@ export class CategoriaNuevoEditarComponent implements OnInit {
           }
         )
       }
-  
+
     }
-  
+
     status = false
     menuToggle() {
       this.status = !this.status
     }
-  
+
   }
