@@ -1,190 +1,211 @@
-<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
-  <app-sidebar></app-sidebar>
-  <app-loading [isLoading]="loading"></app-loading>
-  <div id="page-content-wrapper">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-12 col-md-12">
-          <div class="button-toggle">
-            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+    <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+      <app-sidebar></app-sidebar>
+      <app-loading [isLoading]="loading"></app-loading>
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-sm-12 col-md-12">
+              <div class="button-toggle">
+                <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+              </div>
+              <h3>{{ !isModeEdit ? 'Nuevo' : 'Editar' }} Colaborador</h3>
+            </div>
           </div>
-          <h3>{{ !isModeEdit ? 'Nuevo' : 'Editar' }} Colaborador</h3>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-sm-12 col-md-8">
-          <br />
 
-          <form>
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="nombres">Nombres</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="nombres"
-                    name="nombres"
-                    [(ngModel)]="colaborador.nombres"
-                    #nombres="ngModel"
-                    required
-                  />
-                  <div
-                    *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)"
-                    class="alert alert-danger"
-                  >
-                    <div *ngIf="nombres.errors.required">Dato obligatorio</div>
+          <div class="row">
+
+            <div class="col-sm-12 col-md-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                    <a class="nav-link active" id="v-pills-gerencia-tab" data-toggle="pill" href="#v-pills-gerencia" role="tab" aria-controls="v-pills-gerencia" aria-selected="true"><span class="nav-number">1</span> Gerencia</a>
+                    <span class="separator"></span>
+                    <a class="nav-link" id="v-pills-periodos-tab" data-toggle="pill" href="#v-pills-periodos" role="tab" aria-controls="v-pills-periodos" aria-selected="false"><span class="nav-number">2</span> Periodos</a>
+                    <span class="separator"></span>
+                    <a class="nav-link" id="v-pills-proyectos-tab" data-toggle="pill" href="#v-pills-proyectos" role="tab" aria-controls="v-pills-proyectos" aria-selected="false"><span class="nav-number">3</span> Proyectos</a>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+          <div class="row">
+            <div class="col-sm-12 col-md-8">
+              <br />
+
+              <form>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="nombres">Nombres</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="nombres"
+                        name="nombres"
+                        [(ngModel)]="colaborador.nombres"
+                        #nombres="ngModel"
+                        required
+                      />
+                      <div
+                        *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)"
+                        class="alert alert-danger"
+                      >
+                        <div *ngIf="nombres.errors.required">Dato obligatorio</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="apellidos">Apellidos</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="apellidos"
+                        name="apellidos"
+                        [(ngModel)]="colaborador.apellidos"
+                        #apellidos="ngModel"
+                        required
+                      />
+                      <div
+                        *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+                        class="alert alert-danger"
+                      >
+                        <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="apellidos">Apellidos</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="apellidos"
-                    name="apellidos"
-                    [(ngModel)]="colaborador.apellidos"
-                    #apellidos="ngModel"
-                    required
-                  />
-                  <div
-                    *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
-                    class="alert alert-danger"
-                  >
-                    <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <!-- <label for="idTipoDocumento">Tipo de documento</label>
+                      <select
+                        class="form-control"
+                        id="tipoDoc"
+                        name="idTipoDocumento"
+                        [(ngModel)]="colaborador.tipoDocumento.idTipoDocumento"
+                        #idTipoDocumento="ngModel"
+                        required
+                      >
+                        <option value="0">-- Seleccionar --</option>
+                      </select> -->
+                      <label for="idTipoDocumento">Tipo de documento</label>
+                      <select
+                        [(ngModel)]="tipoDocSelected"
+                        #idTipoDocumento="ngModel"
+                        class="form-control"
+                        id="tipoDoc"
+                        name="idTipoDocumento"
+                        required
+                      >
+                        <option value="0" selected>-- Selecionar --</option>
+                        <option *ngFor="let o of optionsTiposDocumento" [ngValue]="o.idTipoDocumento">
+                          {{ o.nombre }}
+                        </option>
+                      </select>
+                      <div
+                        *ngIf="
+                          idTipoDocumento.invalid && (idTipoDocumento.dirty || idTipoDocumento.touched)
+                        "
+                        class="alert alert-danger"
+                      >
+                        <div *ngIf="idTipoDocumento.errors.required">Dato obligatorio</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="numeroDocumento">Nro. doc.</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="numeroDocumento"
+                        name="numeroDocumento"
+                        mask="000000000000"
+                        [(ngModel)]="colaborador.numeroDocumento"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <!-- <label for="idTipoDocumento">Tipo de documento</label>
-                  <select
-                    class="form-control"
-                    id="tipoDoc"
-                    name="idTipoDocumento"
-                    [(ngModel)]="colaborador.tipoDocumento.idTipoDocumento"
-                    #idTipoDocumento="ngModel"
-                    required
-                  >
-                    <option value="0">-- Seleccionar --</option>
-                  </select> -->
-                  <label for="idTipoDocumento">Tipo de documento</label>
-                  <select
-                    [(ngModel)]="tipoDocSelected"
-                    #idTipoDocumento="ngModel"
-                    class="form-control"
-                    id="tipoDoc"
-                    name="idTipoDocumento"
-                    required
-                  >
-                    <option value="0" selected>-- Selecionar --</option>
-                    <option *ngFor="let o of optionsTiposDocumento" [ngValue]="o.idTipoDocumento">
-                      {{ o.nombre }}
-                    </option>
-                  </select>
-                  <div
-                    *ngIf="
-                      idTipoDocumento.invalid && (idTipoDocumento.dirty || idTipoDocumento.touched)
-                    "
-                    class="alert alert-danger"
-                  >
-                    <div *ngIf="idTipoDocumento.errors.required">Dato obligatorio</div>
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                      <label for="sexo">Sexo</label>
+                      <select
+                        class="form-control"
+                        id="sexo"
+                        name="sexo"
+                        [(ngModel)]="colaborador.sexo"
+                        #sexo="ngModel"
+                        required
+                      >
+                        <option value="0">-- Seleccionar --</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                      </select>
+                      <div
+                        *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)"
+                        class="alert alert-danger"
+                      >
+                        <div *ngIf="sexo.errors.required">Dato obligatorio</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="numeroDocumento">Nro. doc.</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="numeroDocumento"
-                    name="numeroDocumento"
-                    mask="000000000000"
-                    [(ngModel)]="colaborador.numeroDocumento"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-group">
-                  <label for="sexo">Sexo</label>
-                  <select
-                    class="form-control"
-                    id="sexo"
-                    name="sexo"
-                    [(ngModel)]="colaborador.sexo"
-                    #sexo="ngModel"
-                    required
-                  >
-                    <option value="0">-- Seleccionar --</option>
-                    <option value="M">Masculino</option>
-                    <option value="F">Femenino</option>
-                  </select>
-                  <div
-                    *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)"
-                    class="alert alert-danger"
-                  >
-                    <div *ngIf="sexo.errors.required">Dato obligatorio</div>
+                <hr>
+                <h4>Asigna Usuario</h4>
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-goup">
+                      <label for="Usuario">Usuario</label>
+                      <input class="form-control" type="text" name="" id="">
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-goup">
+                      <label for="Constrala">Contraseña</label>
+                      <input class="form-control" type="text" name="" id="">
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <hr>
-            <h4>Asigna Usuario</h4>
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-goup">
-                  <label for="Usuario">Usuario</label>
-                  <input class="form-control" type="text" name="" id="">
+                <div class="row">
+                  <div class="col-sm-12 col-md-6">
+                    <div class="form-goup">
+                      <label for="Rol">Rol Asignado</label>
+                      <select name="" id="" class="form-control">
+                        <option [value]="rol.id" *ngFor="let rol of roles"> {{rol.name}}</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-sm-12 col-md-6">
-                <div class="form-goup">
-                  <label for="Constrala">Contraseña</label>
-                  <input class="form-control" type="text" name="" id="">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 col-md-6">
-                <div class="form-goup">
-                  <label for="Rol">Rol Asignado</label>
-                  <select name="" id="" class="form-control">
-                    <option [value]="rol.id" *ngFor="let rol of roles"> {{rol.name}}</option>
-                  </select>
-                </div>
-              </div>
-            </div>
 
-            <br>
+                <br>
 
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary btn-float-right" (click)="regresar()">
-                Cancelar
-              </button>
-              <button
-                type="submit"
-                class="btn btn-optima btn-float-right"
-                (click)="agregarColaborador()"
-                style="text-decoration: none"
-                [disabled]="!isValidForm"
-              >
-                {{ !isModeEdit ? 'Agregar' : 'Guardar' }}
-                <!-- [disabled]="!isValidForm" -->
-              </button>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary btn-float-right" (click)="regresar()">
+                    Cancelar
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-optima btn-float-right"
+                    (click)="agregarColaborador()"
+                    style="text-decoration: none"
+                    [disabled]="!isValidForm"
+                  >
+                    {{ !isModeEdit ? 'Agregar' : 'Guardar' }}
+                    <!-- [disabled]="!isValidForm" -->
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 </div>
