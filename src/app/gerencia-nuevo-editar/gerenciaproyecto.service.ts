@@ -17,7 +17,7 @@ export class GerenciaproyectoService {
   }
 
   getProyectosByIdGerencia2(idGerencia: number): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/listarproyectos/' + idGerencia).pipe()
+    return this.http.get(this.urlEndPoint + '/listarproyectos/' + idGerencia ).pipe()
   }
 
   agregarProyectosGerencia(gerenciaproyecto:Gerenciaproyecto): Observable<Gerenciaproyecto>{

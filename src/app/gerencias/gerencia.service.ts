@@ -17,7 +17,7 @@ export class GerenciaService {
   ){}
 
   geGerenciasPorPagina(page):Observable<any>{
-    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+    return this.http.get(this.urlEndPoint + 'page/' + page + '/10').pipe(
       map((jsonGerenteResponse:any) => {
         ;(jsonGerenteResponse.content as Gerencia[]).map((gerencia) => {
           let ininom = gerencia.colaborador.nombres.substr(0,1)

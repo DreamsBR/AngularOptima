@@ -88,6 +88,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         console.log(error)
       }
     )
+
+    this.obtenerRoles()
   }
 
 
