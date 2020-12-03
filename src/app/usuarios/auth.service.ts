@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Usuario } from './usuario';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { URL_BACKEND } from '../config/config';
+import { URL_BACKEND, URL_BACKEND_SEG } from '../config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -37,22 +37,30 @@ export class AuthService {
 
   public logIn(usuario: Usuario): Observable<any> {
 
-    const urlEndPoint = URL_BACKEND + '/oauth/token';
+    const urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
 
-    const credenciales = btoa('angularapp' + ':' + '12345');
+    // const credenciales = btoa('angularapp' + ':' + '12345');
 
-    const httpHeaders = new HttpHeaders(
-      {
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Basic ' + credenciales
-      });
+    // const httpHeaders = new HttpHeaders(
+    //   {
+    //     'Content-type': 'application/x-www-form-urlencoded',
+    //     'Authorization': 'Basic ' + credenciales
+    //   });
 
-    const params = new URLSearchParams();
-    params.set('grant_type', 'password');
-    params.set('username', usuario.userName);
-    params.set('password', usuario.password);
+    // const params = new URLSearchParams();
+    // params.set('grant_type', 'password');
+    // params.set('username', usuario.userName);
+    // params.set('password', usuario.password);
+
+    let params = {
+      "password": usuario.password,
+      "username": usuario.userName
+    }
+
+    // { headers: httpHeaders }
+
     console.log(params.toString());
-    return this.http.post<any>(urlEndPoint, params.toString(), { headers: httpHeaders });
+    return this.http.post<any>(urlEndPoint, params);
   }
 
   public guardarUsuario(accessToken: string): void {

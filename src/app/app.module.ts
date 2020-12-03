@@ -352,6 +352,7 @@ const ROUTES: Routes = [
     Estadoventa2Service,
     RolesService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
 
   bootstrap: [AppComponent]
