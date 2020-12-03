@@ -9,6 +9,7 @@ import { Vendedor } from "./vendedor";
 import { VendedorService } from './vendedor.service'
 import swal from 'sweetalert2';
 import { Jefaturaproyecto } from '../jefatura/jefaturaproyecto';
+import sleep from 'await-sleep'
 
 @Component({
   selector: 'app-jefatura-nuevo-editar',
@@ -180,7 +181,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
     }
   }
 
-  guardarVendedores(idJefatura: number){
+  async guardarVendedores(idJefatura: number){
 
     if(this.aryVendedores.length != 0){
       if(this.idJefatura == 0){
@@ -240,6 +241,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
       }
     }
 
+    await sleep(500)
     this.router.navigate(['/jefatura/',this.idProyecto,this.idGerencia])
     swal('Jefatura registrada', ``, 'success')
   }
