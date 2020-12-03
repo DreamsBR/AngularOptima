@@ -16,6 +16,8 @@ import { Roles } from '../colaboradores/roles'
   selector: 'app-colaboradores-nuevo-editar',
   templateUrl: './colaboradores-nuevo-editar.component.html'
 })
+
+
 export class ColaboradoresNuevoEditarComponent implements OnInit {
   loading: boolean = false
 
