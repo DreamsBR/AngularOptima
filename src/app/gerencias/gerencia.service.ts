@@ -17,7 +17,11 @@ export class GerenciaService {
   ){}
 
   geGerenciasPorPagina(page):Observable<any>{
+<<<<<<< HEAD
     return this.http.get(this.urlEndPoint + 'page/' + page + '/10').pipe(
+=======
+    return this.http.get(this.urlEndPoint + 'page/' + page + '/16').pipe(
+>>>>>>> 4bac430f9f5da5cb1ab37a348f5dbab8dbaa51ae
       map((jsonGerenteResponse:any) => {
         ;(jsonGerenteResponse.content as Gerencia[]).map((gerencia) => {
           let ininom = gerencia.colaborador.nombres.substr(0,1)
@@ -30,14 +34,14 @@ export class GerenciaService {
     )}
 
   geGerenciasPorId(idGerencia:number): Observable<Gerencia>{
-    return this.http.get<Gerencia>(this.urlEndPoint + '/' + idGerencia).pipe(
+    return this.http.get<Gerencia>(this.urlEndPoint + idGerencia).pipe(
       catchError((e) => {
         return throwError(e)
       })
     )}
 
   eliminarGerencia(id:number): Observable<Gerencia>{
-    return this.http.delete<Gerencia>(this.urlEndPoint + '/' + id).pipe(
+    return this.http.delete<Gerencia>(this.urlEndPoint + id).pipe(
       catchError((e) => {
         return throwError(e)
       })
@@ -52,7 +56,7 @@ export class GerenciaService {
     )}
 
   editarGerencia(gerencia:Gerencia2, idGerencia:number): Observable<Gerencia>{
-    return this.http.put<Gerencia>(this.urlEndPoint + '/' + idGerencia, gerencia).pipe(
+    return this.http.put<Gerencia>(this.urlEndPoint + idGerencia, gerencia).pipe(
       catchError((e) => {
         if(e.status === 400){
           return throwError(e)}
