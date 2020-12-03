@@ -13,18 +13,17 @@
           <button type="button" (click)="verInmuebles()" class="btn btn-outline-optima btn-margin">
             <em class="far fa-file-excel"></em> Ver inmuebles
           </button>
-          <a href="/proyecto-nuevo-editar/0">
-            <span class="font-add"> Agregar <em class="fas fa-plus-circle"></em> </span>
-          </a>
+          <a [routerLink]="['/proyecto-nuevo-editar', 0]"><span class="font-add"> Agregar <em class="fas fa-plus-circle"></em> </span></a>
         </div>
       </div>
+  
       <table
         mat-table
         [dataSource]="proyectoLista"
         class="tbproy"
         style="width: 100%; margin-top: 20px"
       >
-        <!-- Position Column -->
+
         <ng-container matColumnDef="nombre">
           <th mat-header-cell *matHeaderCellDef>Item Objecto<span class="hola">hola</span></th>
           <td mat-cell *matCellDef="let elemproyecto">
@@ -74,11 +73,11 @@
               </div>
             </div>
 
-
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+
       </table>
 
       <mat-paginator
@@ -89,235 +88,6 @@
         showFirstLastButtons
         class="ptproy"
       ></mat-paginator>
-      <div class="row" style="display: none">
-        <div class="col-sm-12 col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="row item-proyecto">
-                <div class="col-sm-12 col-md-10">
-                  <p>
-                    <a data-toggle="collapse" href="#collapseExample1" aria-expanded="false"
-                      ><strong>Proyecto 1</strong></a
-                    >
-                  </p>
-                  <p>534252</p>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                  <div class="btn-float-right">
-                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        [routerLink]="['/cliente-nuevo-editar', 1]"
-                      >
-                        <em class="far fa-edit"></em> Editar
-                      </button>
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#modal-eliminar-cliente"
-                      >
-                        <em class="far fa-trash-alt"></em> Eliminar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="collapse" id="collapseExample1">
-            <div class="card">
-              <div class="card-body">
-                <div class="row item-proyecto">
-                  <div class="col-sm-12 col-md-3">
-                    <div class="logo-user">SR</div>
-                  </div>
-                  <div class="col-sm-12 col-md-9">
-                    <p><strong>Gerente</strong></p>
-                    <p>Samantha Rodriguez López</p>
-                    <p><strong>Fecha de inicio</strong></p>
-                    <p>12/12/20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="row item-proyecto">
-                <div class="col-sm-12 col-md-10">
-                  <p>
-                    <a data-toggle="collapse" href="#collapseExample2" aria-expanded="false"
-                      ><strong>Proyecto 2</strong></a
-                    >
-                  </p>
-                  <p>534252</p>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                  <div class="btn-float-right">
-                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        [routerLink]="['/cliente-nuevo-editar', 1]"
-                      >
-                        <em class="far fa-edit"></em> Editar
-                      </button>
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#modal-eliminar-cliente"
-                      >
-                        <em class="far fa-trash-alt"></em> Eliminar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="collapse" id="collapseExample2">
-            <div class="card">
-              <div class="card-body">
-                <div class="row item-proyecto">
-                  <div class="col-sm-12 col-md-3">
-                    <div class="logo-user">SR</div>
-                  </div>
-                  <div class="col-sm-12 col-md-9">
-                    <p><strong>Gerente</strong></p>
-                    <p>Samantha Rodriguez López</p>
-                    <p><strong>Fecha de inicio</strong></p>
-                    <p>12/12/20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="row item-proyecto">
-                <div class="col-sm-12 col-md-10">
-                  <p>
-                    <a data-toggle="collapse" href="#collapseExample3" aria-expanded="false"
-                      ><strong>Proyecto 3</strong></a
-                    >
-                  </p>
-                  <p>534252</p>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                  <div class="btn-float-right">
-                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        [routerLink]="['/cliente-nuevo-editar', 1]"
-                      >
-                        <em class="far fa-edit"></em> Editar
-                      </button>
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#modal-eliminar-cliente"
-                      >
-                        <em class="far fa-trash-alt"></em> Eliminar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="collapse" id="collapseExample3">
-            <div class="card">
-              <div class="card-body">
-                <div class="row item-proyecto">
-                  <div class="col-sm-12 col-md-3">
-                    <div class="logo-user">SR</div>
-                  </div>
-                  <div class="col-sm-12 col-md-9">
-                    <p><strong>Gerente</strong></p>
-                    <p>Samantha Rodriguez López</p>
-                    <p><strong>Fecha de inicio</strong></p>
-                    <p>12/12/20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-12 col-md-4">
-          <div class="card">
-            <div class="card-body">
-              <div class="row item-proyecto">
-                <div class="col-sm-12 col-md-10">
-                  <p>
-                    <a data-toggle="collapse" href="#collapseExample4" aria-expanded="false"
-                      ><strong>Proyecto 4</strong></a
-                    >
-                  </p>
-                  <p>534252</p>
-                </div>
-                <div class="col-sm-12 col-md-2">
-                  <div class="btn-float-right">
-                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                    <div class="dropdown-menu dropdown-menu-left">
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        [routerLink]="['/cliente-nuevo-editar', 1]"
-                      >
-                        <em class="far fa-edit"></em> Editar
-                      </button>
-                      <button
-                        class="dropdown-item"
-                        type="button"
-                        data-toggle="modal"
-                        data-target="#modal-eliminar-cliente"
-                      >
-                        <em class="far fa-trash-alt"></em> Eliminar
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="collapse" id="collapseExample4">
-            <div class="card">
-              <div class="card-body">
-                <div class="row item-proyecto">
-                  <div class="col-sm-12 col-md-3">
-                    <div class="logo-user">SR</div>
-                  </div>
-                  <div class="col-sm-12 col-md-9">
-                    <p><strong>Gerente</strong></p>
-                    <p>Samantha Rodriguez López</p>
-                    <p><strong>Fecha de inicio</strong></p>
-                    <p>12/12/20</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <br />
     </div>
@@ -329,7 +99,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title">Eliminar cliente</h5>
+          <h5 class="modal-title">Eliminar</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
           </button>

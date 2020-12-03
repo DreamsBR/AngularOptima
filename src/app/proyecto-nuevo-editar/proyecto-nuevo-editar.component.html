@@ -8,9 +8,6 @@
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div> -->
           <div style="display: flex; align-items: center">
-            <button (click)="regresar()" class="btn btn-optima" style="margin-right: 10px">
-              <em class="fas fa-chevron-left"></em>
-            </button>
             <h3 style="display: inline-block; margin-bottom: 0px">
               {{ editMode ? 'Editar' : 'Agregar' }} proyecto
             </h3>
@@ -130,9 +127,7 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-12">
-                  <button (click)="guardarProyecto()" class="btn btn-optima btn-float-right">
-                    Guardar
-                  </button>
+                  <button (click)="guardarProyecto()" class="btn btn-optima btn-float-right">Guardar</button>
                 </div>
               </div>
             </div>
