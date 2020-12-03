@@ -4,7 +4,7 @@ import { TipoVista } from './../tipovista/tipoVista'
 import { TipoInmuebleCategoria } from './../tipoinmueblecategoria/tipoInmuebleCategoria'
 import { Inmueble } from '../inmuebles/inmueble'
 import { InmuebleService } from '../inmuebles/inmueble.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { TipoInmuebleService } from './../tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './../tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './../tipoinmueblecategoria/tipoInmuebleCategoria.service'
@@ -40,6 +40,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private tipoInmuebleService:TipoInmuebleService,
     private tipoVistaService:TipoVistaService,
+    private router: Router,
     private tipoInmuebleCategoriaService:TipoInmuebleCategoriaService) {
     this.optionsTipoInmueble = []
   }
@@ -73,6 +74,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         this.inmuebleService.getInmueblesByIdInmueble(paramIdInmueble).subscribe(
           (response) => {
             this.inmueble = response
+            this.pageToBackIdProyecto = this.inmueble.idProyecto
             this.inmueble.idTipoInmueble=response.tipoInmueble.idTipoInmueble
             this.inmueble.idTipoInmuebleCategoria=response.tipoInmuebleCategoria.idTipoInmuebleCategoria
             this.inmueble.idTipoVista=response.tipoVista.idTipoVista
@@ -191,7 +193,8 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   }
 
   regresar() {
-    window.location.href = '/inmuebles/' + this.pageToBackIdProyecto
+    this.router.navigate(['/inmuebles/' + this.pageToBackIdProyecto])
+
     //window.history.back()
   }
 

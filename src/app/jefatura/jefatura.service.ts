@@ -14,7 +14,7 @@ export class JefaturaService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getJefaturaPorId(idJefatura:number): Observable<Jefaturanodo>{
-    return this.http.get<Jefaturanodo>(this.urlEndPoint + '/' + idJefatura).pipe(
+    return this.http.get<Jefaturanodo>(this.urlEndPoint + idJefatura).pipe(
       catchError((e) => {
         return throwError(e)
       })
@@ -50,7 +50,7 @@ export class JefaturaService {
   }
 
   editarJefatura(jefatura:Jefatura, idJefatura:number): Observable<Jefatura>{
-    return this.http.put<Jefatura>(this.urlEndPoint + '/' + idJefatura, jefatura).pipe(
+    return this.http.put<Jefatura>(this.urlEndPoint + idJefatura, jefatura).pipe(
       catchError((e) => {
         if(e.status === 400){
           return throwError(e)}

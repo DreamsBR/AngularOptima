@@ -111,7 +111,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
       if (!isNull(params.get('dni'))) {
-        console.info(params.get('dni'))
         this.nrodoc = params.get('dni')
         this.obtenerClienteSeleccionado(params.get('dni'))
       }
@@ -133,7 +132,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   agregarCliente(nrodoc: string) {
-    console.info(nrodoc)
     if (nrodoc == '' || nrodoc == undefined) {
       swal('No hizo una busqueda de cliente', '', 'warning')
       return
@@ -378,8 +376,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       // return
     }
 
-    console.info('guardar financiamiento')
-
     this.financiamiento.idFinanciamiento = 0
     this.financiamiento.afp = this.afp
     this.financiamiento.asesor = this.asesor
@@ -399,7 +395,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
-        console.info(`Financiamiento ${response.idFinanciamiento}`)
         this.guardarVenta(response.idFinanciamiento)
       },
       (err) => {
@@ -413,10 +408,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
     if (this.vendedorSelected == 0 || this.vendedorSelected == null) {
       swal('Falta selecionar un vendedor', '', 'warning')
-      // this.bancoSeleccionado = 0
       return
     }
-    this.venta.idVendedor = this.vendedorSelected // Reemplazar por id vendedor logueado
+    this.venta.idVendedor = this.vendedorSelected
 
     this.venta.enable = 1
     this.venta.fechaCaida = ''
@@ -432,18 +426,13 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
 
-    let totalVenta: number = this.getTotalVenta()
-
     this.venta.ayudaInicial = this.porcentaje_cuota_inicial
     this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.venta.importe = this.totalInmuebles
     this.venta.total = this.venta.importe - this.venta.descuento
 
-    console.info(this.venta)
-    //return
     this.ventaService.agregarVenta(this.venta).subscribe(
       (response) => {
-        console.info(`Venta ${response.idVenta}`)
         this.guardarInmuebles(response.idVenta)
       },
       (err) => {
@@ -481,7 +470,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
           this.departamentosAgregados[i].ayudainicial
         this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
           (response) => {
-            console.info(`Venta ${response.idVentaInmueble}`)
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -509,7 +497,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
           this.adicionalAgregados[i].ayudainicial
         this.ventainmuebleService.agregarVentainmueble(this.ventainmueble).subscribe(
           (response) => {
-            console.info(`Venta ${response.idVentaInmueble}`)
           },
           (err) => {
             this.errores = err.error.errors as string[]

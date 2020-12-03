@@ -22,7 +22,7 @@ export class Estadoventa2Service {
     )}
 
     obtenerEstadoventaPorId(idEstadoventa): Observable<Estadoventa> {
-        return this.http.get<Estadoventa>(this.urlEndPoint + '/' + idEstadoventa)
+        return this.http.get<Estadoventa>(this.urlEndPoint + idEstadoventa)
     }
 
     agregar(Estadoventa: Estadoventa): Observable<any> {
@@ -36,7 +36,7 @@ export class Estadoventa2Service {
     }
 
     actualizar(Estadoventa: Estadoventa, idEstadoventa: number): Observable<any> {
-        return this.http.put<any>(this.urlEndPoint + '/' + idEstadoventa, Estadoventa).pipe(
+        return this.http.put<any>(this.urlEndPoint + idEstadoventa, Estadoventa).pipe(
           catchError((e) => {
             if (e.status === 400) {
               return throwError(e)
