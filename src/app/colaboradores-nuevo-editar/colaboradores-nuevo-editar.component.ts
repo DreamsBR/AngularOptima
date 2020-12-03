@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from '@angular/router'
 import swal from 'sweetalert2'
 import { TipoDocumento } from '../colaboradores/tipoDocumento'
 import { VentaService } from '../ventas/ventas.service'
-import { RolesService } from "../colaboradores/roles.service"
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 import { Roles } from '../colaboradores/roles'
 
@@ -37,7 +36,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
     private ventaService: VentaService,
-    private rolesService: RolesService
   ) {
     this.colaborador.idColaborador = 0
     this.colaborador.nombres = ''
@@ -92,11 +90,12 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     this.status = !this.status
   }
   roles : Roles[]
+  /*
   public obtenerRoles(){
     this.rolesService.getTodoRoles().subscribe((response)=> {
       this.roles = response
     })
-  }
+  }*/
 
   public agregarColaborador(): void {
     let id = this.idColaborador

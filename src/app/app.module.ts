@@ -296,7 +296,6 @@ const ROUTES: Routes = [
     Categoria2Service,
     Estadofinanciamiento2Service,
     Estadoventa2Service,
-    RolesService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
