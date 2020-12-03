@@ -1,4 +1,3 @@
-import {  } from "module";
 import { Roles } from './roles';
 
 export class UsuarioLogin{

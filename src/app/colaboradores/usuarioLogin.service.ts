@@ -10,7 +10,7 @@ import { UsuarioLogin } from './usuarioLogin';
 
 
 
-Injectable()
+@Injectable()
 export class  UsuarioLoginService{
 
   private urlEndPoint : string = URL_BACKEND_SEG + 'auth/'+ 'singup'
