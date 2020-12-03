@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Proyecto } from './proyecto'
 import { ProyectoService } from './proyectos.service'
-// import { ActivatedRoute } from '@angular/router'
+import { Router } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
-// import { hardCode } from './data'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import swal from 'sweetalert2'
 
 @Component({
   selector: 'app-proyectos',
@@ -30,7 +30,7 @@ export class ProyectosComponent implements OnInit {
 
   constructor(
     private proyectoService: ProyectoService,
-    // private activatedRoute: ActivatedRoute,
+    private router: Router,
     public authService: AuthService
   ) {}
 
@@ -61,9 +61,9 @@ export class ProyectosComponent implements OnInit {
 
   verInmuebles() {
     if (this.idProyectoSelected === 0) {
-      // alert('Debe seleccionar un proyecto')
+      swal('Seleccione un proyecto', '', 'warning')
     } else {
-      window.location.href = '/inmuebles/' + this.idProyectoSelected
+      this.router.navigate(['/inmuebles/' + this.idProyectoSelected])
     }
   }
 
