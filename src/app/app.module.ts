@@ -54,6 +54,7 @@ import { TipoVistaService } from './tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './tipoinmueblecategoria/tipoInmuebleCategoria.service'
 import { GerenciaproyectoService } from './gerencia-nuevo-editar/gerenciaproyecto.service'
 import { ExporterService } from './helpers/exporter.service'
+import {  RolesService } from './colaboradores/roles.service'
 
 
 import { LoginComponent } from './usuarios/login.component'
@@ -349,6 +350,7 @@ const ROUTES: Routes = [
     Categoria2Service,
     Estadofinanciamiento2Service,
     Estadoventa2Service,
+    RolesService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
 
