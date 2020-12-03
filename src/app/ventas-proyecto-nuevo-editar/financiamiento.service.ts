@@ -24,7 +24,7 @@ export class FinanciamientoService {
   }
 
   editarFinanciamiento(financiamiento: Financiamiento, idFinanciamiento: number): Observable<any> {
-    return this.http.put<any>(this.urlEndPoint + '/' + idFinanciamiento, financiamiento).pipe(
+    return this.http.put<any>(this.urlEndPoint + idFinanciamiento, financiamiento).pipe(
       catchError((e) => {
         if (e.status === 400) {
           return throwError(e)
