@@ -13,7 +13,7 @@ import { UsuarioLogin } from './usuarioLogin';
 @Injectable()
 export class  UsuarioLoginService{
 
-  private urlEndPoint : string = URL_BACKEND_SEG + 'auth/'+ 'singup'
+  private urlEndPoint : string = URL_BACKEND_SEG + 'auth/'+ 'signup'
 
   constructor (
     private http: HttpClient

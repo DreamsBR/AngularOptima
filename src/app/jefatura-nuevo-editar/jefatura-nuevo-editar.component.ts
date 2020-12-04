@@ -183,6 +183,17 @@ export class JefaturaNuevoEditarComponent implements OnInit {
 
   async guardarVendedores(idJefatura: number){
 
+    if(this.vendedoresEliminados.length > 0){
+      for (var i = 0; i < this.vendedoresEliminados.length; i++) {
+        this.VendedorService.eliminarVendedor(this.vendedoresEliminados[i]).subscribe(
+          (response) => {},
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
+    }
+
     if(this.aryVendedores.length != 0){
       if(this.idJefatura == 0){
         for (var i = 0; i < this.aryVendedores.length; i++) {
@@ -201,18 +212,7 @@ export class JefaturaNuevoEditarComponent implements OnInit {
           )
         }
       }else{
-  
-        if(this.vendedoresEliminados.length > 0){
-          for (var i = 0; i < this.vendedoresEliminados.length; i++) {
-            this.VendedorService.eliminarVendedor(this.vendedoresEliminados[i]).subscribe(
-              (response) => {},
-              (err) => {
-                this.errores = err.error.errors as string[]
-              }
-            )
-          }
-        }
-  
+
         for (var i = 0; i < this.aryVendedores.length; i++) {
           var addVendedor = new Vendedor()
           addVendedor.enable = 1

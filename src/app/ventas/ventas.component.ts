@@ -16,7 +16,7 @@ export class VentasComponent implements OnInit {
 
   totalData: number = 0
   pageIndex: number = 0
-  pageSize: number = 5
+  pageSize: number = 15
   pageSizeOptions: number[] = [5, 10, 25, 250]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
