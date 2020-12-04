@@ -181,10 +181,6 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     const isValid = this.validarForm()
     
     if (!isValid) return
-
-    if(this.inmueble.idTipoInmueble==2){
-      this.inmueble.idTipoInmuebleCategoria=0
-    }
     
       const __self = this
     __self.inmuebleService.crearInmueble(this.inmueble).subscribe((resp) => {
@@ -209,11 +205,8 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       this.loadTipoInmuebleCategoria2(val)
     } else {
       this.loadTipoInmuebleCategoria2(val)
-      // Otros (Estacionamiento)
-      this.inmueble.idTipoInmuebleCategoria = 0
      // this.inmueble.idTipoVista = 0
       this.inmueble.cantidadDormitorio = 0
-      
     }
   }
 
@@ -240,6 +233,11 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         this.errors = ['Los campos: tipo vista son requeridos']
       } 
 
+      if (this.inmueble.idTipoInmuebleCategoria=== null || this.inmueble.idTipoInmuebleCategoria === 0) {
+        tmpValid = false
+        this.errors = ['El campo Tipo inmueble categoría es necesario']
+      } 
+
     }else{
       
       if((this.inmueble.idTipoInmueble === 1&&this.inmueble.idTipoInmuebleCategoria === 0)||this.inmueble.idTipoVista === 0){
@@ -258,6 +256,11 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         tmpValid = false
         this.errors = ['Los campos: tipo vista son requeridos']
       }
+
+      if (this.inmueble.idTipoInmuebleCategoria=== null || this.inmueble.idTipoInmuebleCategoria === 0) {
+        tmpValid = false
+        this.errors = ['El campo Tipo inmueble categoría es necesario']
+      } 
     }
     
     return tmpValid
