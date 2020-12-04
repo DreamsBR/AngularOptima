@@ -181,7 +181,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
       ],
       "username":  this.usuario
     }
-  
+
     this.usuarioLoginService.agregarUsiarioLog(addUsuarioLogin).subscribe(
       (response) => {
         console.log(response)
