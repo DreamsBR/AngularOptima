@@ -105,8 +105,9 @@
                                                     <label for="fechanacimiento">Fecha de nacimiento</label>
                                                     <datepicker-rounded
                                                     #dpFechaDeNacimiento
-                                                    (onDateChanged)="clienteFechanacimiento($event)"
+                                                    (onDateChanged)="setFechaNacimiento($event)"
                                                     [label]="'Fecha'"
+                                                    [minDate]="{year: 1900, month: 1, day: 1}"
                                                     ></datepicker-rounded>
                                                 </div>
                                             </div>

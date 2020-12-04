@@ -106,8 +106,6 @@ export class ClientesNuevoEditarComponent implements OnInit {
       return
     }
 
-    this.clienteFechanacimiento(this.cliente.fechaNacimiento);
-
     if(this.cliente.idCliente == 0){
       this.clienteService.agregarCliente(this.cliente).subscribe(
         (response) => {
@@ -141,13 +139,17 @@ export class ClientesNuevoEditarComponent implements OnInit {
     document.getElementById(tabName).click()
   }
 
-  clienteFechanacimiento(event: string){
+  /* clienteFechanacimiento(event: string){
     let str = event.split('-');
     this.cliente.fechaNacimiento = str[2] + "-" + str[1] + "-" + str[0]
-  }
+  } */
 
   status = false
   menuToggle() {
     this.status = !this.status
+  }
+
+  setFechaNacimiento (date: string) {
+    this.cliente.fechaNacimiento  = date
   }
 }
