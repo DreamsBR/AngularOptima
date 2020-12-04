@@ -33,7 +33,8 @@ export class EstadofinanciamientoComponent implements OnInit {
   }
 
   public eliminar(estadofinanciamiento: Estadofinanciamiento): void {
-    this.estadofinanciamiento2Service.eliminar(estadofinanciamiento.idEstadoFinanciamiento).subscribe(
+    estadofinanciamiento.enable = 0
+    this.estadofinanciamiento2Service.actualizar(estadofinanciamiento, estadofinanciamiento.idEstadoFinanciamiento).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()

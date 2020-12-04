@@ -31,6 +31,7 @@ export class EstadoventaNuevoEditarComponent implements OnInit {
           })
       }else{
         this.estadoventa.idEstadoVenta = 0
+        this.estadoventa.enable = 1
       }
     })
   }

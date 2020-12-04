@@ -33,7 +33,8 @@ export class CategoriaComponent implements OnInit {
   }
 
   public eliminar(categoria: Categoria): void {
-    this.categoria2Service.eliminar(categoria.idCategoria).subscribe(
+    categoria.enable = 0
+    this.categoria2Service.actualizar(categoria, categoria.idCategoria).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()

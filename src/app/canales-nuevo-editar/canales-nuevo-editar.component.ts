@@ -31,6 +31,7 @@ export class CanalesNuevoEditarComponent implements OnInit {
             })
         }else{
           this.canal.idCanal = 0
+          this.canal.enable = 1
         }
       })
     }
