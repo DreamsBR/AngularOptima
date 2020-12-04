@@ -45,7 +45,6 @@
                                             <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
                                             <div class="dropdown-menu dropdown-menu-left">
                                                 <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.idCliente]"><em class="far fa-edit"></em> Editar</button>
-                                                <!-- <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente" (click)='obtenerClienteSeleccionado(cliente)'><em class="far fa-trash-alt"></em> Eliminar</button> -->
                                             </div>
                                         </td>
                                         <td>{{cliente.nombres}}</td>
@@ -59,7 +58,7 @@
                                         <td>{{cliente.distrito}}</td>
                                         <td>{{cliente.direccion}}</td>
                                         <td>{{cliente.conyuge}}</td>
-                                        <td>{{cliente.nroDocumentoConyuge}}</td>
+                                        <td>{{cliente.nroDocConyuge}}</td>
                                         <td>{{cliente.asesor}}</td>
                                     </tr>
                                 </tbody>

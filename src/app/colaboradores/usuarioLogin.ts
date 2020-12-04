@@ -1,11 +1,11 @@
+import { argThresholdOpts } from 'moment';
 import { Roles } from './roles';
 
 export class UsuarioLogin{
-
     email:string
-    idColaborado: number
+    idColaborador: number
     name: string
     password: string
-    role: Roles
+    role: any
     username:string
 }

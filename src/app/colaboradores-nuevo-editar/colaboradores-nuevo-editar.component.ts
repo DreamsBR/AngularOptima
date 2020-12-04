@@ -125,9 +125,10 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     if (id == 0) {
       this.colaboradorService.agregarColaborador(newColaborador).subscribe(
         (response) => {
-          console.log(response)
-          this.router.navigate(['/colaboradores'])
-          swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
+          //console.log(response)
+          this.guardarUsuario(response.idColaborador)
+          // this.router.navigate(['/colaboradores'])
+          // swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
         },
         (err) => {
           this.errores = err.error.errors as string[]
@@ -152,9 +153,47 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     }
   }
 
+  usuario: string
+  contrasenia: string
+  rolseleccionado: string
 
-  public EnviarUsiario(idCola: number):void {
+  public guardarUsuario(idColaborador: number):void {
 
+    // let addUsuarioLogin: UsuarioLogin = new UsuarioLogin()
+    // addUsuarioLogin.email = this.usuario
+    // addUsuarioLogin.idColaborador = idColaborador
+    // addUsuarioLogin.name = this.usuario
+    // addUsuarioLogin.password = this.contrasenia
+    // addUsuarioLogin.username = this.usuario
+    // //let rol = []
+    // //rol.push(this.rolseleccionado)
+    // addUsuarioLogin.role.push(this.rolseleccionado)
+
+    // console.info(addUsuarioLogin)
+
+    let addUsuarioLogin = {
+      "email": this.usuario,
+      "idColaborador": idColaborador,
+      "name": this.colaborador.nombres + ' ' + this.colaborador.apellidos,
+      "password": this.contrasenia,
+      "role": [
+        this.rolseleccionado
+      ],
+      "username":  this.usuario
+    }
+
+    this.usuarioLoginService.agregarUsiarioLog(addUsuarioLogin).subscribe(
+      (response) => {
+        console.log(response)
+      }, err =>{
+        if (err.status == 400){
+          swal('Usuario ya existe', '', 'success')
+        }
+        if (err.status == 401){
+          swal('Error en datos', '', 'success')
+        }
+      }
+    )
   }
 
 

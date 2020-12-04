@@ -129,37 +129,36 @@
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                   </select>
-                  <div
-                    *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)"
-                    class="alert alert-danger"
-                  >
+                  <div *ngIf="sexo.invalid && (sexo.dirty || sexo.touched)" class="alert alert-danger">
                     <div *ngIf="sexo.errors.required">Dato obligatorio</div>
                   </div>
                 </div>
               </div>
             </div>
+
             <hr>
+
             <h4>Asigna Usuario</h4>
             <div class="row">
               <div class="col-sm-12 col-md-6">
                 <div class="form-goup">
-                  <label for="Usuario">Usuario</label>
-                  <input class="form-control" type="text" name="" id="">
+                  <label for="user">Email</label>
+                  <input class="form-control" type="text" name="user" [(ngModel)]="usuario">
                 </div>
               </div>
               <div class="col-sm-12 col-md-6">
                 <div class="form-goup">
-                  <label for="Constrala">Contraseña</label>
-                  <input class="form-control" type="text" name="" id="">
+                  <label for="contrasenia">Contraseña</label>
+                  <input class="form-control" type="text" name="contrasenia" [(ngModel)]="contrasenia">
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-sm-12 col-md-6">
                 <div class="form-goup">
-                  <label for="Rol">Rol Asignado</label>
-                  <select name="" id="" class="form-control">
-                    <option [value]="rol.id" *ngFor="let rol of roles"> {{rol.name}}</option>
+                  <label for="roles">Rol Asignado</label>
+                  <select name="roles" class="form-control" [(ngModel)]="rolseleccionado">
+                    <option value="{{ rol.name }}" *ngFor="let rol of roles"> {{rol.name}}</option>
                   </select>
                 </div>
               </div>

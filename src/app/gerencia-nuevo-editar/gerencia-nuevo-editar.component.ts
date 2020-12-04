@@ -290,6 +290,18 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   }
 
   guardarPeriodoGerencia(idGerencia: number){
+
+    if(this.periodosEliminados.length > 0){
+      for (var i = 0; i < this.periodosEliminados.length; i++) {
+        this.periodoGerenciaService.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
+          (response) => {},
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
+    }
+
     if( this.aryPeriodos.length != 0 ){
       if(this.idGerencia == 0){
         for (var i = 0; i < this.aryPeriodos.length; i++) {
@@ -308,18 +320,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
           )
         }
       }else{
-  
-        if(this.periodosEliminados.length > 0){
-          for (var i = 0; i < this.periodosEliminados.length; i++) {
-            this.periodoGerenciaService.eliminarPeriodoGerencia(this.periodosEliminados[i]).subscribe(
-              (response) => {},
-              (err) => {
-                this.errores = err.error.errors as string[]
-              }
-            )
-          }
-        }
-  
+
         for (var i = 0; i < this.aryPeriodos.length; i++) {
   
           var periodoGerencia = new PeriodoGerencia2()
@@ -353,6 +354,18 @@ export class GerenciaNuevoEditarComponent implements OnInit {
 
 
   guardarProyectosGerencia(idGerencia: number){
+
+    if(this.proyectosEliminados.length > 0){
+      for (var i = 0; i < this.proyectosEliminados.length; i++) {
+        this.gerenciaproyectoService.eliminarProyectosGerencia(this.proyectosEliminados[i]).subscribe(
+          (response) => {},
+          (err) => {
+            this.errores = err.error.errors as string[]
+          }
+        )
+      }
+    }
+
     if( this.aryProyectos.length != 0 ){
       if(this.idGerencia == 0){
         for (var i = 0; i < this.aryProyectos.length; i++) {
@@ -375,17 +388,6 @@ export class GerenciaNuevoEditarComponent implements OnInit {
           )
         }
       }else{
-
-        if(this.proyectosEliminados.length > 0){
-          for (var i = 0; i < this.proyectosEliminados.length; i++) {
-            this.gerenciaproyectoService.eliminarProyectosGerencia(this.proyectosEliminados[i]).subscribe(
-              (response) => {},
-              (err) => {
-                this.errores = err.error.errors as string[]
-              }
-            )
-          }
-        }
 
         for (var i = 0; i < this.aryProyectos.length; i++) {
 
