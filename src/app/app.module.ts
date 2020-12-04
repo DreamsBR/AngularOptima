@@ -118,11 +118,13 @@ import { Estadoventa2Service } from './estadoventa/estadoventa.service'
 import { RolesServices } from './colaboradores/roles.service'
 
 const ROUTES: Routes = [
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'recordar-contrasenia', component: RecordarContraseniaComponent },
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
+
   { path: 'colaboradores', component: ColaboradoresComponent },
   { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },
