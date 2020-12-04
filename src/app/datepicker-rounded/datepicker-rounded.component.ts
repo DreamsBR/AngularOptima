@@ -1,6 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
 
+interface DtpDate {
+  year: number
+  month: number
+  day: number
+}
+
 @Component({
   selector: 'datepicker-rounded',
   templateUrl: './datepicker-rounded.component.html',
@@ -9,6 +15,7 @@ import { NgbCalendar, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
 export class DatepickerRoundedComponent implements OnInit {
   value: NgbDateStruct // = this.calendar.getToday()
   @Input() label: string
+  @Input() minDate: DtpDate = null
 
   @Output() onDateChanged = new EventEmitter<string>()
 
