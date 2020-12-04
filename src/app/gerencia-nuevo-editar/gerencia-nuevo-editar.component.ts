@@ -261,6 +261,10 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     gerenciaadd.idGerente = this.colaboradorSeleccionado.idColaborador
     gerenciaadd.nombre = this.nombreGerencia
 
+    //console.log('sdfsdfsdfsdfsdf')
+    //console.log(gerenciaadd)
+    //return
+
     if(this.idGerencia == 0){
       this.gerenciaService.agregarGerencia(gerenciaadd).subscribe(
         (response) => {
