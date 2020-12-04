@@ -345,19 +345,9 @@ export class ProyectoNuevoEditarComponent implements OnInit {
             meta.nombre = response[x].periodo.nombre
             meta.monto = response[x].meta
             this.aryPeriodos.push(meta)
-
-
           }
         })
       }
-
-
-
-
-
-
-
-
 
 
   }

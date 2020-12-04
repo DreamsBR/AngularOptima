@@ -31,6 +31,7 @@ export class BancoNuevoEditarComponent implements OnInit {
           })
       }else{
         this.banco.idBanco = 0
+        this.banco.enable = 1
       }
     })
   }

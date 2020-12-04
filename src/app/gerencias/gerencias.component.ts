@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
 import { GerenciaService } from './gerencia.service'
 import { Gerencia } from './gerencia'
+import { Gerencia2 } from './../gerencias/gerencia2'
 import { ProyectoService } from './../proyectos/proyectos.service'
 
 @Component({
@@ -62,7 +63,17 @@ export class GerenciasComponent implements OnInit {
   }
 
   public eliminar(gerencia: Gerencia): void {
-    this.gerenciaService.eliminarGerencia(gerencia.idGerencia).subscribe(
+
+    let gerenciaadd: Gerencia2 = new Gerencia2()
+
+    gerenciaadd.enable = 0 // --> Deshabilita Gerencia
+    gerenciaadd.fechaIngreso = gerencia.fechaIngreso
+    gerenciaadd.fechaTermino = gerencia.fechaTermino
+    gerenciaadd.idGerente = gerencia.colaborador.idColaborador
+    gerenciaadd.nombre = gerencia.nombre
+    gerenciaadd.idGerencia = gerencia.idGerencia
+
+    this.gerenciaService.editarGerencia(gerenciaadd, gerenciaadd.idGerencia).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerGerencias()
