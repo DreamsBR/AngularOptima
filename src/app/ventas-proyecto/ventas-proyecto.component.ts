@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { Ventasproyecto } from './Ventasproyecto'
-import { Venta } from './../ventas/venta'
+import { VentaNodos } from './../ventas/ventanodos'
 import { VentaService } from './../ventas/ventas.service'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
@@ -14,7 +14,7 @@ import { statusVentaservice } from '../consulta-ventas/statusventa.service'
 })
 export class VentasProyectoComponent implements OnInit {
 
-  ventasProyectoLista: Ventasproyecto[]
+  ventasProyectoLista: Ventasproyecto[] = []
   idProyectoSeleted: number = 0
   tipoestado : estadoventa[]
   paramIdProyecto: number
@@ -47,7 +47,7 @@ export class VentasProyectoComponent implements OnInit {
     })
   }
 
-  ventasLista: Venta[]
+  ventasLista: VentaNodos[]
   // paginador: any
   // base: string
   // id: number
