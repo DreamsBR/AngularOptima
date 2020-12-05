@@ -3,7 +3,6 @@ import { Estadocivil } from './estadocivil'
 import { Observable, throwError } from 'rxjs'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map, catchError } from 'rxjs/operators'
-import { formatDate } from '@angular/common'
 import { URL_BACKEND } from '../config/config'
 import { Router } from '@angular/router'
 

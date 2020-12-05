@@ -9,7 +9,6 @@ import { MatTableDataSource } from '@angular/material/table'
   templateUrl: './ventas.component.html',
   styleUrls: ['./ventas.component.css']
 })
-
 export class VentasComponent implements OnInit {
   proyectoLista = new MatTableDataSource<Proyecto>()
   displayedColumns: string[] = ['nombre']
@@ -17,7 +16,7 @@ export class VentasComponent implements OnInit {
 
   totalData: number = 0
   pageIndex: number = 0
-  pageSize: number = 5
+  pageSize: number = 15
   pageSizeOptions: number[] = [5, 10, 25, 250]
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator

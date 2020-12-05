@@ -24,7 +24,7 @@ export class VendedorService {
     )}
 
     editarVendedor(vendedor:Vendedor, idVendedor:number): Observable<Vendedor>{
-    return this.http.put<Vendedor>(this.urlEndPoint + '/' + idVendedor, vendedor).pipe(
+    return this.http.put<Vendedor>(this.urlEndPoint + idVendedor, vendedor).pipe(
         catchError((e) => {
         if(e.status === 400){
             return throwError(e)}
@@ -40,6 +40,17 @@ export class VendedorService {
 
     getVendedoresPorJefatura(idJefatura: number): Observable<any> {
         return this.http.get(this.urlEndPoint + 'listaporjefatura/' + idJefatura).pipe(
+            map((vendedor: any) => {
+                ;(vendedor as Vendedor[]).map((vendedor) => {
+                    return vendedor;
+                })
+                return vendedor
+            })
+        )
+    }
+
+    getTodosVendedores() {
+        return this.http.get(this.urlEndPoint).pipe(
             map((vendedor: any) => {
                 ;(vendedor as Vendedor[]).map((vendedor) => {
                     return vendedor;

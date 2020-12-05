@@ -11,7 +11,7 @@ import { Categoria2Service } from './categoria.service';
 })
 export class CategoriaComponent implements OnInit {
   categoriaLista: Categoria[]
-  registroSeleccionado: Canal
+  registroSeleccionado: Categoria
 
   constructor(
     private categoria2Service: Categoria2Service,
@@ -33,7 +33,8 @@ export class CategoriaComponent implements OnInit {
   }
 
   public eliminar(categoria: Categoria): void {
-    this.categoria2Service.eliminar(categoria.idCategoria).subscribe(
+    categoria.enable = 0
+    this.categoria2Service.actualizar(categoria, categoria.idCategoria).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()
@@ -45,8 +46,8 @@ export class CategoriaComponent implements OnInit {
     )
   }
 
-  public obtenerSeleccionado(canal: Canal) {
-    this.registroSeleccionado = canal
+  public obtenerSeleccionado(categoria: Categoria) {
+    this.registroSeleccionado = categoria
   }
 
   status = false

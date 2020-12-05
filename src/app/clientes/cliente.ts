@@ -22,4 +22,9 @@ export class Cliente {
     provincia: string
     sexo: string
     telefono: string
+
+    constructor () {
+        this.idTipoDocumentoConyuge = 1
+        this.idEstadoCivilConyuge = 1
+    }
 }

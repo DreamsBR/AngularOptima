@@ -56,10 +56,18 @@ export class Ventanodos {
     enable: number
     fechaFinAhorro: string
     fechaInicioAhorro: string
-    idBanco: number
+    banco: {
+      idBanco: number,
+      enable: number,
+      nombre: string
+    },
     idEstadoFinanciamiento: number
     idFinanciamiento: number
-    idTipoCredito: number
+    tipoCredito: {
+      idTipoCredito: number
+      enable: number
+      nombre: string
+    },
     nomtoCuotaInicial: number
     montoFinanciado: number
     porcCuotaInicial: string

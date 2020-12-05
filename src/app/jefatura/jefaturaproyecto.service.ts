@@ -36,12 +36,20 @@ export class JefaturaproyectoService {
     }
 
     editarJefaturaproyecto(jefaturaproyecto:Jefaturaproyecto, idJefaturaproyecto:number): Observable<Jefatura>{
-        return this.http.put<Jefatura>(this.urlEndPoint + '/' + idJefaturaproyecto, jefaturaproyecto).pipe(
+        return this.http.put<Jefatura>(this.urlEndPoint + idJefaturaproyecto, jefaturaproyecto).pipe(
           catchError((e) => {
             if(e.status === 400){
                 return throwError(e)}
             })
         )
     }
+
+    eliminarJefaturaproyecto(id: number): Observable<Jefatura> {
+        return this.http.delete<Jefatura>(`${this.urlEndPoint}${id}`).pipe(
+          catchError((e) => {
+            return throwError(e)
+          })
+        )
+      }
 
 }

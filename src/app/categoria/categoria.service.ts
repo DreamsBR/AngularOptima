@@ -22,7 +22,7 @@ export class Categoria2Service {
     )}
 
     obtenerCategoriaPorId(idCategoria): Observable<Categoria> {
-        return this.http.get<Categoria>(this.urlEndPoint + '/' + idCategoria)
+        return this.http.get<Categoria>(this.urlEndPoint + idCategoria)
     }
 
     agregar(Categoria: Categoria): Observable<any> {
@@ -36,7 +36,7 @@ export class Categoria2Service {
     }
 
     actualizar(Categoria: Categoria, idCategoria: number): Observable<any> {
-        return this.http.put<any>(this.urlEndPoint + '/' + idCategoria, Categoria).pipe(
+        return this.http.put<any>(this.urlEndPoint + idCategoria, Categoria).pipe(
           catchError((e) => {
             if (e.status === 400) {
               return throwError(e)

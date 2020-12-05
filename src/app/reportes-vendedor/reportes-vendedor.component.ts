@@ -75,9 +75,6 @@ export class ReportesVendedorComponent implements OnInit {
     'caida'
   ]
 
-  sumaMetas: number = 0
-  sumaAvances: number = 0
-
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
   public chartOptionsForecast: Partial<ChartOptions>
@@ -290,46 +287,51 @@ export class ReportesVendedorComponent implements OnInit {
       this.colaboradorService.getTodosColaboradores().subscribe(
         (data) => {
           this.dataSearch1 = data
+          this.loading = false
 
-          this.periodoService.getPeriodoColaboradorByIdColaborador(paramIdColaborador).subscribe(
-            (resp) => {
-              const customDataSearch = []
-              resp.forEach((elem: any) => {
-                customDataSearch.push({
-                  ...elem,
-                  idPeriodo: elem.periodo.idPeriodo,
-                  nombrePeriodo: elem.periodo.nombre
+          // Si los parámetros existen hace una búsqueda inicial
+          if (params.get('idcolaborador') && params.get('idperiodo')) {
+            this.loading = true
+            this.periodoService.getPeriodoColaboradorByIdColaborador(paramIdColaborador).subscribe(
+              (resp) => {
+                const customDataSearch = []
+                resp.forEach((elem: any) => {
+                  customDataSearch.push({
+                    ...elem,
+                    idPeriodo: elem.periodo.idPeriodo,
+                    nombrePeriodo: elem.periodo.nombre
+                  })
                 })
-              })
-              this.dataSearch2 = customDataSearch
+                this.dataSearch2 = customDataSearch
 
-              // Seteando los valores de la Url
-              for (const elem of data) {
-                if (elem.idColaborador === paramIdColaborador) {
-                  this.autocompleteSearch1.changeOnlyText(elem.nombres)
-                  break
+                // Seteando los valores de la Url
+                for (const elem of data) {
+                  if (elem.idColaborador === paramIdColaborador) {
+                    this.autocompleteSearch1.changeOnlyText(elem.nombres)
+                    break
+                  }
                 }
-              }
 
-              for (const elem of customDataSearch) {
-                if (elem.idPeriodo === paramIdPeriodo) {
-                  this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
-                  break
+                for (const elem of customDataSearch) {
+                  if (elem.idPeriodo === paramIdPeriodo) {
+                    this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
+                    break
+                  }
                 }
+
+                this.filterIdColaborador = paramIdColaborador
+                this.filterIdPeriodo = paramIdPeriodo
+
+                this.buscar()
+
+                this.loading = false
+              },
+              (error) => {
+                this.loading = false
+                console.error(error)
               }
-
-              this.filterIdColaborador = paramIdColaborador
-              this.filterIdPeriodo = paramIdPeriodo
-
-              this.buscar()
-
-              this.loading = false
-            },
-            (error) => {
-              this.loading = false
-              console.error(error)
-            }
-          )
+            )
+          }
         },
         (error) => {
           this.loading = false

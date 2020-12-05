@@ -10,7 +10,7 @@
                     <h3>Ventas</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <a href="/ventas-proyecto-nuevo-editar/{{paramIdProyecto}}"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                    <a [routerLink]="['/ventas-proyecto-nuevo-editar', paramIdProyecto]"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
 
@@ -79,17 +79,17 @@
                                         <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-editar', ventasProyecto.idProyecto , ventasProyecto.idVenta, ventasProyecto.cliente.nroDocumento ]"><em class="far fa-edit"></em> Editar</button>
                                     </div>
                                 </td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres}}</a></td>
-                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos}}</a></td>
-                                <td>{{ventasProyecto.cliente.nroDocumento}}</td>
-                                <td>{{ventasProyecto.fechaRegistro |formatDate}} </td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.nombres | uppercase }}</a></td>
+                                <td><a href="ventas-consulta-cliente-detalle/{{ventasProyecto.idVenta}}">{{ventasProyecto.cliente.apellidos | uppercase }}</a></td>
+                                <td>{{ ventasProyecto.cliente.nroDocumento }}</td>
+                                <td>{{ (ventasProyecto.fechaRegistro !== null) ? (ventasProyecto.fechaRegistro | formatDate) : "" }} </td>
 
-                                <td>{{ventasProyecto.total}}</td>
-                                <td>{{ventasProyecto.estadoVenta.nombre}}</td>
+                                <td>{{ ventasProyecto.total }}</td>
+                                <td>{{ ventasProyecto.estadoVenta.nombre }}</td>
                             </tr>
                         </tbody>
                     </table>
-                    <paginator2 [paginador]="paginador" [base]="base" [id]="id"></paginator2>
+                    <!-- <paginator2 [paginador]="paginador" [base]="base" [id]="id"></paginator2> -->
                 </div>
             </div>
 

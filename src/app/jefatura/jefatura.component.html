@@ -41,13 +41,13 @@
                                         </td>
                                         <td>{{ jefatura.jefatura.nombre }}</td>
                                         <td>{{ jefatura.jefatura.colaborador.nombres }} {{ jefatura.jefatura.colaborador.apellidos }}</td>
-                                        <td>{{ jefatura.jefatura.fechaIngreso }}</td>
-                                        <td>{{ jefatura.jefatura.fechaTermino }}</td>
+                                        <td>{{ jefatura.jefatura.fechaIngreso | formatDate }}</td>
+                                        <td>{{ jefatura.jefatura.fechaTermino | formatDate }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <!-- <paginator [paginador]="paginador" [base]="base"></paginator> -->
                         </div>
+                        <button type="submit" class="btn btn-optima" [routerLink]="['/gerencias']">Regresar</button>
                     </div>
 
                 </div>

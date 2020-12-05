@@ -22,7 +22,7 @@ export class BancoService {
     )}
 
     obtenerBancoPorId(idBanco): Observable<Banco> {
-        return this.http.get<Banco>(this.urlEndPoint + '/' + idBanco)
+        return this.http.get<Banco>(this.urlEndPoint + idBanco)
     }
 
     agregar(banco: Banco): Observable<any> {
@@ -36,7 +36,7 @@ export class BancoService {
     }
 
     actualizar(banco: Banco, idBanco: number): Observable<any> {
-        return this.http.put<any>(this.urlEndPoint + '/' + idBanco, banco).pipe(
+        return this.http.put<any>(this.urlEndPoint + idBanco, banco).pipe(
           catchError((e) => {
             if (e.status === 400) {
               return throwError(e)

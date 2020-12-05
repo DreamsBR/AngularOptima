@@ -9,6 +9,7 @@ import { Vendedor } from "./vendedor";
 import { VendedorService } from './vendedor.service'
 import swal from 'sweetalert2';
 import { Jefaturaproyecto } from '../jefatura/jefaturaproyecto';
+import sleep from 'await-sleep'
 
 @Component({
   selector: 'app-jefatura-nuevo-editar',
@@ -142,10 +143,10 @@ export class JefaturaNuevoEditarComponent implements OnInit {
       return
     }
 
-    if(this.aryVendedores.length == 0){
-      swal('No hay vendedores agregados', '', 'warning')
-      return
-    }
+    // if(this.aryVendedores.length == 0){
+    //   swal('No hay vendedores agregados', '', 'warning')
+    //   return
+    // }
 
     let jefaturaadd: Jefatura = new Jefatura()
 
@@ -180,43 +181,27 @@ export class JefaturaNuevoEditarComponent implements OnInit {
     }
   }
 
-  guardarVendedores(idJefatura: number){
-    if(this.idJefatura == 0){
-      for (var i = 0; i < this.aryVendedores.length; i++) {
-        var addVendedor = new Vendedor()
-        addVendedor.enable = 1
-        addVendedor.nombre = this.aryVendedores[i].nombre
-        addVendedor.idJefatura = idJefatura
-        addVendedor.idColaborador = this.aryVendedores[i].idColaborador
-        addVendedor.idVendedor = 0
-        this.VendedorService.agregarVendedor(addVendedor).subscribe(
-          (response) => {
-          },
+  async guardarVendedores(idJefatura: number){
+
+    if(this.vendedoresEliminados.length > 0){
+      for (var i = 0; i < this.vendedoresEliminados.length; i++) {
+        this.VendedorService.eliminarVendedor(this.vendedoresEliminados[i]).subscribe(
+          (response) => {},
           (err) => {
             this.errores = err.error.errors as string[]
           }
         )
       }
-    }else{
+    }
 
-      if(this.vendedoresEliminados.length > 0){
-        for (var i = 0; i < this.vendedoresEliminados.length; i++) {
-          this.VendedorService.eliminarVendedor(this.vendedoresEliminados[i]).subscribe(
-            (response) => {},
-            (err) => {
-              this.errores = err.error.errors as string[]
-            }
-          )
-        }
-      }
-
-      for (var i = 0; i < this.aryVendedores.length; i++) {
-        var addVendedor = new Vendedor()
-        addVendedor.enable = 1
-        addVendedor.nombre = this.aryVendedores[i].nombre
-        addVendedor.idJefatura = idJefatura
-        addVendedor.idColaborador = this.aryVendedores[i].idColaborador
-        if( this.aryVendedores[i].idVendedor == 0 ){
+    if(this.aryVendedores.length != 0){
+      if(this.idJefatura == 0){
+        for (var i = 0; i < this.aryVendedores.length; i++) {
+          var addVendedor = new Vendedor()
+          addVendedor.enable = 1
+          addVendedor.nombre = this.aryVendedores[i].nombre
+          addVendedor.idJefatura = idJefatura
+          addVendedor.idColaborador = this.aryVendedores[i].idColaborador
           addVendedor.idVendedor = 0
           this.VendedorService.agregarVendedor(addVendedor).subscribe(
             (response) => {
@@ -225,17 +210,38 @@ export class JefaturaNuevoEditarComponent implements OnInit {
               this.errores = err.error.errors as string[]
             }
           )
-        }else{
-          this.VendedorService.editarVendedor(addVendedor, this.aryVendedores[i].idVendedor ).subscribe(
-            (response) => {
-            },
-            (err) => {
-              this.errores = err.error.errors as string[]
-            }
-          )
+        }
+      }else{
+
+        for (var i = 0; i < this.aryVendedores.length; i++) {
+          var addVendedor = new Vendedor()
+          addVendedor.enable = 1
+          addVendedor.nombre = this.aryVendedores[i].nombre
+          addVendedor.idJefatura = idJefatura
+          addVendedor.idColaborador = this.aryVendedores[i].idColaborador
+          if( this.aryVendedores[i].idVendedor == 0 ){
+            addVendedor.idVendedor = 0
+            this.VendedorService.agregarVendedor(addVendedor).subscribe(
+              (response) => {
+              },
+              (err) => {
+                this.errores = err.error.errors as string[]
+              }
+            )
+          }else{
+            this.VendedorService.editarVendedor(addVendedor, this.aryVendedores[i].idVendedor ).subscribe(
+              (response) => {
+              },
+              (err) => {
+                this.errores = err.error.errors as string[]
+              }
+            )
+          }
         }
       }
     }
+
+    await sleep(500)
     this.router.navigate(['/jefatura/',this.idProyecto,this.idGerencia])
     swal('Jefatura registrada', ``, 'success')
   }

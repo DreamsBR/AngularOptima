@@ -14,7 +14,7 @@ export class ClienteService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getClientes(page): Observable<any> {
-    return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
+    return this.http.get(this.urlEndPoint + 'page/' + page + '/10').pipe(
       map((jsonClientesResponse: any) => {
         ;(jsonClientesResponse.content as Cliente[]).map((cliente) => {
           cliente.nombres = cliente.nombres.toUpperCase()
@@ -27,7 +27,7 @@ export class ClienteService {
   }
 
   obtenerClientesPorId(idCliente): Observable<Clientenodo> {
-    return this.http.get<Clientenodo>(this.urlEndPoint + '/' + idCliente)
+    return this.http.get<Clientenodo>(this.urlEndPoint + idCliente)
   }
 
   eliminarCliente(id: number): Observable<Cliente> {
@@ -52,12 +52,8 @@ export class ClienteService {
     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
 
-
-
-
-
   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
-    return this.http.put<any>(this.urlEndPoint + '/' + idCliente, cliente).pipe(
+    return this.http.put<any>(this.urlEndPoint + idCliente, cliente).pipe(
       catchError((e) => {
         if (e.status === 400) {
           return throwError(e)

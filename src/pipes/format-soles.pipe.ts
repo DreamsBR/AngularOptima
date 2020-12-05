@@ -5,12 +5,12 @@ import numeral from 'numeral'
 export class FormatSoles implements PipeTransform {
   transform(value: any): string {
     if (typeof value !== 'undefined') {
-      if (value > 0) {
+      if (value >= 0) {
         const n = 'S/. ' + numeral(value).format('0,0.00')
         return n
       }
     } else {
-      return ''
+      return '--'
     }
   }
 }

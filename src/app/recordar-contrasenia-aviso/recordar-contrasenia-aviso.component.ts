@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
   selector: 'app-recordar-contrasenia-aviso',
   templateUrl: './recordar-contrasenia-aviso.component.html'
 })
+
 export class RecordarContraseniaAvisoComponent implements OnInit {
 
   titulo = 'Restableces contraseña';

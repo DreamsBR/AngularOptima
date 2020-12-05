@@ -76,9 +76,6 @@ export class ReportesProyectosComponent implements OnInit {
     'caida'
   ]
 
-  sumaMetas: number = 0
-  sumaAvances: number = 0
-
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
   public chartOptionsForecast: Partial<ChartOptions>
@@ -291,46 +288,53 @@ export class ReportesProyectosComponent implements OnInit {
       this.proyectoService.getAllProjects().subscribe(
         (data) => {
           this.dataSearch1 = data
+          this.loading = false
 
-          this.periodoService.getPeriodoProyectoByIdProyecto(paramIdProyecto).subscribe(
-            (resp) => {
-              const customDataSearch = []
-              resp.forEach((elem: any) => {
-                customDataSearch.push({
-                  ...elem,
-                  idPeriodo: elem.periodo.idPeriodo,
-                  nombrePeriodo: elem.periodo.nombre
+          // Si los parámetros existen hace una búsqueda inicial
+          if (params.get('idproyecto') && params.get('idperiodo')) {
+            this.loading = true
+            this.periodoService.getPeriodoProyectoByIdProyecto(paramIdProyecto).subscribe(
+              (resp) => {
+                const customDataSearch = []
+                resp.forEach((elem: any) => {
+                  customDataSearch.push({
+                    ...elem,
+                    idPeriodo: elem.periodo.idPeriodo,
+                    nombrePeriodo: elem.periodo.nombre
+                  })
                 })
-              })
-              this.dataSearch2 = customDataSearch
-
-              // Seteando los valores de la Url
-              for (const elem of data) {
-                if (elem.idProyecto === paramIdProyecto) {
-                  this.autocompleteSearch1.changeOnlyText(elem.nombre)
-                  break
+                this.dataSearch2 = customDataSearch
+  
+                // Seteando los valores de la Url
+                for (const elem of data) {
+                  if (elem.idProyecto === paramIdProyecto) {
+                    this.autocompleteSearch1.changeOnlyText(elem.nombre)
+                    break
+                  }
                 }
-              }
-
-              for (const elem of customDataSearch) {
-                if (elem.idPeriodo === paramIdPeriodo) {
-                  this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
-                  break
+  
+                for (const elem of customDataSearch) {
+                  if (elem.idPeriodo === paramIdPeriodo) {
+                    this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
+                    break
+                  }
                 }
+  
+                this.filterIdProyecto = paramIdProyecto
+                this.filterIdPeriodo = paramIdPeriodo
+  
+                this.buscar()
+  
+                this.loading = false
+              },
+              (error) => {
+                this.loading = false
+                console.error(error)
               }
+            )
 
-              this.filterIdProyecto = paramIdProyecto
-              this.filterIdPeriodo = paramIdPeriodo
-
-              this.buscar()
-
-              this.loading = false
-            },
-            (error) => {
-              this.loading = false
-              console.error(error)
-            }
-          )
+          }
+          
         },
         (error) => {
           this.loading = false
@@ -422,7 +426,7 @@ export class ReportesProyectosComponent implements OnInit {
 
           this.setDataChart()
           this.drawFunnelChart()
-          //this.drawForecastChart()
+          this.drawForecastChart()
         },
         (error) => {
           this.loading = false
@@ -511,7 +515,7 @@ export class ReportesProyectosComponent implements OnInit {
 
   drawForecastChart() {
     this.reportesService
-      .getConsolidadoGerencia(this.filterIdProyecto, this.filterIdPeriodo)
+      .getConsolidadoProyectoPeriodo(this.filterIdProyecto, this.filterIdPeriodo)
       .subscribe((resp) => {
         //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
         // TODO: inicio QUITAR DATA HARDCODEADA
@@ -549,9 +553,9 @@ export class ReportesProyectosComponent implements OnInit {
         }
 
         resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoGerencia.meta)
+          tmpSeries[0].data.push(elem.periodoProyecto.meta)
           tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
+          tmpXaxis.categories.push(elem.periodoProyecto.periodo.nombre)
         })
         this.chartOptionsForecast.series = tmpSeries
         this.chartOptionsForecast.xaxis = tmpXaxis

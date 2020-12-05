@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Colaborador } from './colaborador'
 import { Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { URL_BACKEND } from '../config/config';
+import { URL_BACKEND, URL_BACKEND_SEG } from '../config/config';
+import { UsuarioLogin } from './usuarioLogin';
 
 
 
@@ -16,7 +17,7 @@ export class ColaboradorService {
     constructor(private http: HttpClient, private router: Router) { }
 
     getColaboradores(page): Observable<any> {
-        return this.http.get(this.urlEndPoint + '/page/' + page).pipe(
+        return this.http.get(this.urlEndPoint + '/page/' + page + '/10'  ).pipe(
             map((jsonColaboradorResponse: any) => {
                 (jsonColaboradorResponse.content as Colaborador[]).map(
                   colaborador => {
@@ -47,34 +48,33 @@ export class ColaboradorService {
 
         return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
             catchError(e => {
-
-            if (e.status === 400) {
-                return throwError(e);
-            }
+                if (e.status === 400) {
+                    return throwError(e);
+                }
             })
         );
     }
 
-
-
-
+    private urlEndPoint2 : string = URL_BACKEND_SEG + 'auth/' + 'signup'
+    agregarUsuario(usuarioLogin: UsuarioLogin) : Observable<any>{
+        let httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
+        return this.http.post<any>(this.urlEndPoint2, usuarioLogin, httpOptions)
+    }
 
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
       return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
     }
 
-
     obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
         return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)
     }
 
-
     actualizarColaborador(colaborador: Colaborador, idColaborador: number): Observable<any> {
         return this.http.put<any>(this.urlEndPoint + '/' + idColaborador, colaborador).pipe(
             catchError((e) => {
-            if (e.status === 400) {
-                return throwError(e)
-            }
+                if (e.status === 400) {
+                    return throwError(e)
+                }
             })
         )
     }
@@ -86,5 +86,7 @@ export class ColaboradorService {
             })
         )
     }
+
+
 
 }

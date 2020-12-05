@@ -8,7 +8,7 @@ import { URL_BACKEND } from '../config/config'
 
 @Injectable()
 export class Estadofinanciamiento2Service {
-  private urlEndPoint: string = URL_BACKEND + 'Estadofinanciamiento/'
+  private urlEndPoint: string = URL_BACKEND + 'estadofinanciamiento/'
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -22,7 +22,7 @@ export class Estadofinanciamiento2Service {
     )}
 
     obtenerEstadofinanciamientoPorId(idEstadofinanciamiento): Observable<Estadofinanciamiento> {
-        return this.http.get<Estadofinanciamiento>(this.urlEndPoint + '/' + idEstadofinanciamiento)
+        return this.http.get<Estadofinanciamiento>(this.urlEndPoint + idEstadofinanciamiento)
     }
 
     agregar(Estadofinanciamiento: Estadofinanciamiento): Observable<any> {
@@ -36,7 +36,7 @@ export class Estadofinanciamiento2Service {
     }
 
     actualizar(Estadofinanciamiento: Estadofinanciamiento, idEstadofinanciamiento: number): Observable<any> {
-        return this.http.put<any>(this.urlEndPoint + '/' + idEstadofinanciamiento, Estadofinanciamiento).pipe(
+        return this.http.put<any>(this.urlEndPoint + idEstadofinanciamiento, Estadofinanciamiento).pipe(
           catchError((e) => {
             if (e.status === 400) {
               return throwError(e)

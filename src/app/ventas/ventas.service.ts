@@ -14,19 +14,19 @@ export class VentaService {
   constructor(private http: HttpClient, private router: Router) {}
 
   fetchingTipoVista(): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/tipovista/').pipe()
+    return this.http.get(this.urlEndPoint + 'tipovista/').pipe()
   }
 
+
   fetchingTipoDocumento(): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/tipodocumento/').pipe()
+    return this.http.get(this.urlEndPoint + 'tipodocumento/').pipe()
   }
+
 
   getVentas(page): Observable<any> {
     return this.http.get(this.urlEndPoint + 'page/' + page).pipe(
       map((jsonVentasResponse: any) => {
         ;(jsonVentasResponse.content as Venta[]).map((venta) => {
-
-
           return venta
         })
         return jsonVentasResponse

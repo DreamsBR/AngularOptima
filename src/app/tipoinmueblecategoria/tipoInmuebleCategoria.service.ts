@@ -14,7 +14,7 @@ export class TipoInmuebleCategoriaService{
     constructor(private http: HttpClient, private router: Router) {}
 
     getTipoInmuebleCategoria(id:number): Observable<any> {
-        return this.http.get(`${this.urlEndPoint}/${id}`).pipe(
+        return this.http.get(`${this.urlEndPoint}${id}`).pipe(
           map((data: any) => {
             ;(data as TipoInmuebleCategoria[]).map((TipoVTipoInmuebleCategoriasta) => {
               return TipoInmuebleCategoria

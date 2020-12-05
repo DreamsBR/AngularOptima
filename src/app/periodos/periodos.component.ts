@@ -116,8 +116,10 @@ export class PeriodosComponent implements OnInit {
 
     let path = null
     if (this.modalPeriodoModeEdit) {
+      this.periodo.enable = 1
       path = this.periodoService.actualizarPeriodo(this.periodo)
     } else {
+      this.periodo.enable = 1
       path = this.periodoService.agregarPeriodo(this.periodo)
     }
 
