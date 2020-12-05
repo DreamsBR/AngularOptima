@@ -4,46 +4,59 @@
       [routerLink]="['/clientes/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/clientes' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_USER'"
       >Clientes</a
     >
     <a
       [routerLink]="['/ventas/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/ventas' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_USER'"
       >Ventas</a
     >
     <a
       [routerLink]="['/consulta-ventas/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/consulta-ventas' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA'"
       >Consultas ventas</a
     >
     <a
       [routerLink]="['/colaboradores/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/colaboradores' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
       >Colaboradores</a
     >
     <a
       [routerLink]="['/proyectos/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/proyectos' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO'"
       >Proyectos</a
     >
     <a
       [routerLink]="['/gerencias/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/gerencias' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
       >Gerencias</a
     >
     <a
       [routerLink]="['/periodos/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/periodos' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
       >Periodos</a
     >
 
-    <a href="#" class="list-group-item" data-toggle="collapse" href="#collapseExample">Reportes</a>
+    <a 
+      href="#" 
+      class="list-group-item" 
+      data-toggle="collapse" 
+      href="#collapseExample"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Reportes</a>
     <div class="collapse" id="collapseExample">
       <a [routerLink]="['/reportes']" class="list-group-item sub-item">Consolidado de ventas</a>
       <a [routerLink]="['/reportes-por-proyecto']" class="list-group-item sub-item"
@@ -54,7 +67,12 @@
       >
     </div>
 
-    <a href="#collapseEx" data-toggle="collapse" class="list-group-item">Mantenimientos</a>
+    <a 
+      href="#collapseEx" 
+      data-toggle="collapse" 
+      class="list-group-item"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Mantenimientos</a>
     <div class="collapse" id="collapseEx">
       <a [routerLink]="['/bancos/']" class="list-group-item sub-item">Bancos</a>
       <a [routerLink]="['/canales/']" class="list-group-item sub-item">Canales</a>
