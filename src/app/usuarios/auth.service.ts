@@ -36,29 +36,11 @@ export class AuthService {
 
 
   public logIn(usuario: Usuario): Observable<any> {
-
     const urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
-
-    // const credenciales = btoa('angularapp' + ':' + '12345');
-
-    // const httpHeaders = new HttpHeaders(
-    //   {
-    //     'Content-type': 'application/x-www-form-urlencoded',
-    //     'Authorization': 'Basic ' + credenciales
-    //   });
-
-    // const params = new URLSearchParams();
-    // params.set('grant_type', 'password');
-    // params.set('username', usuario.userName);
-    // params.set('password', usuario.password);
-
     let params = {
       "password": usuario.password,
       "username": usuario.userName
     }
-
-    // { headers: httpHeaders }
-
     return this.http.post<any>(urlEndPoint, params);
   }
 
@@ -67,7 +49,7 @@ export class AuthService {
     console.info(payLoad)
     this._usuario = new Usuario();
     this._usuario.userName = payLoad.sub;
-    this._usuario.roles = payLoad.authorities;
+    this._usuario.roles = payLoad.roles;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 
