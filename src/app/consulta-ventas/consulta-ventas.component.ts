@@ -3,6 +3,7 @@ import { Proyecto } from './../proyectos/proyecto'
 import { ProyectoService } from './../proyectos/proyectos.service';
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
+import { MatTableDataSource } from '@angular/material';
 
 @Component({
   selector: 'app-consulta-ventas',
@@ -10,12 +11,22 @@ import { AuthService } from '../usuarios/auth.service'
 })
 
 export class ConsultaVentasComponent implements OnInit {
-  proyectoLista: Proyecto[]
+  proyectoLista = new MatTableDataSource<Proyecto>()
+
   public paginador:any
   base: string
   nombreProyecto: string
   pageActual: number = 1
-  idProyectoSelected:string= ""
+  idProyectoSelected:number = 0
+  displayedColumns: string[] = ['nombre']
+
+
+
+  totalData: number = 0
+  pageIndex: number = 0
+  pageSize: number = 15
+  pageSizeOptions: number[] = [5, 10, 25, 250]
+
 
   fechaDesde: string
   fechaHasta: string
@@ -27,9 +38,8 @@ export class ConsultaVentasComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-<<<<<<< HEAD
-=======
-    
+
+
     var date = new Date();
     var day = date.getDate();
     var month = date.getMonth() + 1;
@@ -38,9 +48,30 @@ export class ConsultaVentasComponent implements OnInit {
     this.fechaDesde = year + '-' + month + '-' + day
     this.fechaHasta = year + '-' + month + '-' + day
 
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
+
     this.obtenerProyecto();
+
+
   }
+
+  selectItemProyecto(idProyecto) {
+    this.idProyectoSelected = idProyecto
+  }
+
+
+  obtenerProyectos(pageIndex: number) {
+    this.proyectoService.getProyectos(pageIndex).subscribe((proyectosJsonResponse) => {
+      this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
+      this.pageIndex = proyectosJsonResponse.pageable.pageNumber
+      this.totalData = proyectosJsonResponse.totalElements
+    })
+  }
+
+  onPageChange(event: any) {
+    this.idProyectoSelected = 0
+    this.obtenerProyectos(event.pageIndex)
+  }
+
 
   public obtenerProyecto(){
     this.activatedRoute.paramMap.subscribe((params) => {

@@ -13,29 +13,71 @@
                 <div class="col-sm-12 col-md-7 text-right">
                 </div>
             </div>
+
             <div class="row">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <div class="col-sm-12 col-md-6">
+              <div class="col-12">
+                <table
+                    mat-table
+                    [dataSource]="proyectoLista"
+                    class="tbproy"
+                    style="width: 100%; margin-top: 20px">
 
-                    <div class="card" *ngFor="let proyecto of proyectoLista">
-                        <div class="card-body">
-                            <a [href]="'consulta-ventas-detalle/'+ proyecto.nombre">{{proyecto.nombre}}</a>
-=======
-                <div class="col-sm-12 col-md-4">
+              <!-- Position Column -->
+              <ng-container matColumnDef="nombre">
+                <th mat-header-cell *matHeaderCellDef><span class="hola"></span></th>
+                <td mat-cell *matCellDef="let elemproyecto">
+                  <div
+                    [ngClass]="{
+                      'cardproy card': true,
+                      'cardproy-selected': idProyectoSelected === elemproyecto.idProyecto
+                    }"
+                    (click)="selectItemProyecto(elemproyecto.idProyecto)">
 
-                    <div class="card" *ngFor="let proyecto of proyectoLista">
-=======
+                    <div class="card-body">
+                      <div class="row item-proyecto">
+                        <div class="col-sm-12 col-md-10">
+                          <p>
+                            <a style="color: #ff7514;" [href]="'consulta-ventas-detalle/'+ elemproyecto.idProyecto + '/1/' + fechaDesde + '/' + fechaHasta" aria-expanded="false"><strong>{{elemproyecto.nombre}}</strong></a>
+                          </p>
+                          <p>{{ elemproyecto.direccion }}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </td>
+
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+                </table>
+<!--
+                <mat-paginator
+                (page)="onPageChange($event)"
+                [length]="totalData"
+                [pageIndex]="pageIndex"
+                [pageSize]="pageSize"
+                showFirstLastButtons
+                class="ptproy">
+            </mat-paginator>
+              </div>
+            </div>
+            -->
+<!--
                 <div class="col-sm-12 col-md-4" *ngFor="let proyecto of proyectoLista">
                     <div class="card">
->>>>>>> 6d91133e4aac181897fc70d7007f6e2cb28fbbc2
+
                         <div class="card-body">
                             <a [href]="'consulta-ventas-detalle/'+ proyecto.idProyecto + '/1/' + fechaDesde + '/' + fechaHasta">{{proyecto.nombre}}</a>
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
+
                         </div>
                     </div>
                 </div>
             </div>
+            -->
+
+
             <br>
             <paginator [paginador]="paginador" [base]="base"></paginator>
         </div>
