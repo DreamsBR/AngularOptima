@@ -116,6 +116,8 @@ import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/esta
 import { Estadofinanciamiento2Service } from './estadofinanciamiento/estadofinanciamiento.service'
 import { Estadoventa2Service } from './estadoventa/estadoventa.service'
 import { RolesServices } from './colaboradores/roles.service'
+import { FiltrosComponent } from './filtros/filtros.component'
+
 
 const ROUTES: Routes = [
 
@@ -239,7 +241,8 @@ const ROUTES: Routes = [
     EstadoventaNuevoEditarComponent,
     ReportesVendedorComponent,
     AutocompletarComponent,
-    PruebaComponent
+    PruebaComponent,
+    FiltrosComponent
   ],
   imports: [
     BrowserModule,
