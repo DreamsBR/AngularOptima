@@ -74,4 +74,11 @@ export class GerenciaService {
     .pipe(map((jsonGerenteResponse: any) => jsonGerenteResponse as Gerencia[]))
   }
 
+  getGerenciaPorColaborador(idColaborador:number): Observable<Gerencia>{
+    return this.http.get<Gerencia>(this.urlEndPoint + 'porgerente/' + idColaborador).pipe(
+      catchError((e) => {
+        return throwError(e)
+      })
+    )}
+
 }

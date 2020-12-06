@@ -50,6 +50,7 @@ export class AuthService {
     this._usuario = new Usuario();
     this._usuario.userName = payLoad.sub;
     this._usuario.roles = payLoad.roles;
+    this._usuario.idColaborador = payLoad.idColaborador;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 

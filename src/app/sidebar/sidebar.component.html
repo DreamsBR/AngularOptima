@@ -42,6 +42,15 @@
       *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
       >Gerencias</a
     >
+
+    <a
+      [routerLink]="['/gerencia-colaborador/',authService.usuario.idColaborador]"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/gerencia-colaborador/authService.usuario.idColaborador' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Gerencia</a
+    >
+
     <a
       [routerLink]="['/periodos/']"
       class="list-group-item"
