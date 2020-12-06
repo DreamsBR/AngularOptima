@@ -30,6 +30,7 @@ export class JefaturaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.info(this.authService.usuario)
     this.obtenerJefaturas()
   }
 

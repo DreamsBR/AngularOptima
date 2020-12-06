@@ -34,14 +34,15 @@ export class AuthService {
     return null;
   }
 
+  urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
 
   public logIn(usuario: Usuario): Observable<any> {
-    const urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
+    
     let params = {
       "password": usuario.password,
       "username": usuario.userName
     }
-    return this.http.post<any>(urlEndPoint, params);
+    return this.http.post<any>(this.urlEndPoint, params);
   }
 
   public guardarUsuario(accessToken: string): void {
