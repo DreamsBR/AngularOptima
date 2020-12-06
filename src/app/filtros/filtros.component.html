@@ -1,0 +1,42 @@
+
+<p>
+
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Filtrar
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="row">
+    <div class="col-sm-12 col-md-4 col-xl-3">
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" name="statusventa"  id="exampleFormControlSelect1" [(ngModel)]="estadoventaSeleccionado" (ngModelChange)="onChangetEstadoVenta()">
+                <option [value]="items.idEstadoVenta" *ngFor="let items of tipoestado">{{items.nombre}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-xl-2">
+        <div class="form-group">
+            <label for="status">Desde</label>
+            <datepicker-rounded
+            #dpfechaDesde
+            [label]="'Fecha'"
+            (onDateChanged)="onfechaDesde($event)"
+            ></datepicker-rounded>
+        </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-xl-2">
+        <div class="form-group">
+            <label for="status">Hasta</label>
+            <datepicker-rounded
+            #dpfechaHasta
+            [label]="'Fecha'"
+            (onDateChanged)="onfechaHasta($event)"
+            ></datepicker-rounded>
+        </div>
+    </div>
+</div>
+
+</div>
