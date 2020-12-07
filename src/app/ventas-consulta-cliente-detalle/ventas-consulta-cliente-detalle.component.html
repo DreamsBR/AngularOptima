@@ -173,149 +173,8 @@
                       <div class="col-sm-12 col-md-12 offset-md-12">
                         <p class="titulo"><strong>Compra</strong></p>
 
-<<<<<<< HEAD
-                    <ul class="nav nav-tabs nav-pills nav-fill" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Datos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false">Inmueble</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false">Modo de pago</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false">Status de venta</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-
-
-
-
-
-
-
-                        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="home-tab">
-
-                            <br>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-4">
-
-                                    <div class="card">
-                                        <div class="card-body">
-
-                                            <div class="col-sm-12 col-md-12 offset-md-12">
-
-                                                <p class="titulo"><strong>Datos personales</strong></p>
-
-                                                <p class="label-dato">Nombres</p>
-                                                <p>Alberto</p>
-
-                                                <p class="label-dato">Apellidos</p>
-                                                <p>Armendariz Arturiaz</p>
-
-                                                <p class="label-dato">Tipo doc.</p>
-                                                <p>DNI - 43123411</p>
-
-                                                <p class="label-dato">Estado civil</p>
-                                                <p>Casado</p>
-
-                                                <p class="label-dato">Ocupación</p>
-                                                <p>Independiente</p>
-
-                                                <p class="label-dato">Nacimiento / Edad</p>
-                                                <p>27/07/1985 / 44 años</p>
-
-                                                <p class="label-dato">Correo</p>
-                                                <p>aarmendariz@gmail.com</p>
-
-                                                <p class="label-dato">Teléfono</p>
-                                                <p>912 123 123</p>
-
-                                                <p class="label-dato">Distrito</p>
-                                                <p>Lima</p>
-
-                                                <p class="label-dato">Provincia</p>
-                                                <p>Lima</p>
-
-                                                <p class="label-dato">Dirección</p>
-                                                <p>Av. Javier Prado 354</p>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 col-md-4">
-
-                                    <div class="card">
-                                        <div class="card-body">
-
-                                            <div class="col-sm-12 col-md-12 offset-md-12">
-
-                                                <p class="titulo"><strong>Datos conyuge</strong></p>
-
-                                                <p class="label-dato">Nombres</p>
-                                                <p>Alberto</p>
-
-                                                <p class="label-dato">Apellidos</p>
-                                                <p>Armendariz Arturiaz</p>
-
-                                                <p class="label-dato">Tipo doc.</p>
-                                                <p>DNI - 43123411</p>
-
-                                                <p class="label-dato">Estado civil</p>
-                                                <p>Soltero</p>
-
-                                                <p class="label-dato">Ocupación</p>
-                                                <p>Independiente</p>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-12 col-md-4">
-
-                                    <div class="card">
-                                        <div class="card-body">
-
-                                            <div class="col-sm-12 col-md-12 offset-md-12">
-
-                                                <p class="titulo"><strong>Compra</strong></p>
-
-                                                <p class="label-dato">Ingresos</p>
-                                                <p>S/. 3,000.00</p>
-
-                                                <p class="label-dato">Motivo de compra</p>
-                                                <p>Vivienda</p>
-
-                                                <p class="label-dato">Canal captación</p>
-                                                <p>3DLI</p>
-
-                                                <p class="label-dato">Categoria</p>
-                                                <p>Lead</p>
-
-                                                <p class="label-dato">Asesor de ventas</p>
-                                                <p>Alonso Romero</p>
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        <p class="label-dato">Ingresos</p>
-                        <p>S/. 3,000.00</p>
-=======
                         <p class="label-dato">Ingresos</p>
                         <p>{{ cliente.ingresos | formatSoles }}</p>
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 
                         <p class="label-dato">Motivo de compra</p>
                         <p>{{ venta.motivo ? venta.motivo.nombre : '' }}</p>
@@ -349,26 +208,6 @@
             <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
               <br />
 
-<<<<<<< HEAD
-              <div class="row">
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
-                    <label for="apellidos">Tipo de inmueble</label>
-                    <input type="text" class="form-control" id="apellidos" />
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
-                    <label for="nombres">Dpto</label>
-                    <select class="form-control" id="exampleFormControlSelect1"></select>
-                  </div>
-                </div>
-                <div class="col-sm-12 col-md-3">
-                  <div class="form-group">
-                    <label for="apellidos">Nro. Dpto.</label>
-                    <input type="text" class="form-control" id="apellidos" />
-                  </div>
-=======
               <!-- <div class="row">
                 <div class="col-sm-12 col-md-4" style="max-width: 350px">
                   <label>Tipo de inmueble:</label>
@@ -382,7 +221,6 @@
                       {{ o.nombre }}
                     </option>
                   </select>
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                 </div>
               </div> -->
 
@@ -511,126 +349,6 @@
             <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="contact-tab">
               <br />
 
-<<<<<<< HEAD
-                        <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="profile-tab">
-
-                            <br>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="apellidos">Tipo de inmueble</label>
-                                        <input type="text" class="form-control" id="apellidos">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="nombres">Dpto</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-3">
-                                    <div class="form-group">
-                                        <label for="apellidos">Nro. Dpto.</label>
-                                        <input type="text" class="form-control" id="apellidos">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12 overflow-auto">
-
-                                    <table class="table">
-                                        <caption>tabla</caption>
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="text-center">Editar</th>
-                                                <th scope="col">Tipo</th>
-                                                <th scope="col">DPTO</th>
-                                                <th scope="col">Estac.</th>
-                                                <th scope="col">Dep.</th>
-                                                <th scope="col">Closet</th>
-                                                <th scope="col">A. Techada</th>
-                                                <th scope="col">A. Libre</th>
-                                                <th scope="col">A. Total</th>
-                                                <th scope="col">Vista</th>
-                                                <th scope="col">Dorm</th>
-                                                <th scope="col">Precio</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-center font-color-1">
-                                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-left">
-                                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                                    </div>
-                                                </td>
-                                                <td>A</td>
-                                                <td>908</td>
-                                                <td>64.78</td>
-                                                <td>234</td>
-                                                <td>2</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>Exterior</td>
-                                                <td>3</td>
-                                                <td>S/. 30,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center font-color-1">
-                                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-left">
-                                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                                    </div>
-                                                </td>
-                                                <td>A</td>
-                                                <td>908</td>
-                                                <td>64.78</td>
-                                                <td>234</td>
-                                                <td>2</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>Exterior</td>
-                                                <td>3</td>
-                                                <td>S/. 30,000</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-center font-color-1">
-                                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-left">
-                                                        <button class="dropdown-item" type="button" [routerLink]="['/ventas-proyecto-nuevo-editar', 1]"><em class="far fa-edit"></em> Editar</button>
-                                                    </div>
-                                                </td>
-                                                <td>A</td>
-                                                <td>908</td>
-                                                <td>64.78</td>
-                                                <td>234</td>
-                                                <td>2</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>64.56</td>
-                                                <td>Exterior</td>
-                                                <td>3</td>
-                                                <td>S/. 30,000</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-2 offset-md-10">
-                                    <p class="titulo"><strong>Precio final</strong></p>
-                                    <p>S/ 230,000</p>
-                                </div>
-                            </div>
-=======
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
               <div class="row">
                 <div class="col-sm-12 col-md-12">
                   <div class="card">
@@ -644,110 +362,6 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-<<<<<<< HEAD
-                          <p>10%</p>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                          <p class="label-dato">Cuota inicial</p>
-                          <p>S/. 32,324.00</p>
-                        </div>
-                        <div class="col-sm-12 col-md-4">
-                          <p class="label-dato">Financiamiento</p>
-                          <p>S/. 32,324.00</p>
-                        </div>
-                      </div>
-
-                        <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="contact-tab">
-
-                            <br>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12">
-
-                                    <div class="card">
-                                        <div class="card-body">
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-12">
-                                                    <p class="titulo"><strong>Pago</strong></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Cuota inicial</p>
-                                                    <p>10%</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Cuota inicial</p>
-                                                    <p>S/. 32,324.00</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Financiamiento</p>
-                                                    <p>S/. 32,324.00</p>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-12">
-                                                    <p class="titulo"><strong>Tipo de crédito</strong></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Tipo de crédito</p>
-                                                    <p>Ahorro MMV</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Bono MMV</p>
-                                                    <p>0</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">AFP</p>
-                                                    <p>S/. 32,324.00</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-8">
-                                                    <p class="label-dato">Banco</p>
-                                                    <p>BCP - Banco de Crédito del Perú</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Asesor Banco</p>
-                                                    <p>Jorge Zed</p>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-12">
-                                                    <p class="titulo"><strong>Caracteristicas del ahorro</strong></p>
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Ahorro</p>
-                                                    <p>S/. 2,500.00</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Inicio ahorro</p>
-                                                    <p>08/02/20</p>
-                                                </div>
-                                                <div class="col-sm-12 col-md-4">
-                                                    <p class="label-dato">Fin de ahorro</p>
-                                                    <p>08/02/20</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-=======
                           <p>{{ financiamiento.porcCuotaInicial }} %</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
@@ -760,7 +374,6 @@
                         </div>
                       </div>
 
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                       <div class="row">
                         <div class="col-sm-12 col-md-12">
                           <p class="titulo"><strong>Tipo de crédito</strong></p>
@@ -772,148 +385,6 @@
                           <p class="label-dato">Tipo de crédito</p>
                           <p>Ahorro MMV</p>
                         </div>
-<<<<<<< HEAD
-
-                        <div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
-
-                            <br>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12">
-                                    <h4><strong>Fecha</strong></h4>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Fecha de separación</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Fecha de minuta</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Fecha de desembolso</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Fecha de EEPP</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Fecha de caida</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Status actual</label>
-                                        <select class="form-control" id="exampleFormControlSelect1">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-2">
-                                    <div class="form-group">
-                                        <label for="nombres">Tipo de pago</label>
-                                        <input type="text" class="form-control" id="nombres">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    <h3>Pagos</h3>
-                                </div>
-                                <div class="col-sm-12 col-md-7 text-right">
-                                    <a href="/cliente-nuevo-editar/0"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <table class="table">
-                                    <caption>tabla</caption>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col" class="text-center">Editar</th>
-                                            <th scope="col">Nº recibo</th>
-                                            <th scope="col">Fecha</th>
-                                            <th scope="col">Monto</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center font-color-1">
-                                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-left">
-                                                    <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                </div>
-                                            </td>
-                                            <td>432523454</td>
-                                            <td>02/06/20</td>
-                                            <td>S/. 35.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-color-1">
-                                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-left">
-                                                    <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                </div>
-                                            </td>
-                                            <td>432523454</td>
-                                            <td>02/06/20</td>
-                                            <td>S/. 35.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center font-color-1">
-                                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                                                <div class="dropdown-menu dropdown-menu-left">
-                                                    <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
-                                                    <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-cliente"><em class="far fa-trash-alt"></em> Eliminar</button>
-                                                </div>
-                                            </td>
-                                            <td>432523454</td>
-                                            <td>02/06/20</td>
-                                            <td>S/. 35.000</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="col-sm-12 col-md-12">
-
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="col-sm-12 col-md-2 offset-md-10">
-                                                <p><strong>Total</strong></p>
-                                                <p class="label-dato"><strong>S/. 30,000.00</strong></p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-=======
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Bono MMV</p>
                           <p>0</p>
@@ -960,11 +431,6 @@
                 </div>
               </div>
             </div>
-<<<<<<< HEAD
-
-            <br>
-=======
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 
             <div
               class="tab-pane fade show active"
@@ -1061,12 +527,6 @@
                 </div>
                 <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
                   <ol class="stw">
-<<<<<<< HEAD
-                    <li class="">
-                      <div class="stw-label">Separación</div>
-                    </li>
-                    <li class="current">
-=======
                     <li
                       [ngClass]="{
                         current: timelimeActive === 'Inicio'
@@ -1086,7 +546,6 @@
                         current: timelimeActive === 'Minuta'
                       }"
                     >
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                       <div class="stw-label">Minuta</div>
                     </li>
                     <li
@@ -1112,11 +571,6 @@
                   <h3>Pagos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-<<<<<<< HEAD
-                  <a href="/cliente-nuevo-editar/0"
-                    ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
-                  ></a>
-=======
                   <a
                     id="#btnAgregarPago"
                     (click)="abrirModalAgregarPago()"
@@ -1203,95 +657,10 @@
                     showFirstLastButtons
                     class="ptproy"
                   ></mat-paginator> -->
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                 </div>
               </div>
 
               <div class="row">
-<<<<<<< HEAD
-                <table class="table">
-                  <caption>
-                    tabla
-                  </caption>
-                  <thead>
-                    <tr>
-                      <th scope="col" class="text-center">Editar</th>
-                      <th scope="col">Nº recibo</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Monto</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center font-color-1">
-                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
-                        <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button">
-                            <em class="far fa-edit"></em> Editar
-                          </button>
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            data-toggle="modal"
-                            data-target="#modal-eliminar-cliente"
-                          >
-                            <em class="far fa-trash-alt"></em> Eliminar
-                          </button>
-                        </div>
-                      </td>
-                      <td>432523454</td>
-                      <td>02/06/20</td>
-                      <td>S/. 35.000</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div class="row">
-=======
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
                 <div class="col-sm-12 col-md-12">
                   <div class="card">
                     <div class="card-body">
@@ -1313,9 +682,6 @@
       <br />
     </div>
   </div>
-<<<<<<< HEAD
->>>>>>> 47e62bd6942a6d610e41056ab083f1d217039f73
-=======
 </div>
 
 <div id="modal-gestion-pago" class="modal" tabindex="-1" role="dialog">
@@ -1474,5 +840,4 @@
       </div>
     </div>
   </div>
->>>>>>> 194e5e7b139518794d7cd72457455628332389e2
 </div>
