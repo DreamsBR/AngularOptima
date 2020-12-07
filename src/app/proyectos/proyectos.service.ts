@@ -37,6 +37,7 @@ export class ProyectoService {
         const respData = jsonProyectosResponse.content as Proyecto[]
         respData.map((proyecto) => {
           proyecto.nombre = proyecto.nombre.toUpperCase()
+
           return proyecto
         })
         return jsonProyectosResponse

@@ -86,6 +86,7 @@
                               <th scope="col">Nº doc.</th>
                               <th scope="col">Fecha Registro</th>
                               <th scope="col">Total de venta</th>
+                              <th scope="col">Financiado</th>
                               <th scope="col">Estado</th>
                           </tr>
                       </thead>
@@ -102,7 +103,8 @@
                               <td>{{ ventasProyecto.cliente.nroDocumento }}</td>
                               <td>{{ (ventasProyecto.fechaRegistro !== null) ? (ventasProyecto.fechaRegistro | formatDate) : "" }} </td>
 
-                              <td>{{ ventasProyecto.total }}</td>
+                              <td>{{ ventasProyecto.importe | formatSoles }}</td>
+                              <td>{{ventasProyecto.total | formatSoles }}</td>
                               <td>{{ ventasProyecto.estadoVenta.nombre }}</td>
                           </tr>
                       </tbody>

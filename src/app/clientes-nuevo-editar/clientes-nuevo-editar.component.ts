@@ -19,6 +19,9 @@ import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rou
 export class ClientesNuevoEditarComponent implements OnInit {
 
   public cliente: Cliente = new Cliente()
+
+
+
   public clientenodo: Clientenodo = new Clientenodo()
   public errores: string[]
   public idCliente: number

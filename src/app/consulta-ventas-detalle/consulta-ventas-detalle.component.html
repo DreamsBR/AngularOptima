@@ -13,8 +13,8 @@
 
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                    <a 
-                        [routerLink]="['/ventas-proyecto-nuevo-editar', paramIdProyecto]" 
+                    <a
+                        [routerLink]="['/ventas-proyecto-nuevo-editar', paramIdProyecto]"
                     ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
                 </div>
             </div>
@@ -82,8 +82,10 @@
                                 <th scope="col">Nombres</th>
                                 <th scope="col">Apellidos</th>
                                 <th scope="col">Nº doc.</th>
-                                <th scope="col">Total de venta</th>
+                                <th scope="col">Fecha Registro</th>
+                                <th scope="col">Importe</th>
                                 <th scope="col">Financiamiento</th>
+
                                 <th scope="col">Estado</th>
                             </tr>
                         </thead>
@@ -96,15 +98,16 @@
                                     </div>
                                 </td>
 
-                                <td><a 
-                                    [routerLink]="['/ventas-consulta-cliente-detalle', ventasProyecto.idVenta]" 
+                                <td><a
+                                    [routerLink]="['/ventas-consulta-cliente-detalle', ventasProyecto.idVenta]"
                                 >{{ventasProyecto.cliente.nombres}}</a></td>
-                                <td><a 
+                                <td><a
                                     [routerLink]="['/ventas-consulta-cliente-detalle', ventasProyecto.idVenta]"
                                 >{{ventasProyecto.cliente.apellidos}}</a></td>
                                 <td>{{ventasProyecto.cliente.nroDocumento}}</td>
-                                <td class="">{{ ventasProyecto.total | formatSoles }}</td>
-                                <td class="">{{ ventasProyecto.financiamiento.financiamiento | formatSoles}}</td>
+                                <td class="">{{ ventasProyecto.fechaRegistro | formatDate}}</td>
+                                <td class="">{{ ventasProyecto.importe | formatSoles }}</td>
+                                <td class="">{{ ventasProyecto.financiamiento.montoFinanciado | formatSoles}}</td>
                                 <td class="">{{ ventasProyecto.estadoVenta.nombre }}</td>
 
 

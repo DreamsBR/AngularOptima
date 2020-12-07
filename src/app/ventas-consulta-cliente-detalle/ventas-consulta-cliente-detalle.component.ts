@@ -189,6 +189,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.tempIdFechaEEP = newdate
     this.idEstadoVentaSelect = 13
   }
+
   onFechaCaidaChanged(newdate: string) {
     this.tempIdFechaCaida = newdate
     this.idEstadoVentaSelect = 14
