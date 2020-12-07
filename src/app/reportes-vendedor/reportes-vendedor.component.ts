@@ -62,25 +62,14 @@ export class ReportesVendedorComponent implements OnInit {
   status = false
 
   itemsTable = new MatTableDataSource<ConsolidadoVendedor>()
-  fieldsTable: string[] = [
-    'numero',
-    'proyecto',
-    'meta',
-    'avance',
-    'minuta',
-    'ci',
-    'preca',
-    'ev',
-    'sp',
-    'caida'
-  ]
+  fieldsTable: string[] = ['numero', 'proyecto', 'meta', 'avance', 'minuta', 'ci', 'preca', 'ev', 'sp', 'caida']
 
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
   public chartOptionsForecast: Partial<ChartOptions>
 
   // Variables para buscadores
-  keywordSearch1 = 'nombres'
+  keywordSearch1 = 'nombre'
   dataSearch1 = []
 
   keywordSearch2 = 'nombrePeriodo'
@@ -284,8 +273,9 @@ export class ReportesVendedorComponent implements OnInit {
       const paramIdPeriodo: number = parseInt(params.get('idperiodo')) // Id del Proyecto
 
       this.loading = true
-      this.colaboradorService.getTodosColaboradores().subscribe(
+      this.reportesService.getAllVendedores().subscribe(
         (data) => {
+
           this.dataSearch1 = data
           this.loading = false
 
@@ -304,10 +294,11 @@ export class ReportesVendedorComponent implements OnInit {
                 })
                 this.dataSearch2 = customDataSearch
 
+
                 // Seteando los valores de la Url
                 for (const elem of data) {
                   if (elem.idColaborador === paramIdColaborador) {
-                    this.autocompleteSearch1.changeOnlyText(elem.nombres)
+                    this.autocompleteSearch1.changeOnlyText(elem.nombre)
                     break
                   }
                 }
@@ -393,80 +384,27 @@ export class ReportesVendedorComponent implements OnInit {
     }
 
     this.loading = true
+    this.reportesService.getConsolidadoVendedor(this.filterIdColaborador, this.filterIdPeriodo).subscribe(
+      (resp) => {
+        this.itemsTable = new MatTableDataSource<ConsolidadoVendedor>(resp)
+        this.totalMinuta = this.itemsTable.data.map((t) => t.minuta).reduce((acc, value) => acc + value, 0)
+        this.totalCI = this.itemsTable.data.map((t) => t.ci).reduce((acc, value) => acc + value, 0)
+        this.totalPreca = this.itemsTable.data.map((t) => t.preca).reduce((acc, value) => acc + value, 0)
+        this.totalEV = this.itemsTable.data.map((t) => t.ev).reduce((acc, value) => acc + value, 0)
+        this.totalSP = this.itemsTable.data.map((t) => t.sp).reduce((acc, value) => acc + value, 0)
+        this.totalCaida = this.itemsTable.data.map((t) => t.caida).reduce((acc, value) => acc + value, 0)
 
-    // TODO: QUITAR LA DATA HARCODEADA
-    this.reportesService
-      .getConsolidadoVendedor(this.filterIdColaborador, this.filterIdPeriodo)
-      .subscribe(
-        (resp) => {
-          // TODO: inicio QUITAR LA DATA HARCODEADA
-          resp.push({
-            avance: 464125.98,
-            caida: 0,
-            ci: 1,
-            ev: 1,
-            meta: 765412.45,
-            minuta: 2,
-            preca: 2,
-            proyecto: {
-              codigo: 'string',
-              direccion: 'string',
-              enable: 0,
-              idProyecto: 1,
-              nombre: 'Nessssstaaaa'
-            },
-            sp: 5
-          })
-          resp.push({
-            avance: 211125.98,
-            caida: 0,
-            ci: 1,
-            ev: 1,
-            meta: 541927.29,
-            minuta: 2,
-            preca: 2,
-            proyecto: {
-              codigo: 'string',
-              direccion: 'string',
-              enable: 0,
-              idProyecto: 2,
-              nombre: 'Groño'
-            },
-            sp: 5
-          })
-          // TODO: fin QUITAR LA DATA HARCODEADA
+        this.loading = false
 
-          this.itemsTable = new MatTableDataSource<ConsolidadoVendedor>(resp)
-          this.totalMinuta = this.itemsTable.data
-            .map((t) => t.minuta)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCI = this.itemsTable.data
-            .map((t) => t.ci)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalPreca = this.itemsTable.data
-            .map((t) => t.preca)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalEV = this.itemsTable.data
-            .map((t) => t.ev)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalSP = this.itemsTable.data
-            .map((t) => t.sp)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCaida = this.itemsTable.data
-            .map((t) => t.caida)
-            .reduce((acc, value) => acc + value, 0)
-
-          this.loading = false
-
-          this.setDataChart()
-          this.drawFunnelChart()
-          //this.drawForecastChart()
-        },
-        (error) => {
-          this.loading = false
-          console.log(error)
-        }
-      )
+        this.setDataChart()
+        this.drawFunnelChart()
+        //this.drawForecastChart()
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   setDataChart() {
@@ -500,13 +438,7 @@ export class ReportesVendedorComponent implements OnInit {
   }
 
   drawFunnelChart() {
-    const itemsvalues = [
-      this.totalSP,
-      this.totalEV,
-      this.totalPreca,
-      this.totalCI,
-      this.totalMinuta
-    ]
+    const itemsvalues = [this.totalSP, this.totalEV, this.totalPreca, this.totalCI, this.totalMinuta]
 
     const maxValue = typeof itemsvalues[0] !== 'undefined' ? itemsvalues[0] : 0
 
@@ -536,13 +468,7 @@ export class ReportesVendedorComponent implements OnInit {
         show: true
       }
     }
-    this.chartOptionsFunnel.labels = [
-      'Separación',
-      'Evaluación',
-      'Precalificación',
-      'Cuota Inicial',
-      'Minuta'
-    ]
+    this.chartOptionsFunnel.labels = ['Separación', 'Evaluación', 'Precalificación', 'Cuota Inicial', 'Minuta']
     this.chartObjFunnel.updateSeries(staticData)
     this.chartObjFunnel.updateOptions(this.chartOptionsFunnel)
   }

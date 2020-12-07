@@ -197,7 +197,7 @@
                         <p class="titulo"><strong>Vendedor</strong></p>
 
                         <p class="label-dato">Nombre completo</p>
-                        <p>{{ venta.vendedor.nombre }}</p>
+                        <p>{{ (venta.vendedor) ? venta.vendedor.nombre: '' }}</p>
                       </div>
                     </div>
                   </div>

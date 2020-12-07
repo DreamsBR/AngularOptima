@@ -11,7 +11,7 @@ import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
 import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.service'
 import { ReportesService } from '../reportes/reportes.service'
 import { ConsolidadoProyecto } from './consolidadoproyecto'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute,Router } from '@angular/router'
 import { ColaboradorService } from '../colaboradores/colaborador.service'
 
 import {
@@ -63,18 +63,7 @@ export class ReportesProyectosComponent implements OnInit {
   status = false
 
   itemsTable = new MatTableDataSource<ConsolidadoProyecto>()
-  fieldsTable: string[] = [
-    'numero',
-    'proyecto',
-    'meta',
-    'avance',
-    'minuta',
-    'ci',
-    'preca',
-    'ev',
-    'sp',
-    'caida'
-  ]
+  fieldsTable: string[] = ['numero', 'proyecto', 'meta', 'avance', 'minuta', 'ci', 'preca', 'ev', 'sp', 'caida']
 
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
@@ -108,6 +97,7 @@ export class ReportesProyectosComponent implements OnInit {
   filterIdPeriodo: number = null
 
   constructor(
+    private router: Router,
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private gerenciaService: GerenciaService,
@@ -304,7 +294,7 @@ export class ReportesProyectosComponent implements OnInit {
                   })
                 })
                 this.dataSearch2 = customDataSearch
-  
+
                 // Seteando los valores de la Url
                 for (const elem of data) {
                   if (elem.idProyecto === paramIdProyecto) {
@@ -312,19 +302,19 @@ export class ReportesProyectosComponent implements OnInit {
                     break
                   }
                 }
-  
+
                 for (const elem of customDataSearch) {
                   if (elem.idPeriodo === paramIdPeriodo) {
                     this.autocompleteSearch2.changeOnlyText(elem.nombrePeriodo)
                     break
                   }
                 }
-  
+
                 this.filterIdProyecto = paramIdProyecto
                 this.filterIdPeriodo = paramIdPeriodo
-  
+
                 this.buscar()
-  
+
                 this.loading = false
               },
               (error) => {
@@ -332,9 +322,7 @@ export class ReportesProyectosComponent implements OnInit {
                 console.error(error)
               }
             )
-
           }
-          
         },
         (error) => {
           this.loading = false
@@ -398,41 +386,27 @@ export class ReportesProyectosComponent implements OnInit {
     this.loading = true
 
     // TODO: QUITAR LA DATA HARCODEADA
-    this.reportesService
-      .getConsolidadoProyecto(this.filterIdProyecto, this.filterIdPeriodo)
-      .subscribe(
-        (resp) => {
-          this.itemsTable = new MatTableDataSource<ConsolidadoProyecto>(resp)
-          this.totalMinuta = this.itemsTable.data
-            .map((t) => t.minuta)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCI = this.itemsTable.data
-            .map((t) => t.ci)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalPreca = this.itemsTable.data
-            .map((t) => t.preca)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalEV = this.itemsTable.data
-            .map((t) => t.ev)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalSP = this.itemsTable.data
-            .map((t) => t.sp)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCaida = this.itemsTable.data
-            .map((t) => t.caida)
-            .reduce((acc, value) => acc + value, 0)
+    this.reportesService.getConsolidadoProyecto(this.filterIdProyecto, this.filterIdPeriodo).subscribe(
+      (resp) => {
+        this.itemsTable = new MatTableDataSource<ConsolidadoProyecto>(resp)
+        this.totalMinuta = this.itemsTable.data.map((t) => t.minuta).reduce((acc, value) => acc + value, 0)
+        this.totalCI = this.itemsTable.data.map((t) => t.ci).reduce((acc, value) => acc + value, 0)
+        this.totalPreca = this.itemsTable.data.map((t) => t.preca).reduce((acc, value) => acc + value, 0)
+        this.totalEV = this.itemsTable.data.map((t) => t.ev).reduce((acc, value) => acc + value, 0)
+        this.totalSP = this.itemsTable.data.map((t) => t.sp).reduce((acc, value) => acc + value, 0)
+        this.totalCaida = this.itemsTable.data.map((t) => t.caida).reduce((acc, value) => acc + value, 0)
 
-          this.loading = false
+        this.loading = false
 
-          this.setDataChart()
-          this.drawFunnelChart()
-          this.drawForecastChart()
-        },
-        (error) => {
-          this.loading = false
-          console.log(error)
-        }
-      )
+        this.setDataChart()
+        this.drawFunnelChart()
+        this.drawForecastChart()
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   setDataChart() {
@@ -466,13 +440,7 @@ export class ReportesProyectosComponent implements OnInit {
   }
 
   drawFunnelChart() {
-    const itemsvalues = [
-      this.totalSP,
-      this.totalEV,
-      this.totalPreca,
-      this.totalCI,
-      this.totalMinuta
-    ]
+    const itemsvalues = [this.totalSP, this.totalEV, this.totalPreca, this.totalCI, this.totalMinuta]
 
     const maxValue = typeof itemsvalues[0] !== 'undefined' ? itemsvalues[0] : 0
 
@@ -502,68 +470,43 @@ export class ReportesProyectosComponent implements OnInit {
         show: true
       }
     }
-    this.chartOptionsFunnel.labels = [
-      'Separación',
-      'Evaluación',
-      'Precalificación',
-      'Cuota Inicial',
-      'Minuta'
-    ]
+    this.chartOptionsFunnel.labels = ['Separación', 'Evaluación', 'Precalificación', 'Cuota Inicial', 'Minuta']
     this.chartObjFunnel.updateSeries(staticData)
     this.chartObjFunnel.updateOptions(this.chartOptionsFunnel)
   }
 
   drawForecastChart() {
-    this.reportesService
-      .getConsolidadoProyectoPeriodo(this.filterIdProyecto, this.filterIdPeriodo)
-      .subscribe((resp) => {
-        //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
-        // TODO: inicio QUITAR DATA HARDCODEADA
-        /*resp.push({
-          periodoGerencia: {
-            idPeriodoGerencia: 1,
-            enable: 1,
-            idGerencia: 1,
-            periodo: {
-              idPeriodo: 1,
-              enable: 1,
-              fechaFin: '2020-11-30T00:00:00.000+0000',
-              fechaInicio: '2020-11-01T00:00:00.000+0000',
-              nombre: 'DICIEMBRE - 2020'
-            },
-            meta: 80564.45
-          },
-          venta: 50456.03
-        })*/
-        // TODO: fin QUITAR DATA HARDCODEADA
-        //console.log(resp)
+    this.reportesService.getConsolidadoProyectoPeriodo(this.filterIdProyecto, this.filterIdPeriodo).subscribe((resp) => {
 
-        const tmpSeries = [
-          {
-            name: 'Meta',
-            data: []
-          },
-          {
-            name: 'Monto de venta alcanzada',
-            data: []
-          }
-        ]
-        const tmpXaxis = {
-          categories: []
+      const tmpSeries = [
+        {
+          name: 'Meta',
+          data: []
+        },
+        {
+          name: 'Monto de venta alcanzada',
+          data: []
         }
+      ]
+      const tmpXaxis = {
+        categories: []
+      }
 
-        resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoProyecto.meta)
-          tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoProyecto.periodo.nombre)
-        })
-        this.chartOptionsForecast.series = tmpSeries
-        this.chartOptionsForecast.xaxis = tmpXaxis
-        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
+      resp.forEach((elem) => {
+        tmpSeries[0].data.push(elem.periodoProyecto.meta)
+        tmpSeries[1].data.push(elem.venta)
+        tmpXaxis.categories.push(elem.periodoProyecto.periodo.nombre)
       })
+      this.chartOptionsForecast.series = tmpSeries
+      this.chartOptionsForecast.xaxis = tmpXaxis
+      this.chartObjForecast.updateOptions(this.chartOptionsForecast)
+    })
   }
 
   goDetails(row) {
-    console.log(row)
+    //console.log(row)
+
+    const idColaborador = row.vendedor.idColaborador
+    this.router.navigate(['/reportes-por-vendedor/' + idColaborador + '/' + this.filterIdPeriodo])
   }
 }
