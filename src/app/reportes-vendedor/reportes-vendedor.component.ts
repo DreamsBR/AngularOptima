@@ -474,9 +474,7 @@ export class ReportesVendedorComponent implements OnInit {
   }
 
   drawForecastChart() {
-    this.reportesService
-      .getConsolidadoColaboradorPeriodo(this.filterIdColaborador, this.filterIdPeriodo)
-      .subscribe((resp) => {
+    this.reportesService.getConsolidadoColaboradorPeriodo(this.filterIdColaborador, this.filterIdPeriodo).subscribe((resp) => {
 
         const tmpSeries = [
           {
@@ -491,16 +489,15 @@ export class ReportesVendedorComponent implements OnInit {
         const tmpXaxis = {
           categories: []
         }
-        console.log(resp)
-
-        /*resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoGerencia.meta)
+  
+        resp.forEach((elem) => {
+          tmpSeries[0].data.push(elem.periodoColaborador.meta)
           tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
+          tmpXaxis.categories.push(elem.periodoColaborador.periodo.nombre)
         })
         this.chartOptionsForecast.series = tmpSeries
         this.chartOptionsForecast.xaxis = tmpXaxis
-        this.chartObjForecast.updateOptions(this.chartOptionsForecast)*/
+        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
       })
   }
 
