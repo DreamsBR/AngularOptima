@@ -30,6 +30,11 @@ export class ReportesService {
     return this.http.get(this.urlEndPoint + '/consolidadovendedor/' + idColaborador + '/' + idPeriodo).pipe()
   }
 
+  // Para forecast
+  getConsolidadoColaboradorPeriodo(idColaborador: number, idPeriodo: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/consolidadocolaboradorperiodo/' + idColaborador + '/' + idPeriodo).pipe()
+  }
+
   getConsolidadoProyectoPeriodo(idProyecto: number, idPeriodo: number): Observable<any> {
     return this.http.get(this.urlEndPoint + '/consolidadoproyectoperiodo/' + idProyecto + '/' + idPeriodo).pipe()
   }

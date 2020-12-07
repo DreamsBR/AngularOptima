@@ -398,7 +398,7 @@ export class ReportesVendedorComponent implements OnInit {
 
         this.setDataChart()
         this.drawFunnelChart()
-        //this.drawForecastChart()
+        this.drawForecastChart()
       },
       (error) => {
         this.loading = false
@@ -474,29 +474,9 @@ export class ReportesVendedorComponent implements OnInit {
   }
 
   drawForecastChart() {
-    /* this.reportesService
-      .getConsolidadoGerencia(this.filterIdGerencia, this.filterIdPeriodo)
+    this.reportesService
+      .getConsolidadoColaboradorPeriodo(this.filterIdColaborador, this.filterIdPeriodo)
       .subscribe((resp) => {
-        //this.reportesService.getConsolidadoGerencia(1, 1).subscribe((resp) => {
-        // TODO: inicio QUITAR DATA HARDCODEADA
-        //resp.push({
-        //  periodoGerencia: {
-        //    idPeriodoGerencia: 1,
-        //    enable: 1,
-        //    idGerencia: 1,
-        //    periodo: {
-        //      idPeriodo: 1,
-        //      enable: 1,
-        //      fechaFin: '2020-11-30T00:00:00.000+0000',
-        //      fechaInicio: '2020-11-01T00:00:00.000+0000',
-        //      nombre: 'DICIEMBRE - 2020'
-        //    },
-        //    meta: 80564.45
-        //  },
-        //  venta: 50456.03
-        //})
-        // TODO: fin QUITAR DATA HARDCODEADA
-        //console.log(resp)
 
         const tmpSeries = [
           {
@@ -511,16 +491,17 @@ export class ReportesVendedorComponent implements OnInit {
         const tmpXaxis = {
           categories: []
         }
+        console.log(resp)
 
-        resp.forEach((elem) => {
+        /*resp.forEach((elem) => {
           tmpSeries[0].data.push(elem.periodoGerencia.meta)
           tmpSeries[1].data.push(elem.venta)
           tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
         })
         this.chartOptionsForecast.series = tmpSeries
         this.chartOptionsForecast.xaxis = tmpXaxis
-        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
-      }) */
+        this.chartObjForecast.updateOptions(this.chartOptionsForecast)*/
+      })
   }
 
   goDetails(row) {
