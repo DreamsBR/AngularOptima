@@ -12,6 +12,7 @@ import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.ser
 import { ReportesService } from '../reportes/reportes.service'
 import { ConsolidadoVentas } from './consolidadoventas'
 import { ExporterService } from '../helpers/exporter.service'
+import { ActivatedRoute,Router } from '@angular/router'
 
 import {
   ApexAxisChartSeries,
@@ -106,6 +107,7 @@ export class ReportesComponent implements OnInit {
   filterIdPeriodo: number = null
 
   constructor(
+    private router: Router,
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private gerenciaService: GerenciaService,
@@ -496,7 +498,7 @@ export class ReportesComponent implements OnInit {
   goDetails(row) {
     // console.log(row)
     const idProyecto = row.proyecto.idProyecto
-    window.location.href = '/reportes-por-proyecto/' + idProyecto + '/' + this.filterIdPeriodo
+    this.router.navigate(['/reportes-por-proyecto/' + idProyecto + '/' + this.filterIdPeriodo])
   }
 
   exportar() {
