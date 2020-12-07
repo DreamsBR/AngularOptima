@@ -6,23 +6,14 @@ import { Router, ActivatedRoute } from '@angular/router'
 import swal from 'sweetalert2'
 import { TipoDocumento } from '../colaboradores/tipoDocumento'
 import { VentaService } from '../ventas/ventas.service'
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast'
 import { Roles } from '../colaboradores/roles'
-import { EstadocivilService } from '../clientes/estadocivil.service'
 import { TipodocumentoService } from '../clientes-nuevo-editar/tipodocumento.service'
 import { RolesServices } from '../colaboradores/roles.service'
-import { UsuarioLoginService } from '../colaboradores/usuarioLogin.service'
-import { UsuarioLogin } from '../colaboradores/usuarioLogin'
-
-
-
-//fetchingTipoDocumento
 
 @Component({
   selector: 'app-colaboradores-nuevo-editar',
   templateUrl: './colaboradores-nuevo-editar.component.html'
 })
-
 
 export class ColaboradoresNuevoEditarComponent implements OnInit {
   loading: boolean = false
@@ -46,7 +37,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     private ventaService: VentaService,
     private tipoDocu : TipodocumentoService,
     private rolesService: RolesServices,
-    private usuarioLoginService:UsuarioLoginService
   ) {
     this.colaborador.idColaborador = 0
     this.colaborador.nombres = ''
@@ -103,7 +93,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     this.status = !this.status
   }
 
-
   roles : Roles[]
 
   public obtenerRoles(){
@@ -112,23 +101,16 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     })
   }
 
-
-
-
-
   public agregarColaborador(): void {
     let id = this.idColaborador
-    // Ya que el modelo solo acepta el idTipoDocumento en el primer nivel
     const newColaborador = JSON.parse(JSON.stringify(this.colaborador))
     newColaborador.idTipoDocumento = this.tipoDocSelected
 
+    console.info(id)
     if (id == 0) {
       this.colaboradorService.agregarColaborador(newColaborador).subscribe(
         (response) => {
-          //console.log(response)
           this.guardarUsuario(response.idColaborador)
-          // this.router.navigate(['/colaboradores'])
-          // swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
         },
         (err) => {
           this.errores = err.error.errors as string[]
@@ -139,12 +121,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         .actualizarColaborador(newColaborador, this.colaborador.idColaborador)
         .subscribe(
           (response) => {
-            this.router.navigate(['/colaboradores'])
-            swal(
-              'Editar colaborador',
-              `Colaborador ${response.nombres} actualizado con exito`,
-              'success'
-            )
+            this.guardarUsuario(response.idColaborador)
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -159,18 +136,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   public guardarUsuario(idColaborador: number):void {
 
-    // let addUsuarioLogin: UsuarioLogin = new UsuarioLogin()
-    // addUsuarioLogin.email = this.usuario
-    // addUsuarioLogin.idColaborador = idColaborador
-    // addUsuarioLogin.name = this.usuario
-    // addUsuarioLogin.password = this.contrasenia
-    // addUsuarioLogin.username = this.usuario
-    // //let rol = []
-    // //rol.push(this.rolseleccionado)
-    // addUsuarioLogin.role.push(this.rolseleccionado)
-
-    // console.info(addUsuarioLogin)
-
     let addUsuarioLogin = {
       "email": this.usuario,
       "idColaborador": idColaborador,
@@ -182,20 +147,45 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
       "username":  this.usuario
     }
 
-    this.usuarioLoginService.agregarUsiarioLog(addUsuarioLogin).subscribe(
-      (response) => {
-        console.log(response)
-      }, err =>{
+    this.colaboradorService.agregarUsuario(addUsuarioLogin).subscribe(
+      (response: any) => {
+        console.log('response: ' + response)
+        this.router.navigate(['/colaboradores'])
+        swal('Registro agregado', '', 'success')
+      },
+      (err) =>{
         if (err.status == 400){
-          swal('Usuario ya existe', '', 'success')
+          swal('Usuario ya existe', '', 'warning')
+          this.idColaborador = idColaborador
+          this.colaborador.idColaborador = idColaborador
         }
         if (err.status == 401){
-          swal('Error en datos', '', 'success')
+          swal('Error en datos', '', 'warning')
+          this.idColaborador = idColaborador
+          this.colaborador.idColaborador = idColaborador
         }
       }
     )
-  }
 
+    // this.router.navigate(['/colaboradores'])
+
+    // this.usuarioLoginService.agregarUsiarioLog(addUsuarioLogin).subscribe(
+    //   (response) => {
+    //       console.log(response)
+    //       this.router.navigate(['/colaboradores'])
+    //       swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
+    //   }, 
+    //   (err) =>{
+    //     if (err.status == 400){
+    //       swal('Usuario ya existe', '', 'warning')
+    //     }
+    //     if (err.status == 401){
+    //       swal('Error en datos', '', 'warning')
+    //     }
+    //   }
+    // )
+
+  }
 
   get isValidForm() {
     let isValid = true

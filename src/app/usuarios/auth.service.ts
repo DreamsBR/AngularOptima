@@ -34,32 +34,15 @@ export class AuthService {
     return null;
   }
 
+  urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
 
   public logIn(usuario: Usuario): Observable<any> {
-
-    const urlEndPoint = URL_BACKEND_SEG + 'auth/signin';
-
-    // const credenciales = btoa('angularapp' + ':' + '12345');
-
-    // const httpHeaders = new HttpHeaders(
-    //   {
-    //     'Content-type': 'application/x-www-form-urlencoded',
-    //     'Authorization': 'Basic ' + credenciales
-    //   });
-
-    // const params = new URLSearchParams();
-    // params.set('grant_type', 'password');
-    // params.set('username', usuario.userName);
-    // params.set('password', usuario.password);
-
+    
     let params = {
       "password": usuario.password,
       "username": usuario.userName
     }
-
-    // { headers: httpHeaders }
-
-    return this.http.post<any>(urlEndPoint, params);
+    return this.http.post<any>(this.urlEndPoint, params);
   }
 
   public guardarUsuario(accessToken: string): void {
@@ -67,7 +50,8 @@ export class AuthService {
     console.info(payLoad)
     this._usuario = new Usuario();
     this._usuario.userName = payLoad.sub;
-    this._usuario.roles = payLoad.authorities;
+    this._usuario.roles = payLoad.roles;
+    this._usuario.idColaborador = payLoad.idColaborador;
     sessionStorage.setItem('usuario', JSON.stringify(this._usuario));
   }
 

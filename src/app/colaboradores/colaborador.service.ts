@@ -4,7 +4,8 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError} from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { URL_BACKEND } from '../config/config';
+import { URL_BACKEND, URL_BACKEND_SEG } from '../config/config';
+import { UsuarioLogin } from './usuarioLogin';
 
 
 
@@ -47,12 +48,17 @@ export class ColaboradorService {
 
         return this.http.post<any>(this.urlEndPoint, colaborador).pipe(
             catchError(e => {
-
-            if (e.status === 400) {
-                return throwError(e);
-            }
+                if (e.status === 400) {
+                    return throwError(e);
+                }
             })
         );
+    }
+
+    private urlEndPoint2 : string = URL_BACKEND_SEG + 'auth/' + 'signup'
+    agregarUsuario(usuarioLogin: UsuarioLogin) : Observable<any>{
+        let httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
+        return this.http.post<any>(this.urlEndPoint2, usuarioLogin, httpOptions)
     }
 
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
@@ -66,9 +72,9 @@ export class ColaboradorService {
     actualizarColaborador(colaborador: Colaborador, idColaborador: number): Observable<any> {
         return this.http.put<any>(this.urlEndPoint + '/' + idColaborador, colaborador).pipe(
             catchError((e) => {
-            if (e.status === 400) {
-                return throwError(e)
-            }
+                if (e.status === 400) {
+                    return throwError(e)
+                }
             })
         )
     }
@@ -80,5 +86,7 @@ export class ColaboradorService {
             })
         )
     }
+
+
 
 }

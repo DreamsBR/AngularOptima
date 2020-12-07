@@ -74,9 +74,6 @@ export class ReportesComponent implements OnInit {
     'caida'
   ]
 
-  sumaMetas: number = 0
-  sumaAvances: number = 0
-
   public chartOptions: Partial<ChartOptions>
   public chartOptionsFunnel: Partial<ChartOptions>
   public chartOptionsForecast: Partial<ChartOptions>

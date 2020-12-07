@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
@@ -32,8 +33,9 @@ export class EstadoventaComponent implements OnInit {
     })
   }
 
-  public eliminar(Estadoventa: Estadoventa): void {
-    this.estadoventa2Service.eliminar(Estadoventa.idEstadoVenta).subscribe(
+  public eliminar(estadoventa: Estadoventa): void {
+    estadoventa.enable = 0
+    this.estadoventa2Service.actualizar(estadoventa, estadoventa.idEstadoVenta).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()

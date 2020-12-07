@@ -28,6 +28,7 @@ export class CategoriaNuevoEditarComponent implements OnInit {
           this.categoriaService.obtenerCategoriaPorId(this.idCategoria).subscribe(
             (response) => {
               this.categoria = response
+              this.categoria.enable = 1
             })
         }else{
           this.categoria.idCategoria = 0

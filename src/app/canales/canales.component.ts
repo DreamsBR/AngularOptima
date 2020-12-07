@@ -33,7 +33,8 @@ export class CanalesComponent implements OnInit {
   }
 
   public eliminar(canal: Canal): void {
-    this.canalService.eliminar(canal.idCanal).subscribe(
+    canal.enable = 0
+    this.canalService.actualizar(canal, canal.idCanal).subscribe(
       (response) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()

@@ -31,6 +31,7 @@ export class EstadofinanciamientoNuevoEditarComponent implements OnInit {
           })
       }else{
         this.estadofinanciamiento.idEstadoFinanciamiento = 0
+        this.estadofinanciamiento.enable = 1
       }
     })
   }

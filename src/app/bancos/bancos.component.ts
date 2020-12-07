@@ -33,12 +33,13 @@ export class BancosComponent implements OnInit {
   }
 
   public eliminar(banco: Banco): void {
-    this.bancoService.eliminar(banco.idBanco).subscribe(
-      (response) => {
+    banco.enable = 0
+    this.bancoService.actualizar(banco, banco.idBanco).subscribe(
+      (_) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()
       },
-      (err) => {
+      (_) => {
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerBancos()
       }

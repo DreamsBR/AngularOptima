@@ -115,15 +115,17 @@ import { EstadoventaComponent } from './estadoventa/estadoventa.component';
 import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/estadoventa-nuevo-editar.component'
 import { Estadofinanciamiento2Service } from './estadofinanciamiento/estadofinanciamiento.service'
 import { Estadoventa2Service } from './estadoventa/estadoventa.service'
-import { RolesServices } from './colaboradores/roles.service'
-import { UsuarioLoginService } from './colaboradores/usuarioLogin.service'
+import { RolesServices } from './colaboradores/roles.service';
+import { GerenciaColaboradorComponent } from './gerencia-colaborador/gerencia-colaborador.component'
 
 const ROUTES: Routes = [
+
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'recordar-contrasenia', component: RecordarContraseniaComponent },
   { path: 'recordar-contrasenia-aviso', component: RecordarContraseniaAvisoComponent },
   { path: 'recordar-contrasenia-cambio', component: RecordarContraseniaCambioComponent },
+
   { path: 'colaboradores', component: ColaboradoresComponent },
   { path: 'colaborador/page/:page', component: ColaboradoresComponent },
   { path: 'colaboradores-nuevo-editar/:id', component: ColaboradoresNuevoEditarComponent },
@@ -150,6 +152,7 @@ const ROUTES: Routes = [
   { path: 'inmueble-nuevo-editar/:id', component: InmuebleNuevoEditarComponent },
   { path: 'gerencias', component: GerenciasComponent },
   { path: 'gerencias/page/:page', component: GerenciasComponent },
+  { path: 'gerencia-colaborador/:idColaborador', component: GerenciaColaboradorComponent },
   { path: 'gerencia-nuevo-editar/:id', component: GerenciaNuevoEditarComponent },
   { path: 'jefatura/:idProyecto/:idGerencia', component: JefaturaComponent },
   { path: 'jefatura/page/:page/:idProyecto/:idGerencia', component: JefaturaComponent },
@@ -238,7 +241,8 @@ const ROUTES: Routes = [
     EstadoventaNuevoEditarComponent,
     ReportesVendedorComponent,
     AutocompletarComponent,
-    PruebaComponent
+    PruebaComponent,
+    GerenciaColaboradorComponent
   ],
   imports: [
     BrowserModule,
@@ -299,7 +303,6 @@ const ROUTES: Routes = [
     Estadofinanciamiento2Service,
     Estadoventa2Service,
     RolesServices,
-    UsuarioLoginService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

@@ -43,11 +43,7 @@ export class LoginComponent implements OnInit {
 
       this.authService.guardarUsuario(response.accessToken);
       this.authService.guardarToken(response.accessToken);
-
-      // let user = this.authService.usuario;
-
       this.router.navigate(['/clientes']);
-      // this.mostrarAlerta('Aviso','Bienvenido');
 
     }, err =>{
       if (err.status == 400){
@@ -57,10 +53,6 @@ export class LoginComponent implements OnInit {
         this.mostrarAlerta('Aviso','Error de inicio de sesión');
       }
     });
-
-    //this.authService.guardarUsuario('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
-    //this.authService.guardarToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiMSJ9.2WhGrww2dIE0l9tBqSVEOxnkANAxqaGXzBMscd4mSlg');
-    //this.router.navigate(['/clientes']);
   }
 
   public mostrarAlerta( titulo: string, mensaje: string ): void {

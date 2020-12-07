@@ -3,10 +3,10 @@ import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html'
+  selector: 'app-filtros',
+  templateUrl: './filtros.component.html'
 })
-export class SidebarComponent implements OnInit {
+export class FiltrosComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
