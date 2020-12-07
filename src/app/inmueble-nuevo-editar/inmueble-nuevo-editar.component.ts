@@ -8,14 +8,14 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { TipoInmuebleService } from './../tipoinmueble/tipoInmueble.service'
 import { TipoVistaService } from './../tipovista/tipoVista.service'
 import { TipoInmuebleCategoriaService } from './../tipoinmueblecategoria/tipoInmuebleCategoria.service'
- 
+
 import sleep from 'await-sleep'
 @Component({
   selector: 'app-inmueble-nuevo-editar',
   templateUrl: './inmueble-nuevo-editar.component.html'
 })
 export class InmuebleNuevoEditarComponent implements OnInit {
-  
+
   errors: string[] = []
   loading: boolean = false
   status: boolean = false
@@ -28,15 +28,15 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   optionsTipoInmuebleCategoria: TipoInmuebleCategoria[] = []
   // Formulario
   public inmueble: Inmueble = new Inmueble()
-  
+
   public errores: string[]
 
   tipoinmueble: TipoInmueble[]
   tipovista: TipoVista[]
   tipoinmueblecategoria:TipoInmuebleCategoria[]
-    
+
   constructor(
-    private inmuebleService: InmuebleService, 
+    private inmuebleService: InmuebleService,
     private activatedRoute: ActivatedRoute,
     private tipoInmuebleService:TipoInmuebleService,
     private tipoVistaService:TipoVistaService,
@@ -55,9 +55,9 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     await sleep(1000)
     this.loadTipoInmueble2()
     this.loadTipoVista2()
-        
+
     this.loading = false
-     
+
     const __self = this
     __self.activatedRoute.paramMap.subscribe((params) => {
       const paramIdInmueble: number = parseInt(params.get('id')) // Id del inmueble
@@ -70,7 +70,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         // Obtiene el id del queryParam idProyecto
         this.inmueble.idProyecto = this.pageToBackIdProyecto
       } else {
-          
+
         this.inmuebleService.getInmueblesByIdInmueble(paramIdInmueble).subscribe(
           (response) => {
             this.inmueble = response
@@ -80,7 +80,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
             this.inmueble.idTipoVista=response.tipoVista.idTipoVista
             this.loadTipoInmuebleCategoria2(this.inmueble.idTipoInmueble)
             this.isFormDpto=this.inmueble.idTipoInmueble==1?true:false
-             
+
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -98,14 +98,14 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
 
   loadTipoInmueble2() {
-    
+
     this.tipoInmuebleService.getTipoInmueble().subscribe((response) => {
       this.tipoinmueble = response
-       
+
     })
 
   }
-  
+
   loadTipoInmueble() {
 
     this.optionsTipoInmueble = [
@@ -120,7 +120,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
         nombre: 'ESTACIONAMIENTO'
       }
     ]
-    
+
     // CONSULTAR... LISTASMAESTRAS --> FALTA INYECTAR EN app.module.ts
     /* this.proyectoService.getProyectos(pageIndex).subscribe((listaJsonResponse) => {
       console.log(listaJsonResponse)
@@ -131,7 +131,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
     this.tipoVistaService.getTipoVista().subscribe((response) => {
       this.tipovista = response
-      
+
     })
 
   }
@@ -150,12 +150,12 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       }
     ]
   }
-  
+
   loadTipoInmuebleCategoria2(val: number) {
-   
+
       this.tipoInmuebleCategoriaService.getTipoInmuebleCategoria(val).subscribe((response) => {
       this.tipoinmueblecategoria = response
-       
+
     })
 
   }
@@ -179,9 +179,9 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   guardar() {
     const isValid = this.validarForm()
-    
+
     if (!isValid) return
-    
+
       const __self = this
     __self.inmuebleService.crearInmueble(this.inmueble).subscribe((resp) => {
       __self.regresar()
@@ -196,7 +196,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
 
   // Change Events Selectors
   onChangetTipoInmueble(val: number) {
-     
+
     this.isFormDpto = val === 1 // 1 ES Departamento
 
     if (this.isFormDpto) {
@@ -214,7 +214,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     this.errors = []
     let tmpValid = true
     if(this.inmueble.idInmueble===0){
-      
+
       if(this.inmueble.idTipoInmueble===2&&this.inmueble.idTipoVista === 0){
         tmpValid = false
         this.errors = ['Los campos: tipo  vista son requeridos']
@@ -223,23 +223,23 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       if (this.inmueble.idTipoInmueble === 0  && this.inmueble.idTipoVista === 0) {
         tmpValid = false
         this.errors = ['Los campos: tipo inmueble, vista son requeridos']
-      } 
+      }
       if (this.inmueble.idTipoInmueble === 1  && this.inmueble.idTipoInmuebleCategoria==0 && this.inmueble.idTipoVista === 0) {
         tmpValid = false
         this.errors = ['Los campos: tipo inmueble,categoría, vista son requeridos']
-      } 
+      }
       if (this.inmueble.idTipoInmueble === 1  && this.inmueble.idTipoInmuebleCategoria==1 && this.inmueble.idTipoVista === 0) {
         tmpValid = false
         this.errors = ['Los campos: tipo vista son requeridos']
-      } 
+      }
 
       if (this.inmueble.idTipoInmuebleCategoria=== null || this.inmueble.idTipoInmuebleCategoria === 0) {
         tmpValid = false
         this.errors = ['El campo Tipo inmueble categoría es necesario']
-      } 
+      }
 
     }else{
-      
+
       if((this.inmueble.idTipoInmueble === 1&&this.inmueble.idTipoInmuebleCategoria === 0)||this.inmueble.idTipoVista === 0){
         tmpValid = false
         this.errors = ['Los campos: tipo categoría y vista son requeridos']
@@ -260,9 +260,9 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       if (this.inmueble.idTipoInmuebleCategoria=== null || this.inmueble.idTipoInmuebleCategoria === 0) {
         tmpValid = false
         this.errors = ['El campo Tipo inmueble categoría es necesario']
-      } 
+      }
     }
-    
+
     return tmpValid
   }
 }

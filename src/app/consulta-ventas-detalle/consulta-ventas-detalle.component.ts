@@ -53,9 +53,10 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('idproyecto'))
       this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
+      this.estadoventaSeleccionado = 0
 
-      this.fechaDesde = (params.get('fechaini'))
-      this.fechaHasta = (params.get('fechafin'))
+      this.fechaDesde = "2020-01-01"
+      this.fechaHasta = "2020-12-31"
 
       this.dpfechaDesde.setValue(this.fechaDesde)
       this.dpfechaHasta.setValue(this.fechaHasta)
@@ -66,12 +67,12 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
   onfechaDesde(newdate: string) {
     this.fechaDesde = newdate
-    this.obtenerVentasProyecto()
+    this.obtenerSoloFecha()
   }
 
   onfechaHasta(newdate: string) {
     this.fechaHasta = newdate
-    this.obtenerVentasProyecto()
+    this.obtenerSoloFecha()
   }
 
   onChangetEstadoVenta(){
@@ -83,6 +84,13 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       ventasJsonResponse) => {
         console.info(ventasJsonResponse)
         this.ventasLista = ventasJsonResponse
+      })
+  }
+
+  obtenerSoloFecha(){
+    this.ventaService.getVentasProyectoPorFecha(this.paramIdProyecto, this.fechaDesde, this.fechaHasta).subscribe((
+      ventasJsonRe) =>{
+        this.ventasLista = ventasJsonRe
       })
   }
 

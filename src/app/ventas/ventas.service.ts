@@ -76,6 +76,19 @@ export class VentaService {
     )
   }
 
+  getVentasProyectoPorFecha(idProyecto, fechaini, fechafin):Observable<any>{
+    return this.http.get(this.urlEndPoint + 'venta/byrange/'+ idProyecto + '/'+ fechaini+'/' +fechafin) .pipe(
+      map((jsonResponse: any) =>{
+        ;(jsonResponse as VentaNodos[]).map((VentaNodos) => {
+          return VentaNodos
+        })
+        return jsonResponse
+      })
+      )}
+
+
+
+
   getVentasById(idVenta): Observable<any> {
     return this.http.get(this.urlEndPoint + 'venta/' + idVenta).pipe()
   }
