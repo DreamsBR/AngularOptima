@@ -453,20 +453,41 @@
                     [label]="'Fecha de separación'"
                     (onDateChanged)="onFechaSeparacionChanged($event)"
                   ></datepicker-rounded>
+                  <div class="row">
+                      <div class="col-xl-8"></div>
+                      <div class="col-xl-2">
+                        <button class="btn btn-secondary" type="button">PDF</button>
+                    </div>
+                  </div>
                 </div>
+
+
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
                     #dpFMinuta
                     [label]="'Fecha de minuta'"
                     (onDateChanged)="onFechaMinutaChanged($event)"
                   ></datepicker-rounded>
+                  <div class="row">
+                    <div class="col-xl-6"></div>
+                    <div class="col-xl-2">
+                      <button class="btn btn-secondary" type="button">PDF</button>
+                  </div>
                 </div>
+                </div>
+
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
                   <datepicker-rounded
                     #dpFDesembolso
                     [label]="'Fecha de desembolso'"
                     (onDateChanged)="onFechaDesembolsoChanged($event)"
                   ></datepicker-rounded>
+                  <div class="row">
+                    <div class="col-xl-8"></div>
+                    <div class="col-xl-2">
+                      <button class="btn btn-secondary" type="button">PDF</button>
+                  </div>
+                </div>
                 </div>
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
@@ -474,7 +495,14 @@
                     [label]="'Fecha de EEP'"
                     (onDateChanged)="onFechaEEPChanged($event)"
                   ></datepicker-rounded>
+                  <div class="row">
+                    <div class="col-xl-7"></div>
+                    <div class="col-xl-2">
+                      <button class="btn btn-secondary" type="button">PDF</button>
+                  </div>
                 </div>
+                </div>
+
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
                     #dpFCaida
@@ -484,6 +512,7 @@
                 </div>
               </div>
 
+              <br>
               <div class="row">
                 <div class="col-sm-8 col-md-8">
                   <h5 style="color: var(--primary)">
@@ -576,7 +605,7 @@
                     (click)="abrirModalAgregarPago()"
                     data-toggle="modal"
                     data-target="#modal-gestion-pago"
-                    ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
+                    ><span class="font-add">Agregar<em class="fas fa-plus-circle"></em></span
                   ></a>
                   <!-- <a href="/cliente-nuevo-editar/0"
                     ><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span
@@ -616,6 +645,7 @@
                             <em class="far fa-trash-alt"></em> Eliminar
                           </button>
                         </div>
+
                       </td>
                     </ng-container>
 
@@ -758,6 +788,11 @@
         </div>
       </div>
       <div class="modal-footer">
+        <div class="row">
+          <div class="col-xl-2">
+              <button class="btn btn-secondary" type="button">PDF</button>
+          </div>
+        </div>
         <button
           type="button"
           (click)="btnPagoGuardar()"
