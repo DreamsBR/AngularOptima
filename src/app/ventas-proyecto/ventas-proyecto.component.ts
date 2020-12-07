@@ -35,8 +35,9 @@ export class VentasProyectoComponent implements OnInit {
       if(params.get('idestadoventa')){
         this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
       }else{
-        this.estadoventaSeleccionado = 15
+        this.estadoventaSeleccionado = 0
       }
+
       this.fechaDesde = "2020-01-01"
       this.fechaHasta = "2020-12-31"
       this.dpfechaDesde.setValue(this.fechaDesde)
@@ -46,6 +47,12 @@ export class VentasProyectoComponent implements OnInit {
       // this.obtenerVentas(this.paramIdProyecto)
     })
   }
+
+
+
+
+
+
 
   ventasLista: Venta[]
   // paginador: any
@@ -82,14 +89,16 @@ export class VentasProyectoComponent implements OnInit {
   fechaDesde: string
   fechaHasta: string
 
+
+
   onfechaDesde(newdate: string) {
     this.fechaDesde = newdate
-    this.obtenerVentasProyecto()
+    this.obtenerSoloFecha()
   }
 
   onfechaHasta(newdate: string) {
     this.fechaHasta = newdate
-    this.obtenerVentasProyecto()
+    this.obtenerSoloFecha()
   }
 
   onChangetEstadoVenta(){
@@ -100,6 +109,20 @@ export class VentasProyectoComponent implements OnInit {
     this.VentaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
       ventasJsonResponse) => {
         this.ventasLista = ventasJsonResponse
+      })
+  }
+
+  obtenerVentasProyectoPorFecha(){
+    this.VentaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
+      ventasJsonResponse) => {
+        this.ventasLista = ventasJsonResponse
+      })
+  }
+
+  obtenerSoloFecha(){
+    this.VentaService.getVentasProyectoPorFecha(this.paramIdProyecto, this.fechaDesde, this.fechaHasta).subscribe((
+      ventasJsonRe) =>{
+        this.ventasLista = ventasJsonRe
       })
   }
 

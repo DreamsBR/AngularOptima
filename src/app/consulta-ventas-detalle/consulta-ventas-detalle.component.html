@@ -21,17 +21,18 @@
               <div class="col-xl-12">
                 <p>
 
-                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample2" aria-expanded="false" aria-controls="collapseExample2">
                     Filtrar
                   </button>
                 </p>
-                <div class="collapse" id="collapseExample">
+                <div class="collapse" id="collapseExample2">
                   <div class="row col-xl-4">
                       <div class="col-sm-12 col-md-12 col-xl-12">
                           <div class="form-group">
                               <label for="status">Status</label>
                               <select class="form-control" name="statusventa"  id="exampleFormControlSelect1" [(ngModel)]="estadoventaSeleccionado" (ngModelChange)="onChangetEstadoVenta()">
-                                  <option [value]="items.idEstadoVenta" *ngFor="let items of tipoestado">{{items.nombre}}</option>
+                                <option value="0">--Seleccione Status--</option>
+                                <option [value]="items.idEstadoVenta" *ngFor="let items of tipoestado">{{items.nombre}}</option>
                               </select>
                           </div>
                       </div>
