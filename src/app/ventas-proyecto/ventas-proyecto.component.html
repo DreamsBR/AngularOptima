@@ -23,8 +23,8 @@
                 </button>
               </p>
               <div class="collapse" id="collapseFiltro">
-                <div class="row col-xl-4">
-                    <div class="col-sm-12 col-md-12 col-xl-12">
+                <div class="row col-xl-10">
+                    <div class="col-sm-12 col-md-12 col-xl-4">
                         <div class="form-group">
                             <label for="status">Status</label>
                             <select class="form-control" name="statusventa"  id="exampleFormControlSelect1" [(ngModel)]="estadoventaSeleccionado" (ngModelChange)="onChangetEstadoVenta()">
@@ -34,7 +34,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-12 col-xl-12">
+                    <div class="col-sm-12 col-md-12 col-xl-4">
                         <div class="form-group">
                             <label for="status">Desde</label>
                             <datepicker-rounded
@@ -45,7 +45,7 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12 col-md-12 col-xl-12">
+                    <div class="col-sm-12 col-md-12 col-xl-4">
                         <div class="form-group">
                             <label for="status">Hasta</label>
                             <datepicker-rounded
@@ -55,17 +55,32 @@
                             ></datepicker-rounded>
                         </div>
                     </div>
-              </div>
-              <!--
-              <div class="row">
-                <div class="col-xl-3"></div>
-                  <div class="col-xl-2">
-                    <button class="btn btn-primary" (click)="obtenerSoloFecha()" type="button" >Filtrar</button>
-                  </div>
-                </div>
-                -->
-              </div>
 
+
+                </div>
+
+                <div class="row col-xl-10">
+                  <div class="col-sm-12 col-md-12 col-xl-2">
+                      <div class="form-group">
+                          <mat-form-field>
+                            <mat-label>Nombre y Apellido</mat-label>
+                            <input matInput  placeholder="Nombre" #input>
+                          </mat-form-field>
+                      </div>
+                  </div>
+
+                  <div class="col-sm-12 col-md-12 col-xl-5">
+                      <div class="form-group">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <mat-label>DNI</mat-label>
+                            <input matInput  placeholder="Nombre" #input>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              </div>
           </div>
 
 
