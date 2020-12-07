@@ -152,4 +152,25 @@ export class ClientesNuevoEditarComponent implements OnInit {
   setFechaNacimiento (date: string) {
     this.cliente.fechaNacimiento  = date
   }
+
+
+
+  documentoPersonal(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload=()=> {
+      console.log(reader.result)
+    }
+  }
+
+  documentoCony(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload=()=> {
+      console.log(reader.result)
+    }
+  }
+
 }

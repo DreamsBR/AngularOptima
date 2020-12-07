@@ -111,6 +111,65 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   ngOnInit() {
     this.initFunctions()
   }
+/*
+  handleUpload(event) {
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+*/
+
+  reader: any
+
+  pdfSeparacion(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+
+  pdfMinuta(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+
+  pdfDeseembolso(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+
+  pdfEep(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+
+  AgregarPago(event){
+    const file = event.target.files[0]
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      console.log(reader.result)
+    }
+  }
+
+
 
   onFechaSeparacionChanged(newdate: string) {
     this.tempIdFechaSeparacion = newdate

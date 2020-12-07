@@ -10,7 +10,7 @@ export class PruebaComponent implements OnInit {
 
   ngOnInit() {}
 
-  
+
 
   handleUpload(event) {
     const file = event.target.files[0]

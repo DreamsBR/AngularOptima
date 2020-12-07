@@ -454,10 +454,14 @@
                     (onDateChanged)="onFechaSeparacionChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                      <div class="col-xl-8"></div>
-                      <div class="col-xl-2">
-                        <button class="btn btn-secondary" type="button">PDF</button>
-                    </div>
+                      <div class="col-xl-5"></div>
+                      <div class="col-xl-7">
+                        <div class="custom-file">
+                          <input type="file" (change)="pdfSeparacion($event)" class="custom-file-input" id="validatedCustomFile" required>
+                          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                          <div class="invalid-feedback">Example invalid custom file feedback</div>
+                        </div>
+                      </div>
                   </div>
                 </div>
 
@@ -469,10 +473,14 @@
                     (onDateChanged)="onFechaMinutaChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-6"></div>
-                    <div class="col-xl-2">
-                      <button class="btn btn-secondary" type="button">PDF</button>
-                  </div>
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-10">
+                      <div class="custom-file">
+                        <input type="file" (change)="pdfMinuta($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                    </div>
                 </div>
                 </div>
 
@@ -483,12 +491,18 @@
                     (onDateChanged)="onFechaDesembolsoChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-8"></div>
-                    <div class="col-xl-2">
-                      <button class="btn btn-secondary" type="button">PDF</button>
-                  </div>
+                    <div class="col-xl-5"></div>
+                    <div class="col-xl-7">
+                      <div class="custom-file">
+                        <input type="file" (change)="pdfDeseembolso($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                    </div>
                 </div>
                 </div>
+
+
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded
                     #dpFEEP
@@ -496,11 +510,15 @@
                     (onDateChanged)="onFechaEEPChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-7"></div>
-                    <div class="col-xl-2">
-                      <button class="btn btn-secondary" type="button">PDF</button>
-                  </div>
-                </div>
+                    <div class="col-xl-2"></div>
+                    <div class="col-xl-10">
+                      <div class="custom-file">
+                        <input type="file" (change)="pdfEep($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                      </div>
+                    </div>
+                 </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
@@ -789,10 +807,16 @@
       </div>
       <div class="modal-footer">
         <div class="row">
-          <div class="col-xl-2">
-              <button class="btn btn-secondary" type="button">PDF</button>
+          <div class="col-xl-2"></div>
+          <div class="col-xl-10">
+            <div class="custom-file">
+              <input type="file" (change)="AgregarPago($event)" class="custom-file-input" id="validatedCustomFile" required>
+              <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+              <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
           </div>
-        </div>
+       </div>
+       <br>
         <button
           type="button"
           (click)="btnPagoGuardar()"
