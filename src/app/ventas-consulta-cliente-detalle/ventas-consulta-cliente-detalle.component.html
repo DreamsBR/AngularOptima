@@ -71,9 +71,9 @@
                 >Modo de pago</a
               >
             </li>
-            <li class="nav-item">
+            <li class="nav-item active">
               <a
-                class="nav-link active"
+                class="nav-link"
                 id="contact-tab"
                 data-toggle="tab"
                 href="#tab4"
@@ -383,26 +383,26 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Tipo de crédito</p>
-                          <p>{{ financiamiento.idTipoCredito }}</p>
+                          <p>Ahorro MMV</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Bono MMV</p>
-                          <p>{{ financiamiento.bono }}</p>
+                          <p>0</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">AFP</p>
-                          <p>{{ financiamiento.afp }}</p>
+                          <p>S/. 32,324.00</p>
                         </div>
                       </div>
 
                       <div class="row">
                         <div class="col-sm-12 col-md-8">
                           <p class="label-dato">Banco</p>
-                          <p>{{ financiamiento.idBanco }}</p>
+                          <p>BCP - Banco de Crédito del Perú</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Asesor Banco</p>
-                          <p>{{ financiamiento.asesor }}</p>
+                          <p>Jorge Zed</p>
                         </div>
                       </div>
 
@@ -415,15 +415,15 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Ahorro</p>
-                          <p>{{ financiamiento.ahorro }}</p>
+                          <p>S/. 2,500.00</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Inicio ahorro</p>
-                          <p>{{ financiamiento.fechaInicioAhorro }}</p>
+                          <p>08/02/20</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Fin de ahorro</p>
-                          <p>{{ financiamiento.fechaFinAhorro }}</p>
+                          <p>08/02/20</p>
                         </div>
                       </div>
                     </div>
@@ -525,7 +525,7 @@
                     {{ porcentajePagado }}
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-10 col-lg-8 col-xl-7">
+                <div class="col-sm-12 col-md-8 col-lg-6 col-xl-5">
                   <ol class="stw">
                     <li
                       [ngClass]="{

@@ -47,9 +47,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <button type="submit" class="btn btn-optima" [routerLink]="['/gerencias']">Regresar</button>
+                        
+                        
                     </div>
 
+                </div>
+            </div>
+
+            <div class="row" *ngIf="authService.usuario.roles[0] != 'ROLE_GERENCIA'">
+                <div class="col-sm-12 col-md-12">
+                    <button type="button" class="btn btn-optima" [routerLink]="['/gerencias']">Regresar</button>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'">
+                <div class="col-sm-12 col-md-12">
+                    <button type="button" class="btn btn-optima" [routerLink]="['/gerencia-colaborador', authService.usuario.idColaborador ]">Regresar</button>
                 </div>
             </div>
 
