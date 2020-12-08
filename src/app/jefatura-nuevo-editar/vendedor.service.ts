@@ -49,6 +49,17 @@ export class VendedorService {
         )
     }
 
+    getVendedorPorColaborador(idColaborador: number): Observable<any> {
+        return this.http.get(this.urlEndPoint + 'findbycolaborador/' + idColaborador).pipe(
+            map((vendedor: any) => {
+                ;(vendedor as Vendedor[]).map((vendedor) => {
+                    return vendedor;
+                })
+                return vendedor
+            })
+        )
+    }
+
     getTodosVendedores() {
         return this.http.get(this.urlEndPoint).pipe(
             map((vendedor: any) => {

@@ -25,6 +25,17 @@ export class JefaturaproyectoService {
         )
     }
 
+    getProyectoPorJefatura(idJefatura: number): Observable<any> {
+        return this.http.get(this.urlEndPoint + 'porJefatura/' + idJefatura).pipe(
+            map((jefaturaproyectonodo: any) => {
+                ;(jefaturaproyectonodo as Jefaturaproyectonodo[]).map((jefatura) => {
+                    return jefatura;
+                })
+                return jefaturaproyectonodo
+            })
+        )
+    }
+
     agregarJefaturaproyecto(jefaturaproyecto: Jefaturaproyecto): Observable<any> {
         return this.http.post<any>(this.urlEndPoint, jefaturaproyecto).pipe(
             catchError((e) => {

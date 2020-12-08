@@ -116,7 +116,9 @@ import { EstadoventaNuevoEditarComponent } from './estadoventa-nuevo-editar/esta
 import { Estadofinanciamiento2Service } from './estadofinanciamiento/estadofinanciamiento.service'
 import { Estadoventa2Service } from './estadoventa/estadoventa.service'
 import { RolesServices } from './colaboradores/roles.service';
-import { GerenciaColaboradorComponent } from './gerencia-colaborador/gerencia-colaborador.component'
+import { GerenciaColaboradorComponent } from './gerencia-colaborador/gerencia-colaborador.component';
+import { ProyectosGerenteComponent } from './proyectos-gerente/proyectos-gerente.component';
+import { ProyectosColaboradorComponent } from './proyectos-colaborador/proyectos-colaborador.component'
 
 const ROUTES: Routes = [
 
@@ -177,7 +179,9 @@ const ROUTES: Routes = [
   { path: 'estadoventa', component: EstadoventaComponent },
   { path: 'estadoventa-nuevo-editar/:id', component: EstadoventaNuevoEditarComponent },
   { path: 'categorias', component: CategoriaComponent},
-  { path: 'prueba', component:PruebaComponent}
+  { path: 'prueba', component:PruebaComponent},
+  { path: 'proyectos-gerente', component: ProyectosGerenteComponent },
+  { path: 'proyectos-colaborador', component: ProyectosColaboradorComponent }
 ]
 
 @NgModule({
@@ -242,7 +246,9 @@ const ROUTES: Routes = [
     ReportesVendedorComponent,
     AutocompletarComponent,
     PruebaComponent,
-    GerenciaColaboradorComponent
+    GerenciaColaboradorComponent,
+    ProyectosGerenteComponent,
+    ProyectosColaboradorComponent
   ],
   imports: [
     BrowserModule,

@@ -5,59 +5,69 @@
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/clientes' }"
       *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_USER'"
-      >Clientes</a
-    >
+      >Clientes</a>
+
     <a
       [routerLink]="['/ventas/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/ventas' }"
-      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_USER'"
-      >Ventas</a
-    >
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Ventas</a>
+
     <a
       [routerLink]="['/consulta-ventas/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/consulta-ventas' }"
-      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA'"
-      >Consultas ventas</a
-    >
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Consultas ventas</a>
+
+    <a
+      [routerLink]="['/proyectos-gerente/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/proyectos-gerente' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Ventas</a>
+
+      <a
+      [routerLink]="['/proyectos-colaborador/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/proyectos-colaborador' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_JEFE'"
+      >Ventas</a>
+
     <a
       [routerLink]="['/colaboradores/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/colaboradores' }"
       *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
-      >Colaboradores</a
-    >
+      >Colaboradores</a>
+
     <a
       [routerLink]="['/proyectos/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/proyectos' }"
-      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO'"
-      >Proyectos</a
-    >
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Proyectos</a>
     <a
       [routerLink]="['/gerencias/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/gerencias' }"
       *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
-      >Gerencias</a
-    >
+      >Gerencias</a>
 
     <a
       [routerLink]="['/gerencia-colaborador/',authService.usuario.idColaborador]"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/gerencia-colaborador/authService.usuario.idColaborador' }"
       *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'"
-      >Gerencia</a
-    >
+      >Gerencia</a>
 
     <a
       [routerLink]="['/periodos/']"
       class="list-group-item"
       [ngClass]="{ 'list-item-active': router.url === '/periodos' }"
       *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
-      >Periodos</a
-    >
+      >Periodos</a>
 
     <a 
       href="#" 
