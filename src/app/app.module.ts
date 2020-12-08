@@ -119,6 +119,8 @@ import { RolesServices } from './colaboradores/roles.service';
 import { GerenciaColaboradorComponent } from './gerencia-colaborador/gerencia-colaborador.component';
 import { ProyectosGerenteComponent } from './proyectos-gerente/proyectos-gerente.component';
 import { ProyectosColaboradorComponent } from './proyectos-colaborador/proyectos-colaborador.component'
+import { PruebaService } from './prueba/prueba.service';
+import { UtilService } from './util/util.service';
 
 const ROUTES: Routes = [
 
@@ -309,6 +311,8 @@ const ROUTES: Routes = [
     Estadofinanciamiento2Service,
     Estadoventa2Service,
     RolesServices,
+    PruebaService,
+    UtilService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

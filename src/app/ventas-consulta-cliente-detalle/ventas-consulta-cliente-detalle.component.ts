@@ -25,6 +25,9 @@ import { Inmueble } from '../inmuebles/inmueble'
 import { InmuebleService } from '../inmuebles/inmueble.service'
 import { TipoInmueble } from '../inmueble-nuevo-editar/tipoinmueble'
 
+import { UtilService } from '../util/util.service'
+import { detectMime } from '../util/detectMime'
+
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
   templateUrl: './ventas-consulta-cliente-detalle.component.html',
@@ -45,7 +48,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   // Sort Datos
   svFechaCaida: NgbDateStruct
 
-  fieldsTblPagos: string[] = ['editar', 'numeroOperacion', 'fecha', 'monto']
+  fieldsTblPagos: string[] = ['editar', 'numeroOperacion', 'fecha', 'voucher', 'monto']
   pagos = new MatTableDataSource<Pago>()
   totalData: number = 0
   pageIndex: number = 0
@@ -92,6 +95,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   inmuebleToDelete = new Inmueble()
 
+  filePagoData = null
+
+  FILES_TYPES_NAMES = {
+    SEPARACION: 'FSEPARACION_VENTAID'
+  }
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
   @ViewChild('dpFMinuta', { static: true }) dpFMinuta: DatepickerRoundedComponent
@@ -105,13 +114,14 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     private pagosService: PagosService,
     public authService: AuthService,
     private _snackBar: MatSnackBar,
-    private inmuebleService: InmuebleService
+    private inmuebleService: InmuebleService,
+    private utilService: UtilService
   ) {}
 
   ngOnInit() {
     this.initFunctions()
   }
-/*
+  /*
   handleUpload(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
@@ -124,7 +134,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   reader: any
 
-  pdfSeparacion(event){
+  pdfSeparacion(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -133,7 +143,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
   }
 
-  pdfMinuta(event){
+  pdfMinuta(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -142,7 +152,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
   }
 
-  pdfDeseembolso(event){
+  pdfDeseembolso(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -151,7 +161,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     }
   }
 
-  pdfEep(event){
+  pdfEep(event) {
     const file = event.target.files[0]
     const reader = new FileReader()
     reader.readAsDataURL(file)
@@ -159,17 +169,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       console.log(reader.result)
     }
   }
-
-  AgregarPago(event){
-    const file = event.target.files[0]
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      console.log(reader.result)
-    }
-  }
-
-
 
   onFechaSeparacionChanged(newdate: string) {
     this.tempIdFechaSeparacion = newdate
@@ -217,9 +216,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 2: // PRECALIFICACIÓN
         if (!this.venta.fechaSeparacion) {
-          alert(
-            'No se puede asignar el estado "Precalificación" sin haber asignado antes el estado "Separación"'
-          )
+          alert('No se puede asignar el estado "Precalificación" sin haber asignado antes el estado "Separación"')
           return
         } else {
           if (this.pagos.data.length < 1) {
@@ -232,9 +229,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 4: // CUOTA INICIAL
         if (!this.venta.fechaSeparacion) {
-          alert(
-            'No se puede asignar el estado "Cuota inicial" sin haber asignado antes el estado "Separación"'
-          )
+          alert('No se puede asignar el estado "Cuota inicial" sin haber asignado antes el estado "Separación"')
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -248,9 +243,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 5: // MINUTA
         console.log('Fecha minuta ' + this.venta.fechaMinuta)
         if (!this.venta.fechaSeparacion) {
-          alert(
-            'No se puede asignar el estado "Minuta" sin haber asignado antes el estado "Separación"'
-          )
+          alert('No se puede asignar el estado "Minuta" sin haber asignado antes el estado "Separación"')
           return
         } else {
           if (this.tempIdFechaMinuta === '') {
@@ -270,9 +263,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 6: // APERTURA DE AHORRO
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "Apertura de ahorro" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "Apertura de ahorro" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -285,9 +276,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 7: // EN AHORRO
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "En ahorro" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "En ahorro" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -300,9 +289,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 8: // CARTA DE APROBACIÓN
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "Carta de aprobación" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "Carta de aprobación" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -328,9 +315,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 10: // COFIDE
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "Cofide" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "Cofide" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -343,9 +328,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 11: // CRÉDITO DIRECTO
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "Crédito Directo" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "Crédito Directo" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.pagos.data.length < 1) {
@@ -359,9 +342,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 12: // DESEMBOLSO
         console.log('Fecha desembolso ' + this.venta.fechaDesembolso)
         if (!this.venta.fechaMinuta) {
-          alert(
-            'No se puede asignar el estado "Desembolso" sin haber asignado antes el estado "Minuta"'
-          )
+          alert('No se puede asignar el estado "Desembolso" sin haber asignado antes el estado "Minuta"')
           return
         } else {
           if (this.tempIdFechaDesembolso === '') {
@@ -383,9 +364,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 13: // EEP
         console.log('Fecha EEP ' + this.venta.fechaEpp)
         if (!this.venta.fechaDesembolso) {
-          alert(
-            'No se puede asignar el estado "EEPP" sin haber asignado antes el estado "Desembolso"'
-          )
+          alert('No se puede asignar el estado "EEPP" sin haber asignado antes el estado "Desembolso"')
           return
         } else {
           if (this.tempIdFechaEEP === '') {
@@ -466,6 +445,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.pagoModal = new Pago()
     this.pagoModal.numeroOperacion = null
     this.pagoModal.monto = null
+    this.filePagoData = null
   }
 
   btnPagoGuardar() {
@@ -491,12 +471,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       // console.log(this.pagoModal)
       // return
 
-      const montoFaltante =
-        parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
+      const montoFaltante = parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
       if (this.pagoModal.monto > montoFaltante) {
         this.loading = false
-        const msg =
-          'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
+        const msg = 'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
         this.modalPagoWarnings = [msg]
         return
       }
@@ -507,11 +485,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         path = this.pagosService.postGuardarPago(this.pagoModal)
       }
       path.subscribe(
-        (_) => {
-          document.getElementById('btnPagoClose').click()
+        (resp) => {
+          //this.nuevoPagoData = resp
           this.loading = false
           this.openSnackBar('success', '✓ Pago guardado', 'Cerrar')
-          this.refreshTablaPagos()
+          this.TerminarPagoModal()
         },
         (err) => {
           this.loading = false
@@ -521,6 +499,90 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         }
       )
     }
+  }
+
+  TerminarPagoModal() {
+    document.getElementById('btnPagoClose').click()
+    this.refreshTablaPagos()
+  }
+
+  uploadFileFechas(event, type: string) {
+    this.loading = true
+    const file = event.target.files[0]
+    const extension = file.name.split('.').pop()
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        this.utilService.postUploadFile(reader.result, `${type}_${this.venta.idVenta}.${extension}`).subscribe(
+          (resp) => {
+            console.log(resp)
+            /*this.loading = false
+            this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
+            this.TerminarPagoModal()
+            console.log('llega')*/
+          },
+          (error) => {
+            this.loading = false
+            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
+            console.log(error)
+          }
+        )
+      } else {
+        console.log('No se pudo convertir a String base 64')
+      }
+    }
+  }
+
+  uploadFilePago(event) {
+    this.loading = true
+    const file = event.target.files[0]
+    const extension = file.name.split('.').pop()
+    const reader = new FileReader()
+    const randomCode = Math.floor(Math.random() * (99999 - 11111)) + 11111
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
+          (resp) => {
+            this.pagoModal.fileRuta = resp.fileName
+            this.loading = false
+            this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
+          },
+          (error) => {
+            this.loading = false
+            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
+            console.log(error)
+          }
+        )
+      } else {
+        console.log('No se pudo convertir a String base 64')
+      }
+    }
+  }
+
+  descargarArchivoPago(fileName: string) {
+    this.loading = true
+    this.utilService.postDownloadBase64File(fileName).subscribe(
+      (resp) => {
+        this.loading = false
+        const dataTag = detectMime(resp.fileName)
+        fetch(dataTag + resp.base64)
+          .then((res) => res.blob())
+          .then((blob) => {
+            var link = window.document.createElement('a')
+            link.href = window.URL.createObjectURL(blob)
+            link.target = '_blank'
+            document.body.appendChild(link)
+            link.click()
+            document.body.removeChild(link)
+          })
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   initFunctions() {
@@ -693,11 +755,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   get computedNombreStatusActual(): string {
     let name = 'No asignado'
-    if (
-      this.venta !== null &&
-      typeof this.venta.estadoVenta !== 'undefined' &&
-      this.venta.estadoVenta !== null
-    ) {
+    if (this.venta !== null && typeof this.venta.estadoVenta !== 'undefined' && this.venta.estadoVenta !== null) {
       name = this.venta.estadoVenta.nombre
     }
     return name
