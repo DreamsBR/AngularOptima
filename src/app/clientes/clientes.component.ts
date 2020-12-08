@@ -11,13 +11,10 @@ import { AuthService } from '../usuarios/auth.service'
 
 export class ClientesComponent implements OnInit {
 
-
-
   clientesLista: Cliente[]
   clienteSeleccionado: Cliente
   paginador: any
   base: string
-
 
   constructor(
     private clienteService: ClienteService,
@@ -30,18 +27,15 @@ export class ClientesComponent implements OnInit {
     this.obtenerCliente()
   }
 
-
   dni : string
 
   filtrar(){
     this.clienteService.obtenerClientesPorDni(this.dni).subscribe((
       clienteJsonResponse) =>{
-        this.clientesLista =  clienteJsonResponse
         console.log(clienteJsonResponse)
+        this.clientesLista = clienteJsonResponse
       })
   }
-
-
 
   public obtenerCliente() {
     this.activatedRoute.paramMap.subscribe((params) => {
