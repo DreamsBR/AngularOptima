@@ -55,4 +55,9 @@ export class ProyectosColaboradorComponent implements OnInit {
     })
   }
 
+  status = false
+  menuToggle() {
+    this.status = !this.status
+  }
+
 }

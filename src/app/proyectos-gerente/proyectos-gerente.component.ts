@@ -41,4 +41,9 @@ export class ProyectosGerenteComponent implements OnInit {
     })
   }
 
+  status = false
+  menuToggle() {
+    this.status = !this.status
+  }
+
 }
