@@ -39,14 +39,14 @@
                         <div class="form-group">
                           <mat-form-field>
                             <mat-label  style="color: orangered;" >DNI</mat-label>
-                            <input matInput  placeholder="Nombre" #input>
+                            <input matInput name = "dni"[(ngModel)]= "dni"  placeholder="DNI" #input>
 
                           </mat-form-field>
                       </div>
                     </div>
                   </div>
                   <div class="col-xl-2">
-                    <button type="button" (click)="filtrar()" class="btn-optima">Buscar</button>
+                    <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
                   </div>
               </div>
             </div>

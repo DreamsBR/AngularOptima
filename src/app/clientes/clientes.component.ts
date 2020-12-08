@@ -34,7 +34,8 @@ export class ClientesComponent implements OnInit {
   dni : string
   filtrar(){
     this.clienteService.obtenerClientesPorDni(this.dni).subscribe((
-      clinetes
+      clienteJsonResponse) =>{
+        this.dni = clienteJsonResponse.nroDocumento
       })
   }
 
