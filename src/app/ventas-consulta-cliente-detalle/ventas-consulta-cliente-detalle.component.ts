@@ -48,7 +48,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   // Sort Datos
   svFechaCaida: NgbDateStruct
 
-  fieldsTblPagos: string[] = ['editar', 'numeroOperacion', 'fecha', 'monto']
+  fieldsTblPagos: string[] = ['editar', 'numeroOperacion', 'fecha', 'voucher', 'monto']
   pagos = new MatTableDataSource<Pago>()
   totalData: number = 0
   pageIndex: number = 0
@@ -489,7 +489,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           //this.nuevoPagoData = resp
           this.loading = false
           this.openSnackBar('success', '✓ Pago guardado', 'Cerrar')
-          this.refreshTablaPagos()
+          this.TerminarPagoModal()
         },
         (err) => {
           this.loading = false
@@ -562,8 +562,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   descargarArchivoPago(fileName: string) {
+    this.loading = true
     this.utilService.postDownloadBase64File(fileName).subscribe(
       (resp) => {
+        this.loading = false
         const dataTag = detectMime(resp.fileName)
         fetch(dataTag + resp.base64)
           .then((res) => res.blob())
@@ -577,6 +579,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           })
       },
       (error) => {
+        this.loading = false
         console.log(error)
       }
     )

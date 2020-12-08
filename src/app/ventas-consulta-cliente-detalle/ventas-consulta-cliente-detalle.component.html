@@ -572,6 +572,19 @@
                       <td mat-cell *matCellDef="let element">{{ element.fecha | formatDate }}</td>
                     </ng-container>
 
+                    <ng-container matColumnDef="voucher">
+                      <th mat-header-cell *matHeaderCellDef>Voucher</th>
+                      <td mat-cell *matCellDef="let element">
+                        <div
+                          *ngIf="element.fileRuta"
+                          (click)="descargarArchivoPago(element.fileRuta)"
+                          style="cursor: pointer; width: max-content; color: var(--primary)"
+                        >
+                          <em class="fa fa-download"></em>
+                        </div>
+                      </td>
+                    </ng-container>
+
                     <ng-container matColumnDef="monto">
                       <th mat-header-cell *matHeaderCellDef style="text-align: end">Monto</th>
                       <td mat-cell *matCellDef="let element" style="text-align: end">

@@ -3,6 +3,12 @@ export const detectMime = (filename: string): any => {
   let mime = null
   switch (extension) {
     case 'png':
+      mime = 'data:image/png;base64,'
+      break
+    case 'jpg':
+      mime = 'data:image/jpg;base64,'
+      break
+    case 'jpeg':
       mime = 'data:image/jpeg;base64,'
       break
     case 'pdf':
