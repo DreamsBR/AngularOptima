@@ -52,6 +52,7 @@ export class ClienteService {
     return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
 
+
   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
     return this.http.put<any>(this.urlEndPoint + idCliente, cliente).pipe(
       catchError((e) => {
@@ -61,5 +62,10 @@ export class ClienteService {
       })
     )
   }
+
+  findClienteByNombreApellido(nombre, apellidos){
+    return this.http.get<Clientenodo>(this.urlEndPoint + 'bynombresandapellidos/' + nombre + apellidos)
+  }
+
 
 }

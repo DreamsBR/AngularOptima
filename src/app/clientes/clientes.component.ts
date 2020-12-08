@@ -10,10 +10,14 @@ import { AuthService } from '../usuarios/auth.service'
 })
 
 export class ClientesComponent implements OnInit {
+
+  filter :''
+
   clientesLista: Cliente[]
   clienteSeleccionado: Cliente
   paginador: any
   base: string
+
 
   constructor(
     private clienteService: ClienteService,
@@ -25,6 +29,16 @@ export class ClientesComponent implements OnInit {
   ngOnInit() {
     this.obtenerCliente()
   }
+
+
+  dni : string
+  filtrar(){
+    this.clienteService.obtenerClientesPorDni(this.dni).subscribe((
+      clinetes
+      })
+  }
+
+
 
   public obtenerCliente() {
     this.activatedRoute.paramMap.subscribe((params) => {

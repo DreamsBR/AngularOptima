@@ -34,16 +34,20 @@
                       </div>
                   </div>
 
-                  <div class="col-sm-12 col-md-12 col-xl-5">
+                  <div class="col-sm-12 col-md-12 col-xl-2">
                       <div class="form-group">
                         <div class="form-group">
                           <mat-form-field>
                             <mat-label  style="color: orangered;" >DNI</mat-label>
                             <input matInput  placeholder="Nombre" #input>
+
                           </mat-form-field>
                       </div>
                     </div>
-                </div>
+                  </div>
+                  <div class="col-xl-2">
+                    <button type="button" (click)="filtrar()" class="btn-optima">Buscar</button>
+                  </div>
               </div>
             </div>
           </div>
