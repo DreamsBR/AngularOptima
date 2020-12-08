@@ -10,6 +10,7 @@ import { AuthService } from '../usuarios/auth.service'
 })
 
 export class ClientesComponent implements OnInit {
+
   clientesLista: Cliente[]
   clienteSeleccionado: Cliente
   paginador: any
@@ -24,6 +25,16 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerCliente()
+  }
+
+  dni : string
+
+  filtrar(){
+    this.clienteService.obtenerClientesPorDni(this.dni).subscribe((
+      clienteJsonResponse) =>{
+        console.log(clienteJsonResponse)
+        this.clientesLista = clienteJsonResponse
+      })
   }
 
   public obtenerCliente() {

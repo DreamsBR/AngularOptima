@@ -48,8 +48,17 @@ export class ClienteService {
     )
   }
 
-  obtenerClientesPorDni(nrodoc): Observable<Cliente> {
-    return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
+  obtenerClientesPorDni(nrodoc): Observable<any> {
+    return this.http.get(this.urlEndPoint + 'nroDocumento/' + nrodoc).pipe(
+      map((jsonClientesResponse: any) => {
+        ;(jsonClientesResponse as Cliente[]).map((cliente) => {
+          cliente.nombres = cliente.nombres.toUpperCase()
+          cliente.apellidos = cliente.apellidos.toUpperCase()
+          return cliente;
+        })
+        return jsonClientesResponse
+      })
+    )
   }
 
   actualizarCliente(cliente: Cliente, idCliente: number): Observable<any> {
@@ -61,5 +70,10 @@ export class ClienteService {
       })
     )
   }
+
+  findClienteByNombreApellido(nombre, apellidos){
+    return this.http.get<Clientenodo>(this.urlEndPoint + 'bynombresandapellidos/' + nombre + apellidos)
+  }
+
 
 }
