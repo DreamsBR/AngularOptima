@@ -7,6 +7,7 @@ export class Pago {
   numeroOperacion: string
   pagado: number
   porcentaje: string
+  fileRuta: string
 
   constructor() {
     this.idPago = 0
@@ -17,5 +18,6 @@ export class Pago {
     this.numeroOperacion = ''
     this.pagado = 1
     this.porcentaje = ''
+    this.fileRuta = null
   }
 }

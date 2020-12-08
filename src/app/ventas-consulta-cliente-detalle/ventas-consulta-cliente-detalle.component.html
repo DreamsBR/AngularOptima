@@ -8,78 +8,37 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <button
-            (click)="regresar()"
-            class="btn btn-optima btn-sm"
-            style="margin-right: 10px; display: inline; margin-top: -7px"
-          >
+          <button (click)="regresar()" class="btn btn-optima btn-sm" style="margin-right: 10px; display: inline; margin-top: -7px">
             <em class="fas fa-chevron-left"></em>
           </button>
-          <h3 style="display: inline">
-            Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}
-          </h3>
+          <h3 style="display: inline">Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}</h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
 
       <div class="row mt-2">
         <div class="col-12">
-          <div
-            class="alert alert-danger"
-            role="alert"
-            *ngIf="errors.length > 0"
-            style="font-size: 12px"
-          >
+          <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0" style="font-size: 12px">
             <div *ngFor="let error of errors"><strong>Error:</strong> {{ error }}<br /></div>
           </div>
         </div>
         <div class="col-sm-12 col-md-12">
           <ul class="nav nav-tabs nav-pills nav-fill" id="myTab" role="tablist">
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="home-tab"
-                data-toggle="tab"
-                href="#tab1"
-                role="tab"
-                aria-controls="home"
-                aria-selected="true"
-                >Datos</a
-              >
+              <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Datos</a>
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="profile-tab"
-                data-toggle="tab"
-                href="#tab2"
-                role="tab"
-                aria-controls="profile"
-                aria-selected="false"
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false"
                 >Inmueble</a
               >
             </li>
             <li class="nav-item">
-              <a
-                class="nav-link"
-                id="contact-tab"
-                data-toggle="tab"
-                href="#tab3"
-                role="tab"
-                aria-controls="contact"
-                aria-selected="false"
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false"
                 >Modo de pago</a
               >
             </li>
             <li class="nav-item active">
-              <a
-                class="nav-link"
-                id="contact-tab"
-                data-toggle="tab"
-                href="#tab4"
-                role="tab"
-                aria-controls="contact"
-                aria-selected="false"
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false"
                 >Status de venta</a
               >
             </li>
@@ -149,9 +108,7 @@
 
                         <p class="label-dato">Tipo doc.</p>
                         <p>
-                          {{
-                            cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : ''
-                          }}
+                          {{ cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : '' }}
                           - {{ cliente.nroDocConyuge }}
                         </p>
 
@@ -197,7 +154,7 @@
                         <p class="titulo"><strong>Vendedor</strong></p>
 
                         <p class="label-dato">Nombre completo</p>
-                        <p>{{ (venta.vendedor) ? venta.vendedor.nombre: '' }}</p>
+                        <p>{{ venta.vendedor ? venta.vendedor.nombre : '' }}</p>
                       </div>
                     </div>
                   </div>
@@ -226,28 +183,15 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-                  <table
-                    mat-table
-                    class="tbinm"
-                    [dataSource]="inmuebleLista"
-                    style="width: 100%; margin-top: 20px"
-                  >
+                  <table mat-table class="tbinm" [dataSource]="inmuebleLista" style="width: 100%; margin-top: 20px">
                     <ng-container matColumnDef="editar">
                       <th mat-header-cell *matHeaderCellDef>Editar</th>
                       <td mat-cell *matCellDef="let elem">
-                        <a
-                          href="#"
-                          data-toggle="dropdown"
-                          style="margin-left: 20px; color: #ee6f2e"
-                        >
+                        <a href="#" data-toggle="dropdown" style="margin-left: 20px; color: #ee6f2e">
                           <em class="fas fa-ellipsis-v"></em>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left">
-                          <button
-                            class="dropdown-item"
-                            type="button"
-                            [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]"
-                          >
+                          <button class="dropdown-item" type="button" [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]">
                             <em class="far fa-edit"></em> Editar
                           </button>
                           <button
@@ -311,28 +255,15 @@
 
                     <ng-container matColumnDef="precio">
                       <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
-                      <td
-                        mat-cell
-                        *matCellDef="let elem"
-                        style="text-align: end; color: var(--primary); font-weight: bold"
-                      >
+                      <td mat-cell *matCellDef="let elem" style="text-align: end; color: var(--primary); font-weight: bold">
                         {{ elem.inmueble.precio | formatSoles }}
                       </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr
-                      mat-row
-                      *matRowDef="let row; columns: displayedColumns"
-                      class="col-sm-12 col-md-4"
-                    ></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
                   </table>
-                  <div
-                    *ngIf="inmuebleLista.data.length === 0"
-                    style="width: 100%; text-align: center; margin-top: 15px"
-                  >
-                    -- No hay resultados --
-                  </div>
+                  <div *ngIf="inmuebleLista.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px">-- No hay resultados --</div>
                 </div>
               </div>
 
@@ -432,12 +363,7 @@
               </div>
             </div>
 
-            <div
-              class="tab-pane fade show active"
-              id="tab4"
-              role="tabpanel"
-              aria-labelledby="contact-tab"
-            >
+            <div class="tab-pane fade show active" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
               <br />
 
               <div class="row">
@@ -454,34 +380,33 @@
                     (onDateChanged)="onFechaSeparacionChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                      <div class="col-xl-5"></div>
-                      <div class="col-xl-7">
-                        <div class="custom-file">
-                          <input type="file" (change)="pdfSeparacion($event)" class="custom-file-input" id="validatedCustomFile" required>
-                          <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                          <div class="invalid-feedback">Example invalid custom file feedback</div>
-                        </div>
+                    <div class="col-12">
+                      <div class="form-group" style="position: relative">
+                        <input
+                          type="file"
+                          (change)="uploadFileFechas($event, FILES_TYPES_NAMES.SEPARACION)"
+                          class="form-control custom-file-input"
+                          id="validatedFechaSep"
+                        />
+                        <label class="custom-file-label" for="validatedFechaSep">Seleccionar...</label>
+                        <div class="invalid-feedback">Archivo inválido</div>
                       </div>
+                    </div>
                   </div>
                 </div>
 
-
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded
-                    #dpFMinuta
-                    [label]="'Fecha de minuta'"
-                    (onDateChanged)="onFechaMinutaChanged($event)"
-                  ></datepicker-rounded>
+                  <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'" (onDateChanged)="onFechaMinutaChanged($event)"></datepicker-rounded>
                   <div class="row">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-10">
                       <div class="custom-file">
-                        <input type="file" (change)="pdfMinuta($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <input type="file" (change)="pdfMinuta($event)" class="custom-file-input" id="validatedCustomFile" required />
                         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                       </div>
                     </div>
-                </div>
+                  </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
@@ -494,43 +419,34 @@
                     <div class="col-xl-5"></div>
                     <div class="col-xl-7">
                       <div class="custom-file">
-                        <input type="file" (change)="pdfDeseembolso($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <input type="file" (change)="pdfDeseembolso($event)" class="custom-file-input" id="validatedCustomFile" required />
                         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                       </div>
                     </div>
+                  </div>
                 </div>
-                </div>
-
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded
-                    #dpFEEP
-                    [label]="'Fecha de EEP'"
-                    (onDateChanged)="onFechaEEPChanged($event)"
-                  ></datepicker-rounded>
+                  <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'" (onDateChanged)="onFechaEEPChanged($event)"></datepicker-rounded>
                   <div class="row">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-10">
                       <div class="custom-file">
-                        <input type="file" (change)="pdfEep($event)" class="custom-file-input" id="validatedCustomFile" required>
+                        <input type="file" (change)="pdfEep($event)" class="custom-file-input" id="validatedCustomFile" required />
                         <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                         <div class="invalid-feedback">Example invalid custom file feedback</div>
                       </div>
                     </div>
-                 </div>
+                  </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded
-                    #dpFCaida
-                    [label]="'Fecha de caída'"
-                    (onDateChanged)="onFechaCaidaChanged($event)"
-                  ></datepicker-rounded>
+                  <datepicker-rounded #dpFCaida [label]="'Fecha de caída'" (onDateChanged)="onFechaCaidaChanged($event)"></datepicker-rounded>
                 </div>
               </div>
 
-              <br>
+              <br />
               <div class="row">
                 <div class="col-sm-8 col-md-8">
                   <h5 style="color: var(--primary)">
@@ -540,14 +456,7 @@
                 </div>
 
                 <div class="col-sm-4 col-md-4" style="text-align: end">
-                  <button
-                    type="button"
-                    class="btn btn-optima"
-                    (click)="actualizarVenta()"
-                    style="text-decoration: none"
-                  >
-                    Guardar
-                  </button>
+                  <button type="button" class="btn btn-optima" (click)="actualizarVenta()" style="text-decoration: none">Guardar</button>
                 </div>
               </div>
 
@@ -555,11 +464,7 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
                     <label for="nombres">Cambiar estado</label>
-                    <select
-                      [(ngModel)]="idEstadoVentaSelect"
-                      class="form-control"
-                      id="iptTipoEstadoVenta"
-                    >
+                    <select [(ngModel)]="idEstadoVentaSelect" class="form-control" id="iptTipoEstadoVenta">
                       <option *ngFor="let o of optionsTiposEstadoVenta" [ngValue]="o.idEstadoVenta">
                         {{ o.nombre }}
                       </option>
@@ -618,11 +523,7 @@
                   <h3>Pagos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                  <a
-                    id="#btnAgregarPago"
-                    (click)="abrirModalAgregarPago()"
-                    data-toggle="modal"
-                    data-target="#modal-gestion-pago"
+                  <a id="#btnAgregarPago" (click)="abrirModalAgregarPago()" data-toggle="modal" data-target="#modal-gestion-pago"
                     ><span class="font-add">Agregar<em class="fas fa-plus-circle"></em></span
                   ></a>
                   <!-- <a href="/cliente-nuevo-editar/0"
@@ -633,12 +534,7 @@
 
               <div class="row">
                 <div class="col-12">
-                  <table
-                    mat-table
-                    [dataSource]="pagos"
-                    class="tbproy"
-                    style="width: 100%; margin-top: 20px"
-                  >
+                  <table mat-table [dataSource]="pagos" class="tbproy" style="width: 100%; margin-top: 20px">
                     <ng-container matColumnDef="editar">
                       <th mat-header-cell *matHeaderCellDef style="max-width: 150px">Editar</th>
                       <td mat-cell *matCellDef="let element">
@@ -663,7 +559,6 @@
                             <em class="far fa-trash-alt"></em> Eliminar
                           </button>
                         </div>
-
                       </td>
                     </ng-container>
 
@@ -685,18 +580,9 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="fieldsTblPagos"></tr>
-                    <tr
-                      mat-row
-                      *matRowDef="let row; columns: fieldsTblPagos"
-                      class="col-sm-12 col-md-4"
-                    ></tr>
+                    <tr mat-row *matRowDef="let row; columns: fieldsTblPagos" class="col-sm-12 col-md-4"></tr>
                   </table>
-                  <div
-                    *ngIf="pagos.data.length === 0"
-                    style="width: 100%; text-align: center; margin-top: 15px"
-                  >
-                    -- No hay resultados --
-                  </div>
+                  <div *ngIf="pagos.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px">-- No hay resultados --</div>
 
                   <!-- <mat-paginator
                     [length]="totalData"
@@ -737,57 +623,31 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Agregar pago</h5>
-        <button
-          id="btnPagoClose"
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button id="btnPagoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="padding-top: 0px">
         <div class="row">
           <div class="col-12">
-            <div
-              class="alert alert-warning"
-              role="alert"
-              *ngIf="modalPagoWarnings.length > 0"
-              style="font-size: 12px"
-            >
-              <div *ngFor="let modalPagoWarning of modalPagoWarnings">
-                <strong>Advertencia:</strong> {{ modalPagoWarning }}<br />
-              </div>
+            <div class="alert alert-warning" role="alert" *ngIf="modalPagoWarnings.length > 0" style="font-size: 12px">
+              <div *ngFor="let modalPagoWarning of modalPagoWarnings"><strong>Advertencia:</strong> {{ modalPagoWarning }}<br /></div>
             </div>
-            <div
-              class="alert alert-danger"
-              role="alert"
-              *ngIf="modalPagoErrores.length > 0"
-              style="font-size: 12px"
-            >
-              <div *ngFor="let modalPagoError of modalPagoErrores">
-                <strong>Error:</strong> {{ modalPagoError }}<br />
-              </div>
+            <div class="alert alert-danger" role="alert" *ngIf="modalPagoErrores.length > 0" style="font-size: 12px">
+              <div *ngFor="let modalPagoError of modalPagoErrores"><strong>Error:</strong> {{ modalPagoError }}<br /></div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
             Nro. Operación<br />
-            <input
-              maxlength="20"
-              [(ngModel)]="pagoModal.numeroOperacion"
-              matInput
-              style="border: 1px solid gray; width: 100%"
-              placeholder="Nro de recibo"
-            />
+            <input maxlength="20" [(ngModel)]="pagoModal.numeroOperacion" matInput class="form-control" placeholder="Nro de recibo" />
           </div>
         </div>
         <div class="row mt-2">
           <div class="col-12">
             Fecha<br />
-            <input type="date" [(ngModel)]="pagoModal.fecha" style="width: 100%" />
+            <input type="date" [(ngModel)]="pagoModal.fecha" class="form-control" />
           </div>
         </div>
         <div class="row mt-2">
@@ -798,34 +658,67 @@
               matInput
               mask="separator.2"
               thousandSeparator=","
-              style="border: 1px solid gray; width: 100%"
+              class="form-control"
               placeholder="Monto"
               style="width: 100%"
             />
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <div class="row">
-          <div class="col-xl-2"></div>
-          <div class="col-xl-10">
-            <div class="custom-file">
-              <input type="file" (change)="AgregarPago($event)" class="custom-file-input" id="validatedCustomFile" required>
-              <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-              <div class="invalid-feedback">Example invalid custom file feedback</div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            Voucher (Opcional)<br />
+            <div style="font-size: 0.75rem">Máximo 1 archivo</div>
+            <div class="form-group" style="position: relative">
+              <input type="file" (change)="uploadFilePago($event)" class="custom-file-input form-control" id="validatedCustomFile" />
+              <label class="custom-file-label" for="validatedCustomFile">Seleccionar voucher...</label>
+              <div class="invalid-feedback">Archivo inválido</div>
             </div>
           </div>
-       </div>
-       <br>
-        <button
-          type="button"
-          (click)="btnPagoGuardar()"
-          class="btn btn-optima"
-          style="text-decoration: none"
-        >
-          Agregar
-        </button>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group" *ngIf="pagoModal !== null && pagoModal.fileRuta !== null">
+              Archivo Subido:<br />
+              <div (click)="descargarArchivoPago(pagoModal.fileRuta)" style="cursor: pointer; width: max-content; color: var(--primary)">
+                <em class="fa fa-download"></em> Descargar
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12" style="text-align: center">
+            <button type="button" (click)="btnPagoGuardar()" class="btn btn-optima" style="text-decoration: none">Agregar</button>
+          </div>
+        </div>
       </div>
+
+      <!-- <ng-template #attachPayment>
+        <div class="modal-body" style="padding-top: 0px">
+          <div class="row">
+            <div class="col-12">
+              <div style="text-align: center; color: var(--primary)">Pago agregado correctamente!</div>
+
+              <div style="margin-top: 10px; font-size: 0.75rem; text-align: center">
+                Tiene la posibilidad de agregar un voucher o cerrar la ventana
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px">
+            <div class="col-12">
+              <div class="form-group" style="position: relative">
+                <input type="file" (change)="uploadFilePago($event)" class="form-control custom-file-input" id="validatedCustomFile" />
+                <label class="custom-file-label" for="validatedCustomFile">Seleccionar voucher...</label>
+                <div class="invalid-feedback">Archivo inválido</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12" style="text-align: center">
+              <button type="button" class="btn btn-optima" style="text-decoration: none" (click)="TerminarPagoModal()">Terminar</button>
+            </div>
+          </div>
+        </div>
+      </ng-template> -->
     </div>
   </div>
 </div>
@@ -850,17 +743,8 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">
-          Confirmar
-        </button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-          id="cerrarModalEliminarPago"
-        >
-          Cancelar
-        </button>
+        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarPago">Cancelar</button>
       </div>
     </div>
   </div>
@@ -885,17 +769,8 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">
-          Confirmar
-        </button>
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-          id="cerrarModalEliminarInmueble"
-        >
-          Cancelar
-        </button>
+        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarInmueble">Cancelar</button>
       </div>
     </div>
   </div>
