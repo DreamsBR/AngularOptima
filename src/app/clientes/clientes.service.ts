@@ -49,7 +49,7 @@ export class ClienteService {
   }
 
   obtenerClientesPorDni(nrodoc): Observable<Cliente> {
-    return this.http.get<Cliente>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
+    return this.http.get<any>(this.urlEndPoint + 'nroDocumento/' + nrodoc)
   }
 
 
