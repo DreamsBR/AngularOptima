@@ -30,6 +30,7 @@ export class ColaboradorService {
         );
     }
 
+
     getTodosColaboradores(): Observable<any> {
         return this.http.get(this.urlEndPoint + '/').pipe(
             map((jsonColaboradorResponse: any) => {
@@ -62,8 +63,26 @@ export class ColaboradorService {
     }
 
     obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
-      return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
+      return this.http.get<Colaborador>(this.urlEndPoint +'/findByNumeroDocumento/' + nrdoc)
     }
+
+    obtenerColaboradorFiltro(nrdoc):Observable<any>{
+      return this.http.get(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc).pipe(
+        map((jsonColaboradorResponse: any) => {
+          (jsonColaboradorResponse as Colaborador[]).map(
+            colaborador => {
+              colaborador.nombres = colaborador.nombres.toUpperCase();
+              colaborador.apellidos = colaborador.apellidos.toUpperCase();
+              return colaborador;
+          });
+          return jsonColaboradorResponse;
+      })
+    );
+
+    }
+
+
+
 
     obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
         return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)

@@ -12,9 +12,14 @@ import { AuthService } from '../usuarios/auth.service'
 export class ClientesComponent implements OnInit {
 
   clientesLista: Cliente[]
-  clienteSeleccionado: Cliente
   paginador: any
   base: string
+
+  dataBuscarCliente = []
+  kwBuscar = 'nombre'
+
+
+
 
   constructor(
     private clienteService: ClienteService,
@@ -25,6 +30,7 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerCliente()
+    this.obtenerTodoClientes()
   }
 
   dni : string
@@ -35,6 +41,20 @@ export class ClientesComponent implements OnInit {
         console.log(clienteJsonResponse)
         this.clientesLista = clienteJsonResponse
       })
+  }
+
+  Cancelar(){
+    this.dni = ''
+    this.obtenerCliente()
+
+  }
+
+  clienteSeleccionado: any
+  seleccionarItemBusquedaCliente(event){
+    this.clienteSeleccionado = event
+    //this.clienteAutocomplete.searchInput.nativeElement.value = this.clienteSeleccionado.nroDocumento
+    this.dni = this.clienteSeleccionado.nroDocumento
+    console.log(this.clienteSeleccionado)
   }
 
   public obtenerCliente() {
@@ -52,6 +72,22 @@ export class ClientesComponent implements OnInit {
     })
   }
 
+
+  obtenerTodoClientes(){
+    this.clienteService.obtenerCliente().subscribe((data)=>{
+      const listaCliente = []
+      data.forEach((elem:any) => {
+        listaCliente.push({
+          idCliente: elem.idCliente,
+          nroDocumento : elem.nroDocumento,
+          nombre: elem.nombres + " "+elem.apellidos
+        })
+      })
+      this.dataBuscarCliente = listaCliente
+    })
+
+  }
+
   public eliminar(cliente: Cliente): void {
     this.clienteService.eliminarCliente(cliente.idCliente).subscribe(
       (response) => {
@@ -67,9 +103,6 @@ export class ClientesComponent implements OnInit {
     )
   }
 
-  public obtenerClienteSeleccionado(cliente: Cliente) {
-    this.clienteSeleccionado = cliente
-  }
 
   status = false
   menuToggle() {

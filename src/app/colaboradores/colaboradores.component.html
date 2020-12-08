@@ -39,10 +39,16 @@
                             <div class="form-group">
                               <mat-form-field>
                                 <mat-label style="color: orangered;">DNI</mat-label>
-                                <input matInput  placeholder="Nombre" #input>
+                                <input matInput [(ngModel)]="dni" name="dni" placeholder="DNI" #input>
                               </mat-form-field>
                           </div>
                         </div>
+                    </div>
+                    <div class="col-xl-1">
+                      <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
+                    </div>
+                    <div class="col-xl-1">
+                      <button type="button" (click)="Cancelar()" class="btn btn-optima">Cancelar</button>
                     </div>
               </div>
             </div>

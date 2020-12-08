@@ -60,6 +60,7 @@ export class PeriodoService {
     )
   }
 
+
   agregarPeriodo(periodo: Periodo): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(
       catchError((e) => {
