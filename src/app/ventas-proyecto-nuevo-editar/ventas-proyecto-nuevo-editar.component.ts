@@ -95,6 +95,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   dataSearchVendedor = []
   vendedorSelected: number = 0
 
+  itemTipoinmueble: number
+  itemTipoinmueblecategoria: number
+
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -235,12 +238,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   public obtenerInmueblesPorCategoria(idTipoInmuebleCategoria: number) {
-    // const separated = idTipoInmuebleCategoriaTipoInmueblePorComas.split(',')
-    // const idTipoInmuebleCategoria = parseInt(separated[0])
-    // const idTipoInmueble = parseInt(separated[1])
-    //console.log(idTipoInmuebleCategoria)
-    //console.log(idTipoInmueble)
-    
     this.inmuebleService
       .getInmueblesByListarPorCategoria(this.paramIdProyecto, this.tipoinmuebleSeleccionado, idTipoInmuebleCategoria)
       .subscribe((response) => {
