@@ -18,6 +18,8 @@ export class RecordarContraseniaComponent implements OnInit {
   modal_titulo: string = "";
   modal_mensaje: string = "";
 
+  flag_enviado = 0
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -33,13 +35,25 @@ export class RecordarContraseniaComponent implements OnInit {
   }
 
   public logIn(): void {
-
     if (this.usuario.email == null) {
       this.mostrarAlerta('Aviso','El correo esta vacio.');
       return;
     }
 
-    this.router.navigate(['/recordar-contrasenia-aviso']);
+    this.authService.sendMail(this.usuario.email).subscribe(response =>{
+      this.mostrarAlerta('Aviso','Se envio un email al correo indicado con instrucciones para su recuperación');
+      this.flag_enviado = 1
+      this.usuario.email = ''
+      // this.router.navigate(['/login']);
+    }, err =>{
+      if (err.status == 500){
+        this.mostrarAlerta('Aviso','Se envio un email al correo indicado con instrucciones para su recuperación');
+        this.flag_enviado = 1
+        this.usuario.email = ''
+        // this.router.navigate(['/login']);
+      }
+    });
+    // this.router.navigate(['/recordar-contrasenia-aviso']);
   }
 
   public mostrarAlerta( titulo: string, mensaje: string ): void {

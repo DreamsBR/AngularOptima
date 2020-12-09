@@ -45,6 +45,34 @@ export class AuthService {
     return this.http.post<any>(this.urlEndPoint, params);
   }
 
+  urlEndPoint_mail = URL_BACKEND_SEG + 'auth/sendemailchangepassord';
+  public sendMail(username: string): Observable<any> {
+    let params = {
+      "username": username,
+    }
+    return this.http.post<any>(this.urlEndPoint_mail, params);
+  }
+
+  urlEndPoint_pass = URL_BACKEND_SEG + 'auth/changepassword';
+  public changePassword2(pass1: string, pass2:string, token:string) : Observable<any>{
+      let httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
+      let params = {
+        "password": pass1,
+        "repeatPassword": pass2,
+        "token": token
+      }
+      return this.http.post<any>(this.urlEndPoint_pass, params, httpOptions)
+  }
+
+  public changePassword(pass1: string, pass2:string, token:string ): Observable<any> {
+    let params = {
+      "password": pass1,
+      "repeatPassword": pass2,
+      "token": token
+    }
+    return this.http.post<any>(this.urlEndPoint_pass, params);
+  }
+
   public guardarUsuario(accessToken: string): void {
     const payLoad = this.obtenerDatosToken(accessToken);
     console.info(payLoad)
@@ -87,5 +115,7 @@ export class AuthService {
   tienePermisos(rol: string): boolean {
     return this.usuario.roles.includes(rol);
   }
+
+
 
 }
