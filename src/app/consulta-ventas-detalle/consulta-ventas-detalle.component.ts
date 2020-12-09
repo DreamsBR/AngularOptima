@@ -110,14 +110,17 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.ventaService.getVentasPorDni(this.clienteSeleccionado.idCliente, 1, 1).subscribe((
       jsonVentas) => {
         console.log(jsonVentas)
-        this.ventasLista = null
-        this.ventasLista = jsonVentas
+        this.ventasLista = []
+        this.ventasLista = jsonVentas.content
       })
-  }
+    }
 
-
+  nombre:string
   Cancelar(){
-
+    this.dni = ''
+    this.nombre = ""
+    this.clienteSeleccionado = null
+    this.obtenerVentasProyecto()
   }
 
 
