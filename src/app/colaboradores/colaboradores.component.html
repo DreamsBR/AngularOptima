@@ -67,6 +67,7 @@
                         <th scope="col">Nro. documento</th>
                         <th scope="col">Asignado a.</th>
                         <th scope="col">Sexo</th>
+                        <th scope="col">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +85,10 @@
                         <td>{{colaborador.numeroDocumento}}</td>
                         <td>{{colaborador.numeroDocumento}}</td>
                         <td>{{colaborador.sexo}}</td>
+                        <td>
+                          <span *ngIf="colaborador.enable==1">Activo</span>
+                          <span *ngIf="colaborador.enable==0">Inactivo</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>
