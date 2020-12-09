@@ -27,8 +27,10 @@ import { TipoInmueble } from '../inmueble-nuevo-editar/tipoinmueble'
 
 import { UtilService } from '../util/util.service'
 import { detectMime } from '../util/detectMime'
+import { VentaFiles } from '../venta-files/ventafiles'
 import { VentaFilesPost } from '../venta-files/ventafilespost'
 import { VentaFilesService } from '../venta-files/venta-files.service'
+
 
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
@@ -109,6 +111,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   modal_fecha_type = null
 
   ventaFileModal: VentaFilesPost = null
+  ventaFileFSeparacion: VentaFiles = null
+  ventaFileFMinuta: VentaFiles = null
+  ventaFileFDesembolso: VentaFiles = null
+  ventaFileFEEP: VentaFiles = null
+  ventaFileFCaida: VentaFiles = null
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
@@ -567,13 +574,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     )
   }
 
-  setNuevoVentaFile(idEstadoVenta: number) {
-    this.ventaFileModal = new VentaFilesPost()
-    this.ventaFileModal.idVenta = this.venta.idVenta
-    this.ventaFileModal.idEstadoVenta = idEstadoVenta
-    // console.log(this.ventaFileModal)
-
-    switch (idEstadoVenta) {
+  setNuevoVentaFile(TipoEstadoVenta: number) {
+    console.log('seteando nuevo venta file model')
+    switch (TipoEstadoVenta) {
       case 1:
         this.modal_fecha_type = this.FILES_TYPES_NAMES.SEPARACION
         break
@@ -589,6 +592,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       default:
         break
     }
+
+    this.ventaFileModal = new VentaFilesPost()
+    this.ventaFileModal.idVenta = this.venta.idVenta
+    this.ventaFileModal.idEstadoVenta = TipoEstadoVenta
+    // console.log(this.ventaFileModal)
 
     // La propiedad fileRuta será completada cuando suba el archivo
   }
@@ -608,15 +616,34 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           )
           .subscribe(
             (resp) => {
-              this.loading = false
+              console.log('Archivo subido')
+              console.log(resp)
+              
               this.ventaFileModal.fileRuta = resp.fileName
 
-              this.ventaFilesService.postVentaFiles(this.ventaFileModal).subscribe(
+              
+              let pathToExec = null
+              const vfvalidacion =  this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
+              if (vfvalidacion.idVentaFiles === 0) {
+                console.log('creará')
+                console.log(vfvalidacion)
+                pathToExec = this.ventaFilesService.postVentaFiles(vfvalidacion)
+              } else {
+                console.log('actualizará')
+                console.log(vfvalidacion)
+                pathToExec = this.ventaFilesService.updateVentaFiles(vfvalidacion)
+              }
+ 
+              pathToExec.subscribe(
                 (resp) => {
-                  console.log(resp)
+                  this.loading = false
+                  this.setLocalVentaFile(resp)
+                  this.btnCerrarModalArchivoFecha()
+
                   this.openSnackBar('success', '✓ Archivo guardado con éxito', 'Cerrar')
                 },
                 (error) => {
+                  this.loading = false
                   this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
                   console.log(error)
                 }
@@ -672,6 +699,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             this.optionsTipoInmueble = resp_extra[2]
             this.filterTipoInmuebleSelect = 1 // Selecciona el tipo de Departamento
             this.refreshListaInmuebles()
+
+            this.asignandoVentaFilesVariables(resp_extra[3])
+
             this.loading = false
           },
           (e) => {
@@ -689,12 +719,66 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     )
   }
 
+  asignandoVentaFilesVariables (data: VentaFiles[]) {
+    data.forEach(element => {
+      this.setLocalVentaFile(element)
+    })
+  }
+
+  setLocalVentaFile(ventaFilesPost: VentaFiles) {
+    switch(ventaFilesPost.estadoVenta.idEstadoVenta) {
+      case 1:
+        this.ventaFileFSeparacion = ventaFilesPost
+        break
+      case 5:
+        this.ventaFileFMinuta = ventaFilesPost
+        break
+      case 10:
+        this.ventaFileFDesembolso = ventaFilesPost
+        break
+      case 11:
+        this.ventaFileFEEP = ventaFilesPost
+        break
+      default:
+        break
+    }
+  }
+
+  getVentaFileToUpdateAndAssignID(ventaFilesPost: VentaFilesPost) {
+    switch(ventaFilesPost.idEstadoVenta) {
+      case 1:
+        if (this.ventaFileFSeparacion !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFSeparacion.idVentaFiles
+        }
+        break
+      case 5:
+        if (this.ventaFileFMinuta !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFMinuta.idVentaFiles
+        }
+        break
+      case 10:
+        if (this.ventaFileFDesembolso !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFDesembolso.idVentaFiles
+        }
+        break
+      case 11:
+        if (this.ventaFileFEEP !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFEEP.idVentaFiles
+        }
+        break
+      default:
+        break
+    }
+    return ventaFilesPost
+  }
+
   getInfoExtra(): Observable<any[]> {
     let infoPagos = this.pagosService.getPagosByIdVenta(this.paramIdVenta)
     let listaEstadoVenta = this.vccdService.getListaEstadosVenta()
     let listaTiposInmuebles = this.vccdService.getListaTipoInmuebles()
+    let listaVentaFiles = this.ventaFilesService.getVentaFilesByIdVenta(this.venta.idVenta)
     // let listaInmuebles = this.vccdService.getInmueblesByIdVenta(this.paramIdVenta)
-    return forkJoin([infoPagos, listaEstadoVenta, listaTiposInmuebles])
+    return forkJoin([infoPagos, listaEstadoVenta, listaTiposInmuebles, listaVentaFiles])
   }
 
   refreshTablaPagos() {

@@ -383,6 +383,8 @@
                     <div class="col-12">
                       <div class="btn-group">
                         <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFSeparacion !== null"
+                          (click)="descargarArchivoPago(ventaFileFSeparacion.fileRuta)"
                           ><em class="fa fa-download"></em> Descargar archivo
                         </label>
                         <label
@@ -401,12 +403,21 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'" (onDateChanged)="onFechaMinutaChanged($event)"></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-2"></div>
-                    <div class="col-xl-10">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfMinuta($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFMinuta !== null"
+                          (click)="descargarArchivoPago(ventaFileFMinuta.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(5)"
+                          ><em class="fa fa-upload"></em
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -419,12 +430,21 @@
                     (onDateChanged)="onFechaDesembolsoChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-5"></div>
-                    <div class="col-xl-7">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfDeseembolso($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFDesembolso !== null"
+                          (click)="descargarArchivoPago(ventaFileFDesembolso.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(10)"
+                          ><em class="fa fa-upload"></em
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -433,12 +453,21 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'" (onDateChanged)="onFechaEEPChanged($event)"></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-2"></div>
-                    <div class="col-xl-10">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfEep($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFEEP !== null"
+                          (click)="descargarArchivoPago(ventaFileFEEP.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(11)"
+                          ><em class="fa fa-upload"></em
+                        ></label>
                       </div>
                     </div>
                   </div>
