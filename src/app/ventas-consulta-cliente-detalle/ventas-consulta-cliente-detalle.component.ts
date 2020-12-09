@@ -583,10 +583,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 5:
         this.modal_fecha_type = this.FILES_TYPES_NAMES.MINUTA
         break
-      case 10:
+      case 12:
         this.modal_fecha_type = this.FILES_TYPES_NAMES.DESEMBOLSO
         break
-      case 11:
+      case 13:
         this.modal_fecha_type = this.FILES_TYPES_NAMES.EEP
         break
       default:
@@ -733,10 +733,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 5:
         this.ventaFileFMinuta = ventaFilesPost
         break
-      case 10:
+      case 12:
         this.ventaFileFDesembolso = ventaFilesPost
         break
-      case 11:
+      case 13:
         this.ventaFileFEEP = ventaFilesPost
         break
       default:
@@ -756,12 +756,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           ventaFilesPost.idVentaFiles = this.ventaFileFMinuta.idVentaFiles
         }
         break
-      case 10:
+      case 12:
         if (this.ventaFileFDesembolso !== null) {
           ventaFilesPost.idVentaFiles = this.ventaFileFDesembolso.idVentaFiles
         }
         break
-      case 11:
+      case 13:
         if (this.ventaFileFEEP !== null) {
           ventaFilesPost.idVentaFiles = this.ventaFileFEEP.idVentaFiles
         }
