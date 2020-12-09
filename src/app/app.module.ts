@@ -121,6 +121,7 @@ import { ProyectosGerenteComponent } from './proyectos-gerente/proyectos-gerente
 import { ProyectosColaboradorComponent } from './proyectos-colaborador/proyectos-colaborador.component'
 import { PruebaService } from './prueba/prueba.service';
 import { UtilService } from './util/util.service';
+import { VentaFilesService } from './venta-files/venta-files.service';
 
 const ROUTES: Routes = [
 
@@ -313,6 +314,7 @@ const ROUTES: Routes = [
     RolesServices,
     PruebaService,
     UtilService,
+    VentaFilesService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

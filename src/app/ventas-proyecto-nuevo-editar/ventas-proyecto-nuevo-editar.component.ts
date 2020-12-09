@@ -49,7 +49,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   public nrodoc: string
 
   tipoinmueblecategoria: Tipoinmueblecategoria[]
-  tipoinmueblecategoriaSeleccionado: number
+  tipoinmueblecategoriaSeleccionadoTipoInmueble: number
 
   tipocredito: Tipocredito[]
   tipocreditoSeleccionado: number
@@ -213,9 +213,15 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     })
   }
 
-  public obtenerInmueblesPorCategoria(idTipoInmuebleCategoria: number) {
+  public obtenerInmueblesPorCategoria(idTipoInmuebleCategoriaTipoInmueblePorComas: string) {
+    const separated = idTipoInmuebleCategoriaTipoInmueblePorComas.split(',')
+    const idTipoInmuebleCategoria = parseInt(separated[0])
+    const idTipoInmueble = parseInt(separated[1])
+    //console.log(idTipoInmuebleCategoria)
+    //console.log(idTipoInmueble)
+    
     this.inmuebleService
-      .getInmueblesByListarPorCategoria(this.paramIdProyecto, 1, idTipoInmuebleCategoria)
+      .getInmueblesByListarPorCategoria(this.paramIdProyecto, idTipoInmueble, idTipoInmuebleCategoria)
       .subscribe((response) => {
         this.departamentos = response
       })

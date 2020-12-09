@@ -85,27 +85,3 @@ ol.stw .stw-label {
   border-top: 0px solid #dee2e6;
   justify-content: center;
 }
-
-::ng-deep .agz-snackbar__success {
-  background: #19ab0f;
-  color: white;
-}
-::ng-deep .agz-snackbar__success .mat-simple-snackbar-action {
-  color: #ffffff;
-  background: #107b09;
-  border-radius: 5px;
-}
-
-::ng-deep .agz-snackbar__error {
-  background: #ab0f0f;
-  color: white;
-}
-::ng-deep .agz-snackbar__error .mat-simple-snackbar-action {
-  color: #ffffff;
-  background: #710e0e;
-  border-radius: 5px;
-}
-
-::ng-deep .mat-simple-snackbar-action .mat-button-wrapper {
-  font-weight: 100;
-}

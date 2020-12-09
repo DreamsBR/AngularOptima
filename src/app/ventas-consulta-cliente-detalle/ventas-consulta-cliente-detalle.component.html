@@ -381,15 +381,18 @@
                   ></datepicker-rounded>
                   <div class="row">
                     <div class="col-12">
-                      <div class="form-group" style="position: relative">
-                        <input
-                          type="file"
-                          (change)="uploadFileFechas($event, FILES_TYPES_NAMES.SEPARACION)"
-                          class="form-control custom-file-input"
-                          id="validatedFechaSep"
-                        />
-                        <label class="custom-file-label" for="validatedFechaSep">Seleccionar...</label>
-                        <div class="invalid-feedback">Archivo inválido</div>
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(1)"
+                          ><em class="fa fa-upload"></em
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -784,6 +787,43 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">Confirmar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarInmueble">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-gestion-archivofecha" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subir archivo de Fecha</h5>
+        <button id="btnModalFechaArchivoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 12px">
+              Tipo: <strong>FECHA DE {{ modal_fecha_type }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 12px">Si ya existe un archivo para la fecha seleccionada, este será reemplazado.</div>
+            <div class="form-group" style="position: relative">
+              <input type="file" (change)="uploadFileFechas($event)" class="custom-file-input form-control" id="validatedCustomFile" />
+              <label class="custom-file-label" for="validatedCustomFile">Seleccionar...</label>
+              <div class="invalid-feedback">Archivo inválido</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12" style="text-align: center">
+            <button type="button" (click)="btnCerrarModalArchivoFecha()" class="btn btn-optima" style="text-decoration: none">Cerrar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

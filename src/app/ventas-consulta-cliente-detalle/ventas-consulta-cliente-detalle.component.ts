@@ -27,6 +27,8 @@ import { TipoInmueble } from '../inmueble-nuevo-editar/tipoinmueble'
 
 import { UtilService } from '../util/util.service'
 import { detectMime } from '../util/detectMime'
+import { VentaFilesPost } from '../venta-files/ventafilespost'
+import { VentaFilesService } from '../venta-files/venta-files.service'
 
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
@@ -98,8 +100,15 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   filePagoData = null
 
   FILES_TYPES_NAMES = {
-    SEPARACION: 'FSEPARACION_VENTAID'
+    SEPARACION: 'SEPARACION',
+    MINUTA: 'MINUTA',
+    DESEMBOLSO: 'DESEMBOLSO',
+    EEP: 'EEP'
   }
+
+  modal_fecha_type = null
+
+  ventaFileModal: VentaFilesPost = null
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
@@ -115,7 +124,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     public authService: AuthService,
     private _snackBar: MatSnackBar,
     private inmuebleService: InmuebleService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private ventaFilesService: VentaFilesService
   ) {}
 
   ngOnInit() {
@@ -506,34 +516,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.refreshTablaPagos()
   }
 
-  uploadFileFechas(event, type: string) {
-    this.loading = true
-    const file = event.target.files[0]
-    const extension = file.name.split('.').pop()
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        this.utilService.postUploadFile(reader.result, `${type}_${this.venta.idVenta}.${extension}`).subscribe(
-          (resp) => {
-            console.log(resp)
-            /*this.loading = false
-            this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
-            this.TerminarPagoModal()
-            console.log('llega')*/
-          },
-          (error) => {
-            this.loading = false
-            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
-            console.log(error)
-          }
-        )
-      } else {
-        console.log('No se pudo convertir a String base 64')
-      }
-    }
-  }
-
   uploadFilePago(event) {
     this.loading = true
     const file = event.target.files[0]
@@ -583,6 +565,78 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  setNuevoVentaFile(idEstadoVenta: number) {
+    this.ventaFileModal = new VentaFilesPost()
+    this.ventaFileModal.idVenta = this.venta.idVenta
+    this.ventaFileModal.idEstadoVenta = idEstadoVenta
+    // console.log(this.ventaFileModal)
+
+    switch (idEstadoVenta) {
+      case 1:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.SEPARACION
+        break
+      case 5:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.MINUTA
+        break
+      case 10:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.DESEMBOLSO
+        break
+      case 11:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.EEP
+        break
+      default:
+        break
+    }
+
+    // La propiedad fileRuta será completada cuando suba el archivo
+  }
+
+  uploadFileFechas(event, type: string) {
+    this.loading = true
+    const file = event.target.files[0]
+    const extension = file.name.split('.').pop()
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        this.utilService
+          .postUploadFile(
+            reader.result,
+            `FEC_${this.modal_fecha_type}_EVID_${this.ventaFileModal.idEstadoVenta}_VID_${this.venta.idVenta}.${extension}`
+          )
+          .subscribe(
+            (resp) => {
+              this.loading = false
+              this.ventaFileModal.fileRuta = resp.fileName
+
+              this.ventaFilesService.postVentaFiles(this.ventaFileModal).subscribe(
+                (resp) => {
+                  console.log(resp)
+                  this.openSnackBar('success', '✓ Archivo guardado con éxito', 'Cerrar')
+                },
+                (error) => {
+                  this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
+                  console.log(error)
+                }
+              )
+
+              /*this.loading = false
+            this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
+            this.TerminarPagoModal()
+            console.log('llega')*/
+            },
+            (error) => {
+              this.openSnackBar('error', 'No se pudo subir el archivo', 'Cerrar')
+              console.log(error)
+            }
+          )
+      } else {
+        this.openSnackBar('error', 'No se pudo convertir a String base 64', 'Cerrar')
+        console.log('No se pudo convertir a String base 64')
+      }
+    }
   }
 
   initFunctions() {
@@ -678,6 +732,15 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   abrirModalAgregarPago() {
     this.limpiarFormulario()
     this.modalPagoModeEdit = false
+  }
+
+  abrirModalArchivoFechas() {
+    // this.limpiarFormulario()
+    // this.modalPagoModeEdit = false
+  }
+
+  btnCerrarModalArchivoFecha() {
+    document.getElementById('btnModalFechaArchivoClose').click()
   }
 
   setObjetoPagoEdit(editPagoObj) {

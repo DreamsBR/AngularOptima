@@ -121,8 +121,8 @@
                                                             <div class="col-sm-12 col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="sle-tipo-departamento">Tipo dpto</label>
-                                                                    <select class="form-control" name="sle-tipo-departamento" [(ngModel)]="tipoinmueblecategoriaSeleccionado" (change)="obtenerInmueblesPorCategoria(tipoinmueblecategoriaSeleccionado)">
-                                                                        <option [value]="itemtipoinmueblecategoria.idTipoInmuebleCategoria" *ngFor="let itemtipoinmueblecategoria of tipoinmueblecategoria">{{itemtipoinmueblecategoria.nombre}}</option>
+                                                                    <select class="form-control" name="sle-tipo-departamento" [(ngModel)]="tipoinmueblecategoriaSeleccionadoTipoInmueble" (change)="obtenerInmueblesPorCategoria(tipoinmueblecategoriaSeleccionadoTipoInmueble)">
+                                                                        <option [value]="itemtipoinmueblecategoria.idTipoInmuebleCategoria+','+itemtipoinmueblecategoria.idTipoInmueble" *ngFor="let itemtipoinmueblecategoria of tipoinmueblecategoria">{{itemtipoinmueblecategoria.nombre}}</option>
                                                                     </select>
                                                                 </div>
                                                             </div>
