@@ -1,356 +1,503 @@
 <div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+  <app-sidebar></app-sidebar>
+  <app-loading [isLoading]="loading"></app-loading>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <div class="button-toggle">
+            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+          </div>
+          <h3>Nuevo / Editar cliente</h3>
+        </div>
+      </div>
 
-    <app-sidebar></app-sidebar>
-    <div id="page-content-wrapper">
-        <div class="container-fluid">
-
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <form>
             <div class="row">
-                <div class="col-sm-12 col-md-12">
-                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
-                    <h3>Nuevo / Editar cliente</h3>
+              <div class="col-sm-12 col-md-3">
+                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                  <a
+                    class="nav-link active"
+                    id="v-pills-datospersonales-tab"
+                    data-toggle="pill"
+                    href="#v-pills-datospersonales"
+                    role="tab"
+                    aria-controls="v-pills-datospersonales"
+                    aria-selected="true"
+                    ><span class="nav-number">1</span> Datos personales</a
+                  >
+                  <span class="separator"></span>
+                  <a
+                    class="nav-link"
+                    id="v-pills-datosconyugue-tab"
+                    data-toggle="pill"
+                    href="#v-pills-datosconyugue"
+                    role="tab"
+                    aria-controls="v-pills-datosconyugue"
+                    aria-selected="false"
+                    ><span class="nav-number">2</span> Co propietarios Conyugue</a
+                  >
+                  <span class="separator"></span>
+                  <a
+                    class="nav-link"
+                    id="v-pills-datoslaborales-tab"
+                    data-toggle="pill"
+                    href="#v-pills-datoslaborales"
+                    role="tab"
+                    aria-controls="v-pills-datoslaborales"
+                    aria-selected="false"
+                    ><span class="nav-number">3</span> Datos laborales</a
+                  >
                 </div>
-            </div>
+              </div>
 
-            <div class="row">
-                <div class="col-sm-12 col-md-12">
+              <div class="col-sm-12 col-md-6">
+                <div class="tab-content" id="v-pills-tabContent">
+                  <div class="tab-pane fade show active" id="v-pills-datospersonales" role="tabpanel" aria-labelledby="v-pills-datospersonales-tab">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="nombres">Nombres</label>
+                          <input type="text" [(ngModel)]="cliente.nombres" class="form-control" name="nombres" #nombres="ngModel" required />
+                          <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
+                            <div *ngIf="nombres.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="apellidos">Apellidos</label>
+                          <input type="text" [(ngModel)]="cliente.apellidos" class="form-control" name="apellidos" #apellidos="ngModel" required />
+                          <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
+                            <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                    <form>
-
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="tipodocumentocliente">Tipo de documento</label>
+                          <select
+                            class="form-control"
+                            name="tipodocumentocliente"
+                            [(ngModel)]="cliente.idTipoDocumento"
+                            #tipodocumentocliente="ngModel"
+                            required
+                          >
+                            <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">
+                              {{ itemTipodocumento.nombre }}
+                            </option>
+                          </select>
+                          <div
+                            *ngIf="tipodocumentocliente.invalid && (tipodocumentocliente.dirty || tipodocumentocliente.touched)"
+                            class="alert alert-danger"
+                          >
+                            <div *ngIf="tipodocumentocliente.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
                         <div class="row">
-
-                            <div class="col-sm-12 col-md-3">
-                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                                    <a class="nav-link active" id="v-pills-datospersonales-tab" data-toggle="pill" href="#v-pills-datospersonales" role="tab" aria-controls="v-pills-datospersonales" aria-selected="true"><span class="nav-number">1</span> Datos personales</a>
-                                    <span class="separator"></span>
-                                    <a class="nav-link" id="v-pills-datosconyugue-tab" data-toggle="pill" href="#v-pills-datosconyugue" role="tab" aria-controls="v-pills-datosconyugue" aria-selected="false"><span class="nav-number">2</span> Co propietarios Conyugue</a>
-                                    <span class="separator"></span>
-                                    <a class="nav-link" id="v-pills-datoslaborales-tab" data-toggle="pill" href="#v-pills-datoslaborales" role="tab" aria-controls="v-pills-datoslaborales" aria-selected="false"><span class="nav-number">3</span> Datos laborales</a>
-                                </div>
+                          <div class="col-12">
+                            <div class="btn-group">
+                              <label
+                                class="btn-light btn-sm"
+                                ngbButtonLabel
+                                style="margin-right: 2px"
+                                *ngIf="cliente.fotoDni"
+                                (click)="descargarArchivoSubido(cliente.fotoDni)"
+                                ><em class="fa fa-download"></em> Descargar archivo
+                              </label>
+                              <label
+                                class="btn-light btn-sm"
+                                ngbButtonLabel
+                                data-toggle="modal"
+                                data-target="#modal-gestion-subirarchivo"
+                                (click)="setTypeFileToUpload(TYPES_UPLOAD_FILE.KEYCLIENTE)"
+                                ><em class="fa fa-upload"></em
+                              ></label>
                             </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="nrodocdocumento">Nro. doc.</label>
+                          <input
+                            type="text"
+                            [(ngModel)]="cliente.nroDocumento"
+                            class="form-control"
+                            name="nrodocdocumento"
+                            #nrodocdocumento="ngModel"
+                            required
+                          />
+                          <div *ngIf="nrodocdocumento.invalid && (nrodocdocumento.dirty || nrodocdocumento.touched)" class="alert alert-danger">
+                            <div *ngIf="nrodocdocumento.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                            <div class="col-sm-12 col-md-6">
-                                <div class="tab-content" id="v-pills-tabContent">
-                                    <div class="tab-pane fade show active" id="v-pills-datospersonales" role="tabpanel" aria-labelledby="v-pills-datospersonales-tab">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="estadocivilcliente">Estado civil</label>
+                          <select
+                            class="form-control"
+                            name="estadocivilcliente"
+                            [(ngModel)]="cliente.idEstadoCivil"
+                            #estadocivilcliente="ngModel"
+                            required
+                          >
+                            <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">
+                              {{ itemEstadocivil.nombre }}
+                            </option>
+                          </select>
+                          <div
+                            *ngIf="estadocivilcliente.invalid && (estadocivilcliente.dirty || estadocivilcliente.touched)"
+                            class="alert alert-danger"
+                          >
+                            <div *ngIf="estadocivilcliente.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="ocupacion">Ocupación</label>
+                          <input type="text" [(ngModel)]="cliente.ocupacion" class="form-control" name="ocupacion" #ocupacion="ngModel" required />
+                          <div *ngIf="ocupacion.invalid && (ocupacion.dirty || ocupacion.touched)" class="alert alert-danger">
+                            <div *ngIf="ocupacion.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="nombres">Nombres</label>
-                                                    <input type="text" [(ngModel)]="cliente.nombres" class="form-control" name="nombres" #nombres="ngModel" required>
-                                                    <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert alert-danger">
-                                                        <div *ngIf="nombres.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="apellidos">Apellidos</label>
-                                                    <input type="text" [(ngModel)]="cliente.apellidos" class="form-control" name="apellidos" #apellidos="ngModel" required>
-                                                    <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)" class="alert alert-danger">
-                                                        <div *ngIf="apellidos.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="fechanacimiento">Fecha de nacimiento</label>
+                          <datepicker-rounded
+                            #dpFechaDeNacimiento
+                            (onDateChanged)="setFechaNacimiento($event)"
+                            [label]="'Fecha'"
+                            [minDate]="{ year: 1900, month: 1, day: 1 }"
+                          ></datepicker-rounded>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="sexocliente">Sexo</label>
+                          <select class="form-control" name="sexocliente" [(ngModel)]="cliente.sexo" #sexocliente="ngModel" required>
+                            <option value="M">Masculino</option>
+                            <option value="F">Femenino</option>
+                          </select>
+                          <div *ngIf="sexocliente.invalid && (sexocliente.dirty || sexocliente.touched)" class="alert alert-danger">
+                            <div *ngIf="sexocliente.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="tipodocumentocliente">Tipo de documento</label>
-                                                    <select class="form-control" name="tipodocumentocliente" [(ngModel)]="cliente.idTipoDocumento" #tipodocumentocliente="ngModel" required>
-                                                        <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
-                                                    </select>
-                                                    <div *ngIf="tipodocumentocliente.invalid && (tipodocumentocliente.dirty || tipodocumentocliente.touched)" class="alert alert-danger">
-                                                        <div *ngIf="tipodocumentocliente.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                  <div class="col-xl-5"></div>
-                                                  <div class="col-xl-7">
-                                                    <div class="custom-file">
-                                                      <input type="file" (change)="documentoPersonal($event)" class="custom-file-input" id="validatedCustomFile" required>
-                                                      <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                                      <div class="invalid-feedback">Example invalid custom file feedback</div>
-                                                    </div>
-                                                  </div>
-                                              </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="nrodocdocumento">Nro. doc.</label>
-                                                    <input type="text" [(ngModel)]="cliente.nroDocumento" class="form-control" name="nrodocdocumento" #nrodocdocumento="ngModel" required>
-                                                    <div *ngIf="nrodocdocumento.invalid && (nrodocdocumento.dirty || nrodocdocumento.touched)" class="alert alert-danger">
-                                                        <div *ngIf="nrodocdocumento.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="correo">Correo</label>
+                          <input type="text" [(ngModel)]="cliente.email" class="form-control" name="correo" #correo="ngModel" required />
+                          <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
+                            <div *ngIf="correo.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="telefono">Teléfono</label>
+                          <input type="text" [(ngModel)]="cliente.telefono" class="form-control" name="telefono" #telefono="ngModel" required />
+                          <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger">
+                            <div *ngIf="telefono.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="estadocivilcliente">Estado civil</label>
-                                                    <select class="form-control" name="estadocivilcliente" [(ngModel)]="cliente.idEstadoCivil" #estadocivilcliente="ngModel" required>
-                                                        <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">{{itemEstadocivil.nombre}}</option>
-                                                    </select>
-                                                    <div *ngIf="estadocivilcliente.invalid && (estadocivilcliente.dirty || estadocivilcliente.touched)" class="alert alert-danger">
-                                                        <div *ngIf="estadocivilcliente.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="ocupacion">Ocupación</label>
-                                                    <input type="text" [(ngModel)]="cliente.ocupacion" class="form-control" name="ocupacion" #ocupacion="ngModel" required>
-                                                    <div *ngIf="ocupacion.invalid && (ocupacion.dirty || ocupacion.touched)" class="alert alert-danger">
-                                                        <div *ngIf="ocupacion.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="distrito">Distrito</label>
+                          <input type="text" [(ngModel)]="cliente.distrito" class="form-control" name="distrito" #distrito="ngModel" required />
+                          <div *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)" class="alert alert-danger">
+                            <div *ngIf="distrito.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="provincia">Provincia</label>
+                          <input type="text" [(ngModel)]="cliente.provincia" class="form-control" name="provincia" #provincia="ngModel" required />
+                          <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-danger">
+                            <div *ngIf="provincia.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="fechanacimiento">Fecha de nacimiento</label>
-                                                    <datepicker-rounded
-                                                    #dpFechaDeNacimiento
-                                                    (onDateChanged)="setFechaNacimiento($event)"
-                                                    [label]="'Fecha'"
-                                                    [minDate]="{year: 1900, month: 1, day: 1}"
-                                                    ></datepicker-rounded>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="sexocliente">Sexo</label>
-                                                    <select class="form-control" name="sexocliente" [(ngModel)]="cliente.sexo" #sexocliente="ngModel" required>
-                                                        <option value="M">Masculino</option>
-                                                        <option value="F">Femenino</option>
-                                                    </select>
-                                                    <div *ngIf="sexocliente.invalid && (sexocliente.dirty || sexocliente.touched)" class="alert alert-danger">
-                                                        <div *ngIf="sexocliente.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                          <label for="direccion">Dirección</label>
+                          <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion" #direccion="ngModel" required />
+                          <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-danger">
+                            <div *ngIf="direccion.errors.required">Dato obligatorio</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="correo">Correo</label>
-                                                    <input type="text" [(ngModel)]="cliente.email" class="form-control" name="correo" #correo="ngModel" required>
-                                                    <div *ngIf="correo.invalid && (correo.dirty || correo.touched)" class="alert alert-danger">
-                                                        <div *ngIf="correo.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="telefono">Teléfono</label>
-                                                    <input type="text" [(ngModel)]="cliente.telefono" class="form-control" name="telefono" #telefono="ngModel" required>
-                                                    <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert alert-danger">
-                                                        <div *ngIf="telefono.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="distrito">Distrito</label>
-                                                    <input type="text" [(ngModel)]="cliente.distrito" class="form-control" name="distrito" #distrito="ngModel" required>
-                                                    <div *ngIf="distrito.invalid && (distrito.dirty || distrito.touched)" class="alert alert-danger">
-                                                        <div *ngIf="distrito.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="provincia">Provincia</label>
-                                                    <input type="text" [(ngModel)]="cliente.provincia" class="form-control" name="provincia" #provincia="ngModel" required>
-                                                    <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert alert-danger">
-                                                        <div *ngIf="provincia.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <label for="direccion">Dirección</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.direccion" name="direccion" #direccion="ngModel" required>
-                                                    <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert alert-danger">
-                                                        <div *ngIf="direccion.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datosconyugue-tab')">Siguiente</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-datosconyugue" role="tabpanel" aria-labelledby="v-pills-datosconyugue-tab">
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <div class="form-group">
-                                                    <label for="nombreconyugue">Nombres</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.conyuge" name="nombreconyugue" #nombreconyugue="ngModel" required>
-                                                    <!--
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
+                        <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datosconyugue-tab')">
+                          Siguiente
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-datosconyugue" role="tabpanel" aria-labelledby="v-pills-datosconyugue-tab">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                          <label for="nombreconyugue">Nombres</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="cliente.conyuge"
+                            name="nombreconyugue"
+                            #nombreconyugue="ngModel"
+                            required
+                          />
+                          <!--
                                                     <div *ngIf="nombreconyugue.invalid && (nombreconyugue.dirty || nombreconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="nombreconyugue.errors.required">Dato obligatorio</div>
 
 
                                                       </div>
                                                       -->
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="tipodocconyugue">Tipo de documento</label>
+                          <select
+                            class="form-control"
+                            name="tipodocconyugue"
+                            [(ngModel)]="cliente.idTipoDocumentoConyuge"
+                            #tipodocconyugue="ngModel"
+                            required
+                          >
+                            <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">
+                              {{ itemTipodocumento.nombre }}
+                            </option>
+                          </select>
+                          <!--
+                            <div *ngIf="tipodocconyugue.invalid && (tipodocconyugue.dirty || tipodocconyugue.touched)" class="alert alert-danger">
+                              <div *ngIf="tipodocconyugue.errors.required">Dato obligatorio</div>
+                            </div>
+                          -->
+                        </div>
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="btn-group">
+                              <label
+                                class="btn-light btn-sm"
+                                ngbButtonLabel
+                                style="margin-right: 2px"
+                                *ngIf="cliente.fotoDniConyuge"
+                                (click)="descargarArchivoSubido(cliente.fotoDniConyuge)"
+                                ><em class="fa fa-download"></em> Descargar archivo
+                              </label>
+                              <label
+                                class="btn-light btn-sm"
+                                ngbButtonLabel
+                                data-toggle="modal"
+                                data-target="#modal-gestion-subirarchivo"
+                                (click)="setTypeFileToUpload(TYPES_UPLOAD_FILE.KEYCLIENTE_CONYUGE)"
+                                ><em class="fa fa-upload"></em
+                              ></label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="tipodocconyugue">Tipo de documento</label>
-                                                    <select class="form-control" name="tipodocconyugue" [(ngModel)]="cliente.idTipoDocumentoConyuge" #tipodocconyugue="ngModel" required>
-                                                        <option [value]="itemTipodocumento.idTipoDocumento" *ngFor="let itemTipodocumento of tipodocumento">{{itemTipodocumento.nombre}}</option>
-                                                    </select>
-                                                <!--
-                                                    <div *ngIf="tipodocconyugue.invalid && (tipodocconyugue.dirty || tipodocconyugue.touched)" class="alert alert-danger">
-                                                        <div *ngIf="tipodocconyugue.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                                -->
-                                                  </div>
-                                                  <div class="row">
-                                                    <div class="col-xl-5"></div>
-                                                    <div class="col-xl-7">
-                                                      <div class="custom-file">
-                                                        <input type="file" (change)="documentoCony($event)" class="custom-file-input" id="validatedCustomFile" required>
-                                                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                                                        <div class="invalid-feedback">Example invalid custom file feedback</div>
-                                                      </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="nrodocdocumentoconyugue">Nro. doc.</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="cliente.nroDocumentoConyuge"
+                            name="nrodocdocumentoconyugue"
+                            #nrodocdocumentoconyugue="ngModel"
+                            required
+                          />
+                          <!--
+                            <div *ngIf="nrodocdocumentoconyugue.invalid && (nrodocdocumentoconyugue.dirty || nrodocdocumentoconyugue.touched)" class="alert alert-danger">
+                                <div *ngIf="nrodocdocumentoconyugue.errors.required">Dato obligatorio</div>
+                            </div>
+                          -->
+                        </div>
+                      </div>
+                    </div>
 
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="nrodocdocumentoconyugue">Nro. doc.</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.nroDocumentoConyuge" name="nrodocdocumentoconyugue" #nrodocdocumentoconyugue="ngModel" required>
-                                               <!--
-                                                    <div *ngIf="nrodocdocumentoconyugue.invalid && (nrodocdocumentoconyugue.dirty || nrodocdocumentoconyugue.touched)" class="alert alert-danger">
-                                                        <div *ngIf="nrodocdocumentoconyugue.errors.required">Dato obligatorio</div>
-                                                    </div>
-                                               -->
-                                                  </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="row">
-
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="estadocivilconyugue">Estado civil</label>
-                                                    <select class="form-control" name="estadocivilconyugue" [(ngModel)]="cliente.idEstadoCivilConyuge" #estadocivilconyugue="ngModel" required>
-                                                        <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">{{itemEstadocivil.nombre}}</option>
-                                                    </select>
-                                                  <!--
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="estadocivilconyugue">Estado civil</label>
+                          <select
+                            class="form-control"
+                            name="estadocivilconyugue"
+                            [(ngModel)]="cliente.idEstadoCivilConyuge"
+                            #estadocivilconyugue="ngModel"
+                            required
+                          >
+                            <option [value]="itemEstadocivil.idEstadoCivil" *ngFor="let itemEstadocivil of estadocivil">
+                              {{ itemEstadocivil.nombre }}
+                            </option>
+                          </select>
+                          <!--
                                                     <div *ngIf="estadocivilconyugue.invalid && (estadocivilconyugue.dirty || estadocivilconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="estadocivilconyugue.errors.required">Dato obligatorio</div>
                                                     </div>
                                                     -->
-                                                </div>
-                                            </div>
+                        </div>
+                      </div>
 
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="ocupacionconyugue">Ocupación</label>
-                                                    <input type="text" class="form-control" [(ngModel)]="cliente.ocupacionConyuge" name="ocupacionconyugue" #ocupacionconyugue="ngModel" required>
-<!--
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="ocupacionconyugue">Ocupación</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="cliente.ocupacionConyuge"
+                            name="ocupacionconyugue"
+                            #ocupacionconyugue="ngModel"
+                            required
+                          />
+                          <!--
                                                     <div *ngIf="ocupacionconyugue.invalid && (ocupacionconyugue.dirty || ocupacionconyugue.touched)" class="alert alert-danger">
                                                         <div *ngIf="ocupacionconyugue.errors.required">Dato obligatorio</div>
                                                       </div>
                                                       -->
-                                                </div>
-                                            </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datoslaborales-tab')">Siguiente</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="tab-pane fade" id="v-pills-datoslaborales" role="tabpanel" aria-labelledby="v-pills-datoslaborales-tab">
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="lugartrabajo">Lugar de trabajo</label>
-                                                    <input type="text" [(ngModel)]="cliente.lugarTrabajo" class="form-control" name="lugartrabajo" #lugartrabajo="ngModel" required>
-<!--
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
+                        <button type="submit" class="btn btn-optima btn-float-right" (click)="siguientePagina('v-pills-datoslaborales-tab')">
+                          Siguiente
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="v-pills-datoslaborales" role="tabpanel" aria-labelledby="v-pills-datoslaborales-tab">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="lugartrabajo">Lugar de trabajo</label>
+                          <input
+                            type="text"
+                            [(ngModel)]="cliente.lugarTrabajo"
+                            class="form-control"
+                            name="lugartrabajo"
+                            #lugartrabajo="ngModel"
+                            required
+                          />
+                          <!--
                                                     <div *ngIf="lugartrabajo.invalid && (lugartrabajo.dirty || lugartrabajo.touched)" class="alert alert-danger">
                                                         <div *ngIf="lugartrabajo.errors.required">Dato obligatorio</div>
                                                     </div>
     -->
-                                                  </div>
-
-                                              </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="ingresos">Ingresos</label>
-                                                    <input type="number" [(ngModel)]="cliente.ingresos" class="form-control" name="ingresos" #ingresos="ngModel" required>
-                                                    <!--
+                        </div>
+                      </div>
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="ingresos">Ingresos</label>
+                          <input type="number" [(ngModel)]="cliente.ingresos" class="form-control" name="ingresos" #ingresos="ngModel" required />
+                          <!--
                                                     <div *ngIf="ingresos.invalid && (ingresos.dirty || ingresos.touched)" class="alert alert-danger">
                                                         <div *ngIf="ingresos.errors.required">Dato obligatorio</div>
                                                     </div>
                                                     -->
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="form-group">
-                                                    <label for="asesorventa">Asesor de ventas</label>
-                                                    <input type="text" [(ngModel)]="cliente.asesor" class="form-control"  name="asesorventa" #asesorventa="ngModel" required>
-                                                    <!--
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="asesorventa">Asesor de ventas</label>
+                          <input type="text" [(ngModel)]="cliente.asesor" class="form-control" name="asesorventa" #asesorventa="ngModel" required />
+                          <!--
                                                     <div *ngIf="asesorventa.invalid && (asesorventa.dirty || asesorventa.touched)" class="alert alert-danger">
                                                         <div *ngIf="asesorventa.errors.required">Dato obligatorio</div>
                                                     </div>
                                                     -->
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-12">
-                                                <button type="submit" class="btn btn-optima btn-float-right" (click)='agregarCliente()'>Guardar</button>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+                      </div>
+                    </div>
 
-                    </form>
-
+                    <div class="row">
+                      <div class="col-sm-12 col-md-12">
+                        <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarCliente()">Guardar</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-
+          </form>
         </div>
+      </div>
     </div>
+  </div>
+</div>
 
+<div id="modal-gestion-subirarchivo" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subir archivo</h5>
+        <button id="btnModalSubirArchivoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 12px">
+              Tipo: <strong>{{ typeUploadSelected }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 15px">Si ya existe un archivo subido, este será reemplazado.</div>
+            <div class="form-group" style="position: relative">
+              <input type="file" (change)="inputUploadFileChanged($event)" class="custom-file-input form-control" id="validatedCustomFile" />
+              <label class="custom-file-label" for="validatedCustomFile">Seleccionar...</label>
+              <div class="invalid-feedback">Archivo inválido</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12" style="text-align: center">
+            <button type="button" (click)="btnCerrarModalSubirArchivo()" class="btn btn-optima" style="text-decoration: none">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
