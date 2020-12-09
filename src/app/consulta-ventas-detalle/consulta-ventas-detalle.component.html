@@ -64,7 +64,7 @@
 
                   </div>
 
-                  <div class="row col-xl-10">
+                  <div class="row col-xl-12">
                     <div class="col-sm-12 col-md-12 col-xl-2">
                       <div class="clsiptr-input">
                         <ng-autocomplete
@@ -74,6 +74,8 @@
                             (selected)="seleccionarItemBusquedaCliente($event)"
                             [itemTemplate]="itemTemplate"
                             [notFoundTemplate]="noFound"
+                            [(ngModel)]="nombre"
+                            name="nombre"
                         >
                         </ng-autocomplete>
                         <ng-template #itemTemplate let-item>
@@ -84,8 +86,11 @@
                         </ng-template>
                     </div>
                     </div>
+                    <div class="col-xl-1">
+                      <button type="button"class="fas fa-search" style="color: orangered; size: 10px;"></button>
+                    </div>
 
-                    <div class="col-sm-12 col-md-12 col-xl-5">
+                    <div class="col-sm-12 col-md-12 col-xl-2">
                         <div class="form-group">
                           <div class="form-group">
                             <mat-form-field>
@@ -93,12 +98,14 @@
                               <input matInput [(ngModel)]="dni" name="dni" placeholder="DNI" #input>
                             </mat-form-field>
                         </div>
+
                       </div>
+
+                  </div>
+                  <div class="col-xl-1">
+                    <button type="button" (click)="filtrar()" class="fas fa-search" style="color: orangered; size: 10px;"></button>
                   </div>
 
-                  <div class="col-xl-1">
-                    <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
-                  </div>
                   <div class="col-xl-1">
                     <button type="button" (click)="Cancelar()" class="btn btn-optima">Cancelar</button>
                   </div>

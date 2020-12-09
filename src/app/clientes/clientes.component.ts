@@ -53,7 +53,6 @@ export class ClientesComponent implements OnInit {
   seleccionarItemBusquedaCliente(event){
     this.clienteSeleccionado = event
     //this.clienteAutocomplete.searchInput.nativeElement.value = this.clienteSeleccionado.nroDocumento
-    this.dni = this.clienteSeleccionado.nroDocumento
     console.log(this.clienteSeleccionado)
   }
 
@@ -72,6 +71,14 @@ export class ClientesComponent implements OnInit {
     })
   }
 
+  filtrarNombreApellido(){
+    this.clienteService.obtenerClientesPorIdFiltro(this.clienteSeleccionado.idCliente).subscribe((
+      data) => {
+      console.log(data)
+      this.clientesLista = data
+    })
+  }
+
 
   obtenerTodoClientes(){
     this.clienteService.obtenerCliente().subscribe((data)=>{
@@ -80,7 +87,7 @@ export class ClientesComponent implements OnInit {
         listaCliente.push({
           idCliente: elem.idCliente,
           nroDocumento : elem.nroDocumento,
-          nombre: elem.nombres + " "+elem.apellidos
+          nombre: elem.nombres+" " + elem.apellidos
         })
       })
       this.dataBuscarCliente = listaCliente

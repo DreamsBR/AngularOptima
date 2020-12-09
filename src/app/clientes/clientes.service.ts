@@ -57,6 +57,10 @@ export class ClienteService {
       })
     )
   }
+  obtenerClientesPorIdFiltro(idCliente): Observable<any> {
+    return this.http.get<Clientenodo>(this.urlEndPoint + idCliente)
+
+    }
 
   buscarClientePorNombre(nombre, apellidos){
     return this.http.get(this.urlEndPoint + 'bynombresandapellidos/'+ nombre +'/'+ apellidos ).pipe(
@@ -69,7 +73,6 @@ export class ClienteService {
         return jsonClientesResponse
       })
     )
-
   }
 
 
@@ -95,10 +98,4 @@ export class ClienteService {
       })
     )
   }
-
-  findClienteByNombreApellido(nombre, apellidos){
-    return this.http.get<Clientenodo>(this.urlEndPoint + 'bynombresandapellidos/' + nombre + apellidos)
-  }
-
-
 }
