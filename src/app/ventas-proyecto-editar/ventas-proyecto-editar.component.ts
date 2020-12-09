@@ -180,7 +180,8 @@ export class VentasProyectoEditarComponent implements OnInit {
 
       this.ventanodos = venta
 
-      this.idVendedor = venta.vendedor.idvendedor
+      console.info(venta.vendedor.idVendedor)
+      this.idVendedor = venta.vendedor.idVendedor
 
       this.estadoVenta = this.ventanodos.estadoVenta.idEstadoVenta
       this.fechaRegistro = this.ventanodos.fechaRegistro
@@ -527,7 +528,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
     this.venta.enable = 1
 
+    console.info(this.idVendedor)
     this.venta.idVendedor = this.idVendedor // id vendedor logueado
+    console.info(this.venta.idVendedor)
 
     this.venta.idEstadoVenta = this.estadoVenta
 
