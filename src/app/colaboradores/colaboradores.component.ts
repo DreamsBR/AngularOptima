@@ -31,6 +31,25 @@ export class ColaboradoresComponent implements OnInit {
   ngOnInit() {
     this.obtenerColaborador()
   }
+
+  dni:string
+  filtrar(){
+    this.colaboradorService.obtenerColaboradorFiltro(this.dni).subscribe((
+      jsonColaborador) => {
+        console.log(jsonColaborador)
+        this.colaboradoresLista = jsonColaborador
+
+      })
+
+  }
+
+  Cancelar(){
+    this.dni = ''
+    this.obtenerColaborador()
+
+  }
+
+
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number =+params.get('page');

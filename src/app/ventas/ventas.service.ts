@@ -34,6 +34,7 @@ export class VentaService {
     )
   }
 
+
   agregarVenta(venta: Venta): Observable<any> {
     return this.http.post<any>(this.urlEndPoint + 'venta', venta).pipe(
       catchError((e) => {
@@ -43,6 +44,7 @@ export class VentaService {
       })
     )
   }
+
 
   editarVenta(venta: Venta, idVenta: number): Observable<any> {
     return this.http.put<any>(this.urlEndPoint + 'venta/' + idVenta, venta).pipe(
@@ -75,6 +77,20 @@ export class VentaService {
       })
     )
   }
+
+
+  getVentasPorDni(cocli, page, count){
+      return this.http.get(this.urlEndPoint + 'venta/bycliente/' + cocli +'/'+ page +'/'+ count).pipe(
+        map((jsonVentasResponse: any) => {
+          ;(jsonVentasResponse.content as VentaNodos[]).map((VentaNodos) => {
+            return VentaNodos
+          })
+          return jsonVentasResponse
+        })
+      )
+  }
+
+
 
   getVentasProyectoPorFecha(idProyecto, fechaini, fechafin):Observable<any>{
     return this.http.get(this.urlEndPoint + 'venta/byrange/'+ idProyecto + '/'+ fechaini+'/' +fechafin) .pipe(

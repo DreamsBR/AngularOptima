@@ -30,6 +30,7 @@ export class ColaboradorService {
         );
     }
 
+
     getTodosColaboradores(): Observable<any> {
         return this.http.get(this.urlEndPoint + '/').pipe(
             map((jsonColaboradorResponse: any) => {
@@ -61,9 +62,45 @@ export class ColaboradorService {
         return this.http.post<any>(this.urlEndPoint2, usuarioLogin, httpOptions)
     }
 
-    obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
-      return this.http.get<Colaborador>(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc)
+    private urlEndPoint3 : string = URL_BACKEND_SEG + 'auth/' + 'changepasswordadmin'
+    editarUsuario( usuario:string, contrasenia:string, role:string ) : Observable<any>{
+        
+        let param = {
+            "password": contrasenia,
+            "role": [
+                role
+            ],
+            "userName": usuario
+        }
+        let httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
+        return this.http.post<any>(this.urlEndPoint3, param, httpOptions)
     }
+
+    obtenerUsuarioPorIdColaborador(idColaborador: number):Observable<Colaborador>{
+        return this.http.get<any>(this.urlEndPoint + '/findUser/' + idColaborador)
+      }
+
+    obtenerColaboradorDni(nrdoc):Observable<Colaborador>{
+      return this.http.get<Colaborador>(this.urlEndPoint +'/findByNumeroDocumento/' + nrdoc)
+    }
+
+    obtenerColaboradorFiltro(nrdoc):Observable<any>{
+      return this.http.get(this.urlEndPoint + '/findByNumeroDocumento/' + nrdoc).pipe(
+        map((jsonColaboradorResponse: any) => {
+          (jsonColaboradorResponse as Colaborador[]).map(
+            colaborador => {
+              colaborador.nombres = colaborador.nombres.toUpperCase();
+              colaborador.apellidos = colaborador.apellidos.toUpperCase();
+              return colaborador;
+          });
+          return jsonColaboradorResponse;
+      })
+    );
+
+    }
+
+
+
 
     obtenerColaboradorPorId(idColaborador): Observable<Colaborador> {
         return this.http.get<Colaborador>(this.urlEndPoint + '/' + idColaborador)

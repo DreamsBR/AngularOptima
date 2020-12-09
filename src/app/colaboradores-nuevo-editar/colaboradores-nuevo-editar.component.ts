@@ -68,6 +68,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
               (response) => {
                 this.colaborador = response
                 this.tipoDocSelected = this.colaborador.tipoDocumento.idTipoDocumento
+
+                this.obtenerRoles()
               },
               (err) => {
                 this.errores = err.error.errors as string[]
@@ -78,16 +80,9 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
       },
       (error) => {
         this.loading = false
-        console.log(error)
       }
     )
-
-    this.obtenerRoles()
   }
-
-
-
-
 
   menuToggle() {
     this.status = !this.status
@@ -98,6 +93,17 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   public obtenerRoles(){
     this.rolesService.getRoles().subscribe((response)=> {
       this.roles = response
+
+      this.colaboradorService.obtenerUsuarioPorIdColaborador(this.idColaborador).subscribe(
+        (response) => {
+          this.usuario = response[0].username
+          this.rolseleccionado = response[0].roles[0].name
+        },
+        (err) => {
+          this.errores = err.error.errors as string[]
+        }
+      )
+
     })
   }
 
@@ -105,8 +111,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     let id = this.idColaborador
     const newColaborador = JSON.parse(JSON.stringify(this.colaborador))
     newColaborador.idTipoDocumento = this.tipoDocSelected
-
-    console.info(id)
     if (id == 0) {
       this.colaboradorService.agregarColaborador(newColaborador).subscribe(
         (response) => {
@@ -121,7 +125,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         .actualizarColaborador(newColaborador, this.colaborador.idColaborador)
         .subscribe(
           (response) => {
-            this.guardarUsuario(response.idColaborador)
+            this.editarUsuario(this.usuario, this.contrasenia, this.rolseleccionado)
           },
           (err) => {
             this.errores = err.error.errors as string[]
@@ -134,6 +138,34 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   contrasenia: string
   rolseleccionado: string
 
+  public editarUsuario(usuario: string, contrasenia: string, role: string){
+
+    if( contrasenia != null ){
+
+      if( contrasenia.length < 8 ){
+        swal('La contraseña debe contener minimo 8 digitos.', '', 'warning')
+      }else{
+        this.colaboradorService.editarUsuario(usuario, contrasenia, role).subscribe(
+          (response: any) => {
+            this.router.navigate(['/colaboradores'])
+            swal('Registro editado correctamente', '', 'success')
+          },
+          (err) =>{
+            if (err.status == 400){
+              swal('Usuario ya existe', '', 'warning')
+            }
+            if (err.status == 401){
+              swal('Error en datos', '', 'warning')
+            }
+          }
+        )
+      }
+    }else{
+      this.router.navigate(['/colaboradores'])
+      swal('Registro editado correctamente', '', 'success')
+    }
+  }
+
   public guardarUsuario(idColaborador: number):void {
 
     let addUsuarioLogin = {
@@ -144,7 +176,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
       "role": [
         this.rolseleccionado
       ],
-      "username":  this.usuario
+      "username": this.usuario
     }
 
     this.colaboradorService.agregarUsuario(addUsuarioLogin).subscribe(

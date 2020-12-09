@@ -25,6 +25,16 @@ export class ClienteService {
       })
     )
   }
+  obtenerCliente(){
+    return this.http.get(this.urlEndPoint).pipe(
+      map((data:any ) => {
+        (data as Cliente[]).map((cliente) => {
+          return cliente
+        })
+        return data
+      })
+    )
+  }
 
   obtenerClientesPorId(idCliente): Observable<Clientenodo> {
     return this.http.get<Clientenodo>(this.urlEndPoint + idCliente)
@@ -47,6 +57,24 @@ export class ClienteService {
       })
     )
   }
+  obtenerClientesPorIdFiltro(idCliente): Observable<any> {
+    return this.http.get<Clientenodo>(this.urlEndPoint + idCliente)
+
+    }
+
+  buscarClientePorNombre(nombre, apellidos){
+    return this.http.get(this.urlEndPoint + 'bynombresandapellidos/'+ nombre +'/'+ apellidos ).pipe(
+      map((jsonClientesResponse: any) => {
+        ;(jsonClientesResponse as Cliente[]).map((cliente) => {
+          cliente.nombres = cliente.nombres.toUpperCase()
+          cliente.apellidos = cliente.apellidos.toUpperCase()
+          return cliente;
+        })
+        return jsonClientesResponse
+      })
+    )
+  }
+
 
   obtenerClientesPorDni(nrodoc): Observable<any> {
     return this.http.get(this.urlEndPoint + 'nroDocumento/' + nrodoc).pipe(
@@ -70,10 +98,4 @@ export class ClienteService {
       })
     )
   }
-
-  findClienteByNombreApellido(nombre, apellidos){
-    return this.http.get<Clientenodo>(this.urlEndPoint + 'bynombresandapellidos/' + nombre + apellidos)
-  }
-
-
 }

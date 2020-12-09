@@ -9,6 +9,7 @@ import { statusVentaservice } from '../consulta-ventas/statusventa.service';
 import { VentaService } from '../ventas/ventas.service';
 import { Ventanodos } from '../ventas-proyecto-editar/ventanodos';
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component';
+import { ClienteService } from '../clientes/clientes.service';
 
 @Component({
   selector: 'app-consulta-ventas-detalle',
@@ -26,6 +27,8 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   tipoestado : estadoventa[]
   ventasLista: Ventanodos[]
   fechaSeparacion : string
+  dni=''
+
 
   filterPost = ""
   base:string
@@ -36,16 +39,25 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
+  @ViewChild('clienteAutocomplete',null) clienteAutocomplete: any;
+
+
   estadoventaSeleccionado: number
   fechaDesde: string
   fechaHasta: string
+  dataBuscarCliente = []
+
+
+
+  kwBuscar = 'nombre'
 
   constructor(
     private estadoventa : statusVentaservice,
     private activatedRoute: ActivatedRoute,
     private ventaService : VentaService,
     public authService: AuthService,
-    public router: Router
+    public router: Router,
+    public clienteService : ClienteService
   ){}
 
   ngOnInit() {
@@ -62,8 +74,57 @@ export class ConsultaVentasDetalleComponent implements OnInit {
       this.dpfechaHasta.setValue(this.fechaHasta)
 
       this.obtenerVentasProyecto()
+      this.obtenerTodoClientes()
+
     })
   }
+
+
+  clienteSeleccionado: any
+  seleccionarItemBusquedaCliente(event){
+    this.clienteSeleccionado = event
+    //this.clienteAutocomplete.searchInput.nativeElement.value = this.clienteSeleccionado.nroDocumento
+    this.dni = this.clienteSeleccionado.nroDocumento
+    console.log(this.clienteSeleccionado)
+  }
+
+
+  obtenerTodoClientes(){
+    this.clienteService.obtenerCliente().subscribe((data)=>{
+      const listaCliente = []
+      data.forEach((elem:any) => {
+        listaCliente.push({
+          idCliente: elem.idCliente,
+          nroDocumento : elem.nroDocumento,
+          nombre: elem.nombres + " "+elem.apellidos
+        })
+      })
+      this.dataBuscarCliente = listaCliente
+    })
+
+  }
+
+
+  filtrar(){
+
+    this.ventaService.getVentasPorDni(this.clienteSeleccionado.idCliente, 1, 1).subscribe((
+      jsonVentas) => {
+        console.log(jsonVentas)
+        this.ventasLista = []
+        this.ventasLista = jsonVentas.content
+      })
+    }
+
+  nombre:string
+  Cancelar(){
+    this.dni = ''
+    this.nombre = ''
+    this.clienteSeleccionado = null
+    //this.estadoventaSeleccionado = 1
+    this.obtenerSoloFecha()
+  }
+
+
 
   onfechaDesde(newdate: string) {
     this.fechaDesde = newdate
@@ -79,13 +140,17 @@ export class ConsultaVentasDetalleComponent implements OnInit {
     this.obtenerVentasProyecto()
   }
 
+
   obtenerVentasProyecto(){
+
     this.ventaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
       ventasJsonResponse) => {
         console.info(ventasJsonResponse)
         this.ventasLista = ventasJsonResponse
       })
-  }
+
+}
+
 
   obtenerSoloFecha(){
     this.ventaService.getVentasProyectoPorFecha(this.paramIdProyecto, this.fechaDesde, this.fechaHasta).subscribe((
