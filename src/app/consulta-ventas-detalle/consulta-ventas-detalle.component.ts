@@ -118,9 +118,10 @@ export class ConsultaVentasDetalleComponent implements OnInit {
   nombre:string
   Cancelar(){
     this.dni = ''
-    this.nombre = ""
+    this.nombre = ''
     this.clienteSeleccionado = null
-    this.obtenerVentasProyecto()
+    //this.estadoventaSeleccionado = 1
+    this.obtenerSoloFecha()
   }
 
 
@@ -141,16 +142,13 @@ export class ConsultaVentasDetalleComponent implements OnInit {
 
 
   obtenerVentasProyecto(){
-    if(this.clienteSeleccionado == null)
-    {
+
     this.ventaService.getVentasByProyectoEstadoFeciniFecfin(this.paramIdProyecto, this.estadoventaSeleccionado, this.fechaDesde, this.fechaHasta).subscribe((
       ventasJsonResponse) => {
         console.info(ventasJsonResponse)
         this.ventasLista = ventasJsonResponse
       })
-    }else {
-      this.filtrar()
-    }
+
 }
 
 

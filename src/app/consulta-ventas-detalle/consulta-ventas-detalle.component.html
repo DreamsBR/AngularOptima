@@ -65,6 +65,7 @@
                   </div>
 
                   <div class="row col-xl-12">
+
                     <div class="col-sm-12 col-md-12 col-xl-2">
                       <div class="clsiptr-input">
                         <ng-autocomplete
@@ -74,7 +75,8 @@
                             (selected)="seleccionarItemBusquedaCliente($event)"
                             [itemTemplate]="itemTemplate"
                             [notFoundTemplate]="noFound"
-                        >
+
+                            >
                         </ng-autocomplete>
                         <ng-template #itemTemplate let-item>
                             <a [innerHTML]="item.nombre"></a>
@@ -84,9 +86,7 @@
                         </ng-template>
                     </div>
                     </div>
-                    <div class="col-xl-1">
-                      <button type="button"class="fas fa-search" style="color: orangered; size: 10px;"></button>
-                    </div>
+
 
                     <div class="col-sm-12 col-md-12 col-xl-2">
                         <div class="form-group">
