@@ -4,6 +4,9 @@ import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
 
+import { Tipoinmueble } from './tipoinmueble'
+import { TipoinmuebleService } from './tipoinmueble.service'
+
 import { Tipoinmueblecategoria } from './tipoinmueblecategoria'
 import { TipoinmueblecategoriaService } from './tipoinmueblecategoria.service'
 
@@ -47,6 +50,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
+
+  tipoinmueble: Tipoinmueble[]
+  tipoinmuebleSeleccionado: number
 
   tipoinmueblecategoria: Tipoinmueblecategoria[]
   tipoinmueblecategoriaSeleccionadoTipoInmueble: number
@@ -104,7 +110,8 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     private categoriaService: CategoriaService,
     private ventainmuebleService: VentainmuebleService,
     private colaboradorService: ColaboradorService,
-    private vendedorService: VendedorService
+    private vendedorService: VendedorService,
+    private tipoinmuebleService: TipoinmuebleService
   ) {}
 
   ngOnInit() {
@@ -121,7 +128,8 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.clienteSeleccionado.apellidos = ''
     this.clienteSeleccionado.nroDocumento = ''
 
-    this.obtenerTipoInmuebleCategoria()
+    this.obtenerTipoInmueble()
+    //this.obtenerTipoInmuebleCategoria()
     this.obtenerTipoCredito()
     this.obtenerBancos()
     this.obteneradicionalesPorCategoria(1)
@@ -156,7 +164,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.vendedorSelected = null
   }
 
-
   public obtenerClienteSeleccionado(nrodoc: string) {
     this.clienteService.obtenerClientesPorDni(nrodoc).subscribe((cliente) => {
       if (Object.keys(cliente).length > 0) {
@@ -177,11 +184,25 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     })
   }
 
-  public obtenerTipoInmuebleCategoria() {
-    this.tipoinmueblecategoriaService.getTipoinmueblecategoria().subscribe((response) => {
+  public obtenerTipoInmueble() {
+    this.tipoinmuebleService.getTipoinmueble().subscribe((response) => {
+      this.tipoinmueble = response
+    })
+  }
+
+  public seleccionarTipoInmueble(tipoinmueble: number) {
+    console.info(tipoinmueble)
+    this.tipoinmuebleSeleccionado = tipoinmueble
+    this.tipoinmueblecategoriaService.getCategoriaPorTipoInmueble(tipoinmueble).subscribe((response) => {
       this.tipoinmueblecategoria = response
     })
   }
+
+  // public obtenerTipoInmuebleCategoria() {
+  //   this.tipoinmueblecategoriaService.getTipoinmueblecategoria().subscribe((response) => {
+  //     this.tipoinmueblecategoria = response
+  //   })
+  // }
 
   public obtenerTipoCredito() {
     this.tipocreditoService.getTipoCredito().subscribe((response) => {
@@ -213,15 +234,15 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     })
   }
 
-  public obtenerInmueblesPorCategoria(idTipoInmuebleCategoriaTipoInmueblePorComas: string) {
-    const separated = idTipoInmuebleCategoriaTipoInmueblePorComas.split(',')
-    const idTipoInmuebleCategoria = parseInt(separated[0])
-    const idTipoInmueble = parseInt(separated[1])
+  public obtenerInmueblesPorCategoria(idTipoInmuebleCategoria: number) {
+    // const separated = idTipoInmuebleCategoriaTipoInmueblePorComas.split(',')
+    // const idTipoInmuebleCategoria = parseInt(separated[0])
+    // const idTipoInmueble = parseInt(separated[1])
     //console.log(idTipoInmuebleCategoria)
     //console.log(idTipoInmueble)
     
     this.inmuebleService
-      .getInmueblesByListarPorCategoria(this.paramIdProyecto, idTipoInmueble, idTipoInmuebleCategoria)
+      .getInmueblesByListarPorCategoria(this.paramIdProyecto, this.tipoinmuebleSeleccionado, idTipoInmuebleCategoria)
       .subscribe((response) => {
         this.departamentos = response
       })

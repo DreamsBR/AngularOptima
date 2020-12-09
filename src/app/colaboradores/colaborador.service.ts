@@ -76,7 +76,7 @@ export class ColaboradorService {
         return this.http.post<any>(this.urlEndPoint3, param, httpOptions)
     }
 
-    obtenerUsuarioPorIdColaborador(idColaborador: number):Observable<Colaborador>{
+    obtenerUsuarioPorIdColaborador(idColaborador: number):Observable<any>{
         return this.http.get<any>(this.urlEndPoint + '/findUser/' + idColaborador)
       }
 

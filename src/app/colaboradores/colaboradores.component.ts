@@ -49,7 +49,6 @@ export class ColaboradoresComponent implements OnInit {
 
   }
 
-
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
       let page: number =+params.get('page');
@@ -60,6 +59,7 @@ export class ColaboradoresComponent implements OnInit {
       subscribe(
         (colaboradorJsonResponse) => {
           this.colaboradoresLista = colaboradorJsonResponse.content;
+          console.info(this.colaboradoresLista)
           this.paginador = colaboradorJsonResponse;
           this.base='colaborador'
         })
@@ -67,18 +67,32 @@ export class ColaboradoresComponent implements OnInit {
   }
 
   public eliminar(colaborador: Colaborador): void {
-    this.colaboradorService.eliminarColaborador(colaborador.idColaborador).subscribe(
+    const delColaborador = JSON.parse(JSON.stringify(colaborador))
+    delColaborador.idTipoDocumento = colaborador.tipoDocumento.idTipoDocumento
+    delColaborador.enable = 0
+    this.colaboradorService
+    .actualizarColaborador(delColaborador, colaborador.idColaborador)
+    .subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerColaborador()
       },
-      (err) => {
-        console.error(err)
-        document.getElementById('cerrarModalEliminar').click()
-        this.obtenerColaborador()
-      }
+      (err) => {}
     )
+
+    // this.colaboradorService.eliminarColaborador(colaborador.idColaborador).subscribe(
+    //   (response) => {
+    //     console.info(response)
+    //     document.getElementById('cerrarModalEliminar').click()
+    //     this.obtenerColaborador()
+    //   },
+    //   (err) => {
+    //     console.error(err)
+    //     document.getElementById('cerrarModalEliminar').click()
+    //     this.obtenerColaborador()
+    //   }
+    // )
+
   }
 
   public obtenerColaboradorSeleccionado(colaborador: Colaborador) {
