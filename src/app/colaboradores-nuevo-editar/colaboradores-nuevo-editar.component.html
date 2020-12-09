@@ -157,7 +157,12 @@
               <div class="col-sm-12 col-md-6">
                 <div class="form-goup">
                   <label for="roles">Rol Asignado</label>
-                  <select name="roles" class="form-control" [(ngModel)]="rolseleccionado">
+                  <select 
+                    name="roles"
+                    class="form-control" 
+                    [(ngModel)]="rolseleccionado"
+                    required
+                  >
                     <option value="{{ rol.name }}" *ngFor="let rol of roles"> {{rol.name}}</option>
                   </select>
                 </div>
