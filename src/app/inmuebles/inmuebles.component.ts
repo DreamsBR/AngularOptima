@@ -22,11 +22,14 @@ export class InmueblesComponent implements OnInit {
     'areaTotal',
     'idTipoVista',
     'cantidadDormitorio',
+    'enable',
     'precio'
   ]
   inmuebleLista = new MatTableDataSource<Inmueble>()
 
   idProyecto: number = 0
+  inmuebleSeleccionado: any
+
 
   //totalData: number = 0
   //pageIndex: number = 0
@@ -54,6 +57,7 @@ export class InmueblesComponent implements OnInit {
   fetchDataByIdProyecto(idProyecto: number) {
     this.inmuebleService.getInmueblesByIdProyecto(idProyecto).subscribe((inmueblesJsonResponse) => {
       this.inmuebleLista = new MatTableDataSource<Inmueble>(inmueblesJsonResponse)
+      console.info(inmueblesJsonResponse)
       //this.pageIndex = inmueblesJsonResponse.pageable.pageNumber
       //this.totalData = inmueblesJsonResponse.totalElements
     })
@@ -70,4 +74,45 @@ export class InmueblesComponent implements OnInit {
   goToAgregar() {
     window.location.href = '/inmueble-nuevo-editar/0?idProyecto=' + this.idProyecto
   }
+
+  public seleccionarInmueble(inmueble: any){
+    this.inmuebleSeleccionado = inmueble
+  }
+
+  public eliminarInmueble(): void {
+    console.log(this.inmuebleSeleccionado)
+    let delInmueble = {
+      "areaLibre": this.inmuebleSeleccionado.areaLibre,
+      "areaTechada": this.inmuebleSeleccionado.areaTechada,
+      "areaTotal": this.inmuebleSeleccionado.areaTotal,
+      "cantidadDormitorio": this.inmuebleSeleccionado.cantidadDormitorio,
+      "enable": 0,
+      "idInmueble": this.inmuebleSeleccionado.idInmueble,
+      "idProyecto": this.inmuebleSeleccionado.idProyecto,
+      "idTipoInmueble": this.inmuebleSeleccionado.tipoInmueble.idTipoInmueble,
+      "idTipoInmuebleCategoria": this.inmuebleSeleccionado.tipoInmuebleCategoria.idTipoInmuebleCategoria,
+      "idTipoVista": this.inmuebleSeleccionado.tipoVista.idTipoVista,
+      "numero": this.inmuebleSeleccionado.numero,
+      "precio": this.inmuebleSeleccionado.precio
+    }
+
+    this.inmuebleService.actualizarInmueble(delInmueble, delInmueble.idInmueble).subscribe((resp) => {
+      this.fetchDataByIdProyecto(this.idProyecto)
+      document.getElementById('cerrarModalEliminar').click()
+    })
+
+    // const delColaborador = JSON.parse(JSON.stringify(colaborador))
+    // delColaborador.idTipoDocumento = colaborador.tipoDocumento.idTipoDocumento
+    // delColaborador.enable = 0
+    // this.colaboradorService
+    // .actualizarColaborador(delColaborador, colaborador.idColaborador)
+    // .subscribe(
+    //   (response) => {
+    //     document.getElementById('cerrarModalEliminar').click()
+    //     this.obtenerColaborador()
+    //   },
+    //   (err) => {}
+    // )
+  }
+
 }

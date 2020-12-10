@@ -175,12 +175,7 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public obtenerDatosDeVenta(idVenta: number) {
     this.ventaService.getVentasById(idVenta).subscribe((venta) => {
-
-      console.info(venta)
-
       this.ventanodos = venta
-
-      console.info(venta.vendedor.idVendedor)
       this.idVendedor = venta.vendedor.idVendedor
 
       this.estadoVenta = this.ventanodos.estadoVenta.idEstadoVenta
@@ -240,7 +235,6 @@ export class VentasProyectoEditarComponent implements OnInit {
   }
 
   public seleccionarTipoInmueble(tipoinmueble: number) {
-    console.info(tipoinmueble)
     this.tipoinmuebleSeleccionado = tipoinmueble
     this.tipoinmueblecategoriaService.getCategoriaPorTipoInmueble(tipoinmueble).subscribe((response) => {
       this.tipoinmueblecategoria = response
@@ -527,11 +521,7 @@ export class VentasProyectoEditarComponent implements OnInit {
     // this.venta.idVenta = 0
 
     this.venta.enable = 1
-
-    console.info(this.idVendedor)
     this.venta.idVendedor = this.idVendedor // id vendedor logueado
-    console.info(this.venta.idVendedor)
-
     this.venta.idEstadoVenta = this.estadoVenta
 
     this.venta.fechaRegistro = this.fechaRegistro

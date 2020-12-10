@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config/config';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-colaboradores',
@@ -13,7 +12,6 @@ import swal from 'sweetalert2';
 })
 
 export class ColaboradoresComponent implements OnInit {
-
 
   colaboradoresLista: Colaborador[];
   paginador: any;
@@ -25,7 +23,6 @@ export class ColaboradoresComponent implements OnInit {
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,7 +35,6 @@ export class ColaboradoresComponent implements OnInit {
       jsonColaborador) => {
         console.log(jsonColaborador)
         this.colaboradoresLista = jsonColaborador
-
       })
 
   }
@@ -79,20 +75,6 @@ export class ColaboradoresComponent implements OnInit {
       },
       (err) => {}
     )
-
-    // this.colaboradorService.eliminarColaborador(colaborador.idColaborador).subscribe(
-    //   (response) => {
-    //     console.info(response)
-    //     document.getElementById('cerrarModalEliminar').click()
-    //     this.obtenerColaborador()
-    //   },
-    //   (err) => {
-    //     console.error(err)
-    //     document.getElementById('cerrarModalEliminar').click()
-    //     this.obtenerColaborador()
-    //   }
-    // )
-
   }
 
   public obtenerColaboradorSeleccionado(colaborador: Colaborador) {

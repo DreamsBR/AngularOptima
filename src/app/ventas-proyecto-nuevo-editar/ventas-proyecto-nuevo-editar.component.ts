@@ -194,7 +194,6 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   }
 
   public seleccionarTipoInmueble(tipoinmueble: number) {
-    console.info(tipoinmueble)
     this.tipoinmuebleSeleccionado = tipoinmueble
     this.tipoinmueblecategoriaService.getCategoriaPorTipoInmueble(tipoinmueble).subscribe((response) => {
       this.tipoinmueblecategoria = response
