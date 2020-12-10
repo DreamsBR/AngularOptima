@@ -13,6 +13,7 @@ import { ReportesService } from '../reportes/reportes.service'
 import { ConsolidadoProyecto } from './consolidadoproyecto'
 import { ActivatedRoute,Router } from '@angular/router'
 import { ColaboradorService } from '../colaboradores/colaborador.service'
+import { ExporterService } from '../helpers/exporter.service'
 
 import {
   ApexAxisChartSeries,
@@ -104,7 +105,8 @@ export class ReportesProyectosComponent implements OnInit {
     private periodoGerenciaService: PeriodoGerenciaService,
     private activatedRoute: ActivatedRoute,
     private reportesService: ReportesService,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private exporterService: ExporterService
   ) {
     this.chartOptions = {
       colors: ['#579DD3', '#EE7B37'],
@@ -509,4 +511,36 @@ export class ReportesProyectosComponent implements OnInit {
     const idColaborador = row.vendedor.idColaborador
     this.router.navigate(['/reportes-por-vendedor/' + idColaborador + '/' + this.filterIdPeriodo])
   }
+
+  exportar() {
+    const itemsExportFormat:ExportItemExcel[] = []
+    this.itemsTable.data.forEach(element => {
+      const tmpItem:ExportItemExcel = {
+        vendedor: element.vendedor.nombre,
+        meta: element.meta,
+        avance: element.avance,
+        minuta: element.minuta,
+        ci: element.ci,
+        preca: element.preca,
+        ev: element.ev,
+        sp: element.sp,
+        caida: element.caida,
+      }
+      itemsExportFormat.push(tmpItem)
+    })
+    // const timeStamp = new Date().getTime()
+    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xproyecto')
+  }
+}
+
+interface ExportItemExcel {
+  vendedor: string
+  meta: number
+  avance: number
+  minuta: number
+  ci: number
+  preca: number
+  ev: number
+  sp: number
+  caida: number
 }
