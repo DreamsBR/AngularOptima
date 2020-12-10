@@ -13,23 +13,26 @@ import { statusVentaservice } from '../consulta-ventas/statusventa.service'
   templateUrl: './ventas-proyecto.component.html'
 })
 export class VentasProyectoComponent implements OnInit {
-  ventasProyectoLista: Ventasproyecto[] = []
-  idProyectoSeleted: number = 0
-  tipoestado: estadoventa[]
   paramIdProyecto: number
 
+  /* ventasProyectoLista: Ventasproyecto[] = []
+  idProyectoSeleted: number = 0
+  tipoestado: estadoventa[]
+
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
-  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
+  @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent */
 
   constructor(
     private estadoventa: statusVentaservice,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
     public VentaService: VentaService
-  ) {}
+  ) {
+    this.paramIdProyecto = this.activatedRoute.snapshot.params.id
+  }
 
   ngOnInit() {
-    this.activatedRoute.paramMap.subscribe((params) => {
+    /* this.activatedRoute.paramMap.subscribe((params) => {
       this.paramIdProyecto = parseInt(params.get('id'))
       if (params.get('idestadoventa')) {
         this.estadoventaSeleccionado = parseInt(params.get('idestadoventa'))
@@ -44,37 +47,17 @@ export class VentasProyectoComponent implements OnInit {
 
       this.obtenerEstadoVentas()
       // this.obtenerVentas(this.paramIdProyecto)
-    })
+    }) */
   }
 
-  ventasLista: VentaNodos[]
-  // paginador: any
-  // base: string
-  // id: number
-
-  // obtenerVentas(id: number) {
-  //   this.activatedRoute.paramMap.subscribe((params) => {
-  //     let page: number =+ params.get('page')
-  //     if (!page) {
-  //       page = 0
-  //     }
-  //     this.VentaService.getVentasByProyecto(id, page).subscribe((
-  //       ventasJsonResponse) => {
-  //       this.ventasLista = ventasJsonResponse.content
-  //       this.paginador = ventasJsonResponse
-  //       this.base = 'ventas-proyecto'
-  //       this.id = this.paramIdProyecto
-  //     })
-  //   })
-  //   this.obtenerEstadoVentas()
-  // }
+  //ventasLista: VentaNodos[]
 
   status: boolean = false
   menuToggle() {
     this.status = !this.status
   }
 
-  selectItemProyecto(idProyecto) {
+  /*   selectItemProyecto(idProyecto) {
     this.idProyectoSeleted = idProyecto
   }
 
@@ -132,5 +115,5 @@ export class VentasProyectoComponent implements OnInit {
     this.estadoventa.getEstadoVenta().subscribe((response) => {
       this.tipoestado = response
     })
-  }
+  } */
 }

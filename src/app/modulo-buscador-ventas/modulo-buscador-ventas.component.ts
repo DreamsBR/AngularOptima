@@ -6,6 +6,8 @@ import { ModuloBuscadorVentasService } from './modulo-buscador-ventas.service'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 import { EstadoVenta } from '../estados-ventas/estadoventa'
 import { Clientenodo } from '../clientes/clientenodo'
+import { ProyectoService } from '../proyectos/proyectos.service'
+import { Proyecto } from '../proyectos/proyecto'
 
 @Component({
   selector: 'modulo-buscador-ventas',
@@ -44,25 +46,29 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
   filterSidebarOpen: boolean = true
 
+  proyecto: Proyecto = null
+
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
-  constructor(private mbvService: ModuloBuscadorVentasService) {}
+  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService) {}
 
   toogleSidebarFilter() {
     this.filterSidebarOpen = !this.filterSidebarOpen
   }
 
   ngOnInit() {
-    if (!this.idProyecto) {
-      alert('No se ha especificado un ID de Proyecto como parámetro al componente')
-      return
-    }
+    // if (!this.idProyecto) {
+    //   alert('No se ha especificado un ID de Proyecto como parámetro al componente')
+    //   return
+    // }
 
     this.loading = true
     this.loadDataComponent().subscribe(
       (resp) => {
         this.optionsEstadoVenta = resp[0]
+        this.proyecto = new Proyecto()
+        this.proyecto.nombre = resp[1].proyecto.nombre
 
         // TODO: SETEAR AUTOMATICAMENTE LAS FECHAS
         this.filterDesde = '2020-01-01'
@@ -84,7 +90,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
   loadDataComponent(): Observable<any[]> {
     let infoPagos = this.mbvService.getListaMaestraEstados()
-    return forkJoin([infoPagos])
+    let infoProyecto = this.proyectoService.getProyectosById(this.idProyecto)
+    return forkJoin([infoPagos, infoProyecto])
   }
 
   toggleTypeFilter(type: string) {
