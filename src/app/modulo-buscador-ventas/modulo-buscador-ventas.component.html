@@ -1,0 +1,135 @@
+<br />
+<button class="btn btn-optima btn-sm mb-2 mt-2" (click)="toogleSidebarFilter()" style="text-decoration: none !important">
+  {{ filterSidebarOpen ? 'Ocultar' : 'Mostrar' }} filtros
+</button>
+<div class="divmbv divmbv-wrapper" style="border: 0px solid red">
+  <div style="display: flex">
+    <!--Beggin::Filtros Block-->
+    <div
+      class="filtersb-column"
+      [ngClass]="{
+        'filtersb-column__close': !filterSidebarOpen
+      }"
+    >
+      <div class="mb-2 mb5" style="font-size: 0.85rem">Selecciones los filtros:</div>
+      <div
+        class="filtr-option"
+        [ngClass]="{
+          'filtr-option__active': this.groupFilterSelected.includes(TIPOS_DE_BUSQUEDA.POR_FECHA)
+        }"
+      >
+        <div class="dot-filtr" (click)="toggleTypeFilter(TIPOS_DE_BUSQUEDA.POR_FECHA)"><em class="fa fa-check"></em></div>
+        <datepicker-rounded #dpfechaDesde [label]="'Desde'" (onDateChanged)="onfechaDesde($event)"></datepicker-rounded>
+        <datepicker-rounded #dpfechaHasta [label]="'Hasta'" (onDateChanged)="onfechaHasta($event)"></datepicker-rounded>
+      </div>
+      <div
+        class="filtr-option"
+        [ngClass]="{
+          'filtr-option__active': this.groupFilterSelected.includes(TIPOS_DE_BUSQUEDA.POR_ESTADO)
+        }"
+      >
+        <div class="dot-filtr" (click)="toggleTypeFilter(TIPOS_DE_BUSQUEDA.POR_ESTADO)"><em class="fa fa-check"></em></div>
+        <select class="form-control form-control-sm mb-2" name="statusventa" id="exampleFormControlSelect1" [(ngModel)]="filterIdEstadoVenta">
+          <option value="0">--Seleccione Status--</option>
+          <option [value]="items.idEstadoVenta" *ngFor="let items of optionsEstadoVenta">{{ items.nombre }}</option>
+        </select>
+      </div>
+      <div
+        class="filtr-option"
+        [ngClass]="{
+          'filtr-option__active': this.groupFilterSelected.includes(TIPOS_DE_BUSQUEDA.POR_DNI)
+        }"
+      >
+        <div class="dot-filtr" (click)="toggleTypeFilter(TIPOS_DE_BUSQUEDA.POR_DNI)"><em class="fa fa-check"></em></div>
+        <div class="input-group input-group-sm mb-3">
+          <input type="text" mask="00000000" class="form-control" [(ngModel)]="textToSearchDNI" placeholder="Escriba el DNI..." />
+          <div class="input-group-append">
+            <button class="btn btn-outline-primary" (click)="buscarClientePorInputDNI()" type="button"><em class="fa fa-search"></em></button>
+          </div>
+        </div>
+        <div style="font-size: 0.75rem">
+          {{
+            filterCliente !== null
+              ? 'Cliente: ' + filterCliente.nombres.toUpperCase() + ' ' + filterCliente.apellidos.toUpperCase()
+              : '-- Cliente no encontrado --'
+          }}
+        </div>
+      </div>
+      <button (click)="aplicarFiltros()" class="btn btn-optima btn-mbvaplicar" [disabled]="loading">Aplicar</button>
+    </div>
+    <!--End::Filtros Block-->
+    <!--Beggin::Tabla Block-->
+    <div style="flex: 1; position: relative">
+      <table mat-table [dataSource]="itemsLista" class="tbproy" style="width: 100%">
+        <ng-container matColumnDef="editar">
+          <th mat-header-cell *matHeaderCellDef>Editar</th>
+          <td mat-cell *matCellDef="let element">
+            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+            <div class="dropdown-menu dropdown-menu-left">
+              <button
+                class="dropdown-item"
+                type="button"
+                [routerLink]="['/ventas-proyecto-editar', element.idProyecto, element.idVenta, element.cliente.nroDocumento]"
+              >
+                <em class="far fa-edit"></em> Editar
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nombres">
+          <th mat-header-cell *matHeaderCellDef>Nombres</th>
+          <td mat-cell *matCellDef="let element">
+            <a href="ventas-consulta-cliente-detalle/{{ element.idVenta }}">{{ element.cliente.nombres | uppercase }}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="apellidos">
+          <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+          <td mat-cell *matCellDef="let element">
+            <a href="ventas-consulta-cliente-detalle/{{ element.idVenta }}">{{ element.cliente.apellidos | uppercase }}</a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nrodoc">
+          <th mat-header-cell *matHeaderCellDef>Nro. Doc.</th>
+          <td mat-cell *matCellDef="let element">{{ element.cliente.nroDocumento }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="fecharegistro">
+          <th mat-header-cell *matHeaderCellDef>Fecha registro</th>
+          <td mat-cell *matCellDef="let element">{{ element.fechaRegistro !== null ? (element.fechaRegistro | formatDate) : '' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalventa">
+          <th mat-header-cell *matHeaderCellDef>Total de venta</th>
+          <td mat-cell *matCellDef="let element">{{ element.importe | formatSoles }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="financiado">
+          <th mat-header-cell *matHeaderCellDef>Financiado</th>
+          <td mat-cell *matCellDef="let element">{{ element.total | formatSoles }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element">{{ element.estadoVenta.nombre }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+      </table>
+      <div
+        class="spinner-wrapperdiv"
+        [ngClass]="{
+          'spinner-wrapperdiv__show': loading
+        }"
+      >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden"></span>
+        </div>
+      </div>
+    </div>
+    <!--End::Tabla Block-->
+  </div>
+</div>

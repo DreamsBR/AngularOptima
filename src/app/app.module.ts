@@ -123,6 +123,8 @@ import { PruebaService } from './prueba/prueba.service';
 import { UtilService } from './util/util.service';
 import { VentaFilesService } from './venta-files/venta-files.service';
 import { TipoinmuebleService } from './ventas-proyecto-nuevo-editar/tipoinmueble.service';
+import { ModuloBuscadorVentasComponent } from './modulo-buscador-ventas/modulo-buscador-ventas.component';
+import { ModuloBuscadorVentasService } from './modulo-buscador-ventas/modulo-buscador-ventas.service';
 
 const ROUTES: Routes = [
 
@@ -252,7 +254,8 @@ const ROUTES: Routes = [
     PruebaComponent,
     GerenciaColaboradorComponent,
     ProyectosGerenteComponent,
-    ProyectosColaboradorComponent
+    ProyectosColaboradorComponent,
+    ModuloBuscadorVentasComponent
   ],
   imports: [
     BrowserModule,
@@ -317,6 +320,7 @@ const ROUTES: Routes = [
     UtilService,
     VentaFilesService,
     TipoinmuebleService,
+    ModuloBuscadorVentasService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

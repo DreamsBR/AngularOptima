@@ -13,6 +13,7 @@ import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rou
 import { UtilService } from '../util/util.service'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { detectMime } from '../util/detectMime'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-clientes-nuevo-editar',
@@ -47,7 +48,8 @@ export class ClientesNuevoEditarComponent implements OnInit {
     private estadocivilService: EstadocivilService,
     private tipodocumentoService: TipodocumentoService,
     private _snackBar: MatSnackBar,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private location: Location
   ) {}
 
   ngOnInit() {
@@ -269,5 +271,10 @@ export class ClientesNuevoEditarComponent implements OnInit {
       duration: duration,
       panelClass: [className]
     })
+  }
+
+  regresar() {
+    this.location.back()
+    //this.router.navigate(['/reportes-por-vendedor/' + idColaborador + '/' + this.filterIdPeriodo])
   }
 }
