@@ -119,6 +119,9 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
       </table>
+      <div *ngIf="itemsLista.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px; font-size: 0.85rem">
+        -- No hay resultados --
+      </div>
       <div
         class="spinner-wrapperdiv"
         [ngClass]="{

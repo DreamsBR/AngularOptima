@@ -172,8 +172,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     this.mbvService
       .getVentaByProyectoAndEstadoRange(this.idProyecto, parseInt(this.filterIdEstadoVenta), this.filterDesde, this.filterHasta)
       .subscribe((resp) => {
-        console.log(resp) // TODO: VERIFICAR LA RESPUESTA Y ASIGNARLA A LA TABLA
-        // this.itemsLista = new MatTableDataSource<VentaNodos>(resp)
+        this.itemsLista = new MatTableDataSource<VentaNodos>(resp)
       })
   }
 
