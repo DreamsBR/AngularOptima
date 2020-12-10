@@ -89,7 +89,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     'areaTotal',
     'idTipoVista',
     'cantidadDormitorio',
-    'precio'
+    'precio',
+    'descuento',
+    'ayudainicial',
+    'importe'
   ]
   inmuebleLista = new MatTableDataSource<Inmueble>()
   sumaTotalInmuebles: number = 0
@@ -834,7 +837,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       this.inmuebleLista = new MatTableDataSource<Inmueble>(inmueblesJsonResponse)
       let tmpSumaInm = 0
       inmueblesJsonResponse.forEach((elem: any) => {
-        tmpSumaInm += elem.precio
+        tmpSumaInm += elem.importe
       })
       this.sumaTotalInmuebles = tmpSumaInm
     })
