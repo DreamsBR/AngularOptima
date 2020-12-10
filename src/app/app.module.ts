@@ -125,6 +125,10 @@ import { VentaFilesService } from './venta-files/venta-files.service';
 import { TipoinmuebleService } from './ventas-proyecto-nuevo-editar/tipoinmueble.service';
 import { ModuloBuscadorVentasComponent } from './modulo-buscador-ventas/modulo-buscador-ventas.component';
 import { ModuloBuscadorVentasService } from './modulo-buscador-ventas/modulo-buscador-ventas.service';
+import { TipoInmuebleComponent } from './tipoinmueble/tipoinmueble.component';
+import { TipoInmuebleCategoriaComponent } from './tipoinmueblecategoria/tipoinmueblecategoria.component';
+import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/tipoinmueble-nuevo-editar.component';
+import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
 
 const ROUTES: Routes = [
 
@@ -187,7 +191,11 @@ const ROUTES: Routes = [
   { path: 'categorias', component: CategoriaComponent},
   { path: 'prueba', component:PruebaComponent},
   { path: 'proyectos-gerente', component: ProyectosGerenteComponent },
-  { path: 'proyectos-colaborador', component: ProyectosColaboradorComponent }
+  { path: 'proyectos-colaborador', component: ProyectosColaboradorComponent },
+  { path: 'tipoinmueble', component: TipoInmuebleComponent },
+  { path: 'tipoinmueblecategoria', component: TipoInmuebleCategoriaComponent },
+  { path: 'tipoinmueble-nuevo-editar/:id', component: TipoinmuebleNuevoEditarComponent },
+  { path: 'tipoinmueblecategoria-nuevo-editar/:id', component: TipoinmueblecategoriaNuevoEditarComponent },
 ]
 
 @NgModule({
@@ -255,7 +263,11 @@ const ROUTES: Routes = [
     GerenciaColaboradorComponent,
     ProyectosGerenteComponent,
     ProyectosColaboradorComponent,
-    ModuloBuscadorVentasComponent
+    ModuloBuscadorVentasComponent,
+    TipoInmuebleComponent,
+    TipoInmuebleCategoriaComponent,
+    TipoinmuebleNuevoEditarComponent,
+    TipoinmueblecategoriaNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
