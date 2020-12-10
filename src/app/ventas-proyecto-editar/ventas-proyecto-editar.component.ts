@@ -295,8 +295,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public agregarDepartamentoExistente() {
     this.ventainmuebleService.getInmueblesPorVenta(this.idVenta).subscribe((response) => {
+      console.info(response)
       for (let x = 0; x < response.length; x++) {
-        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1) {
+        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1 || response[x].inmueble.tipoInmueble.idTipoInmueble == 3) {
           let tInmueble = new Inmueble()
           tInmueble.numero = response[x].inmueble.numero
           tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
