@@ -89,6 +89,7 @@
 
                         <p class="label-dato">Dirección</p>
                         <p>{{ cliente.direccion }}</p>
+
                       </div>
                     </div>
                   </div>
@@ -254,9 +255,30 @@
                     </ng-container>
 
                     <ng-container matColumnDef="precio">
-                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
+                      <th mat-header-cell *matHeaderCellDef>Precio</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.precio | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descuento">
+                      <th mat-header-cell *matHeaderCellDef>Descuento</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.descuento }} %
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ayudainicial">
+                      <th mat-header-cell *matHeaderCellDef>Ayuda inicial</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.ayudainicial | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="importe">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Subtotal</th>
                       <td mat-cell *matCellDef="let elem" style="text-align: end; color: var(--primary); font-weight: bold">
-                        {{ elem.inmueble.precio | formatSoles }}
+                        {{ elem.importe | formatSoles }}
                       </td>
                     </ng-container>
 
