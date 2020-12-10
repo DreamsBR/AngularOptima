@@ -16,7 +16,11 @@ export class VentaFilesService {
   }
 
   updateVentaFiles(ventaFile: VentaFilesPost): Observable<VentaFiles> {
-    return this.http.post<VentaFiles>(this.urlEndPoint, ventaFile).pipe()
+    return this.http.put<VentaFiles>(this.urlEndPoint + '/' + ventaFile.idVentaFiles, ventaFile).pipe()
+  }
+
+  deleteVentaFiles(idVentaFile: number): Observable<any> {
+    return this.http.delete(this.urlEndPoint + '/' + idVentaFile).pipe()
   }
 
   getVentaFilesByIdVenta(idVenta: number): Observable<VentaFiles[]> {

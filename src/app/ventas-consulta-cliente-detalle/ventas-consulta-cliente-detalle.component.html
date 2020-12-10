@@ -393,8 +393,14 @@
                           data-toggle="modal"
                           data-target="#modal-gestion-archivofecha"
                           (click)="setNuevoVentaFile(1)"
+                          title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFSeparacion !== null"
+                          (click)="eliminarArchivoFechaPago(1)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -416,8 +422,14 @@
                           data-toggle="modal"
                           data-target="#modal-gestion-archivofecha"
                           (click)="setNuevoVentaFile(5)"
+                          title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFMinuta !== null"
+                          (click)="eliminarArchivoFechaPago(5)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -443,8 +455,14 @@
                           data-toggle="modal"
                           data-target="#modal-gestion-archivofecha"
                           (click)="setNuevoVentaFile(12)"
+                          title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFDesembolso !== null"
+                          (click)="eliminarArchivoFechaPago(12)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -466,8 +484,14 @@
                           data-toggle="modal"
                           data-target="#modal-gestion-archivofecha"
                           (click)="setNuevoVentaFile(13)"
+                          title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFEEP !== null"
+                          (click)="eliminarArchivoFechaPago(13)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>

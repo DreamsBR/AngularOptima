@@ -524,28 +524,30 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   uploadFilePago(event) {
-    this.loading = true
     const file = event.target.files[0]
-    const extension = file.name.split('.').pop()
-    const reader = new FileReader()
-    const randomCode = Math.floor(Math.random() * (99999 - 11111)) + 11111
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
-          (resp) => {
-            this.pagoModal.fileRuta = resp.fileName
-            this.loading = false
-            this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
-          },
-          (error) => {
-            this.loading = false
-            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
-            console.log(error)
-          }
-        )
-      } else {
-        console.log('No se pudo convertir a String base 64')
+    if (file) {
+      this.loading = true
+      const extension = file.name.split('.').pop()
+      const reader = new FileReader()
+      const randomCode = Math.floor(Math.random() * (99999 - 11111)) + 11111
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
+            (resp) => {
+              this.pagoModal.fileRuta = resp.fileName
+              this.loading = false
+              this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
+            },
+            (error) => {
+              this.loading = false
+              this.modalPagoErrores = ['Hubo un problema al subir el archivo']
+              console.log(error)
+            }
+          )
+        } else {
+          console.log('No se pudo convertir a String base 64')
+        }
       }
     }
   }
@@ -601,67 +603,96 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     // La propiedad fileRuta será completada cuando suba el archivo
   }
 
+  eliminarArchivoFechaPago (TipoEstadoVenta: number) {
+    switch (TipoEstadoVenta) {
+      case 1:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFSeparacion.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFSeparacion = null
+        })
+        break
+      case 5:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFMinuta.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFMinuta = null
+        })
+        break
+      case 12:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFDesembolso.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFDesembolso = null
+        })
+        break
+      case 13:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFEEP.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFEEP = null
+        })
+        break
+      default:
+        break
+    }
+  }
+
   uploadFileFechas(event, type: string) {
-    this.loading = true
     const file = event.target.files[0]
-    const extension = file.name.split('.').pop()
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        this.utilService
-          .postUploadFile(
-            reader.result,
-            `FEC_${this.modal_fecha_type}_EVID_${this.ventaFileModal.idEstadoVenta}_VID_${this.venta.idVenta}.${extension}`
-          )
-          .subscribe(
-            (resp) => {
-              console.log('Archivo subido')
-              console.log(resp)
-              
-              this.ventaFileModal.fileRuta = resp.fileName
+    if (file) {
+      this.loading = true
+      const extension = file.name.split('.').pop()
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          this.utilService
+            .postUploadFile(
+              reader.result,
+              `FEC_${this.modal_fecha_type}_EVID_${this.ventaFileModal.idEstadoVenta}_VID_${this.venta.idVenta}.${extension}`
+            )
+            .subscribe(
+              (resp) => {
+                console.log('Archivo subido')
+                console.log(resp)
+                
+                this.ventaFileModal.fileRuta = resp.fileName
 
-              
-              let pathToExec = null
-              const vfvalidacion =  this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
-              if (vfvalidacion.idVentaFiles === 0) {
-                console.log('creará')
-                console.log(vfvalidacion)
-                pathToExec = this.ventaFilesService.postVentaFiles(vfvalidacion)
-              } else {
-                console.log('actualizará')
-                console.log(vfvalidacion)
-                pathToExec = this.ventaFilesService.updateVentaFiles(vfvalidacion)
-              }
- 
-              pathToExec.subscribe(
-                (resp) => {
-                  this.loading = false
-                  this.setLocalVentaFile(resp)
-                  this.btnCerrarModalArchivoFecha()
-
-                  this.openSnackBar('success', '✓ Archivo guardado con éxito', 'Cerrar')
-                },
-                (error) => {
-                  this.loading = false
-                  this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
-                  console.log(error)
+                
+                let pathToExec = null
+                const vfvalidacion =  this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
+                if (vfvalidacion.idVentaFiles === 0) {
+                  console.log('creará')
+                  console.log(vfvalidacion)
+                  pathToExec = this.ventaFilesService.postVentaFiles(vfvalidacion)
+                } else {
+                  console.log('actualizará')
+                  console.log(vfvalidacion)
+                  pathToExec = this.ventaFilesService.updateVentaFiles(vfvalidacion)
                 }
-              )
+  
+                pathToExec.subscribe(
+                  (resp) => {
+                    this.loading = false
+                    this.setLocalVentaFile(resp)
+                    this.btnCerrarModalArchivoFecha()
 
-              /*this.loading = false
-            this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
-            this.TerminarPagoModal()
-            console.log('llega')*/
-            },
-            (error) => {
-              this.openSnackBar('error', 'No se pudo subir el archivo', 'Cerrar')
-              console.log(error)
-            }
-          )
-      } else {
-        this.openSnackBar('error', 'No se pudo convertir a String base 64', 'Cerrar')
-        console.log('No se pudo convertir a String base 64')
+                    this.openSnackBar('success', '✓ Archivo guardado con éxito', 'Cerrar')
+                  },
+                  (error) => {
+                    this.loading = false
+                    this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
+                    console.log(error)
+                  }
+                )
+
+                /*this.loading = false
+              this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
+              this.TerminarPagoModal()
+              console.log('llega')*/
+              },
+              (error) => {
+                this.openSnackBar('error', 'No se pudo subir el archivo', 'Cerrar')
+                console.log(error)
+              }
+            )
+        } else {
+          this.openSnackBar('error', 'No se pudo convertir a String base 64', 'Cerrar')
+          console.log('No se pudo convertir a String base 64')
+        }
       }
     }
   }
