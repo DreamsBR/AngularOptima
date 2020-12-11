@@ -4,6 +4,14 @@
   border-radius: 20px;
 }
 
+
+
+#monto {
+  font-size: 29px;
+  color: #EE6F2E;
+}
+
+
 .clsiptr-icon {
   width: 40px;
   display: flex;
