@@ -121,6 +121,14 @@ import { ProyectosGerenteComponent } from './proyectos-gerente/proyectos-gerente
 import { ProyectosColaboradorComponent } from './proyectos-colaborador/proyectos-colaborador.component'
 import { PruebaService } from './prueba/prueba.service';
 import { UtilService } from './util/util.service';
+import { VentaFilesService } from './venta-files/venta-files.service';
+import { TipoinmuebleService } from './ventas-proyecto-nuevo-editar/tipoinmueble.service';
+import { ModuloBuscadorVentasComponent } from './modulo-buscador-ventas/modulo-buscador-ventas.component';
+import { ModuloBuscadorVentasService } from './modulo-buscador-ventas/modulo-buscador-ventas.service';
+import { TipoInmuebleComponent } from './tipoinmueble/tipoinmueble.component';
+import { TipoInmuebleCategoriaComponent } from './tipoinmueblecategoria/tipoinmueblecategoria.component';
+import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/tipoinmueble-nuevo-editar.component';
+import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
 
 const ROUTES: Routes = [
 
@@ -183,7 +191,11 @@ const ROUTES: Routes = [
   { path: 'categorias', component: CategoriaComponent},
   { path: 'prueba', component:PruebaComponent},
   { path: 'proyectos-gerente', component: ProyectosGerenteComponent },
-  { path: 'proyectos-colaborador', component: ProyectosColaboradorComponent }
+  { path: 'proyectos-colaborador', component: ProyectosColaboradorComponent },
+  { path: 'tipoinmueble', component: TipoInmuebleComponent },
+  { path: 'tipoinmueblecategoria', component: TipoInmuebleCategoriaComponent },
+  { path: 'tipoinmueble-nuevo-editar/:id', component: TipoinmuebleNuevoEditarComponent },
+  { path: 'tipoinmueblecategoria-nuevo-editar/:id', component: TipoinmueblecategoriaNuevoEditarComponent },
 ]
 
 @NgModule({
@@ -250,7 +262,12 @@ const ROUTES: Routes = [
     PruebaComponent,
     GerenciaColaboradorComponent,
     ProyectosGerenteComponent,
-    ProyectosColaboradorComponent
+    ProyectosColaboradorComponent,
+    ModuloBuscadorVentasComponent,
+    TipoInmuebleComponent,
+    TipoInmuebleCategoriaComponent,
+    TipoinmuebleNuevoEditarComponent,
+    TipoinmueblecategoriaNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
@@ -313,6 +330,9 @@ const ROUTES: Routes = [
     RolesServices,
     PruebaService,
     UtilService,
+    VentaFilesService,
+    TipoinmuebleService,
+    ModuloBuscadorVentasService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],

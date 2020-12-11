@@ -89,6 +89,7 @@
 
                         <p class="label-dato">Dirección</p>
                         <p>{{ cliente.direccion }}</p>
+
                       </div>
                     </div>
                   </div>
@@ -254,9 +255,30 @@
                     </ng-container>
 
                     <ng-container matColumnDef="precio">
-                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Precio</th>
+                      <th mat-header-cell *matHeaderCellDef>Precio</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.precio | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="descuento">
+                      <th mat-header-cell *matHeaderCellDef>Descuento</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.descuento }} %
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="ayudainicial">
+                      <th mat-header-cell *matHeaderCellDef>Ayuda inicial</th>
+                      <td mat-cell *matCellDef="let elem">
+                        {{ elem.ayudainicial | formatSoles }}
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="importe">
+                      <th mat-header-cell *matHeaderCellDef style="text-align: end">Subtotal</th>
                       <td mat-cell *matCellDef="let elem" style="text-align: end; color: var(--primary); font-weight: bold">
-                        {{ elem.inmueble.precio | formatSoles }}
+                        {{ elem.importe | formatSoles }}
                       </td>
                     </ng-container>
 
@@ -381,15 +403,26 @@
                   ></datepicker-rounded>
                   <div class="row">
                     <div class="col-12">
-                      <div class="form-group" style="position: relative">
-                        <input
-                          type="file"
-                          (change)="uploadFileFechas($event, FILES_TYPES_NAMES.SEPARACION)"
-                          class="form-control custom-file-input"
-                          id="validatedFechaSep"
-                        />
-                        <label class="custom-file-label" for="validatedFechaSep">Seleccionar...</label>
-                        <div class="invalid-feedback">Archivo inválido</div>
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFSeparacion !== null"
+                          (click)="descargarArchivoPago(ventaFileFSeparacion.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(1)"
+                          title="Subir archivo"
+                          ><em class="fa fa-upload"></em
+                        ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFSeparacion !== null"
+                          (click)="eliminarArchivoFechaPago(1)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -398,12 +431,27 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'" (onDateChanged)="onFechaMinutaChanged($event)"></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-2"></div>
-                    <div class="col-xl-10">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfMinuta($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFMinuta !== null"
+                          (click)="descargarArchivoPago(ventaFileFMinuta.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(5)"
+                          title="Subir archivo"
+                          ><em class="fa fa-upload"></em
+                        ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFMinuta !== null"
+                          (click)="eliminarArchivoFechaPago(5)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -416,12 +464,27 @@
                     (onDateChanged)="onFechaDesembolsoChanged($event)"
                   ></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-5"></div>
-                    <div class="col-xl-7">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfDeseembolso($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFDesembolso !== null"
+                          (click)="descargarArchivoPago(ventaFileFDesembolso.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(12)"
+                          title="Subir archivo"
+                          ><em class="fa fa-upload"></em
+                        ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFDesembolso !== null"
+                          (click)="eliminarArchivoFechaPago(12)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -430,12 +493,27 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'" (onDateChanged)="onFechaEEPChanged($event)"></datepicker-rounded>
                   <div class="row">
-                    <div class="col-xl-2"></div>
-                    <div class="col-xl-10">
-                      <div class="custom-file">
-                        <input type="file" (change)="pdfEep($event)" class="custom-file-input" id="validatedCustomFile" required />
-                        <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        <div class="invalid-feedback">Example invalid custom file feedback</div>
+                    <div class="col-12">
+                      <div class="btn-group">
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                          *ngIf="ventaFileFEEP !== null"
+                          (click)="descargarArchivoPago(ventaFileFEEP.fileRuta)"
+                          ><em class="fa fa-download"></em> Descargar archivo
+                        </label>
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          data-toggle="modal"
+                          data-target="#modal-gestion-archivofecha"
+                          (click)="setNuevoVentaFile(13)"
+                          title="Subir archivo"
+                          ><em class="fa fa-upload"></em
+                        ></label>
+                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                          *ngIf="ventaFileFEEP !== null"
+                          (click)="eliminarArchivoFechaPago(13)"
+                          ><em class="fa fa-times"></em>
+                        </label>
                       </div>
                     </div>
                   </div>
@@ -784,6 +862,43 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">Confirmar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarInmueble">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-gestion-archivofecha" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subir archivo de Fecha</h5>
+        <button id="btnModalFechaArchivoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 12px">
+              Tipo: <strong>FECHA DE {{ modal_fecha_type }}</strong>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div style="font-size: 0.75rem; margin-bottom: 12px">Si ya existe un archivo para la fecha seleccionada, este será reemplazado.</div>
+            <div class="form-group" style="position: relative">
+              <input type="file" (change)="uploadFileFechas($event,'')" class="custom-file-input form-control" id="validatedCustomFile" />
+              <label class="custom-file-label" for="validatedCustomFile">Seleccionar...</label>
+              <div class="invalid-feedback">Archivo inválido</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12" style="text-align: center">
+            <button type="button" (click)="btnCerrarModalArchivoFecha()" class="btn btn-optima" style="text-decoration: none">Cerrar</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

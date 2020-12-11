@@ -55,8 +55,15 @@
           >
             Buscar
           </button>
-          <!-- <button class="btn btn-optima ml-2">Exportar</button>
-          <button class="btn btn-optima ml-2">Imprimir</button> -->
+          <button
+            class="btn btn-optima ml-2"
+            (click)="exportar()"
+            style="text-decoration: none !important"
+            [disabled]="!filterIdProyecto || !filterIdPeriodo"
+          >
+            Exportar
+          </button>
+          <!--<button class="btn btn-optima ml-2">Imprimir</button> -->
         </div>
       </div>
       <div class="row">

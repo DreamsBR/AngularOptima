@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { FormControl } from '@angular/forms'
 import { Observable } from 'rxjs'
@@ -501,16 +501,36 @@ export class ReportesComponent implements OnInit {
     this.router.navigate(['/reportes-por-proyecto/' + idProyecto + '/' + this.filterIdPeriodo])
   }
 
+
   exportar() {
-    console.log(this.itemsTable.data)
-    this.exporterService.exportToExcel(
-      [
-        {
-          id: '1',
-          nombre: 'sdfafa'
-        }
-      ],
-      'reporte'
-    )
+    const itemsExportFormat:ExportItemExcel[] = []
+    this.itemsTable.data.forEach(element => {
+      const tmpItem:ExportItemExcel = {
+        proyecto: element.proyecto.nombre,
+        meta: element.meta,
+        avance: element.avance,
+        minuta: element.minuta,
+        ci: element.ci,
+        preca: element.preca,
+        ev: element.ev,
+        sp: element.sp,
+        caida: element.caida,
+      }
+      itemsExportFormat.push(tmpItem)
+    })
+    // const timeStamp = new Date().getTime()
+    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
   }
+}
+
+interface ExportItemExcel {
+  proyecto: string
+  meta: number
+  avance: number
+  minuta: number
+  ci: number
+  preca: number
+  ev: number
+  sp: number
+  caida: number
 }

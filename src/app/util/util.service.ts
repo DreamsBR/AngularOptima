@@ -34,15 +34,5 @@ export class UtilService {
         fileName: fileName
       })
       .pipe()
-    // fetch(validBase64)
-    //   .then((res) => res.blob())
-    //   .then((blob) => {
-    //     var link = window.document.createElement('a')
-    //     link.href = window.URL.createObjectURL(blob)
-    //     link.target = '_blank'
-    //     document.body.appendChild(link)
-    //     link.click()
-    //     document.body.removeChild(link)
-    //   })
   }
 }

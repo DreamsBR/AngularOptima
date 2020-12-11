@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core'
 import { Inmueble } from './inmueble'
 import { Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
-import { map } from 'rxjs/operators'
+import { catchError, map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { URL_BACKEND } from '../config/config'
+import { throwError } from 'rxjs/internal/observable/throwError'
 
 @Injectable()
 export class InmuebleService {
@@ -49,6 +50,16 @@ export class InmuebleService {
     return this.http
       .delete<Inmueble>(this.urlEndPoint + '/' + inmueble.idInmueble)
       .pipe(map((jsonReponse: any) => jsonReponse as Inmueble))
+  }
+
+  actualizarInmueble(inmueble: Inmueble, idInmueble: number): Observable<any> {
+    return this.http.put<any>(this.urlEndPoint + '/' + idInmueble, inmueble).pipe(
+        catchError((e) => {
+            if (e.status === 400) {
+                return throwError(e)
+            }
+        })
+    )
   }
 
   getInmueblesByListarPorCategoria(

@@ -63,31 +63,27 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
           if (this.idColaborador != 0) {
             this.isModeEdit = true
-
             this.colaboradorService.obtenerColaboradorPorId(this.idColaborador).subscribe(
               (response) => {
                 this.colaborador = response
                 this.tipoDocSelected = this.colaborador.tipoDocumento.idTipoDocumento
+                this.obtenerRoles()
               },
               (err) => {
                 this.errores = err.error.errors as string[]
               }
             )
+          }else{
+            this.obtenerRoles()
           }
+
         })
       },
       (error) => {
         this.loading = false
-        console.log(error)
       }
     )
-
-    this.obtenerRoles()
   }
-
-
-
-
 
   menuToggle() {
     this.status = !this.status
@@ -98,16 +94,41 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
   public obtenerRoles(){
     this.rolesService.getRoles().subscribe((response)=> {
       this.roles = response
+      this.colaboradorService.obtenerUsuarioPorIdColaborador(this.idColaborador).subscribe(
+        (response) => {
+          if(response.length > 0){
+            this.usuario = response[0].username
+            this.rolseleccionado = response[0].roles[0].name
+          }
+        },
+        (err) => {
+          this.errores = err.error.errors as string[]
+        }
+      )
     })
   }
 
   public agregarColaborador(): void {
+
+    if( this.usuario.length == 0 ){
+      swal('Ingrese un nombre de usuario', '', 'warning')
+    }
+
+    if( this.rolseleccionado == '' ){
+      swal('Seleccione un rol', '', 'warning')
+    }
+
     let id = this.idColaborador
     const newColaborador = JSON.parse(JSON.stringify(this.colaborador))
     newColaborador.idTipoDocumento = this.tipoDocSelected
 
-    console.info(id)
     if (id == 0) {
+
+      if( this.contrasenia == null || this.contrasenia == '' ){
+        swal('La contraseña debe contener minimo 8 digitos.', '', 'warning')
+        return
+      }
+
       this.colaboradorService.agregarColaborador(newColaborador).subscribe(
         (response) => {
           this.guardarUsuario(response.idColaborador)
@@ -116,23 +137,23 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
           this.errores = err.error.errors as string[]
         }
       )
+
     } else {
+
       this.colaboradorService
         .actualizarColaborador(newColaborador, this.colaborador.idColaborador)
         .subscribe(
           (response) => {
-            this.guardarUsuario(response.idColaborador)
+            this.editarUsuario(this.usuario, this.contrasenia, this.rolseleccionado)
           },
           (err) => {
             this.errores = err.error.errors as string[]
           }
         )
-    }
-  }
 
-  usuario: string
-  contrasenia: string
-  rolseleccionado: string
+    }
+
+  }
 
   public guardarUsuario(idColaborador: number):void {
 
@@ -144,7 +165,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
       "role": [
         this.rolseleccionado
       ],
-      "username":  this.usuario
+      "username": this.usuario
     }
 
     this.colaboradorService.agregarUsuario(addUsuarioLogin).subscribe(
@@ -166,25 +187,44 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
         }
       }
     )
+  }
 
-    // this.router.navigate(['/colaboradores'])
 
-    // this.usuarioLoginService.agregarUsiarioLog(addUsuarioLogin).subscribe(
-    //   (response) => {
-    //       console.log(response)
-    //       this.router.navigate(['/colaboradores'])
-    //       swal('Nuevo colaborador', `Colaborador ${response.nombres} creado con exito`, 'success')
-    //   }, 
-    //   (err) =>{
-    //     if (err.status == 400){
-    //       swal('Usuario ya existe', '', 'warning')
-    //     }
-    //     if (err.status == 401){
-    //       swal('Error en datos', '', 'warning')
-    //     }
-    //   }
-    // )
+  usuario: string
+  contrasenia: string
+  rolseleccionado: string
 
+  public editarUsuario(usuario: string, contrasenia: string, role: string){
+
+    console.info(contrasenia)
+
+    if(contrasenia){
+
+      if( contrasenia.length < 8 ){
+        swal('La contraseña debe contener minimo 8 digitos.', '', 'warning')
+      }else{
+        this.colaboradorService.editarUsuario(usuario, contrasenia, role).subscribe(
+          (response: any) => {
+            this.router.navigate(['/colaboradores'])
+            swal('Registro editado correctamente', '', 'success')
+          },
+          (err) =>{
+            if (err.status == 400){
+              swal('Usuario ya existe', '', 'warning')
+            }
+            if (err.status == 401){
+              swal('Error en datos', '', 'warning')
+            }
+          }
+        )
+      }
+
+    }else{
+
+      this.router.navigate(['/colaboradores'])
+      swal('Registro editado correctamente', '', 'success')
+
+    }
   }
 
   get isValidForm() {

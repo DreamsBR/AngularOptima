@@ -52,6 +52,7 @@
                 type="button"
                 data-toggle="modal"
                 data-target="#modal-eliminar-cliente"
+                (click)='seleccionarInmueble(elem)'
               >
                 <em class="far fa-trash-alt"></em> Eliminar
               </button>
@@ -89,6 +90,14 @@
           <td mat-cell *matCellDef="let elem">{{ elem.tipoVista.nombre }}</td>
         </ng-container>
 
+        <ng-container matColumnDef="enable">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let elem">
+            <span *ngIf="elem.tipoVista.enable==1">Activo</span>
+            <span *ngIf="elem.tipoVista.enable==0">Inactivo</span>
+          </td>
+        </ng-container>
+
         <ng-container matColumnDef="cantidadDormitorio">
           <th mat-header-cell *matHeaderCellDef>Dorm.</th>
           <td mat-cell *matCellDef="let elem">{{ elem.cantidadDormitorio }}</td>
@@ -118,11 +127,12 @@
   </div>
 </div>
 
+
 <div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Eliminar cliente</h5>
+        <h5 class="modal-title">Eliminar inmueble</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -131,8 +141,8 @@
         <p>¿Seguro que deseas eliminar el registro?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-optima">Confirmar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-optima" (click)='eliminarInmueble()'>Confirmar</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
       </div>
     </div>
   </div>

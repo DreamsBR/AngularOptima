@@ -27,6 +27,10 @@ import { TipoInmueble } from '../inmueble-nuevo-editar/tipoinmueble'
 
 import { UtilService } from '../util/util.service'
 import { detectMime } from '../util/detectMime'
+import { VentaFiles } from '../venta-files/ventafiles'
+import { VentaFilesPost } from '../venta-files/ventafilespost'
+import { VentaFilesService } from '../venta-files/venta-files.service'
+
 
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
@@ -85,7 +89,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     'areaTotal',
     'idTipoVista',
     'cantidadDormitorio',
-    'precio'
+    'precio',
+    'descuento',
+    'ayudainicial',
+    'importe'
   ]
   inmuebleLista = new MatTableDataSource<Inmueble>()
   sumaTotalInmuebles: number = 0
@@ -98,8 +105,20 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   filePagoData = null
 
   FILES_TYPES_NAMES = {
-    SEPARACION: 'FSEPARACION_VENTAID'
+    SEPARACION: 'SEPARACION',
+    MINUTA: 'MINUTA',
+    DESEMBOLSO: 'DESEMBOLSO',
+    EEP: 'EEP'
   }
+
+  modal_fecha_type = null
+
+  ventaFileModal: VentaFilesPost = null
+  ventaFileFSeparacion: VentaFiles = null
+  ventaFileFMinuta: VentaFiles = null
+  ventaFileFDesembolso: VentaFiles = null
+  ventaFileFEEP: VentaFiles = null
+  ventaFileFCaida: VentaFiles = null
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
   @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
@@ -115,7 +134,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     public authService: AuthService,
     private _snackBar: MatSnackBar,
     private inmuebleService: InmuebleService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private ventaFilesService: VentaFilesService
   ) {}
 
   ngOnInit() {
@@ -506,57 +526,31 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     this.refreshTablaPagos()
   }
 
-  uploadFileFechas(event, type: string) {
-    this.loading = true
-    const file = event.target.files[0]
-    const extension = file.name.split('.').pop()
-    const reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        this.utilService.postUploadFile(reader.result, `${type}_${this.venta.idVenta}.${extension}`).subscribe(
-          (resp) => {
-            console.log(resp)
-            /*this.loading = false
-            this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
-            this.TerminarPagoModal()
-            console.log('llega')*/
-          },
-          (error) => {
-            this.loading = false
-            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
-            console.log(error)
-          }
-        )
-      } else {
-        console.log('No se pudo convertir a String base 64')
-      }
-    }
-  }
-
   uploadFilePago(event) {
-    this.loading = true
     const file = event.target.files[0]
-    const extension = file.name.split('.').pop()
-    const reader = new FileReader()
-    const randomCode = Math.floor(Math.random() * (99999 - 11111)) + 11111
-    reader.readAsDataURL(file)
-    reader.onload = () => {
-      if (typeof reader.result === 'string') {
-        this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
-          (resp) => {
-            this.pagoModal.fileRuta = resp.fileName
-            this.loading = false
-            this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
-          },
-          (error) => {
-            this.loading = false
-            this.modalPagoErrores = ['Hubo un problema al subir el archivo']
-            console.log(error)
-          }
-        )
-      } else {
-        console.log('No se pudo convertir a String base 64')
+    if (file) {
+      this.loading = true
+      const extension = file.name.split('.').pop()
+      const reader = new FileReader()
+      const randomCode = Math.floor(Math.random() * (99999 - 11111)) + 11111
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
+            (resp) => {
+              this.pagoModal.fileRuta = resp.fileName
+              this.loading = false
+              this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
+            },
+            (error) => {
+              this.loading = false
+              this.modalPagoErrores = ['Hubo un problema al subir el archivo']
+              console.log(error)
+            }
+          )
+        } else {
+          console.log('No se pudo convertir a String base 64')
+        }
       }
     }
   }
@@ -583,6 +577,127 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+
+  setNuevoVentaFile(TipoEstadoVenta: number) {
+    console.log('seteando nuevo venta file model')
+    switch (TipoEstadoVenta) {
+      case 1:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.SEPARACION
+        break
+      case 5:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.MINUTA
+        break
+      case 12:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.DESEMBOLSO
+        break
+      case 13:
+        this.modal_fecha_type = this.FILES_TYPES_NAMES.EEP
+        break
+      default:
+        break
+    }
+
+    this.ventaFileModal = new VentaFilesPost()
+    this.ventaFileModal.idVenta = this.venta.idVenta
+    this.ventaFileModal.idEstadoVenta = TipoEstadoVenta
+    // console.log(this.ventaFileModal)
+
+    // La propiedad fileRuta será completada cuando suba el archivo
+  }
+
+  eliminarArchivoFechaPago (TipoEstadoVenta: number) {
+    switch (TipoEstadoVenta) {
+      case 1:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFSeparacion.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFSeparacion = null
+        })
+        break
+      case 5:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFMinuta.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFMinuta = null
+        })
+        break
+      case 12:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFDesembolso.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFDesembolso = null
+        })
+        break
+      case 13:
+        this.ventaFilesService.deleteVentaFiles(this.ventaFileFEEP.idVentaFiles).subscribe(resp=>{
+          this.ventaFileFEEP = null
+        })
+        break
+      default:
+        break
+    }
+  }
+
+  uploadFileFechas(event, type: string) {
+    const file = event.target.files[0]
+    if (file) {
+      this.loading = true
+      const extension = file.name.split('.').pop()
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          this.utilService
+            .postUploadFile(
+              reader.result,
+              `FEC_${this.modal_fecha_type}_EVID_${this.ventaFileModal.idEstadoVenta}_VID_${this.venta.idVenta}.${extension}`
+            )
+            .subscribe(
+              (resp) => {
+                console.log('Archivo subido')
+                console.log(resp)
+                
+                this.ventaFileModal.fileRuta = resp.fileName
+
+                
+                let pathToExec = null
+                const vfvalidacion =  this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
+                if (vfvalidacion.idVentaFiles === 0) {
+                  console.log('creará')
+                  console.log(vfvalidacion)
+                  pathToExec = this.ventaFilesService.postVentaFiles(vfvalidacion)
+                } else {
+                  console.log('actualizará')
+                  console.log(vfvalidacion)
+                  pathToExec = this.ventaFilesService.updateVentaFiles(vfvalidacion)
+                }
+  
+                pathToExec.subscribe(
+                  (resp) => {
+                    this.loading = false
+                    this.setLocalVentaFile(resp)
+                    this.btnCerrarModalArchivoFecha()
+
+                    this.openSnackBar('success', '✓ Archivo guardado con éxito', 'Cerrar')
+                  },
+                  (error) => {
+                    this.loading = false
+                    this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
+                    console.log(error)
+                  }
+                )
+
+                /*this.loading = false
+              this.openSnackBar('success', '✓ Voucher subido', 'Cerrar')
+              this.TerminarPagoModal()
+              console.log('llega')*/
+              },
+              (error) => {
+                this.openSnackBar('error', 'No se pudo subir el archivo', 'Cerrar')
+                console.log(error)
+              }
+            )
+        } else {
+          this.openSnackBar('error', 'No se pudo convertir a String base 64', 'Cerrar')
+          console.log('No se pudo convertir a String base 64')
+        }
+      }
+    }
   }
 
   initFunctions() {
@@ -618,6 +733,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             this.optionsTipoInmueble = resp_extra[2]
             this.filterTipoInmuebleSelect = 1 // Selecciona el tipo de Departamento
             this.refreshListaInmuebles()
+
+            this.asignandoVentaFilesVariables(resp_extra[3])
+
             this.loading = false
           },
           (e) => {
@@ -635,12 +753,66 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     )
   }
 
+  asignandoVentaFilesVariables (data: VentaFiles[]) {
+    data.forEach(element => {
+      this.setLocalVentaFile(element)
+    })
+  }
+
+  setLocalVentaFile(ventaFilesPost: VentaFiles) {
+    switch(ventaFilesPost.estadoVenta.idEstadoVenta) {
+      case 1:
+        this.ventaFileFSeparacion = ventaFilesPost
+        break
+      case 5:
+        this.ventaFileFMinuta = ventaFilesPost
+        break
+      case 12:
+        this.ventaFileFDesembolso = ventaFilesPost
+        break
+      case 13:
+        this.ventaFileFEEP = ventaFilesPost
+        break
+      default:
+        break
+    }
+  }
+
+  getVentaFileToUpdateAndAssignID(ventaFilesPost: VentaFilesPost) {
+    switch(ventaFilesPost.idEstadoVenta) {
+      case 1:
+        if (this.ventaFileFSeparacion !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFSeparacion.idVentaFiles
+        }
+        break
+      case 5:
+        if (this.ventaFileFMinuta !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFMinuta.idVentaFiles
+        }
+        break
+      case 12:
+        if (this.ventaFileFDesembolso !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFDesembolso.idVentaFiles
+        }
+        break
+      case 13:
+        if (this.ventaFileFEEP !== null) {
+          ventaFilesPost.idVentaFiles = this.ventaFileFEEP.idVentaFiles
+        }
+        break
+      default:
+        break
+    }
+    return ventaFilesPost
+  }
+
   getInfoExtra(): Observable<any[]> {
     let infoPagos = this.pagosService.getPagosByIdVenta(this.paramIdVenta)
     let listaEstadoVenta = this.vccdService.getListaEstadosVenta()
     let listaTiposInmuebles = this.vccdService.getListaTipoInmuebles()
+    let listaVentaFiles = this.ventaFilesService.getVentaFilesByIdVenta(this.venta.idVenta)
     // let listaInmuebles = this.vccdService.getInmueblesByIdVenta(this.paramIdVenta)
-    return forkJoin([infoPagos, listaEstadoVenta, listaTiposInmuebles])
+    return forkJoin([infoPagos, listaEstadoVenta, listaTiposInmuebles, listaVentaFiles])
   }
 
   refreshTablaPagos() {
@@ -665,7 +837,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       this.inmuebleLista = new MatTableDataSource<Inmueble>(inmueblesJsonResponse)
       let tmpSumaInm = 0
       inmueblesJsonResponse.forEach((elem: any) => {
-        tmpSumaInm += elem.precio
+        tmpSumaInm += elem.importe
       })
       this.sumaTotalInmuebles = tmpSumaInm
     })
@@ -678,6 +850,15 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   abrirModalAgregarPago() {
     this.limpiarFormulario()
     this.modalPagoModeEdit = false
+  }
+
+  abrirModalArchivoFechas() {
+    // this.limpiarFormulario()
+    // this.modalPagoModeEdit = false
+  }
+
+  btnCerrarModalArchivoFecha() {
+    document.getElementById('btnModalFechaArchivoClose').click()
   }
 
   setObjetoPagoEdit(editPagoObj) {

@@ -23,4 +23,17 @@ export class TipoinmueblecategoriaService {
       })
     )
   }
+
+  getCategoriaPorTipoInmueble(idTipoInmueble: number): Observable<any> {
+    return this.http.get( this.urlEndPoint + 'tipoInmueble/' + idTipoInmueble ).pipe(
+      map((data: any) => {
+        ;(data as Tipoinmueblecategoria[]).map((tipoinmueblecategoria) => {
+          return tipoinmueblecategoria
+        })
+        return data
+      })
+    )
+  }
+
+
 }

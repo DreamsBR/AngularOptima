@@ -4,6 +4,9 @@ import { Cliente } from './../clientes/cliente'
 import { ClienteService } from './../clientes/clientes.service'
 import swal from 'sweetalert2'
 
+import { Tipoinmueble } from './../ventas-proyecto-nuevo-editar/tipoinmueble'
+import { TipoinmuebleService } from './../ventas-proyecto-nuevo-editar/tipoinmueble.service'
+
 import { Tipoinmueblecategoria } from './../ventas-proyecto-nuevo-editar/tipoinmueblecategoria'
 import { TipoinmueblecategoriaService } from './../ventas-proyecto-nuevo-editar/tipoinmueblecategoria.service'
 
@@ -52,6 +55,11 @@ export class VentasProyectoEditarComponent implements OnInit {
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
 
+  idVendedor: number
+
+  tipoinmueble: Tipoinmueble[]
+  tipoinmuebleSeleccionado: number
+
   tipoinmueblecategoria: Tipoinmueblecategoria[]
   tipoinmueblecategoriaSeleccionado: number
 
@@ -96,6 +104,9 @@ export class VentasProyectoEditarComponent implements OnInit {
   dpfechaInicioAhorro: DatepickerRoundedComponent
   @ViewChild('dpfechaFinAhorro', { static: true }) dpfechaFinAhorro: DatepickerRoundedComponent
 
+  itemTipoinmueble: number
+  itemTipoinmueblecategoria: number
+
   constructor(
     private router: Router,
     private clienteService: ClienteService,
@@ -109,7 +120,8 @@ export class VentasProyectoEditarComponent implements OnInit {
     private motivoService: MotivoService,
     private canalService: CanalService,
     private categoriaService: CategoriaService,
-    private ventainmuebleService: VentainmuebleService
+    private ventainmuebleService: VentainmuebleService,
+    private tipoinmuebleService: TipoinmuebleService
   ) {}
 
   ngOnInit() {
@@ -123,7 +135,8 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     })
 
-    this.obtenerTipoInmuebleCategoria()
+    this.obtenerTipoInmueble()
+    //this.obtenerTipoInmuebleCategoria()
     this.obtenerTipoCredito()
     this.obtenerBancos()
     this.obteneradicionalesPorCategoria(1)
@@ -163,6 +176,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   public obtenerDatosDeVenta(idVenta: number) {
     this.ventaService.getVentasById(idVenta).subscribe((venta) => {
       this.ventanodos = venta
+      this.idVendedor = venta.vendedor.idVendedor
 
       this.estadoVenta = this.ventanodos.estadoVenta.idEstadoVenta
       this.fechaRegistro = this.ventanodos.fechaRegistro
@@ -214,6 +228,19 @@ export class VentasProyectoEditarComponent implements OnInit {
     })
   }
 
+  public obtenerTipoInmueble() {
+    this.tipoinmuebleService.getTipoinmueble().subscribe((response) => {
+      this.tipoinmueble = response
+    })
+  }
+
+  public seleccionarTipoInmueble(tipoinmueble: number) {
+    this.tipoinmuebleSeleccionado = tipoinmueble
+    this.tipoinmueblecategoriaService.getCategoriaPorTipoInmueble(tipoinmueble).subscribe((response) => {
+      this.tipoinmueblecategoria = response
+    })
+  }
+
   public obtenerTipoInmuebleCategoria() {
     this.tipoinmueblecategoriaService.getTipoinmueblecategoria().subscribe((response) => {
       this.tipoinmueblecategoria = response
@@ -252,7 +279,7 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public obtenerInmueblesPorCategoria(idTipoInmuebleCategoria: number) {
     this.inmuebleService
-      .getInmueblesByListarPorCategoria(this.paramIdProyecto, 1, idTipoInmuebleCategoria)
+      .getInmueblesByListarPorCategoria(this.paramIdProyecto, this.tipoinmuebleSeleccionado, idTipoInmuebleCategoria)
       .subscribe((response) => {
         this.departamentos = response
       })
@@ -268,8 +295,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public agregarDepartamentoExistente() {
     this.ventainmuebleService.getInmueblesPorVenta(this.idVenta).subscribe((response) => {
+      console.info(response)
       for (let x = 0; x < response.length; x++) {
-        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1) {
+        if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1 || response[x].inmueble.tipoInmueble.idTipoInmueble == 3) {
           let tInmueble = new Inmueble()
           tInmueble.numero = response[x].inmueble.numero
           tInmueble.cantidadDormitorio = response[x].inmueble.cantidadDormitorio
@@ -493,9 +521,8 @@ export class VentasProyectoEditarComponent implements OnInit {
   guardarVenta(idFinanciamiento: number) {
     // this.venta.idVenta = 0
 
-    this.venta.idVendedor = 2 // id vendedor logueado
-
     this.venta.enable = 1
+    this.venta.idVendedor = this.idVendedor // id vendedor logueado
     this.venta.idEstadoVenta = this.estadoVenta
 
     this.venta.fechaRegistro = this.fechaRegistro

@@ -25,7 +25,8 @@
               </p>
                 <div class="collapse" id="collapseFiltro">
                   <div class="row col-xl-10">
-                      <div class="col-sm-12 col-md-12 col-xl-2">
+                  <!--
+                    <div class="col-sm-12 col-md-12 col-xl-2">
                           <div class="form-group">
                               <mat-form-field>
                                 <mat-label style="color: orangered;">Nombre y Apellido</mat-label>
@@ -33,8 +34,8 @@
                               </mat-form-field>
                           </div>
                       </div>
-
-                      <div class="col-sm-12 col-md-12 col-xl-5">
+                    -->
+                      <div class="col-sm-12 col-md-12 col-xl-2">
                           <div class="form-group">
                             <div class="form-group">
                               <mat-form-field>
@@ -44,6 +45,8 @@
                           </div>
                         </div>
                     </div>
+
+
                     <div class="col-xl-1">
                       <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
                     </div>
@@ -64,6 +67,7 @@
                         <th scope="col">Nro. documento</th>
                         <th scope="col">Asignado a.</th>
                         <th scope="col">Sexo</th>
+                        <th scope="col">Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,6 +85,10 @@
                         <td>{{colaborador.numeroDocumento}}</td>
                         <td>{{colaborador.numeroDocumento}}</td>
                         <td>{{colaborador.sexo}}</td>
+                        <td>
+                          <span *ngIf="colaborador.enable==1">Activo</span>
+                          <span *ngIf="colaborador.enable==0">Inactivo</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

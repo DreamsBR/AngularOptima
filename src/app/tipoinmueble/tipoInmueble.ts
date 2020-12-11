@@ -1,9 +1,5 @@
 export class TipoInmueble {
-     
-    idTipoInmueble:number
-    nombre:string
-    enable:number
-  
-     
-  }
-  
+  idTipoInmueble: number
+  nombre: string
+  enable: number
+}

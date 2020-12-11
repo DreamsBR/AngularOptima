@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../usuarios/auth.service';
 import { Router } from '@angular/router';
 import { URL_BACKEND } from '../config/config';
-import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-colaboradores',
@@ -13,7 +12,6 @@ import swal from 'sweetalert2';
 })
 
 export class ColaboradoresComponent implements OnInit {
-
 
   colaboradoresLista: Colaborador[];
   paginador: any;
@@ -25,7 +23,6 @@ export class ColaboradoresComponent implements OnInit {
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
     public authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,7 +35,6 @@ export class ColaboradoresComponent implements OnInit {
       jsonColaborador) => {
         console.log(jsonColaborador)
         this.colaboradoresLista = jsonColaborador
-
       })
 
   }
@@ -48,7 +44,6 @@ export class ColaboradoresComponent implements OnInit {
     this.obtenerColaborador()
 
   }
-
 
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
@@ -60,6 +55,7 @@ export class ColaboradoresComponent implements OnInit {
       subscribe(
         (colaboradorJsonResponse) => {
           this.colaboradoresLista = colaboradorJsonResponse.content;
+          console.info(this.colaboradoresLista)
           this.paginador = colaboradorJsonResponse;
           this.base='colaborador'
         })
@@ -67,17 +63,17 @@ export class ColaboradoresComponent implements OnInit {
   }
 
   public eliminar(colaborador: Colaborador): void {
-    this.colaboradorService.eliminarColaborador(colaborador.idColaborador).subscribe(
+    const delColaborador = JSON.parse(JSON.stringify(colaborador))
+    delColaborador.idTipoDocumento = colaborador.tipoDocumento.idTipoDocumento
+    delColaborador.enable = 0
+    this.colaboradorService
+    .actualizarColaborador(delColaborador, colaborador.idColaborador)
+    .subscribe(
       (response) => {
-        console.info(response)
         document.getElementById('cerrarModalEliminar').click()
         this.obtenerColaborador()
       },
-      (err) => {
-        console.error(err)
-        document.getElementById('cerrarModalEliminar').click()
-        this.obtenerColaborador()
-      }
+      (err) => {}
     )
   }
 

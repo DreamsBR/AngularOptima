@@ -13,6 +13,7 @@ import { ReportesService } from '../reportes/reportes.service'
 import { ConsolidadoVendedor } from './consolidadovendedor'
 import { ActivatedRoute } from '@angular/router'
 import { ColaboradorService } from '../colaboradores/colaborador.service'
+import { ExporterService } from '../helpers/exporter.service'
 
 import {
   ApexAxisChartSeries,
@@ -102,7 +103,8 @@ export class ReportesVendedorComponent implements OnInit {
     private periodoGerenciaService: PeriodoGerenciaService,
     private reportesService: ReportesService,
     private activatedRoute: ActivatedRoute,
-    private colaboradorService: ColaboradorService
+    private colaboradorService: ColaboradorService,
+    private exporterService: ExporterService
   ) {
     this.chartOptions = {
       colors: ['#579DD3', '#EE7B37'],
@@ -275,7 +277,6 @@ export class ReportesVendedorComponent implements OnInit {
       this.loading = true
       this.reportesService.getAllVendedores().subscribe(
         (data) => {
-
           this.dataSearch1 = data
           this.loading = false
 
@@ -293,7 +294,6 @@ export class ReportesVendedorComponent implements OnInit {
                   })
                 })
                 this.dataSearch2 = customDataSearch
-
 
                 // Seteando los valores de la Url
                 for (const elem of data) {
@@ -475,33 +475,60 @@ export class ReportesVendedorComponent implements OnInit {
 
   drawForecastChart() {
     this.reportesService.getConsolidadoColaboradorPeriodo(this.filterIdColaborador, this.filterIdPeriodo).subscribe((resp) => {
-
-        const tmpSeries = [
-          {
-            name: 'Meta',
-            data: []
-          },
-          {
-            name: 'Monto de venta alcanzada',
-            data: []
-          }
-        ]
-        const tmpXaxis = {
-          categories: []
+      const tmpSeries = [
+        {
+          name: 'Meta',
+          data: []
+        },
+        {
+          name: 'Monto de venta alcanzada',
+          data: []
         }
-  
-        resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoColaborador.meta)
-          tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoColaborador.periodo.nombre)
-        })
-        this.chartOptionsForecast.series = tmpSeries
-        this.chartOptionsForecast.xaxis = tmpXaxis
-        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
+      ]
+      const tmpXaxis = {
+        categories: []
+      }
+
+      resp.forEach((elem) => {
+        tmpSeries[0].data.push(elem.periodoColaborador.meta)
+        tmpSeries[1].data.push(elem.venta)
+        tmpXaxis.categories.push(elem.periodoColaborador.periodo.nombre)
       })
+      this.chartOptionsForecast.series = tmpSeries
+      this.chartOptionsForecast.xaxis = tmpXaxis
+      this.chartObjForecast.updateOptions(this.chartOptionsForecast)
+    })
   }
 
-  goDetails(row) {
-    console.log(row)
+  exportar() {
+    const itemsExportFormat: ExportItemExcel[] = []
+    this.itemsTable.data.forEach((element) => {
+      const tmpItem: ExportItemExcel = {
+        proyecto: element.proyecto.nombre,
+        meta: element.meta,
+        avance: element.avance,
+        minuta: element.minuta,
+        ci: element.ci,
+        preca: element.preca,
+        ev: element.ev,
+        sp: element.sp,
+        caida: element.caida
+      }
+      itemsExportFormat.push(tmpItem)
+    })
+    // const timeStamp = new Date().getTime()
+    this.exporterService.exportToExcel(itemsExportFormat, 'reporte_xvendedor')
   }
+}
+
+interface ExportItemExcel {
+  proyecto: string
+  meta: number
+  avance: number
+  minuta: number
+  ci: number
+  preca: number
+  ev: number
+  sp: number
+  caida: number
 }
