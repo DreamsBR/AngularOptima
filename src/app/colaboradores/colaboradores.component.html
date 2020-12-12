@@ -1,0 +1,123 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Colaboradores</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                   <a [routerLink]="['/colaboradores-nuevo-editar', 0]"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                </div>
+            </div>
+
+
+          <div class="row">
+              <div class="col-xl-12">
+                <p>
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFiltro" aria-expanded="false" aria-controls="collapseFiltro">
+                  Filtrar
+                </button>
+              </p>
+                <div class="collapse" id="collapseFiltro">
+                  <div class="row col-xl-10">
+                  <!--
+                    <div class="col-sm-12 col-md-12 col-xl-2">
+                          <div class="form-group">
+                              <mat-form-field>
+                                <mat-label style="color: orangered;">Nombre y Apellido</mat-label>
+                                <input matInput  placeholder="Nombre" #input>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                    -->
+                      <div class="col-sm-12 col-md-12 col-xl-2">
+                          <div class="form-group">
+                            <div class="form-group">
+                              <mat-form-field>
+                                <mat-label style="color: orangered;">DNI</mat-label>
+                                <input matInput [(ngModel)]="dni" name="dni" placeholder="DNI" #input>
+                              </mat-form-field>
+                          </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xl-1">
+                      <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
+                    </div>
+                    <div class="col-xl-1">
+                      <button type="button" (click)="Cancelar()" class="btn btn-optima">Cancelar</button>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">Editar</th>
+                        <th scope="col">Nombres</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Tip. doc.</th>
+                        <th scope="col">Nro. documento</th>
+                        <th scope="col">Asignado a.</th>
+                        <th scope="col">Sexo</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let colaborador of colaboradoresLista">
+                        <td class="text-center font-color-1">
+                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                            <div class="dropdown-menu dropdown-menu-left">
+                                <button class="dropdown-item" type="button" [routerLink]="['/colaboradores-nuevo-editar', colaborador.idColaborador]"><em class="far fa-edit"></em> Editar</button>
+                                <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-colaborador" (click)='obtenerColaboradorSeleccionado(colaborador)'><em class="far fa-trash-alt"></em> Eliminar</button>
+                            </div>
+                        </td>
+                        <td>{{colaborador.nombres}}</td>
+                        <td>{{colaborador.apellidos}}</td>
+                        <td>{{colaborador.idColaborador}}</td>
+                        <td>{{colaborador.numeroDocumento}}</td>
+                        <td>{{colaborador.numeroDocumento}}</td>
+                        <td>{{colaborador.sexo}}</td>
+                        <td>
+                          <span *ngIf="colaborador.enable==1">Activo</span>
+                          <span *ngIf="colaborador.enable==0">Inactivo</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <paginator [paginador]="paginador" [base]="base"></paginator>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+<div id="modal-eliminar-colaborador" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar colaborador</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el registro?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima" (click)='eliminar(colaboradorSeleccionado)'>Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>

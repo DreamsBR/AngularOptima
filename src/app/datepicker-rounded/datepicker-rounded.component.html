@@ -1,0 +1,27 @@
+<div class="input-group agdtpk">
+  <input
+    class="form-control"
+    name="dp"
+    [(ngModel)]="value"
+    ngbDatepicker
+    #d="ngbDatepicker"
+    (dateSelect)="onDateSelection($event)"
+    style="opacity: 0"
+    [minDate]="minDate"
+  />
+
+  <!-- <div class="input-group-append">
+    <button class="btn btn-outline-primary" type="button">
+      <em class="far fa-calendar-alt"></em>
+    </button>
+  </div> -->
+  <div class="agdtpk-body" (click)="d.toggle()">
+    <div style="flex: 1; display: flex; flex-direction: column">
+      <div class="agdtpk-label">{{ getLabelString }}</div>
+      <div class="agdtpk-date">{{ getDateString }}</div>
+    </div>
+    <div style="width: 50px; display: flex; align-items: center; justify-content: center">
+      <em class="far fa-calendar-alt"></em>
+    </div>
+  </div>
+</div>

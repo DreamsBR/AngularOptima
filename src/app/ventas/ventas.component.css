@@ -1,0 +1,63 @@
+.tbproy {
+  border: 0px solid red;
+}
+
+.tbproy /deep/ thead {
+  display: none;
+}
+
+.tbproy /deep/ tbody {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.tbproy /deep/ tbody tr {
+  display: block;
+}
+
+.tbproy /deep/ tbody tr td {
+  width: 100%;
+  display: block;
+  border: 0px;
+  padding: 0px;
+}
+
+.tbproy /deep/ tr.mat-row {
+  height: unset;
+}
+
+.ptproy /deep/ .mat-paginator-container {
+  justify-content: space-between;
+}
+
+.ptproy /deep/ .mat-icon-button {
+  color: rgb(238, 111, 46, 1);
+}
+
+.ptproy /deep/ .mat-icon-button[disabled][disabled] {
+  color: rgb(238, 111, 46, 0.25);
+}
+
+.ptproy /deep/ .mat-select-value,
+.ptproy /deep/ .mat-select-arrow {
+  color: rgb(238, 111, 46, 1);
+}
+
+.cardproy {
+  cursor: pointer;
+}
+.cardproy a {
+  color: #ee6f2e;
+}
+.cardproy-selected {
+  background: #ee6f2e;
+  color: rgb(255, 255, 255, 0.65);
+}
+.cardproy-selected a {
+  color: #ffffff;
+}
+.cardproy-selected a strong {
+  font-weight: 500;
+}

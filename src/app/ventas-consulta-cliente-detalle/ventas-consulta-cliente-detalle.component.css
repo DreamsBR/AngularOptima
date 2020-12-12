@@ -1,0 +1,87 @@
+ol.stw {
+  /* background-color: black; */
+  position: relative;
+  overflow: hidden;
+  counter-reset: wizard;
+  padding-inline-start: 0px;
+}
+
+ol.stw li {
+  list-style-type: none;
+}
+
+ol.stw li {
+  position: relative;
+  float: left;
+  width: 20%;
+  text-align: center;
+  color: var(--primary);
+  font-weight: 800;
+  padding-top: 35px;
+}
+
+.current ~ li {
+  color: #555;
+}
+
+ol.stw li:before {
+  counter-increment: wizard;
+  content: counter(wizard);
+  display: block;
+  color: black;
+  color: transparent;
+  background-color: var(--primary);
+  border: 2px solid var(--primary);
+  text-align: center;
+  width: 1.5em;
+  height: 1.5em;
+  line-height: 1.5em;
+  border-radius: 1.5em;
+  position: relative;
+  left: 50%;
+  margin-bottom: 0.75em;
+  margin-left: -0.75em;
+  z-index: 1;
+}
+ol.stw .current ~ li:before {
+  background-color: #ffffff;
+  border-color: #fce1d4;
+  color: transparent;
+}
+
+ol.stw .current ~ li {
+  color: #f4a379;
+  font-weight: normal;
+}
+
+ol.stw li + li:after {
+  content: '';
+  display: block;
+  width: 100%;
+  background-color: var(--primary);
+  height: 2px;
+  position: absolute;
+  left: -50%;
+  top: 1em;
+  z-index: 0;
+  margin-top: 30px;
+}
+
+ol.stw .current ~ li:after {
+  background-color: #fce1d4;
+}
+
+ol.stw .stw-label {
+  height: 60px;
+  margin-top: -65px;
+}
+
+#modal-gestion-pago .modal-header {
+  border-bottom: 0px solid #dee2e6;
+  justify-content: center;
+}
+
+#modal-gestion-pago .modal-footer {
+  border-top: 0px solid #dee2e6;
+  justify-content: center;
+}

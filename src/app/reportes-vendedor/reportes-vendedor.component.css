@@ -1,0 +1,36 @@
+.clsiptr {
+  display: flex;
+  border: 1px solid var(--primary);
+  border-radius: 20px;
+}
+
+.clsiptr-icon {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+}
+
+.clsiptr-input {
+  flex: 1;
+}
+
+.clsiptr /deep/ .autocomplete-container .input-container input {
+  background-color: transparent;
+  height: 35px;
+}
+
+.clsiptr /deep/ .autocomplete-container {
+  box-shadow: none;
+  height: 35px;
+}
+
+.clsiptr /deep/ .autocomplete-container .input-container .x i {
+  color: var(--primary);
+}
+
+/* .tblreportes .tblreportes-trhover:hover {
+  background: #e8e8e8;
+  cursor: pointer;
+} */

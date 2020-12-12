@@ -1,0 +1,42 @@
+<div class="login-button-back"><a href="login"><em class="fas fa-chevron-circle-left icon-faw"></em></a></div>
+
+<div class="row h-100 row1_no_margin_right">
+    <div class="col-md-8">
+        <div class="row h-100">
+            <div class="col-md-6 offset-md-3 align-self-center">
+                <div class="login-title"><h3>{{titulo}}</h3></div>
+                <div class="form-group col-sm-12">
+                    <input type="password" class="form-control login-input" name="userName" placeholder="Ingresa una contraseña nueva" [(ngModel)]="contrasenianueva">
+                </div>
+                <div class="form-group col-sm-12">
+                    <input type="password" class="form-control login-input" name="userName" placeholder="Repetir contraseña nueva" [(ngModel)]="repetircontrsenia">
+                </div>
+                <div class="form-group login-div-center col-sm-12">
+                    <input type="submit" class="btn btn-default login-button" value="Enviar" (click)="enviarClave()">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-none d-md-block col-md-4 row1 h-100"></div>
+</div>
+
+<button id="openModalButton" [hidden]="true" data-toggle="modal" data-target="#modal-aviso">Open Modal</button>
+<div id="modal-aviso" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ modal_titulo }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">{{ modal_mensaje }}</div>
+            <div class="modal-footer" *ngIf="flag_enviado == 0">
+                <button type="button" class="btn btn-default login-button" data-dismiss="modal">Aceptar</button>
+            </div>
+            <div class="modal-footer" *ngIf="flag_enviado == 1">
+                <button type="button" class="btn btn-default login-button" data-dismiss="modal" [routerLink]="['/login']">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>

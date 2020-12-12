@@ -1,0 +1,568 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Cliente</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+                    <br>
+
+                    <form>
+
+                        <div class="row">
+
+                            <div class="col-sm-12 col-md-3">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><span class="nav-number">1</span> Cliente</a>
+                                    <span class="separator"></span>
+                                    <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="nav-number">2</span> Modo de pago</a>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-9">
+                                <div class="tab-content" id="v-pills-tabContent">
+
+
+
+                                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="busqueda-nrodoc">Nro Doc</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="nrodoc" (keydown.enter)="obtenerClienteSeleccionado(nrodoc)" name="busqueda-nrodoc" maxlength="8">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-3">
+                                                <div class="form-group">
+                                                    <label for="busqueda-nombres">Nombres y Apellidos</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos" name="busqueda-nombres" disabled="disabled">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="label-hidden">&nbsp;</label>
+                                                    <button type="submit" class="btn btn-optima" (click)="obtenerClienteSeleccionado(nrodoc)">Buscar</button>
+                                                    <button type="submit" class="btn btn-optima" (click)="agregarCliente(nrodoc)">Agregar cliente</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row div-vendedores">
+                                            <div class="col-sm-12 col-md-9">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <p class="cliente-card-titulo"><strong>Nombres</strong></p>
+                                                        <p class="cliente-nombre"><strong>{{ clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</strong></p>
+                                                        <p class="cliente-numero"><strong>{{ clienteSeleccionado.nroDocumento }}</strong></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3">
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row div-vendedores">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <p class="titulo" style="color: var(--primary)"><strong>Vendedor</strong></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-7">
+                                                                <div class="form-group">
+                                                                    <autocompletar
+                                                                        #autocompleteVendedor
+                                                                        [options]="dataSearchVendedor"
+                                                                        [searchKeyword]="keywordSearchVendedor"
+                                                                        [keyToShow]="keywordSearchVendedor"
+                                                                        [label]="'Vendedor'"
+                                                                        (onSelected)="selectEventSearchVendedor($event)"
+                                                                        (onCleared)="clearedSearchVendedor()"
+                                                                        (onInputChanged)="clearedSearchVendedor()"
+                                                                    >
+                                                                    </autocompletar>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row div-vendedores div-inmueble-caracteristicas">
+
+                                            
+
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row div-vendedores">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <p class="titulo"><strong>Inmueble</strong></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="sle-tipo-inmueble">Tipo inmueble</label>
+                                                                    <select class="form-control" name="sle-tipo-departamento" [(ngModel)]="itemTipoinmueble" (change)="seleccionarTipoInmueble(itemTipoinmueble)">
+                                                                        <option [value]="itemTipoinmueble.idTipoInmueble" *ngFor="let itemTipoinmueble of tipoinmueble">{{itemTipoinmueble.nombre}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="sle-tipo-departamento">Categoria</label>
+                                                                    <select class="form-control" name="sle-tipo-departamento" [(ngModel)]="itemTipoinmueblecategoria" (change)="obtenerInmueblesPorCategoria(itemTipoinmueblecategoria)">
+                                                                        <option [value]="0">Seleccionar</option>
+                                                                        <option [value]="itemTipoinmueblecategoria.idTipoInmuebleCategoria" *ngFor="let itemTipoinmueblecategoria of tipoinmueblecategoria">{{itemTipoinmueblecategoria.nombre}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="sle-departamento">Número</label>
+                                                                    <select class="form-control" name="sle-departamento" [(ngModel)]="idInmuebleSeleccionado">
+                                                                        <option [value]="0">Seleccionar</option>
+                                                                        <option [value]="itemDepartamentos.idInmueble" *ngFor="let itemDepartamentos of departamentos">{{itemDepartamentos.numero}}</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label class="label-hidden">&nbsp;</label>
+                                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarDepartamento()">Agregar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemDepartamento of departamentosAgregados; index as i">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <label for="nombres"><strong> Caracteristicas</strong></label>
+                                                                        <a (click)="quitarDepartamento(i)"><span class="float-right"><em class="fas fa-times-circle"></em></span></a>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
+                                                                        <p>{{itemDepartamento.numero}}</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
+
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. techada</strong></p>
+                                                                                        <p>{{itemDepartamento.areaTechada}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Libre</strong></p>
+                                                                                        <p>{{itemDepartamento.areaLibre}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Total</strong></p>
+                                                                                        <p>{{itemDepartamento.areaTotal}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Vista</strong></p>
+                                                                                        <p>{{itemDepartamento.idTipoVista}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Dorm</strong></p>
+                                                                                        <p>{{itemDepartamento.cantidadDormitorio}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Precio</strong></p>
+                                                                                        <p>{{itemDepartamento.precio}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-12">
+                                                                                <label for="nombres"><strong> Precio</strong></label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="departamentoDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <p class="titulo"><strong>Total</strong></p>
+                                                                                <p>{{itemDepartamento.total - ( (itemDepartamento.total * itemDepartamento.descuento) / 100 ) - itemDepartamento.ayudainicial}}</p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </div>
+
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12 col-md-12">
+                                                <div class="card">
+                                                    <div class="card-body">
+
+                                                        <div class="row div-vendedores">
+                                                            <div class="col-sm-12 col-md-12">
+                                                                <p class="titulo"><strong>Adicionales</strong></p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <!-- <div class="col-sm-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="nombres">Adicionales</label>
+                                                                    <select class="form-control" name="adicionales">
+                                                                    </select>
+                                                                </div>
+                                                            </div> -->
+                                                            <div class="col-sm-12 col-md-3">
+                                                                <div class="form-group">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <div class="form-group">
+                                                                            <label for="sle-adicional">Buscar código</label>
+                                                                            <select class="form-control" name="sle-adicional" [(ngModel)]="idAdicionalSeleccionado">
+                                                                                <option [value]="itemAdicional.idInmueble" *ngFor="let itemAdicional of adicionales">{{itemAdicional.numero}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-12 col-md-2">
+                                                                <div class="form-group">
+                                                                    <label class="label-hidden">&nbsp;</label>
+                                                                    <button type="submit" class="btn btn-optima btn-float-right" (click)="agregarAdicional()">Agregar</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="col-sm-12 col-md-6 item-inmueble" *ngFor="let itemAdicional of adicionalAgregados; index as i">
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+                                                                        <label for="nombres"><strong> Caracteristicas</strong></label>
+                                                                        <a (click)="quitarAdicional(i)"><span class="float-right"><em class="fas fa-times-circle"></em></span></a>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12" >
+                                                                        <p>{{itemAdicional.numero}}</p>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="row">
+                                                                    <div class="col-sm-12 col-md-12">
+
+                                                                        <div class="card">
+                                                                            <div class="card-body">
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. techada</strong></p>
+                                                                                        <p>{{itemAdicional.areaTechada}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Libre</strong></p>
+                                                                                        <p>{{itemAdicional.areaLibre}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>A. Total</strong></p>
+                                                                                        <p>{{itemAdicional.areaTotal}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Vista</strong></p>
+                                                                                        <p>{{itemAdicional.idTipoVista}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Dorm</strong></p>
+                                                                                        <p>{{itemAdicional.cantidadDormitorio}}</p>
+                                                                                    </div>
+                                                                                    <div class="col-sm-12 col-md-4">
+                                                                                        <p class="titulo"><strong>Precio</strong></p>
+                                                                                        <p>{{itemAdicional.precio}}</p>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-12">
+                                                                                <label for="nombres"><strong> Precio</strong></label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="adicionalDescuento{{i}}">Dscto (%)</label>
+                                                                                    <input type="text" class="form-control" name="adicionalDescuento{{i}}" value="{{itemAdicional.descuento}}" [(ngModel)]="itemAdicional.descuento" maxlength="2">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <div class="form-group">
+                                                                                    <label for="adicionalAyudainicial{{i}}">Ayuda inicial</label>
+                                                                                    <input type="text" class="form-control" name="adicionalAyudainicial{{i}}" value="{{itemAdicional.ayudainicial}}" [(ngModel)]="itemAdicional.ayudainicial">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12 col-md-4">
+                                                                                <p class="titulo"><strong>Total</strong></p>
+                                                                                <p>{{itemAdicional.total - ( (itemAdicional.total * itemAdicional.descuento) / 100 ) - itemAdicional.ayudainicial}}</p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+
+                                                <div class="card">
+                                                    <div class="card-body">
+
+                                                        <div class="col-sm-12 col-md-4 offset-md-8">
+                                                            <p class="titulo"><strong>Total</strong></p>
+                                                            <p>{{getTotalVenta()}}</p>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <button type="button" class="btn btn-optima btn-float-right" (click)="siguientePagina()">Siguiente</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/ventas-proyecto', paramIdProyecto]">Cancelar</button>
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                    </div>
+
+
+
+                                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <h4>Pago</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="porcentaje_cuota_inicial">Cuota inicial (%)</label>
+                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" maxlength="2">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="cuota_inicial">Cuota inicial</label>
+                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 }}" [(ngModel)]="cuota_inicial" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="total_financiamiento">Financiamiento</label>
+                                                    <input type="text" class="form-control" name="total_financiamiento" value="{{ totalInmuebles - ( ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 ) }}" [(ngModel)]="total_financiamiento" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-motivo">Motivo</label>
+                                                    <select class="form-control" name="sle-motivo" [(ngModel)]="motivoSeleccionado">
+                                                        <option [value]="itemMotivo.idMotivo" *ngFor="let itemMotivo of motivo">{{itemMotivo.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-canal">Canal</label>
+                                                    <select class="form-control" name="sle-canal" [(ngModel)]="canalSeleccionado">
+                                                        <option [value]="itemCanal.idCanal" *ngFor="let itemCanal of canal">{{itemCanal.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-categoria">Categoria</label>
+                                                    <select class="form-control" name="sle-categoria" [(ngModel)]="categoriaSeleccionado">
+                                                        <option [value]="itemCategoria.idCategoria" *ngFor="let itemCategoria of categoria">{{itemCategoria.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <h4>Tipo de credito</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="sle-tipocredito">Tipo de credito</label>
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="tipocreditoSeleccionado">
+                                                        <option [value]="itemCredito.idTipoCredito" *ngFor="let itemCredito of tipocredito">{{itemCredito.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="bono">Bono MMV</label>
+                                                    <input type="number" class="form-control" name="bono" [(ngModel)]="bono">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="afp">AFP</label>
+                                                    <input type="number" class="form-control" name="afp" [(ngModel)]="afp">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-8">
+                                                <div class="form-group">
+                                                    <label for="nombres">Banco</label>
+                                                    <select class="form-control" name="sle-tipocredito" [(ngModel)]="bancoSeleccionado">
+                                                        <option [value]="itemBanco.idBanco" *ngFor="let itemBanco of bancos">{{itemBanco.nombre}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="asesor">Asesor banco</label>
+                                                    <input type="text" class="form-control" name="asesor" [(ngModel)]="asesor">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <h4>Caracteristicas de ahorro</h4>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="ahorro">Ahorro</label>
+                                                    <input type="number" class="form-control" name="ahorro" [(ngModel)]="ahorro" maxlength="2">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <datepicker-rounded
+                                                    [label]="'Inicio ahorro'"
+                                                    (onDateChanged)="onFechaInicioAhorro($event)"
+                                                    ></datepicker-rounded>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4">
+                                                <div class="form-group">
+                                                    <datepicker-rounded
+                                                    [label]="'Fin ahorro'"
+                                                    (onDateChanged)="onFechaFinAhorro($event)"
+                                                    ></datepicker-rounded>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-12">
+                                                <button type="submit" class="btn btn-optima btn-float-right" style="margin-bottom: 200px;" (click)="guardarFinanciamiento()">Guardar</button>
+                                                <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/ventas-proyecto', paramIdProyecto]">Cancelar</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

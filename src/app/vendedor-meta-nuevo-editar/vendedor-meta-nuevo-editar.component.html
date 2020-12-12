@@ -1,0 +1,100 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid div-ventas">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Asignar meta a vendedor</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="nombres">Buscar periodo</label>
+                        <input type="text" class="form-control" id="nombres">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="apellidos">Ingresar metas</label>
+                        <input type="text" class="form-control" id="apellidos">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                        <label class="label-hidden">&nbsp;</label>
+                        <a href="#"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+
+                    <table class="table">
+                        <caption>Lista de metas</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">Editar</th>
+                                <th scope="col">Periodo</th>
+                                <th scope="col">Meta</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                    </div>
+                                </td>
+                                <td>Enero 2020</td>
+                                <td>S/. 250,345.00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                    </div>
+                                </td>
+                                <td>Enero 2020</td>
+                                <td>S/. 250,345.00</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center font-color-1">
+                                    <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                    <div class="dropdown-menu dropdown-menu-left">
+                                        <button class="dropdown-item" type="button"><em class="far fa-edit"></em> Editar</button>
+                                        <button class="dropdown-item" type="button"><em class="far fa-trash-alt"></em> Eliminar</button>
+                                    </div>
+                                </td>
+                                <td>Enero 2020</td>
+                                <td>S/. 250,345.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <button type="submit" class="btn btn-optima btn-float-right">Regresar</button>
+                </div>
+            </div>
+            
+            <br>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,106 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid div-proyectos">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Gerencias de ventas</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                    <a [routerLink]="['/gerencia-nuevo-editar', 0]"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-3" *ngFor="let gerencia of gerenciasLista; let i = index">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row item-proyecto">
+                                <div class="col-sm-12 col-md-10">
+                                    <p><a data-toggle="collapse" href="#collapseExample{{i}}" aria-expanded="false"><strong>{{gerencia.nombre}}</strong></a></p>
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    <div class="btn-float-right">
+                                        <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                        <div class="dropdown-menu dropdown-menu-left">
+                                            <button class="dropdown-item" type="button" [routerLink]="['/gerencia-nuevo-editar', gerencia.idGerencia]"><em class="far fa-edit"></em> Editar</button>
+                                            <button class="dropdown-item" type="button" data-toggle="modal" data-target="#modal-eliminar-gerencia" (click)='obtenerGerenciaSeleccionado(gerencia)'><em class="far fa-trash-alt"></em> Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="collapseExample{{i}}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row item-proyecto">
+                                    <div class="col-sm-12 col-md-3">
+                                        <div class="logo-user">{{ gerencia.iniciales }}</div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-9">
+                                        <p><strong>Gerente</strong></p>
+                                        <p>{{gerencia.colaborador.nombres}} {{gerencia.colaborador.apellidos}}</p>
+                                        <p><strong>Fecha de inicio</strong></p>
+                                        <p>{{gerencia.fechaIngreso | formatDate}}</p>
+                                        <p><strong>Fecha de término</strong></p>
+                                        <p>{{gerencia.fechaTermino | formatDate}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card" *ngFor="let itemProyecto of proyectosPorGerencia[gerencia.idGerencia]">
+                            <div class="card-body">
+                                <div class="row item-proyecto">
+                                    <div class="col-sm-12 col-md-12">
+                                        <p><a [routerLink]="['/jefatura', itemProyecto.idProyecto, gerencia.idGerencia]">{{ itemProyecto.nombre }}</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <paginator [paginador]="paginador" [base]="base"></paginator>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<div id="modal-eliminar-gerencia" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar gerencia</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el registro?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima" (click)='eliminar(gerenciaSeleccionado)'>Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>

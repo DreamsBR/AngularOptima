@@ -1,0 +1,30 @@
+.btn-light,
+.btn-light:hover,
+.btn-light:active,
+.btn-light:focus {
+  border: 1px solid #d6d6d6 !important;
+}
+
+.agz-snackbar__success {
+  background: #19ab0f !important;
+  color: white !important;
+}
+.agz-snackbar__success .mat-simple-snackbar-action {
+  color: #ffffff !important;
+  background: #107b09 !important;
+  border-radius: 5px !important;
+}
+
+.agz-snackbar__error {
+  background: #ab0f0f !important;
+  color: white !important;
+}
+.agz-snackbar__error .mat-simple-snackbar-action {
+  color: #ffffff;
+  background: #710e0e !important;
+  border-radius: 5px !important;
+}
+
+.mat-simple-snackbar-action .mat-button-wrapper {
+  font-weight: 100 !important;
+}

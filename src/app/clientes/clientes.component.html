@@ -1,0 +1,152 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+    <app-sidebar></app-sidebar>
+
+
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 col-md-5">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Clientes</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                    <a [routerLink]="['/cliente-nuevo-editar', 0]"><span class="font-add">Agregar <em class="fas fa-plus-circle"></em></span></a>
+                </div>
+            </div>
+
+
+          <div class="row">
+            <div class="col-xl-12">
+              <p>
+
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseFiltro" aria-expanded="false" aria-controls="collapseFiltro">
+                  Filtrar
+                </button>
+              </p>
+              <div class="collapse" id="collapseFiltro">
+                <div class="row col-xl-12">
+<!--
+                  <div class="col-sm-12 col-md-12 col-xl-3">
+                    <div class="clsiptr-input">
+                      <ng-autocomplete
+                          #clienteAutocomplete
+                          [data]="dataBuscarCliente"
+                          [searchKeyword]="kwBuscar"
+                          (selected)="seleccionarItemBusquedaCliente($event)"
+                          [itemTemplate]="itemTemplate"
+                          [notFoundTemplate]="noFound"
+                      >
+                      </ng-autocomplete>
+                      <ng-template #itemTemplate let-item>
+                          <a [innerHTML]="item.nombre"></a>
+                      </ng-template>
+                      <ng-template #noFound let-notFound>
+                          <div style="color: #c1c1c1">-- no encontrado --</div>
+                      </ng-template>
+                  </div>
+                  </div>
+                  -->
+                  <div class="col-sm-12 col-md-12 col-xl-2">
+                      <div class="form-group">
+                        <div class="form-group">
+                          <mat-form-field>
+                            <mat-label  style="color: orangered;" >DNI</mat-label>
+                            <input matInput name = "dni"[(ngModel)]= "dni"  placeholder="DNI" #input>
+                          </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-xl-1">
+                    <button type="button" (click)="filtrar()" class="fas fa-search" style="color: orangered;"></button>
+                  </div>
+                  <div class="col-xl-1">
+                    <button type="button" (click)="Cancelar()" class="btn btn-optima">Cancelar</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12 overflow-auto">
+
+                    <div class="card-body">
+                        <div class="alert alert-info my-2" *ngIf="clientesLista?.length==0">No hay clientes registrados</div>
+                        <div class="table-responsive" *ngIf="clientesLista?.length>0">
+                            <table class="table table-striped table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Editar</th>
+                                        <th scope="col">Nombres</th>
+                                        <th scope="col">Apellidos</th>
+                                        <th scope="col">Nro. Doc.</th>
+                                        <th scope="col">Ocupacion</th>
+                                        <th scope="col">Fecha de nacimiento</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Telefono</th>
+                                        <th scope="col">Provincia</th>
+                                        <th scope="col">Distrito</th>
+                                        <th scope="col">Direccion</th>
+                                        <th scope="col">Conyuge</th>
+                                        <th scope="col">Nro. Doc. Conyugue</th>
+                                        <th scope="col">Asesor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cliente of clientesLista">
+                                        <td class="text-center font-color-1">
+                                            <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                            <div class="dropdown-menu dropdown-menu-left">
+                                                <button class="dropdown-item" type="button" [routerLink]="['/cliente-nuevo-editar', cliente.idCliente]"><em class="far fa-edit"></em> Editar</button>
+                                            </div>
+                                        </td>
+                                        <td>{{cliente.nombres}}</td>
+                                        <td>{{cliente.apellidos}}</td>
+                                        <td>{{cliente.nroDocumento}}</td>
+                                        <td>{{cliente.ocupacion}}</td>
+                                        <td>{{cliente.fechaNacimiento | formatDate }}</td>
+                                        <td>{{cliente.email}}</td>
+                                        <td>{{cliente.telefono}}</td>
+                                        <td>{{cliente.provincia}}</td>
+                                        <td>{{cliente.distrito}}</td>
+                                        <td>{{cliente.direccion}}</td>
+                                        <td>{{cliente.conyuge}}</td>
+                                        <td>{{cliente.nroDocumentoConyuge}}</td>
+                                        <td>{{cliente.asesor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <paginator [paginador]="paginador" [base]="base"></paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="modal-eliminar-cliente" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el registro?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima" (click)='eliminar(clienteSeleccionado)'>Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        </div>
+        </div>
+    </div>
+</div>

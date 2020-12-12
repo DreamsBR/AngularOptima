@@ -1,0 +1,196 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+  <app-sidebar></app-sidebar>
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <!-- <div class="button-toggle">
+            <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+          </div> -->
+          <div style="display: flex; align-items: center">
+            <button (click)="regresar()" class="btn btn-optima" style="margin-right: 10px">
+              <em class="fas fa-chevron-left"></em>
+            </button>
+            <h3 style="display: inline-block; margin-bottom: 0px">inmueble</h3>
+          </div>
+        </div>
+      </div>
+      <app-loading [isLoading]="loading"></app-loading>
+      <div class="row">
+        <div class="col-sm-12 col-md-8">
+          <div class="row">
+            <div class="col-12">
+              <br />
+              <div
+                class="alert alert-danger"
+                role="alert"
+                *ngIf="errors.length > 0"
+                style="font-size: 12px"
+              >
+                <div *ngFor="let error of errors"><strong>Error:</strong> {{ error }}<br /></div>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptTipoInmueble">Tipo de inmueble</label>
+                <select
+                  [(ngModel)]="inmueble.idTipoInmueble"
+                  (ngModelChange)="onChangetTipoInmueble($event)"
+                  class="form-control"
+                  id="iptTipoInmueble"
+                >
+                  <option [ngValue]="0">-- Seleccionar --</option>
+                  <option *ngFor="let o of tipoinmueble" [ngValue]="o.idTipoInmueble">
+                    {{ o.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptTipoInmuebleCategoria">Categoria</label>
+                <select
+                  [(ngModel)]="inmueble.idTipoInmuebleCategoria"
+                  class="form-control"
+                  id="iptTipoInmuebleCategoria"
+                >
+                  <option [ngValue]="0">-- Seleccionar --</option>
+                  <option
+                    *ngFor="let o of tipoinmueblecategoria"
+                    [ngValue]="o.idTipoInmuebleCategoria"
+                  >
+                    {{ o.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptNroDptoEstac"
+                  >{{ isFormDpto ? 'Nro. Departamento' : 'Nro. Estacionamiento' }}
+                </label>
+                <input
+                  [(ngModel)]="inmueble.numero"
+                  type="text"
+                  class="form-control"
+                  id="iptNroDptoEstac"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptAreaTechada">Área techada</label>
+                <input
+                  [(ngModel)]="inmueble.areaTechada"
+                  type="text"
+                  class="form-control"
+                  id="iptAreaTechada"
+                />
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptAreaLibre">Área libre</label>
+                <input
+                  [(ngModel)]="inmueble.areaLibre"
+                  type="text"
+                  class="form-control"
+                  id="iptAreaLibre"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="nombres">Área libre</label>
+                <input type="text" class="form-control" id="nombres" />
+              </div>
+            </div> -->
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptAreaTotal">Área total</label>
+                <input
+                  [(ngModel)]="inmueble.areaTotal"
+                  type="text"
+                  class="form-control"
+                  id="iptAreaTotal"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptTipoVista">Vista</label>
+                <select [(ngModel)]="inmueble.idTipoVista" class="form-control" id="iptTipoVista">
+                  <option [ngValue]="0">-- Seleccionar --</option>
+                  <option *ngFor="let o of tipovista" [ngValue]="o.idTipoVista">
+                    {{ o.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6" *ngIf="isFormDpto">
+              <div class="form-group">
+                <label for="iptCantDorm">Cant. de dormitorios</label>
+                <input
+                  [(ngModel)]="inmueble.cantidadDormitorio"
+                  type="text"
+                  class="form-control"
+                  id="iptCantDorm"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="nombres">Estacionamiento</label>
+                <input type="text" class="form-control" id="nombres" />
+              </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="apellidos">Dep.</label>
+                <input type="text" class="form-control" id="apellidos" />
+              </div>
+            </div> -->
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptPrecio">Precio</label>
+                <input
+                  [(ngModel)]="inmueble.precio"
+                  type="text"
+                  class="form-control"
+                  id="iptPrecio"
+                />
+              </div>
+            </div>
+            <!-- <div class="col-sm-12 col-md-12">
+              <div class="form-group">
+                <label for="iptOtros">Otros</label>
+                <input [(ngModel)]="formOtros" type="text" class="form-control" id="iptOtros" />
+              </div>
+            </div> -->
+          </div>
+
+          <button type="submit" (click)="guardar()" class="btn btn-optima btn-float-right">
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

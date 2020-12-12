@@ -1,0 +1,113 @@
+<div id="sidebar-wrapper">
+  <div class="list-group">
+    <a
+      [routerLink]="['/clientes/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/clientes' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA' || authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_USER'"
+      >Clientes</a>
+
+    <a
+      [routerLink]="['/ventas/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/ventas' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Ventas</a>
+
+    <a
+      [routerLink]="['/consulta-ventas/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/consulta-ventas' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Consultas ventas</a>
+
+    <a
+      [routerLink]="['/proyectos-gerente/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/proyectos-gerente' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Ventas</a>
+
+      <a
+      [routerLink]="['/proyectos-colaborador/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/proyectos-colaborador' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_EJECUTIVO' || authService.usuario.roles[0] == 'ROLE_JEFE'"
+      >Ventas</a>
+
+    <a
+      [routerLink]="['/colaboradores/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/colaboradores' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Colaboradores</a>
+
+    <a
+      [routerLink]="['/proyectos/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/proyectos' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Proyectos</a>
+    <a
+      [routerLink]="['/gerencias/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/gerencias' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Gerencias</a>
+
+    <a
+      [routerLink]="['/gerencia-colaborador/',authService.usuario.idColaborador]"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/gerencia-colaborador/authService.usuario.idColaborador' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Gerencia</a>
+
+    <a
+      [routerLink]="['/periodos/']"
+      class="list-group-item"
+      [ngClass]="{ 'list-item-active': router.url === '/periodos' }"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Periodos</a>
+
+    <a 
+      href="#" 
+      class="list-group-item" 
+      data-toggle="collapse" 
+      href="#collapseExample"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN' || authService.usuario.roles[0] == 'ROLE_GERENCIA'"
+      >Reportes</a>
+    <div class="collapse" id="collapseExample">
+      <a [routerLink]="['/reportes']" class="list-group-item sub-item">Consolidado de ventas</a>
+      <a [routerLink]="['/reportes-por-proyecto']" class="list-group-item sub-item"
+        >Consolidado por proyectos</a
+      >
+      <a [routerLink]="['/reportes-por-vendedor']" class="list-group-item sub-item"
+        >Consolidado por vendedor</a
+      >
+    </div>
+
+    <a 
+      href="#collapseEx" 
+      data-toggle="collapse" 
+      class="list-group-item"
+      *ngIf="authService.usuario.roles[0] == 'ROLE_ADMIN'"
+      >Mantenimientos</a>
+    <div class="collapse" id="collapseEx">
+      <a [routerLink]="['/bancos/']" class="list-group-item sub-item">Bancos</a>
+      <a [routerLink]="['/canales/']" class="list-group-item sub-item">Canales</a>
+      <a [routerLink]="['/categoria/']" class="list-group-item sub-item">Categoria</a>
+      <!-- <a
+        [routerLink]="['/estadoventa/']"
+        class="list-group-item sub-item"
+        [ngClass]="{ 'list-item-active': router.url === '/estadoventa' }"
+        >Estado de venta</a
+      > -->
+      <a [routerLink]="['/tipoinmueble/']" class="list-group-item sub-item">Tipo de inmueble</a>
+      <a [routerLink]="['/tipoinmueblecategoria/']" class="list-group-item sub-item">Tipo de inmueble Categoría</a>
+    </div>
+
+    <br />
+    <br />
+    <a (click)="logOut()" href="#" class="list-group-item">Cerrar sesión</a>
+  </div>
+</div>

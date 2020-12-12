@@ -1,0 +1,310 @@
+/* You can add global styles to this file, and also import other style files */
+/* html, body { height: 98%; } */
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+    height: 100%;
+}
+
+.row1{
+    /* background: linear-gradient(to top right, #EE6F2E 0%, #a30000 100%); */
+    background: url('/assets/img/login_img1.jpg');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+
+h1,h2,h3,h4,h5{
+    color: #EE6F2E;
+}
+
+th, td{
+    white-space:nowrap
+}
+
+label{
+    font-size: 12px;
+}
+
+.nav a {
+    color: #C2C3C5;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav a:hover {
+    color: #000000;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav .nav-number{
+    background-color: #C2C3C5;
+    color: #FFFFFF;
+    border-radius: 25px;
+    padding: 5px 11px 3px 10px;
+}
+
+.nav .separator{
+    width: 1px;
+    height: 55px;
+    margin-left: 28px;
+    border: 1px solid #C2C3C5;
+}
+
+.nav .nav-link.active{
+    background-color: transparent;
+    color: #000000;
+}
+
+.nav .nav-link.active .nav-number{
+    background-color: #000000;
+    color: #FFFFFF;
+    border-radius: 25px;
+    padding: 5px 11px 3px 10px;
+}
+
+.row1_no_margin_right{
+    margin-right: 0px;
+}
+
+.navbar-main{
+    padding-bottom: 0px;
+    background-color: #F3F3F6;
+}
+
+.container-main{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.login-title{
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.login-subtitle{
+    color: #00113D;
+    text-align: center;
+}
+
+.login-div-center{
+    text-align: center;
+}
+
+.login-input{
+    border: none;
+    color: #00113D;
+    font-weight: bold;
+}
+
+.login-button{
+    border-radius: 16px;
+    border: 1px solid  #EE6F2E;
+    color: #EE6F2E;
+}
+
+.login-button:hover{
+    color: white;
+    background-color: #EE6F2E;
+}
+
+.div-usuario a{
+    color: #00113D;
+}
+
+.div-usuario a:hover{
+    color: #00113D;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logo{
+    position: absolute;
+    float: left;
+    margin: 15px;
+    z-index: 9999;
+}
+
+.login-button-back{
+    position: absolute;
+    float: left;
+    margin: 160px 0px 0px 23px;
+    z-index: 9999;
+}
+
+.icon-faw {
+    color:#BBC0C4;
+    font-size: 45px;
+}
+
+.icon-faw:hover {
+    color: #EE6F2E;
+}
+
+
+.login-data{
+    text-align: right;
+}
+
+.logo-user{
+    border: 1px solid #EE6F2E;
+    background-color: #EE6F2E;
+    border-radius: 45px;
+    width: 45px;
+    height: 45px;
+    margin: 5px 10px;
+    padding: 5px;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.login-data h5, .login-data h6{
+    margin: 3px 0px;
+}
+
+.font-color-1 a{
+    color: #EE6F2E;
+}
+
+.font-add{
+    font-size: 25px;
+    color: #EE6F2E;
+}
+
+
+.btn-optima {
+    color: #FFFFFF;
+    background-color: #EE6F2E;
+    border-color: #EE6F2E;
+    border-radius: 25px;
+    text-align: right;
+    margin: 0px 5px 0px 5px;
+}
+
+.btn-optima:hover {
+    color:#FFFFFF;
+    text-decoration: underline;
+}
+
+.btn-float-right{
+    float: right;
+}
+
+.btn-outline-optima {
+    color: #EE6F2E;
+    border-color: #EE6F2E;
+    border-radius: 25px;
+}
+
+.btn-outline-optima:hover {
+    color: #FFFFFF;
+    background-color: #EE6F2E;
+    border-color: #EE6F2E;
+}
+
+.btn-secondary{
+    border-radius: 25px;
+}
+
+.btn-margin{
+    margin: 0px 8px 8px 0px;
+}
+
+.page-link{
+    color: #EE6F2E;
+}
+
+.page-item.active .page-link{
+    background-color: #EE6F2E;
+    border-color: #EE6F2E;
+    color: #FFFFFF;
+}
+
+.overflow-auto{
+    overflow: auto;
+}
+
+.div-ventas .card{
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 1px 1px 4px #BBC0C4;
+}
+
+.div-ventas .card a{
+    color: #000000;
+    font-weight: bold;
+}
+
+.div-ventas .card a:hover{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.div-vendedores .card{
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 1px 1px 4px #BBC0C4;
+}
+
+.div-vendedores .card .card-body{
+    padding: 10px;
+}
+
+.div-vendedores .card .card-body p{
+    margin: 3px;
+}
+
+.div-vendedores .card .card-body p.cliente-nombre{
+    color: #EE6F2E;
+}
+
+.div-vendedores .card .card-body p.cliente-numero{
+    color: #C2C3C5;
+}
+
+.div-vendedores .card a{
+    color: #000000;
+    font-weight: bold;
+}
+
+.div-vendedores .card a:hover{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.label-hidden{
+    width: 100%;
+}
+
+.div-inmueble-caracteristicas p.titulo{
+    color: #EE6F2E;
+}
+
+.item-inmueble i{
+    color: #EE6F2E;
+}
+
+.label-dato{
+    color: #EE6F2E;
+    margin: 0px;
+}
+
+.item-proyecto p{
+    margin: 0px;
+}
+
+.div-proyectos .card{
+    margin-bottom: 15px;
+    border: none;
+    box-shadow: 1px 1px 4px #BBC0C4;
+}
+
+.div-proyectos .card a{
+    color: #EE6F2E;
+}
+
+.div-proyectos .card a:hover{
+    text-decoration: none;
+}

@@ -1,0 +1,89 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+        <div class="container-fluid div-ventas">
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+                    <div class="button-toggle"><a (click)="menuToggle()"><em class="fas fa-bars"></em></a></div>
+                    <h3>Metas de colaborador</h3>
+                </div>
+                <div class="col-sm-12 col-md-7 text-right">
+                </div>
+            </div>
+
+        <form>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label>Buscar periodo</label>
+                        <div class="clsiptr-input">
+                            <ng-autocomplete
+                                [data]="dataBuscarPeriodo"
+                                [searchKeyword]="acNombrePeriodo"
+                                (selected)="seleccionarItemBusquedaPeriodo($event)"
+                                [itemTemplate]="itemTemplate"
+                                [notFoundTemplate]="noFound"
+                            >
+                            </ng-autocomplete>
+                            <ng-template #itemTemplate let-item>
+                                <a [innerHTML]="item.nombre"></a>
+                            </ng-template>
+                            <ng-template #noFound let-notFound>
+                                <div style="color: #c1c1c1">-- no encontrado --</div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4">
+                    <div class="form-group">
+                        <label for="meta">Ingresar metas</label>
+                        <input type="number" class="form-control" name="meta" [(ngModel)]="metaSeleccionada">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-2">
+                    <div class="form-group">
+                        <label class="label-hidden">&nbsp;</label>
+                        <button type="submit" (click) = "agregarPeriodoColaborador()"  class="btn btn-optima btn-float-right">Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-12">
+
+                    <table class="table">
+                        <caption>Lista de periodos</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Periodo</th>
+                                <th scope="col">Meta</th>
+                                <th scope="col" colspan="2">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="tr_periodos" *ngFor="let itemPeriodo of aryPeriodos; index as i">
+                                <td>{{itemPeriodo.nombre}}</td>
+                                <td><input type="number" class="form-control" name="metamonto{{i}}" [(ngModel)]="itemPeriodo.monto" value="{{itemPeriodo.monto}}"></td>
+                                <td><button class="dropdown-item" type="button" (click)="editarMeta(i)"><em class="far fa-edit"></em> Editar</button></td>
+                                <td><button class="dropdown-item" type="button" (click)="eliminarMeta(i)"><em class="far fa-trash-alt"></em> Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-10">
+                    <button type="submit" class="btn btn-optima btn-float-right" [routerLink]="['/jefatura-nuevo-editar/', idJefatura, idProyecto, idGerencia]">Regresar</button>
+                </div>
+            </div>
+
+          </form>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,93 @@
+<div class="d-flex" id="wrapper" [ngClass]="status ? 'toggled' : ''">
+    <app-sidebar></app-sidebar>
+    <div id="page-content-wrapper">
+      <div class="container-fluid div-proyectos">
+
+        <div class="row">
+          <div class="col-sm-12 col-md-5">
+            <div class="button-toggle">
+              <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
+            </div>
+            <h3>Proyectos</h3>
+          </div>
+          <!-- <div class="col-sm-12 col-md-7 text-right">
+            <button type="button" (click)="verInmuebles()" class="btn btn-outline-optima btn-margin">
+              <em class="far fa-file-excel"></em> Ver inmuebles
+            </button>
+            <a [routerLink]="['/proyecto-nuevo-editar', 0]"><span class="font-add"> Agregar <em class="fas fa-plus-circle"></em> </span></a>
+          </div> -->
+        </div>
+    
+        <div class="row" *ngFor="let elemproyecto of proyectosLista">
+            <div class="col-sm-12 col-md-4">
+
+                <div class="cardproy card">
+                    <div class="card-body">
+                        <div class="row item-proyecto" >
+                            <div class="col-sm-12 col-md-10">
+                                <p>
+                                <a
+                                    data-toggle="collapse"
+                                    [href]="'#collapseDivProyID-' + elemproyecto.idProyecto"
+                                    aria-expanded="false"
+                                    ><strong><a [routerLink]="['/ventas-proyecto', elemproyecto.idProyecto]" aria-expanded="false">{{ elemproyecto.nombre }}</a></strong></a
+                                >
+                                </p>
+                                <p>{{ elemproyecto.direccion }}</p>
+                            </div>
+                            <!-- <div class="col-sm-12 col-md-2">
+                                <div class="btn-float-right">
+                                <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+                                <div class="dropdown-menu dropdown-menu-left" >
+                                    <button
+                                    class="dropdown-item"
+                                    type="button"
+                                    [routerLink]="['/proyecto-nuevo-editar',elemproyecto.idProyecto]"
+                                    >
+                                    <em class="far fa-edit"></em> Editar
+                                    </button>
+                                    <button
+                                    class="dropdown-item"
+                                    type="button"
+                                    data-toggle="modal"
+                                    data-target="#modal-eliminar-proyecto"
+                                    (click)='selectProyectoEliminar(elemproyecto)'>
+                                    <em class="far fa-trash-alt"></em> Eliminar
+                                    </button>
+                                </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <br />
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- <div id="modal-eliminar-proyecto" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Eliminar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <p>¿Seguro que deseas eliminar el proyecto <b>{{ proyectoToDelete.nombre }}</b> ?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-optima" (click)="eliminarProyectoSeleccionado()">Confirmar</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminar">Cancelar</button>
+        </div>
+        </div>
+    </div>
+  </div>
+   -->
