@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { AuthService } from '../usuarios/auth.service'
-import { TipoInmuebleCategoria } from './TipoInmuebleCategoria'
+import { TipoInmuebleCategoria } from './tipoInmuebleCategoria'
 import { TipoInmuebleCategoriaService } from './tipoInmuebleCategoria.service'
 import { TipoInmueble } from '../tipoinmueble/tipoInmueble'
 import { TipoInmuebleService } from '../tipoinmueble/tipoInmueble.service'
