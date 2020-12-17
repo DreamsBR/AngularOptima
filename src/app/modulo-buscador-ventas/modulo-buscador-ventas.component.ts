@@ -236,17 +236,28 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     console.log(itemsExportFormat)
     this.itemsLista.data.forEach(element => {
       const tmpItem:ExportItemExcel = {
-        nombreCliente : element.cliente.nombres,
-        apellidosCliente : element.cliente.apellidos,
+        CategoriaNombre : element.categoria.nombre,
+        ClienteNombre : element.cliente.nombres,
+        ClienteApellido : element.cliente.apellidos,
         nroDoc : element.cliente.nroDocumento,
-        fecharegistro : element.fechaRegistro,
+        conyuge :element.cliente.conyuge,
+        direccion : element.cliente.direccion,
+        distrito : element.cliente.distrito,
+        email: element.cliente.email,
+        fechaCaida : element.fechaCaida,
+        fechaDesembolso : element.fechaDesembolso,
+        fechaEpp: element.fechaEpp,
+        fechaMinuta : element.fechaMinuta,
+        fechaRegistro : element.fechaRegistro,
+        fechaSeparacion: element.fechaSeparacion,
         totalventa : element.total,
         financiamiento : element.financiamiento.montoFinanciado,
-        Estado : element.estadoVenta.nombre
+        Estado : element.estadoVenta.nombre,
+        nombreVendedor : element.vendedor.nombre
       }
       itemsExportFormat.push(tmpItem)
     })
-    console.log(this.itemsLista)
+    console.log(this.itemsLista.data)
     console.log(itemsExportFormat)
    // const timeStamp = new Date().getTime()
     this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
@@ -257,11 +268,25 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
 
 interface ExportItemExcel{
-  nombreCliente :string
-  apellidosCliente : string
+
+
+  CategoriaNombre : string
+  ClienteNombre: string
+  ClienteApellido : string
   nroDoc : string
-  fecharegistro : string
+  conyuge : string
+  direccion:string
+  distrito:string
+  email:string
+  fechaCaida : string
+  fechaDesembolso : string
+  fechaEpp : string
+  fechaMinuta : string
+  fechaRegistro : string
+  fechaSeparacion : string
   totalventa : number
   financiamiento : string
+
   Estado : string
+  nombreVendedor : string
 }
