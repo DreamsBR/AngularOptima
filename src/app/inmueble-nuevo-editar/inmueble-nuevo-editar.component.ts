@@ -21,7 +21,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   status: boolean = false
 
   pageToBackIdProyecto: number = 0
-
+  isFormMoneda: boolean = false
   isFormDpto: boolean = false
   optionsTipoInmueble: TipoInmueble[] = []
   optionsTipoVista: TipoVista[] = []
@@ -207,6 +207,25 @@ export class InmuebleNuevoEditarComponent implements OnInit {
       this.loadTipoInmuebleCategoria2(val)
      // this.inmueble.idTipoVista = 0
       this.inmueble.cantidadDormitorio = 0
+    }
+  }
+
+
+  soles : number
+  dolares : number
+  cambioMoneda:number
+
+  onChangetMoneda(val: number) {
+
+    this.isFormMoneda = val === 1 // 1
+
+    if (this.isFormMoneda) {
+      // Dpto
+    //  this.loadTipoVista()
+    } else {
+      this.loadTipoInmuebleCategoria2(val)
+     // this.inmueble.idTipoVista = 0
+      this.cambioMoneda = 0
     }
   }
 

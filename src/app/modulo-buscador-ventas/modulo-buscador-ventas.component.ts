@@ -8,7 +8,8 @@ import { EstadoVenta } from '../estados-ventas/estadoventa'
 import { Clientenodo } from '../clientes/clientenodo'
 import { ProyectoService } from '../proyectos/proyectos.service'
 import { Proyecto } from '../proyectos/proyecto'
-
+import { ExporterService } from '../helpers/exporter.service'
+import { Cliente } from '../clientes/cliente'
 @Component({
   selector: 'modulo-buscador-ventas',
   templateUrl: './modulo-buscador-ventas.component.html',
@@ -51,7 +52,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
-  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService) {}
+  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService, private exporterService: ExporterService) {}
 
   toogleSidebarFilter() {
     this.filterSidebarOpen = !this.filterSidebarOpen
@@ -87,6 +88,13 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       }
     )
   }
+
+
+
+
+
+
+
 
   loadDataComponent(): Observable<any[]> {
     let infoPagos = this.mbvService.getListaMaestraEstados()
@@ -221,4 +229,39 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       alert('Seleccione los filtros a buscar')
     }
   }
+
+  exportar() {
+
+    const itemsExportFormat:ExportItemExcel[] = []
+    console.log(itemsExportFormat)
+    this.itemsLista.data.forEach(element => {
+      const tmpItem:ExportItemExcel = {
+        nombreCliente : element.cliente.nombres,
+        apellidosCliente : element.cliente.apellidos,
+        nroDoc : element.cliente.nroDocumento,
+        fecharegistro : element.fechaRegistro,
+        totalventa : element.total,
+        financiamiento : element.financiamiento.montoFinanciado,
+        Estado : element.estadoVenta.nombre
+      }
+      itemsExportFormat.push(tmpItem)
+    })
+    console.log(this.itemsLista)
+    console.log(itemsExportFormat)
+   // const timeStamp = new Date().getTime()
+    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
+  }
+
+}
+
+
+
+interface ExportItemExcel{
+  nombreCliente :string
+  apellidosCliente : string
+  nroDoc : string
+  fecharegistro : string
+  totalventa : number
+  financiamiento : string
+  Estado : string
 }
