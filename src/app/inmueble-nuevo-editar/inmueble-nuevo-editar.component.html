@@ -151,6 +151,7 @@
             </div>
           </div>
 
+
           <div class="row">
             <!-- <div class="col-sm-12 col-md-6">
               <div class="form-group">
@@ -164,6 +165,55 @@
                 <input type="text" class="form-control" id="apellidos" />
               </div>
             </div> -->
+
+
+            <!--
+
+             <div class="col-sm-12 col-md-6">
+              <div class="form-group">
+                <label for="iptTipoInmueble">Tipo de inmueble</label>
+                <select
+                  [(ngModel)]="inmueble.idTipoInmueble"
+                  (ngModelChange)="onChangetTipoInmueble($event)"
+                  class="form-control"
+                  id="iptTipoInmueble"
+                >
+                  <option [ngValue]="0">-- Seleccionar --</option>
+                  <option *ngFor="let o of tipoinmueble" [ngValue]="o.idTipoInmueble">
+                    {{ o.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            -->
+            <div class="col-sm-12 col-md-6" >
+              <div class="form-group">
+                <label for="Moneda">Moneda</label>
+                <select
+                [(ngModel)]="cambioMoneda"
+                  (ngModelChange)="onChangetMoneda($event)"
+                  class="form-control"
+                  id="tipocambio">
+                  <option [ngValue]="0">-- Seleccionar --</option>
+                  <option [ngValue]="soles">Soles</option>
+                  <option [ngValue]="dolares">Dolares</option>
+                </select>
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-sm-12 col-md-2" *ngIf="isFormMoneda">
+              <div class="form-group">
+                <label for="iptPrecio">Tipo de cambio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="iptPrecio"
+                />
+              </div>
+            </div>
           </div>
 
           <div class="row">
@@ -178,6 +228,8 @@
                 />
               </div>
             </div>
+
+
             <!-- <div class="col-sm-12 col-md-12">
               <div class="form-group">
                 <label for="iptOtros">Otros</label>

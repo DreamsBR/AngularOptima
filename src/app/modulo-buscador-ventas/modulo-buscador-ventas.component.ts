@@ -8,7 +8,8 @@ import { EstadoVenta } from '../estados-ventas/estadoventa'
 import { Clientenodo } from '../clientes/clientenodo'
 import { ProyectoService } from '../proyectos/proyectos.service'
 import { Proyecto } from '../proyectos/proyecto'
-
+import { ExporterService } from '../helpers/exporter.service'
+import { Cliente } from '../clientes/cliente'
 @Component({
   selector: 'modulo-buscador-ventas',
   templateUrl: './modulo-buscador-ventas.component.html',
@@ -51,7 +52,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
-  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService) {}
+  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService, private exporterService: ExporterService) {}
 
   toogleSidebarFilter() {
     this.filterSidebarOpen = !this.filterSidebarOpen
@@ -87,6 +88,13 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       }
     )
   }
+
+
+
+
+
+
+
 
   loadDataComponent(): Observable<any[]> {
     let infoPagos = this.mbvService.getListaMaestraEstados()
@@ -221,4 +229,64 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       alert('Seleccione los filtros a buscar')
     }
   }
+
+  exportar() {
+
+    const itemsExportFormat:ExportItemExcel[] = []
+    console.log(itemsExportFormat)
+    this.itemsLista.data.forEach(element => {
+      const tmpItem:ExportItemExcel = {
+        CategoriaNombre : element.categoria.nombre,
+        ClienteNombre : element.cliente.nombres,
+        ClienteApellido : element.cliente.apellidos,
+        nroDoc : element.cliente.nroDocumento,
+        conyuge :element.cliente.conyuge,
+        direccion : element.cliente.direccion,
+        distrito : element.cliente.distrito,
+        email: element.cliente.email,
+        fechaCaida : element.fechaCaida,
+        fechaDesembolso : element.fechaDesembolso,
+        fechaEpp: element.fechaEpp,
+        fechaMinuta : element.fechaMinuta,
+        fechaRegistro : element.fechaRegistro,
+        fechaSeparacion: element.fechaSeparacion,
+        totalventa : element.total,
+        financiamiento : element.financiamiento.montoFinanciado,
+        Estado : element.estadoVenta.nombre,
+        nombreVendedor : element.vendedor.nombre
+      }
+      itemsExportFormat.push(tmpItem)
+    })
+    console.log(this.itemsLista.data)
+    console.log(itemsExportFormat)
+   // const timeStamp = new Date().getTime()
+    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
+  }
+
+}
+
+
+
+interface ExportItemExcel{
+
+
+  CategoriaNombre : string
+  ClienteNombre: string
+  ClienteApellido : string
+  nroDoc : string
+  conyuge : string
+  direccion:string
+  distrito:string
+  email:string
+  fechaCaida : string
+  fechaDesembolso : string
+  fechaEpp : string
+  fechaMinuta : string
+  fechaRegistro : string
+  fechaSeparacion : string
+  totalventa : number
+  financiamiento : string
+
+  Estado : string
+  nombreVendedor : string
 }
