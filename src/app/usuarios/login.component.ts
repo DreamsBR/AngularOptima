@@ -27,8 +27,10 @@ export class LoginComponent implements OnInit {
     if(this.authService.isAuthenticated()){
       this.router.navigate(['/clientes']);
     }else{
-      this.usuario.userName = 'optima@optimainmobiliaria.com'
-      this.usuario.password = '0pt1m4.##$%&'
+      // this.usuario.userName = 'optima@optimainmobiliaria.com'
+      // this.usuario.password = '0pt1m4.##$%&'
+      this.usuario.userName = ''
+      this.usuario.password = ''
     }
   }
 
