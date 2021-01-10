@@ -33,6 +33,11 @@ export class PeriodoService {
       })
     )
   }
+
+  getPeriodosByAnio(anio: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/byanio/' + anio).pipe()
+  }
+
   /*
 
   getPeriodosGerente(): Observable<any> {
@@ -102,6 +107,7 @@ export class PeriodoService {
   getPeriodoColaboradorByIdColaborador(idColaborador: number): Observable<any> {
     return this.http.get(URL_BACKEND + 'periodocolaborador/listarperido/' + idColaborador).pipe()
   }
+  
 }
 
 /*

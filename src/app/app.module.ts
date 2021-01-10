@@ -129,6 +129,7 @@ import { TipoInmuebleComponent } from './tipoinmueble/tipoinmueble.component';
 import { TipoInmuebleCategoriaComponent } from './tipoinmueblecategoria/tipoinmueblecategoria.component';
 import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/tipoinmueble-nuevo-editar.component';
 import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
+import { ReportesGeneralComponent } from './reportes-general/reportes-general.component';
 
 const ROUTES: Routes = [
 
@@ -178,6 +179,7 @@ const ROUTES: Routes = [
   { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
   { path: 'reportes-por-vendedor', component: ReportesVendedorComponent },
   { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
+  { path: 'reportes-general', component: ReportesGeneralComponent },
   { path: 'bancos', component: BancosComponent },
   { path: 'banco-nuevo-editar/:id', component: BancoNuevoEditarComponent },
   { path: 'canales', component: CanalesComponent },
@@ -267,7 +269,8 @@ const ROUTES: Routes = [
     TipoInmuebleComponent,
     TipoInmuebleCategoriaComponent,
     TipoinmuebleNuevoEditarComponent,
-    TipoinmueblecategoriaNuevoEditarComponent
+    TipoinmueblecategoriaNuevoEditarComponent,
+    ReportesGeneralComponent
   ],
   imports: [
     BrowserModule,
