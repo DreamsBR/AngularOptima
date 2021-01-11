@@ -10,6 +10,10 @@ import { ProyectoService } from '../proyectos/proyectos.service'
 import { Proyecto } from '../proyectos/proyecto'
 import { ExporterService } from '../helpers/exporter.service'
 import { Cliente } from '../clientes/cliente'
+
+import { DatePipe } from '@angular/common';
+import * as moment from 'moment'
+
 @Component({
   selector: 'modulo-buscador-ventas',
   templateUrl: './modulo-buscador-ventas.component.html',
@@ -52,7 +56,14 @@ export class ModuloBuscadorVentasComponent implements OnInit {
   @ViewChild('dpfechaDesde', { static: true }) dpfechaDesde: DatepickerRoundedComponent
   @ViewChild('dpfechaHasta', { static: true }) dpfechaHasta: DatepickerRoundedComponent
 
-  constructor(private mbvService: ModuloBuscadorVentasService, private proyectoService: ProyectoService, private exporterService: ExporterService) {}
+  constructor(
+    private mbvService: ModuloBuscadorVentasService, 
+    private proyectoService: ProyectoService, 
+    private exporterService: ExporterService,
+    public datepipe: DatePipe
+    ) {
+
+    }
 
   toogleSidebarFilter() {
     this.filterSidebarOpen = !this.filterSidebarOpen
@@ -232,61 +243,105 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
   exportar() {
 
-    const itemsExportFormat:ExportItemExcel[] = []
-    console.log(itemsExportFormat)
-    this.itemsLista.data.forEach(element => {
-      const tmpItem:ExportItemExcel = {
-        CategoriaNombre : element.categoria.nombre,
-        ClienteNombre : element.cliente.nombres,
-        ClienteApellido : element.cliente.apellidos,
-        nroDoc : element.cliente.nroDocumento,
-        conyuge :element.cliente.conyuge,
-        direccion : element.cliente.direccion,
-        distrito : element.cliente.distrito,
-        email: element.cliente.email,
-        fechaCaida : element.fechaCaida,
-        fechaDesembolso : element.fechaDesembolso,
-        fechaEpp: element.fechaEpp,
-        fechaMinuta : element.fechaMinuta,
-        fechaRegistro : element.fechaRegistro,
-        fechaSeparacion: element.fechaSeparacion,
-        totalventa : element.total,
-        financiamiento : element.financiamiento.montoFinanciado,
-        Estado : element.estadoVenta.nombre,
-        nombreVendedor : element.vendedor.nombre
+    let estadoVenta = 1;
+    if( parseInt(this.filterIdEstadoVenta) != 0 ){
+      estadoVenta = parseInt(this.filterIdEstadoVenta)
+    }
+
+    this.mbvService.buscarVentasSearch(
+      this.datepipe.transform( this.filterDesde, 'dd/MM/yyyy'),
+      this.datepipe.transform( this.filterHasta, 'dd/MM/yyyy'),
+      0,
+      estadoVenta,
+      this.idProyecto
+    ).subscribe(
+      (data) => {
+        console.info(data)
+
+        const itemsExportFormat:ExportItemExcel[] = []
+
+        data.forEach(element => {
+          const tmpItem:any = {
+
+            ClienteNombre : element.venta.cliente.nombres + ' ' + element.venta.cliente.apellidos,
+            nroDoc : element.venta.cliente.nroDocumento,
+            estadoCivil : element.venta.cliente.estadoCivil.nombre,
+            ocupacion : element.venta.cliente.ocupacion,
+            conyuge : element.venta.cliente.conyuge,
+            nroDocConyuge : element.venta.cliente.nroDocConyuge,
+            estadoCivilConyuge : element.venta.cliente.estadoCivilConyuge.nombre,
+            ocupacionConyuge : element.venta.cliente.ocupacionConyuge,
+            email : element.venta.cliente.email,
+            telefono : element.venta.cliente.telefono,
+            direccion : element.venta.cliente.direccion,
+            distrito : element.venta.cliente.distrito,
+            provincia : element.venta.cliente.provincia,
+            fechaNacimiento : this.datepipe.transform(element.venta.cliente.fechaNacimiento, 'dd/MM/yyyy'),
+            edad: moment().diff(element.venta.cliente.fechaNacimiento, 'years'),
+            lugarTrabajo: element.venta.cliente.lugarTrabajo,
+            ingresos: element.venta.cliente.ingresos,
+            motivo: element.venta.motivo.nombre,
+            canal: element.venta.canal.nombre,
+            categoria: element.venta.canal.nombre,
+            asesor : element.venta.cliente.asesor,
+
+            // Datos de inmuebles
+            tipoInmueble : element.listVentaInmueble[0].inmueble.tipoInmueble.nombre,
+            numero : element.listVentaInmueble[0].inmueble.numero,
+            areaTechada : element.listVentaInmueble[0].areaTechada,
+            areaLibre : element.listVentaInmueble[0].areaLibre,
+            areaTotal : element.listVentaInmueble[0].areaTotal,
+            tipoVista : element.listVentaInmueble[0].inmueble.tipoVista.nombre,
+            dormitorios : element.listVentaInmueble[0].dormitorios,  
+
+            // Precio de venta
+            precio : element.listVentaInmueble[0].precio,
+            descuento : element.listVentaInmueble[0].descuento,
+            ayudainicial : element.listVentaInmueble[0].ayudainicial,
+            importe : element.listVentaInmueble[0].importe,
+
+            // Status de venta
+            fechaSeparacion : this.datepipe.transform( element.listPagos[0].venta.fechaSeparacion, 'dd/MM/yyyy'),
+            fechaMinuta : this.datepipe.transform( element.listPagos[0].venta.fechaMinuta, 'dd/MM/yyyy'),
+            fechaDesembolso : this.datepipe.transform( element.listPagos[0].venta.fechaDesembolso, 'dd/MM/yyyy'),
+            fechaEpp : this.datepipe.transform( element.listPagos[0].venta.fechaEpp, 'dd/MM/yyyy'),
+            fechaCaida : this.datepipe.transform( element.listPagos[0].venta.fechaCaida, 'dd/MM/yyyy'),
+            status : element.venta.estadoVenta.nombre,
+
+            // ultimo pago?
+            monto : element.listPagos[0].monto,
+            porcentaje : element.listPagos[0].porcentaje,
+            fechaPago : element.listPagos[0].fecha,
+            numeroOperacion : element.listPagos[0].numeroOperacion,
+            pago : element.listPagos[0].pago,
+
+            // Financiamiento
+            financiamiento : element.venta.financiamiento.tipoCredito.nombre,
+            montoFinanciado : element.venta.financiamiento.montoFinanciado,
+            fechaFinAhorro : element.venta.financiamiento.fechaInicioAhorro,
+            fechaInicioAhorro : element.venta.financiamiento.fechaFinAhorro,
+            banco : element.venta.financiamiento.banco.nombre,
+            asesorfinanciamiento : element.venta.financiamiento.asesor,
+
+          }
+          itemsExportFormat.push(tmpItem)
+        })
+    
+        this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
+
+      },
+      (error) => {
+        console.log(error)
       }
-      itemsExportFormat.push(tmpItem)
-    })
-    console.log(this.itemsLista.data)
-    console.log(itemsExportFormat)
-   // const timeStamp = new Date().getTime()
-    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
+    )
+
+
+
+
+
   }
 
 }
 
-
-
 interface ExportItemExcel{
-
-
-  CategoriaNombre : string
-  ClienteNombre: string
-  ClienteApellido : string
-  nroDoc : string
-  conyuge : string
-  direccion:string
-  distrito:string
-  email:string
-  fechaCaida : string
-  fechaDesembolso : string
-  fechaEpp : string
-  fechaMinuta : string
-  fechaRegistro : string
-  fechaSeparacion : string
-  totalventa : number
-  financiamiento : string
-
-  Estado : string
-  nombreVendedor : string
 }

@@ -131,6 +131,8 @@ import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/ti
 import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
 import { ReportesGeneralComponent } from './reportes-general/reportes-general.component';
 
+import { DatePipe } from '@angular/common';
+
 const ROUTES: Routes = [
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -337,7 +339,8 @@ const ROUTES: Routes = [
     TipoinmuebleService,
     ModuloBuscadorVentasService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    DatePipe
   ],
 
   bootstrap: [AppComponent]
