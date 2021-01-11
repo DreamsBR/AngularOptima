@@ -83,8 +83,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
         this.proyecto.nombre = resp[1].proyecto.nombre
 
         // TODO: SETEAR AUTOMATICAMENTE LAS FECHAS
-        this.filterDesde = '2020-01-01'
-        this.filterHasta = '2020-12-31'
+        this.filterDesde =  moment().clone().startOf('month').format('YYYY-MM-01')
+        this.filterHasta = moment().clone().endOf('month').format('YYYY-MM-01')
         this.dpfechaDesde.setValue(this.filterDesde)
         this.dpfechaHasta.setValue(this.filterHasta)
 

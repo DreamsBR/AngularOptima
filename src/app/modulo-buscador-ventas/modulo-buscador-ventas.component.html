@@ -3,7 +3,7 @@
 </button>
 <h3 style="display: inline-block; margin-bottom: -5px">Proyecto: {{ proyecto !== null ? proyecto.nombre : '' }}</h3>
 <div class="divmbv divmbv-wrapper" style="border: 0px solid red">
-  <div style="display: flex">
+  <div class="mbv-wpcolumns">
     <!--Beggin::Filtros Block-->
     <div
       class="filtersb-column"
@@ -62,7 +62,7 @@
     </div>
     <!--End::Filtros Block-->
     <!--Beggin::Tabla Block-->
-    <div style="flex: 1; position: relative">
+    <div class="column-datatable" style="flex: 1; position: relative">
       <table mat-table [dataSource]="itemsLista" class="tbproy" style="width: 100%">
         <ng-container matColumnDef="editar">
           <th mat-header-cell *matHeaderCellDef>Editar</th>
