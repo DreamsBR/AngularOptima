@@ -12,6 +12,12 @@
   color: var(--primary);
 }
 
+#monto {
+  font-size: 29px;
+  color: #EE6F2E;
+}
+
+
 .clsiptr-input {
   flex: 1;
 }
