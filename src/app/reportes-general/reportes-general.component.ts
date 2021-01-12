@@ -14,6 +14,7 @@ import { ConsolidadoGeneral } from './consolidadogeneral'
 import { ActivatedRoute } from '@angular/router'
 import { ColaboradorService } from '../colaboradores/colaborador.service'
 import { ExporterService } from '../helpers/exporter.service'
+import { TipoPeriodoService } from '../tipo-periodo/tipo-periodo.service'
 
 import {
   ApexAxisChartSeries,
@@ -104,7 +105,7 @@ export class ReportesGeneralComponent implements OnInit {
   totalSP = 0
   totalCaida = 0
 
-  filterAnio: number = null
+  filterIdTipoPeriodo: number = null
   filterIdPeriodo: number = null
 
   constructor(
@@ -115,7 +116,8 @@ export class ReportesGeneralComponent implements OnInit {
     private reportesService: ReportesService,
     private activatedRoute: ActivatedRoute,
     private colaboradorService: ColaboradorService,
-    private exporterService: ExporterService
+    private exporterService: ExporterService,
+    private tipoPeriodoService: TipoPeriodoService
   ) {
     this.chartOptions = {
       colors: ['#579DD3', '#EE7B37'],
@@ -281,20 +283,25 @@ export class ReportesGeneralComponent implements OnInit {
   }
 
   ngOnInit() {
-    const cYear = new Date().getFullYear()
-    const arrYears = []
-    for (let i = 2020; i <= cYear + 10; i++) {
-      arrYears.push({
-        nombre: i.toString(),
-        valor: i
-      })
-    }
-    this.dataSearch1 = arrYears
-    this.loading = false
+    this.loading = true
+    this.tipoPeriodoService.getTiposPeriodo().subscribe((resp) => {
+      this.loading = false
+      this.dataSearch1 = resp
+    })
+    // const cYear = new Date().getFullYear()
+    // const arrYears = []
+    // for (let i = 2020; i <= cYear + 10; i++) {
+    //   arrYears.push({
+    //     nombre: i.toString(),
+    //     valor: i
+    //   })
+    // }
+    // this.dataSearch1 = arrYears
+    // this.loading = false
   }
 
   clearedSearch1() {
-    this.filterAnio = null
+    this.filterIdTipoPeriodo = null
     // Cuando se limpia el primer buscador, limpiamos el segundo
     this.filterIdPeriodo = null
     this.dataSearch2 = []
@@ -306,11 +313,11 @@ export class ReportesGeneralComponent implements OnInit {
   }
 
   selectEventSearch1(item: any) {
-    this.filterAnio = item.valor
+    this.filterIdTipoPeriodo = item.idTipoPeriodo
 
     this.loading = true
     this.dataSearch2 = []
-    this.periodoService.getPeriodosByAnio(this.filterAnio).subscribe(
+    this.periodoService.getPeriodoByTipoPeriodo(this.filterIdTipoPeriodo).subscribe(
       (resp) => {
         const customDataSearch = []
         resp.forEach((elem: any) => {
@@ -335,8 +342,8 @@ export class ReportesGeneralComponent implements OnInit {
   }
 
   buscar() {
-    if (!this.filterAnio || !this.filterIdPeriodo) {
-      alert('Debe seleccionar un año y un periodo')
+    if (!this.filterIdTipoPeriodo || !this.filterIdPeriodo) {
+      alert('Debe seleccionar un tipo y un periodo')
       return
     }
 
