@@ -85,6 +85,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     //   return
     // }
 
+    //pocentaje * totalpaog
+
     this.loading = true;
     this.loadDataComponent().subscribe(
       (resp) => {
@@ -278,7 +280,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     //forEach(element => {
 
     });
-
+    //Tipo de credito - bancos
   }*/
 
 
@@ -298,8 +300,9 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       )
       .subscribe(
         (data) => {
+          //console.log(data)
           const itemsExportFormat: ExportItemExcel[] = [];
-
+          //console.log(data)
           var maximoCantidadInmuebles = 0;
           data.forEach(element => {
             if(element.listVentaInmueble.length >= maximoCantidadInmuebles){
@@ -394,21 +397,28 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['fechaCaida'] = this.datepipe.transform( element.venta.fechaCaida, "dd/MM/yyyy" )
 
             tmpItem['status' ] = element.venta.estadoVenta.nombre
-            console.log(element)
+            /*Porcentajes*/
+            var totPagos ;
+            var totalPorcentajePagos;
+
 
             for(let x = 0 ; x < maximoCantidadPagos ; x++ ){
               let numitem = x + 1
               if(element.listPagos[x] != undefined){
                 totalPagos = totalPagos + element.listPagos[x].monto
+                totalPorcentajePagos = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
+                tmpItem['PorcentajeDePago'] = totalPorcentajePagos.toFixed(2) + '%';
+                tmpItem['TotalPagos'] = totalPagos;
+
                 porcentaje  = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
-                tmpItem['porcentaje' + numitem] = porcentaje.toFixed(2)
+                //tmpItem['porcentaje' + numitem] = porcentaje.toFixed(2)
                 tmpItem['fechaPago' + numitem] = this.datepipe.transform( element.listPagos[x].fecha, "dd/MM/yyyy" )
                 tmpItem['numeroOperacion' + numitem] = element.listPagos[x].numeroOperacion
                 tmpItem['pago' + numitem] = element.listPagos[x].monto
 
 
               }else{
-                tmpItem['porcentaje' + numitem] = ''
+
                 tmpItem['fechaPago' + numitem] = ''
                 tmpItem['numeroOperacion' + numitem] = ''
                 tmpItem['pago' + numitem] = ''
@@ -426,13 +436,15 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['fechaFinAhorro'] = element.venta.financiamiento.fechaInicioAhorro
             tmpItem['fechaInicioAhorro'] = element.venta.financiamiento.fechaFinAhorro
             tmpItem['banco'] = element.venta.financiamiento.banco.nombre
-            tmpItem['asesorfinanciamiento'] = element.venta.financiamiento.asesor
+            tmpItem['TipoDeCredito'] =  element.venta.financiamiento.tipoCredito.nombre
+            tmpItem['AsesorDebanco'] = element.venta.financiamiento.asesor
+            tmpItem['Bono'] =element.venta.financiamiento.bono;
+            tmpItem['AFP'] =element.venta.financiamiento.afp;
 
             itemsExportFormat.push(tmpItem);
           });
-          console.log(itemsExportFormat);
-
-           this.exporterService.exportToExcel(
+            //console.log(itemsExportFormat);
+            this.exporterService.exportToExcel(
             itemsExportFormat,
             "reporte_xgerencia"
           );
