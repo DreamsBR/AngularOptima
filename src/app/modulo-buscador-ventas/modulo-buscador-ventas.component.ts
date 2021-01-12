@@ -96,8 +96,10 @@ export class ModuloBuscadorVentasComponent implements OnInit {
         this.filterDesde = moment()
           .clone()
           .startOf("month")
-          .format("YYYY-MM-01");
-        this.filterHasta = moment().clone().endOf("month").format("YYYY-MM-01");
+          .format("YYYY-MM-Do");
+
+        this.filterHasta = moment()
+        .format("YYYY-MM-Do");
         this.dpfechaDesde.setValue(this.filterDesde);
         this.dpfechaHasta.setValue(this.filterHasta);
 
@@ -399,8 +401,6 @@ export class ModuloBuscadorVentasComponent implements OnInit {
               if(element.listPagos[x] != undefined){
                 totalPagos = totalPagos + element.listPagos[x].monto
                 porcentaje  = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
-
-
                 tmpItem['porcentaje' + numitem] = porcentaje.toFixed(2)
                 tmpItem['fechaPago' + numitem] = this.datepipe.transform( element.listPagos[x].fecha, "dd/MM/yyyy" )
                 tmpItem['numeroOperacion' + numitem] = element.listPagos[x].numeroOperacion
