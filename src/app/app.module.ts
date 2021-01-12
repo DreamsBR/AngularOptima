@@ -130,8 +130,11 @@ import { TipoInmuebleCategoriaComponent } from './tipoinmueblecategoria/tipoinmu
 import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/tipoinmueble-nuevo-editar.component';
 import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
 import { ReportesGeneralComponent } from './reportes-general/reportes-general.component';
+import { TipoPeriodoService } from './tipo-periodo/tipo-periodo.service';
 
 import { DatePipe } from '@angular/common';
+import { RangosComponent } from './rangos/rangos.component';
+import { TipoPeriodoComponent } from './tipo-periodo/tipo-periodo.component';
 
 const ROUTES: Routes = [
 
@@ -200,6 +203,8 @@ const ROUTES: Routes = [
   { path: 'tipoinmueblecategoria', component: TipoInmuebleCategoriaComponent },
   { path: 'tipoinmueble-nuevo-editar/:id', component: TipoinmuebleNuevoEditarComponent },
   { path: 'tipoinmueblecategoria-nuevo-editar/:id', component: TipoinmueblecategoriaNuevoEditarComponent },
+  { path: 'rangos', component: RangosComponent },
+  { path: 'tipo-periodo', component: TipoPeriodoComponent },
 ]
 
 @NgModule({
@@ -272,7 +277,9 @@ const ROUTES: Routes = [
     TipoInmuebleCategoriaComponent,
     TipoinmuebleNuevoEditarComponent,
     TipoinmueblecategoriaNuevoEditarComponent,
-    ReportesGeneralComponent
+    ReportesGeneralComponent,
+    RangosComponent,
+    TipoPeriodoComponent
   ],
   imports: [
     BrowserModule,
@@ -338,6 +345,7 @@ const ROUTES: Routes = [
     VentaFilesService,
     TipoinmuebleService,
     ModuloBuscadorVentasService,
+    TipoPeriodoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     DatePipe
