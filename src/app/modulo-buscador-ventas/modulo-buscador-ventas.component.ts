@@ -313,7 +313,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
           });
 
           data.forEach((element) => {
-
+            var porcentaje:number  = 0
+            var totalPagos:number  = 0
             var tmpItem:any = {}
 
             tmpItem['ClienteNombre'] = element.venta.cliente.nombres + " " + element.venta.cliente.apellidos
@@ -322,12 +323,14 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['conyuge'] = element.venta.cliente.conyuge
             tmpItem['nroDocConyuge'] = element.venta.cliente.nroDocConyuge
 
+
+
             if( element.venta.cliente.estadoCivilConyuge.idEstadoCivil != 1 ){
               tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
             }else{
               tmpItem['estadoCivilConyuge'] = ''
             }
-            
+
             tmpItem['ocupacionConyuge'] = element.venta.cliente.ocupacionConyuge
             tmpItem['email'] = element.venta.cliente.email
             tmpItem['telefono'] = element.venta.cliente.telefono
@@ -382,27 +385,29 @@ export class ModuloBuscadorVentasComponent implements OnInit {
               }
 
             }
+            tmpItem['fechaSeparacion'] = this.datepipe.transform( element.venta.fechaSeparacion, "dd/MM/yyyy" )
+            tmpItem['fechaMinuta'] = this.datepipe.transform( element.venta.fechaMinuta, "dd/MM/yyyy" )
+            tmpItem['fechaDesembolso'] = this.datepipe.transform( element.venta.fechaDesembolso, "dd/MM/yyyy" )
+            tmpItem['fechaEpp'] = this.datepipe.transform( element.venta.fechaEpp, "dd/MM/yyyy" )
+            tmpItem['fechaCaida'] = this.datepipe.transform( element.venta.fechaCaida, "dd/MM/yyyy" )
+
+            tmpItem['status' ] = element.venta.estadoVenta.nombre
+            console.log(element)
 
             for(let x = 0 ; x < maximoCantidadPagos ; x++ ){
               let numitem = x + 1
               if(element.listPagos[x] != undefined){
-                tmpItem['fechaSeparacion' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaSeparacion, "dd/MM/yyyy" )
-                tmpItem['fechaMinuta' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaMinuta, "dd/MM/yyyy" )
-                tmpItem['fechaDesembolso' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaDesembolso, "dd/MM/yyyy" )
-                tmpItem['fechaEpp' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaEpp, "dd/MM/yyyy" )
-                tmpItem['fechaCaida' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaCaida, "dd/MM/yyyy" )
-                tmpItem['status' + numitem] = element.listPagos[x].venta.estadoVenta.nombre
-                tmpItem['porcentaje' + numitem] = element.listPagos[x].porcentaje
+                totalPagos = totalPagos + element.listPagos[x].monto
+                porcentaje  = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
+
+
+                tmpItem['porcentaje' + numitem] = porcentaje.toFixed(2)
                 tmpItem['fechaPago' + numitem] = this.datepipe.transform( element.listPagos[x].fecha, "dd/MM/yyyy" )
                 tmpItem['numeroOperacion' + numitem] = element.listPagos[x].numeroOperacion
-                tmpItem['pago' + numitem] = element.listPagos[x].pago
+                tmpItem['pago' + numitem] = element.listPagos[x].monto
+
+
               }else{
-                tmpItem['fechaSeparacion' + numitem] = ''
-                tmpItem['fechaMinuta' + numitem] = ''
-                tmpItem['fechaDesembolso' + numitem] = ''
-                tmpItem['fechaEpp' + numitem] = ''
-                tmpItem['fechaCaida' + numitem] = ''
-                tmpItem['status' + numitem] = ''
                 tmpItem['porcentaje' + numitem] = ''
                 tmpItem['fechaPago' + numitem] = ''
                 tmpItem['numeroOperacion' + numitem] = ''
@@ -425,8 +430,9 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
             itemsExportFormat.push(tmpItem);
           });
+          console.log(itemsExportFormat);
 
-          this.exporterService.exportToExcel(
+           this.exporterService.exportToExcel(
             itemsExportFormat,
             "reporte_xgerencia"
           );
