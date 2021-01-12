@@ -335,12 +335,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       }
     )
 
-
-
-
-
   }
-
 }
 
 interface ExportItemExcel{
