@@ -197,6 +197,24 @@
               </form> -->
             </div>
           </div>
+
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="nombre">Año del periodo</label>
+                <select
+                  class="form-control mb-2"
+                  name="statusventa"
+                  id="exampleFormControlSelect1"
+                  [(ngModel)]="periodo.anio"
+                >
+                  <option [value]="item.valor" *ngFor="let item of optionsAnio">
+                    {{ item.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="modal-footer">
@@ -233,6 +251,9 @@
         </p>
         <p>
           F.Inicio: <strong>{{ periodoToDelete.fechaFin }}</strong>
+        </p>
+        <p>
+          Año: <strong>{{ periodoToDelete.anio }}</strong>
         </p>
       </div>
       <div class="modal-footer">

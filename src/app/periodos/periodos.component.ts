@@ -31,6 +31,8 @@ export class PeriodosComponent implements OnInit {
 
   modalPeriodoModeEdit: boolean = false
 
+  optionsAnio: AnioSelect[]
+
   @ViewChild('dpFInicio', { static: true }) dpFInicio: DatepickerRoundedComponent
   @ViewChild('dpFTermino', { static: true }) dpFTermino: DatepickerRoundedComponent
 
@@ -41,6 +43,15 @@ export class PeriodosComponent implements OnInit {
     public authService: AuthService
   ) {
     this.periodosLista = []
+    const cYear = new Date().getFullYear()
+    const arrYears: AnioSelect[] = []
+    for (let i = 2020; i <= cYear + 10; i++) {
+      arrYears.push({
+        nombre: i.toString(),
+        valor: i
+      })
+    }
+    this.optionsAnio = arrYears
   }
 
   ngOnInit() {
@@ -99,7 +110,8 @@ export class PeriodosComponent implements OnInit {
     if (
       typeof this.periodo.nombre === 'undefined' ||
       typeof this.periodo.fechaInicio === 'undefined' ||
-      typeof this.periodo.fechaFin === 'undefined'
+      typeof this.periodo.fechaFin === 'undefined' ||
+      typeof this.periodo.anio === 'undefined'
     ) {
       swal('Campos Incompletos de Periodo', '', 'error')
       return
@@ -107,7 +119,8 @@ export class PeriodosComponent implements OnInit {
       if (
         this.periodo.nombre.trim() === '' ||
         this.periodo.fechaInicio === '' ||
-        this.periodo.fechaFin === ''
+        this.periodo.fechaFin === '' ||
+        !this.periodo.anio
       ) {
         swal('Campos Incompletos de Periodo', '', 'error')
         return
@@ -174,3 +187,8 @@ export class PeriodosComponent implements OnInit {
         }
       );
   }*/
+
+interface AnioSelect {
+  nombre: string
+  valor: number
+}
