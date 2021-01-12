@@ -142,9 +142,6 @@ export class PeriodosComponent implements OnInit {
       }
     }
 
-    console.log(this.periodo)
-    return
-
     let path = null
     if (this.modalPeriodoModeEdit) {
       this.periodo.enable = 1
