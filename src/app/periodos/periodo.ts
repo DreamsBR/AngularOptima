@@ -5,4 +5,5 @@ export class Periodo {
   fechaInicio?: string
   nombre?: string
   anio?: number
+  idTipoPeriodo?: number
 }

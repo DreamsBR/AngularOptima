@@ -198,7 +198,7 @@
             </div>
           </div>
 
-          <div class="col-sm-12 col-md-6">
+          <!-- <div class="col-sm-12 col-md-6">
             <div class="form-group">
               <div class="form-group">
                 <label for="nombre">Año del periodo</label>
@@ -209,6 +209,24 @@
                   [(ngModel)]="periodo.anio"
                 >
                   <option [value]="item.valor" *ngFor="let item of optionsAnio">
+                    {{ item.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-sm-12 col-md-6">
+            <div class="form-group">
+              <div class="form-group">
+                <label for="nombre">Tipo de periodo</label>
+                <select
+                  class="form-control mb-2"
+                  name="statusventa"
+                  id="exampleFormControlSelect1"
+                  [(ngModel)]="periodo.idTipoPeriodo"
+                >
+                  <option [value]="item.idTipoPeriodo" *ngFor="let item of optionsTipoPeriodo">
                     {{ item.nombre }}
                   </option>
                 </select>

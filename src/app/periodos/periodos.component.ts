@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { NgbDateStruct, NgbPaginationNumber } from '@ng-bootstrap/ng-bootstrap'
 import { Periodo } from './periodo'
 import { PeriodoService } from './periodo.service'
+import { TipoPeriodoService } from '../tipo-periodo/tipo-periodo.service'
 import { ActivatedRoute, Router } from '@angular/router'
 //import { ModalService } from './detalles/modal.service';
 import { AuthService } from '../usuarios/auth.service'
 import { URL_BACKEND } from '../config/config'
 import swal from 'sweetalert2'
-
+import { TipoPeriodo } from '../tipo-periodo/tipo-periodo'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 
 @Component({
@@ -32,17 +33,22 @@ export class PeriodosComponent implements OnInit {
   modalPeriodoModeEdit: boolean = false
 
   optionsAnio: AnioSelect[]
+  optionsTipoPeriodo: TipoPeriodo[]
 
   @ViewChild('dpFInicio', { static: true }) dpFInicio: DatepickerRoundedComponent
   @ViewChild('dpFTermino', { static: true }) dpFTermino: DatepickerRoundedComponent
 
   constructor(
     private periodoService: PeriodoService,
+    private tipoPeriodoService: TipoPeriodoService,
     private activatedRoute: ActivatedRoute,
     //public modalService: ModalService,
     public authService: AuthService
   ) {
     this.periodosLista = []
+  }
+
+  ngOnInit() {
     const cYear = new Date().getFullYear()
     const arrYears: AnioSelect[] = []
     for (let i = 2020; i <= cYear + 10; i++) {
@@ -52,10 +58,19 @@ export class PeriodosComponent implements OnInit {
       })
     }
     this.optionsAnio = arrYears
-  }
 
-  ngOnInit() {
-    this.obtenerPeriodo()
+    this.loading = true
+    this.tipoPeriodoService.getTiposPeriodo().subscribe(
+      (resp) => {
+        this.loading = false
+        this.optionsTipoPeriodo = resp
+        this.obtenerPeriodo()
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   public obtenerPeriodo() {
@@ -111,7 +126,7 @@ export class PeriodosComponent implements OnInit {
       typeof this.periodo.nombre === 'undefined' ||
       typeof this.periodo.fechaInicio === 'undefined' ||
       typeof this.periodo.fechaFin === 'undefined' ||
-      typeof this.periodo.anio === 'undefined'
+      typeof this.periodo.idTipoPeriodo === 'undefined'
     ) {
       swal('Campos Incompletos de Periodo', '', 'error')
       return
@@ -120,12 +135,15 @@ export class PeriodosComponent implements OnInit {
         this.periodo.nombre.trim() === '' ||
         this.periodo.fechaInicio === '' ||
         this.periodo.fechaFin === '' ||
-        !this.periodo.anio
+        !this.periodo.idTipoPeriodo
       ) {
         swal('Campos Incompletos de Periodo', '', 'error')
         return
       }
     }
+
+    console.log(this.periodo)
+    return
 
     let path = null
     if (this.modalPeriodoModeEdit) {
