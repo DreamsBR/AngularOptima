@@ -321,7 +321,13 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['ocupacion'] = element.venta.cliente.ocupacion
             tmpItem['conyuge'] = element.venta.cliente.conyuge
             tmpItem['nroDocConyuge'] = element.venta.cliente.nroDocConyuge
-            tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
+
+            if( element.venta.cliente.estadoCivilConyuge.idEstadoCivil != 1 ){
+              tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
+            }else{
+              tmpItem['estadoCivilConyuge'] = ''
+            }
+            
             tmpItem['ocupacionConyuge'] = element.venta.cliente.ocupacionConyuge
             tmpItem['email'] = element.venta.cliente.email
             tmpItem['telefono'] = element.venta.cliente.telefono
@@ -332,7 +338,13 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['edad'] = moment().diff( element.venta.cliente.fechaNacimiento, "years" )
             tmpItem['lugarTrabajo'] = element.venta.cliente.lugarTrabajo
             tmpItem['ingresos'] = element.venta.cliente.ingresos
-            tmpItem['motivo'] = element.venta.motivo.nombre
+
+            if( element.venta.motivo.idMotivo != 1 ){
+              tmpItem['motivo'] = element.venta.motivo.nombre
+            }else{
+              tmpItem['motivo'] = ''
+            }
+
             tmpItem['canal'] = element.venta.canal.nombre
             tmpItem['categoria'] = element.venta.canal.nombre
             tmpItem['asesor'] = element.venta.cliente.asesor
@@ -345,7 +357,11 @@ export class ModuloBuscadorVentasComponent implements OnInit {
                 tmpItem['areaTechada' + numitem] = element.listVentaInmueble[x].areaTechada
                 tmpItem['areaLibre' + numitem] = element.listVentaInmueble[x].areaLibre
                 tmpItem['areaTotal' + numitem] = element.listVentaInmueble[x].areaTotal
-                tmpItem['tipoVista' + numitem] = element.listVentaInmueble[x].inmueble.tipoVista.nombre
+                if( element.listVentaInmueble[x].inmueble.tipoVista.idTipoVista != 1 ){
+                  tmpItem['tipoVista'] = element.listVentaInmueble[x].inmueble.tipoVista.nombre
+                }else{
+                  tmpItem['tipoVista'] = ''
+                }
                 tmpItem['dormitorios' + numitem] = element.listVentaInmueble[x].dormitorios
                 tmpItem['precio' + numitem] = element.listVentaInmueble[x].precio
                 tmpItem['descuento' + numitem] = element.listVentaInmueble[x].descuento
@@ -395,7 +411,12 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
             }
 
-            tmpItem['financiamiento'] = element.venta.financiamiento.tipoCredito.nombre
+            if( element.venta.financiamiento.tipoCredito.idTipoCredito != 1 ){
+              tmpItem['financiamiento'] = element.venta.financiamiento.tipoCredito.nombre
+            }else{
+              tmpItem['financiamiento'] = ''
+            }
+
             tmpItem['montoFinanciado'] = element.venta.financiamiento.montoFinanciado
             tmpItem['fechaFinAhorro'] = element.venta.financiamiento.fechaInicioAhorro
             tmpItem['fechaInicioAhorro'] = element.venta.financiamiento.fechaFinAhorro
