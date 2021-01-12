@@ -19,6 +19,7 @@ import * as moment from "moment";
   templateUrl: "./modulo-buscador-ventas.component.html",
   styleUrls: ["./modulo-buscador-ventas.component.css"],
 })
+
 export class ModuloBuscadorVentasComponent implements OnInit {
   loading: boolean = false;
 
@@ -295,121 +296,120 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          console.log(data)
           const itemsExportFormat: ExportItemExcel[] = [];
 
-          //ForEach Pagos
+          var maximoCantidadInmuebles = 0;
           data.forEach(element => {
-          var pagos =  element.listPagos.length
-          console.log(pagos);
-        });
+            if(element.listVentaInmueble.length >= maximoCantidadInmuebles){
+              maximoCantidadInmuebles = element.listVentaInmueble.length;
+            }
+          });
 
-          //ForEach Inmuebles
+          var maximoCantidadPagos = 0;
           data.forEach(element => {
-          var inmuebles = element.listVentaInmueble.length;
-
-          console.log(inmuebles);
-        });
-
-          let dtpag ;
+            if(element.listPagos.length >= maximoCantidadPagos){
+              maximoCantidadPagos = element.listPagos.length;
+            }
+          });
 
           data.forEach((element) => {
-            dtpag = element.listPagos;
-            const tmpItem: any = {
-              ClienteNombre:
-                element.venta.cliente.nombres + " " + element.venta.cliente.apellidos,
-                nroDoc: element.venta.cliente.nroDocumento,
-                estadoCivil: element.venta.cliente.estadoCivil.nombre,
-                ocupacion: element.venta.cliente.ocupacion,
-                conyuge: element.venta.cliente.conyuge,
-                nroDocConyuge: element.venta.cliente.nroDocConyuge,
-                estadoCivilConyuge: element.venta.cliente.estadoCivilConyuge.nombre,
-                ocupacionConyuge: element.venta.cliente.ocupacionConyuge,
-                email: element.venta.cliente.email,
-                telefono: element.venta.cliente.telefono,
-                direccion: element.venta.cliente.direccion,
-                distrito: element.venta.cliente.distrito,
-                provincia: element.venta.cliente.provincia,
-                fechaNacimiento: this.datepipe.transform(
-                  element.venta.cliente.fechaNacimiento,
-                  "dd/MM/yyyy"
-                ),
-                edad: moment().diff(
-                  element.venta.cliente.fechaNacimiento,
-                  "years"
-                ),
-              lugarTrabajo: element.venta.cliente.lugarTrabajo,
-              ingresos: element.venta.cliente.ingresos,
-              motivo: element.venta.motivo.nombre,
-              canal: element.venta.canal.nombre,
-              categoria: element.venta.canal.nombre,
-              asesor: element.venta.cliente.asesor,
 
-              // Datos de inmuebles
-              tipoInmueble: element.listVentaInmueble[0].inmueble.tipoInmueble.nombre,
-              numero: element.listVentaInmueble[0].inmueble.numero,
-              areaTechada: element.listVentaInmueble[0].areaTechada,
-              areaLibre: element.listVentaInmueble[0].areaLibre,
-              areaTotal: element.listVentaInmueble[0].areaTotal,
-              tipoVista: element.listVentaInmueble[0].inmueble.tipoVista.nombre,
-              dormitorios: element.listVentaInmueble[0].dormitorios,
+            var tmpItem:any = {}
 
-              // Precio de venta
-              precio: element.listVentaInmueble[0].precio,
-              descuento: element.listVentaInmueble[0].descuento,
-              ayudainicial: element.listVentaInmueble[0].ayudainicial,
-              importe: element.listVentaInmueble[0].importe,
+            tmpItem['ClienteNombre'] = element.venta.cliente.nombres + " " + element.venta.cliente.apellidos
+            tmpItem['estadoCivil'] = element.venta.cliente.estadoCivil.nombre
+            tmpItem['ocupacion'] = element.venta.cliente.ocupacion
+            tmpItem['conyuge'] = element.venta.cliente.conyuge
+            tmpItem['nroDocConyuge'] = element.venta.cliente.nroDocConyuge
+            tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
+            tmpItem['ocupacionConyuge'] = element.venta.cliente.ocupacionConyuge
+            tmpItem['email'] = element.venta.cliente.email
+            tmpItem['telefono'] = element.venta.cliente.telefono
+            tmpItem['direccion'] = element.venta.cliente.direccion
+            tmpItem['distrito'] = element.venta.cliente.distrito
+            tmpItem['provincia'] = element.venta.cliente.provincia
+            tmpItem['fechaNacimiento'] = this.datepipe.transform( element.venta.cliente.fechaNacimiento, "dd/MM/yyyy" )
+            tmpItem['edad'] = moment().diff( element.venta.cliente.fechaNacimiento, "years" )
+            tmpItem['lugarTrabajo'] = element.venta.cliente.lugarTrabajo
+            tmpItem['ingresos'] = element.venta.cliente.ingresos
+            tmpItem['motivo'] = element.venta.motivo.nombre
+            tmpItem['canal'] = element.venta.canal.nombre
+            tmpItem['categoria'] = element.venta.canal.nombre
+            tmpItem['asesor'] = element.venta.cliente.asesor
 
-              // Status de venta
-              fechaSeparacion: this.datepipe.transform(
-                element.listPagos[0].venta.fechaSeparacion,
-                "dd/MM/yyyy"
-              ),
-              fechaMinuta: this.datepipe.transform(
-                element.listPagos[0].venta.fechaMinuta,
-                "dd/MM/yyyy"
-              ),
-              fechaDesembolso: this.datepipe.transform(
-                element.listPagos[0].venta.fechaDesembolso,
-                "dd/MM/yyyy"
-              ),
-              fechaEpp: this.datepipe.transform(
-                element.listPagos[0].venta.fechaEpp,
-                "dd/MM/yyyy"
-              ),
-              fechaCaida: this.datepipe.transform(
-                element.listPagos[0].venta.fechaCaida,
-                "dd/MM/yyyy"
-              ),
-              status: element.venta.estadoVenta.nombre,
+            for(let x = 0 ; x < maximoCantidadInmuebles ; x++ ){
+              let numitem = x + 1
+              if(element.listVentaInmueble[x] != undefined){
+                tmpItem['tipoInmueble' + numitem] = element.listVentaInmueble[x].inmueble.tipoInmueble.nombre
+                tmpItem['numero' + numitem] = element.listVentaInmueble[x].inmueble.numero
+                tmpItem['areaTechada' + numitem] = element.listVentaInmueble[x].areaTechada
+                tmpItem['areaLibre' + numitem] = element.listVentaInmueble[x].areaLibre
+                tmpItem['areaTotal' + numitem] = element.listVentaInmueble[x].areaTotal
+                tmpItem['tipoVista' + numitem] = element.listVentaInmueble[x].inmueble.tipoVista.nombre
+                tmpItem['dormitorios' + numitem] = element.listVentaInmueble[x].dormitorios
+                tmpItem['precio' + numitem] = element.listVentaInmueble[x].precio
+                tmpItem['descuento' + numitem] = element.listVentaInmueble[x].descuento
+                tmpItem['ayudainicial' + numitem] = element.listVentaInmueble[x].ayudainicial
+                tmpItem['importe' + numitem] = element.listVentaInmueble[x].importe
+              }else{
+                tmpItem['tipoInmueble' + numitem] = ''
+                tmpItem['numero' + numitem] = ''
+                tmpItem['areaTechada' + numitem] = ''
+                tmpItem['areaLibre' + numitem] = ''
+                tmpItem['areaTotal' + numitem] = ''
+                tmpItem['tipoVista' + numitem] = ''
+                tmpItem['dormitorios' + numitem] = ''
+                tmpItem['precio' + numitem] = ''
+                tmpItem['descuento' + numitem] = ''
+                tmpItem['ayudainicial' + numitem] = ''
+                tmpItem['importe' + numitem] = ''
+              }
 
-                // ultimo pago?
-                // console.log(element.listPagos.length);
+            }
 
-                /*porcentaje: element.listPagos[index].porcentaje,
-                fechaPago: this.datepipe.transform(
-                  element.listPagos[index].fecha,
-                  "dd/MM/yyyy"
-                ),
-                numeroOperacion: element.listPagos[index].numeroOperacion,
-                pago: element.listPagos[index].pago,*/
+            for(let x = 0 ; x < maximoCantidadPagos ; x++ ){
+              let numitem = x + 1
+              if(element.listPagos[x] != undefined){
+                tmpItem['fechaSeparacion' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaSeparacion, "dd/MM/yyyy" )
+                tmpItem['fechaMinuta' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaMinuta, "dd/MM/yyyy" )
+                tmpItem['fechaDesembolso' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaDesembolso, "dd/MM/yyyy" )
+                tmpItem['fechaEpp' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaEpp, "dd/MM/yyyy" )
+                tmpItem['fechaCaida' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaCaida, "dd/MM/yyyy" )
+                tmpItem['status' + numitem] = element.listPagos[x].venta.estadoVenta.nombre
+                tmpItem['porcentaje' + numitem] = element.listPagos[x].porcentaje
+                tmpItem['fechaPago' + numitem] = this.datepipe.transform( element.listPagos[x].fecha, "dd/MM/yyyy" )
+                tmpItem['numeroOperacion' + numitem] = element.listPagos[x].numeroOperacion
+                tmpItem['pago' + numitem] = element.listPagos[x].pago
+              }else{
+                tmpItem['fechaSeparacion' + numitem] = ''
+                tmpItem['fechaMinuta' + numitem] = ''
+                tmpItem['fechaDesembolso' + numitem] = ''
+                tmpItem['fechaEpp' + numitem] = ''
+                tmpItem['fechaCaida' + numitem] = ''
+                tmpItem['status' + numitem] = ''
+                tmpItem['porcentaje' + numitem] = ''
+                tmpItem['fechaPago' + numitem] = ''
+                tmpItem['numeroOperacion' + numitem] = ''
+                tmpItem['pago' + numitem] = ''
+              }
 
-                // Financiamiento
-                financiamiento: element.venta.financiamiento.tipoCredito.nombre,
-                montoFinanciado: element.venta.financiamiento.montoFinanciado,
-                fechaFinAhorro: element.venta.financiamiento.fechaInicioAhorro,
-                fechaInicioAhorro: element.venta.financiamiento.fechaFinAhorro,
-                banco: element.venta.financiamiento.banco.nombre,
-                asesorfinanciamiento: element.venta.financiamiento.asesor,
-            };
+            }
+
+            tmpItem['financiamiento'] = element.venta.financiamiento.tipoCredito.nombre
+            tmpItem['montoFinanciado'] = element.venta.financiamiento.montoFinanciado
+            tmpItem['fechaFinAhorro'] = element.venta.financiamiento.fechaInicioAhorro
+            tmpItem['fechaInicioAhorro'] = element.venta.financiamiento.fechaFinAhorro
+            tmpItem['banco'] = element.venta.financiamiento.banco.nombre
+            tmpItem['asesorfinanciamiento'] = element.venta.financiamiento.asesor
+
             itemsExportFormat.push(tmpItem);
           });
-          
-          /*
+
           this.exporterService.exportToExcel(
             itemsExportFormat,
             "reporte_xgerencia"
-          );*/
+          );
+
         },
         (error) => {
           console.log(error);
