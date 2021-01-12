@@ -300,7 +300,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       )
       .subscribe(
         (data) => {
-          console.log(data)
+          //console.log(data)
           const itemsExportFormat: ExportItemExcel[] = [];
           //console.log(data)
           var maximoCantidadInmuebles = 0;
@@ -443,7 +443,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
 
             itemsExportFormat.push(tmpItem);
           });
-            console.log(itemsExportFormat);
+            //console.log(itemsExportFormat);
             this.exporterService.exportToExcel(
             itemsExportFormat,
             "reporte_xgerencia"
