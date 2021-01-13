@@ -408,7 +408,6 @@ export class ModuloBuscadorVentasComponent implements OnInit {
                 tmpItem['numeroOperacion' + numitem] = ''
                 tmpItem['pago' + numitem] = ''
               }
-
             }
 
             if( element.venta.financiamiento.tipoCredito.idTipoCredito != 1 ){
