@@ -10,7 +10,7 @@
           </div>
           <h3>Reporte general</h3>
         </div>
-        <div id="monto"  class="col-sm-12 col-md-7 text-right">
+        <div id="monto" class="col-sm-12 col-md-7 text-right">
           {{ getTotalMeta | formatSoles }} - {{ getTotalAvance | formatSoles }}
         </div>
       </div>
@@ -23,7 +23,7 @@
                 [options]="dataSearch1"
                 [searchKeyword]="keywordSearch1"
                 [keyToShow]="keywordSearch1"
-                [label]="'año'"
+                [label]="'tipo de periodo'"
                 (onSelected)="selectEventSearch1($event)"
                 (onCleared)="clearedSearch1()"
                 (onInputChanged)="clearedSearch1()"
@@ -50,7 +50,7 @@
             class="btn btn-optima"
             (click)="buscar()"
             style="text-decoration: none !important"
-            [disabled]="!filterAnio || !filterIdPeriodo"
+            [disabled]="!filterIdTipoPeriodo || !filterIdPeriodo"
           >
             Buscar
           </button>
@@ -58,7 +58,7 @@
             class="btn btn-optima ml-2"
             (click)="exportar()"
             style="text-decoration: none !important"
-            [disabled]="!filterAnio || !filterIdPeriodo"
+            [disabled]="!filterIdTipoPeriodo || !filterIdPeriodo"
           >
             Exportar
           </button>

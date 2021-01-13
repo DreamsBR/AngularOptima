@@ -4,7 +4,7 @@ import { Cliente } from '../clientes/cliente'
 import { Financiamiento } from '../financiamientos/financiamiento'
 import { EstadoVenta } from '../estados-ventas/estadoventa'
 
-export class VentaNodos{
+export class VentaNodos {
   ayudaInicial: number
   canal: Canal
   categoria: Categoria
@@ -21,7 +21,7 @@ export class VentaNodos{
   financiamiento: Financiamiento
   idProyecto: number
   idVenta: number
-  importe:number
+  importe: number
   motivo: any
   total: number
   vendedor: any

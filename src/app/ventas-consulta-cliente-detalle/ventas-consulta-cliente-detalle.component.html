@@ -8,37 +8,78 @@
           <div class="button-toggle">
             <a (click)="menuToggle()"><em class="fas fa-bars"></em></a>
           </div>
-          <button (click)="regresar()" class="btn btn-optima btn-sm" style="margin-right: 10px; display: inline; margin-top: -7px">
+          <button
+            (click)="regresar()"
+            class="btn btn-optima btn-sm"
+            style="margin-right: 10px; display: inline; margin-top: -7px"
+          >
             <em class="fas fa-chevron-left"></em>
           </button>
-          <h3 style="display: inline">Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}</h3>
+          <h3 style="display: inline">
+            Cliente {{ cliente.nombres + ' ' + cliente.apellidos | formatUppercase }}
+          </h3>
         </div>
         <div class="col-sm-12 col-md-7 text-right"></div>
       </div>
 
       <div class="row mt-2">
         <div class="col-12">
-          <div class="alert alert-danger" role="alert" *ngIf="errors.length > 0" style="font-size: 12px">
+          <div
+            class="alert alert-danger"
+            role="alert"
+            *ngIf="errors.length > 0"
+            style="font-size: 12px"
+          >
             <div *ngFor="let error of errors"><strong>Error:</strong> {{ error }}<br /></div>
           </div>
         </div>
         <div class="col-sm-12 col-md-12">
           <ul class="nav nav-tabs nav-pills nav-fill" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link" id="home-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="home" aria-selected="true">Datos</a>
+              <a
+                class="nav-link"
+                id="home-tab"
+                data-toggle="tab"
+                href="#tab1"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true"
+                >Datos</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="profile" aria-selected="false"
+              <a
+                class="nav-link"
+                id="profile-tab"
+                data-toggle="tab"
+                href="#tab2"
+                role="tab"
+                aria-controls="profile"
+                aria-selected="false"
                 >Inmueble</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="contact" aria-selected="false"
+              <a
+                class="nav-link"
+                id="contact-tab"
+                data-toggle="tab"
+                href="#tab3"
+                role="tab"
+                aria-controls="contact"
+                aria-selected="false"
                 >Modo de pago</a
               >
             </li>
             <li class="nav-item active">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="contact" aria-selected="false"
+              <a
+                class="nav-link"
+                id="contact-tab"
+                data-toggle="tab"
+                href="#tab4"
+                role="tab"
+                aria-controls="contact"
+                aria-selected="false"
                 >Status de venta</a
               >
             </li>
@@ -89,7 +130,6 @@
 
                         <p class="label-dato">Dirección</p>
                         <p>{{ cliente.direccion }}</p>
-
                       </div>
                     </div>
                   </div>
@@ -109,7 +149,9 @@
 
                         <p class="label-dato">Tipo doc.</p>
                         <p>
-                          {{ cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : '' }}
+                          {{
+                            cliente.tipoDocumentoConyuge ? cliente.tipoDocumentoConyuge.nombre : ''
+                          }}
                           - {{ cliente.nroDocConyuge }}
                         </p>
 
@@ -184,15 +226,28 @@
 
               <div class="row">
                 <div class="col-sm-12 col-md-12 overflow-auto">
-                  <table mat-table class="tbinm" [dataSource]="inmuebleLista" style="width: 100%; margin-top: 20px">
+                  <table
+                    mat-table
+                    class="tbinm"
+                    [dataSource]="inmuebleLista"
+                    style="width: 100%; margin-top: 20px"
+                  >
                     <ng-container matColumnDef="editar">
                       <th mat-header-cell *matHeaderCellDef>Editar</th>
                       <td mat-cell *matCellDef="let elem">
-                        <a href="#" data-toggle="dropdown" style="margin-left: 20px; color: #ee6f2e">
+                        <a
+                          href="#"
+                          data-toggle="dropdown"
+                          style="margin-left: 20px; color: #ee6f2e"
+                        >
                           <em class="fas fa-ellipsis-v"></em>
                         </a>
                         <div class="dropdown-menu dropdown-menu-left">
-                          <button class="dropdown-item" type="button" [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]">
+                          <button
+                            class="dropdown-item"
+                            type="button"
+                            [routerLink]="['/inmueble-nuevo-editar', elem.inmueble.idInmueble]"
+                          >
                             <em class="far fa-edit"></em> Editar
                           </button>
                           <button
@@ -263,9 +318,7 @@
 
                     <ng-container matColumnDef="descuento">
                       <th mat-header-cell *matHeaderCellDef>Descuento</th>
-                      <td mat-cell *matCellDef="let elem">
-                        {{ elem.descuento }} %
-                      </td>
+                      <td mat-cell *matCellDef="let elem">{{ elem.descuento }} %</td>
                     </ng-container>
 
                     <ng-container matColumnDef="ayudainicial">
@@ -277,15 +330,28 @@
 
                     <ng-container matColumnDef="importe">
                       <th mat-header-cell *matHeaderCellDef style="text-align: end">Subtotal</th>
-                      <td mat-cell *matCellDef="let elem" style="text-align: end; color: var(--primary); font-weight: bold">
+                      <td
+                        mat-cell
+                        *matCellDef="let elem"
+                        style="text-align: end; color: var(--primary); font-weight: bold"
+                      >
                         {{ elem.importe | formatSoles }}
                       </td>
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: displayedColumns"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
                   </table>
-                  <div *ngIf="inmuebleLista.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px">-- No hay resultados --</div>
+                  <div
+                    *ngIf="inmuebleLista.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
                 </div>
               </div>
 
@@ -336,26 +402,38 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Tipo de crédito</p>
-                          <p>Ahorro MMV</p>
+                          <p>
+                            {{
+                              financiamiento && financiamiento.tipoCredito
+                                ? financiamiento.tipoCredito.nombre
+                                : ''
+                            }}
+                          </p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Bono MMV</p>
-                          <p>0</p>
+                          <p>{{ financiamiento.bono }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">AFP</p>
-                          <p>S/. 32,324.00</p>
+                          <p>{{ financiamiento.afp }}</p>
                         </div>
                       </div>
 
                       <div class="row">
                         <div class="col-sm-12 col-md-8">
                           <p class="label-dato">Banco</p>
-                          <p>BCP - Banco de Crédito del Perú</p>
+                          <p>
+                            {{
+                              financiamiento && financiamiento.banco
+                                ? financiamiento.banco.nombre
+                                : ''
+                            }}
+                          </p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Asesor Banco</p>
-                          <p>Jorge Zed</p>
+                          <p>{{ financiamiento.asesor }}</p>
                         </div>
                       </div>
 
@@ -368,15 +446,27 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Ahorro</p>
-                          <p>S/. 2,500.00</p>
+                          <p>{{ financiamiento.ahorro | formatSoles }}</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Inicio ahorro</p>
-                          <p>08/02/20</p>
+                          <p>
+                            {{
+                              financiamiento.fechaInicioAhorro
+                                ? financiamiento.fechaInicioAhorro
+                                : ('' | formatDate)
+                            }}
+                          </p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Fin de ahorro</p>
-                          <p>08/02/20</p>
+                          <p>
+                            {{
+                              financiamiento.fechaFinAhorro
+                                ? financiamiento.fechaFinAhorro
+                                : ('' | formatDate)
+                            }}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -385,7 +475,12 @@
               </div>
             </div>
 
-            <div class="tab-pane fade show active" id="tab4" role="tabpanel" aria-labelledby="contact-tab">
+            <div
+              class="tab-pane fade show active"
+              id="tab4"
+              role="tabpanel"
+              aria-labelledby="contact-tab"
+            >
               <br />
 
               <div class="row">
@@ -404,7 +499,10 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="btn-group">
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-right: 2px"
                           *ngIf="ventaFileFSeparacion !== null"
                           (click)="descargarArchivoPago(ventaFileFSeparacion.fileRuta)"
                           ><em class="fa fa-download"></em> Descargar archivo
@@ -418,7 +516,11 @@
                           title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-left: 1px"
+                          title="Eliminar archivo"
                           *ngIf="ventaFileFSeparacion !== null"
                           (click)="eliminarArchivoFechaPago(1)"
                           ><em class="fa fa-times"></em>
@@ -429,11 +531,18 @@
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded #dpFMinuta [label]="'Fecha de minuta'" (onDateChanged)="onFechaMinutaChanged($event)"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFMinuta
+                    [label]="'Fecha de minuta'"
+                    (onDateChanged)="onFechaMinutaChanged($event)"
+                  ></datepicker-rounded>
                   <div class="row">
                     <div class="col-12">
                       <div class="btn-group">
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-right: 2px"
                           *ngIf="ventaFileFMinuta !== null"
                           (click)="descargarArchivoPago(ventaFileFMinuta.fileRuta)"
                           ><em class="fa fa-download"></em> Descargar archivo
@@ -447,7 +556,11 @@
                           title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-left: 1px"
+                          title="Eliminar archivo"
                           *ngIf="ventaFileFMinuta !== null"
                           (click)="eliminarArchivoFechaPago(5)"
                           ><em class="fa fa-times"></em>
@@ -466,7 +579,10 @@
                   <div class="row">
                     <div class="col-12">
                       <div class="btn-group">
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-right: 2px"
                           *ngIf="ventaFileFDesembolso !== null"
                           (click)="descargarArchivoPago(ventaFileFDesembolso.fileRuta)"
                           ><em class="fa fa-download"></em> Descargar archivo
@@ -480,7 +596,11 @@
                           title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-left: 1px"
+                          title="Eliminar archivo"
                           *ngIf="ventaFileFDesembolso !== null"
                           (click)="eliminarArchivoFechaPago(12)"
                           ><em class="fa fa-times"></em>
@@ -491,11 +611,18 @@
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded #dpFEEP [label]="'Fecha de EEP'" (onDateChanged)="onFechaEEPChanged($event)"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFEEP
+                    [label]="'Fecha de EEP'"
+                    (onDateChanged)="onFechaEEPChanged($event)"
+                  ></datepicker-rounded>
                   <div class="row">
                     <div class="col-12">
                       <div class="btn-group">
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-right: 2px"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-right: 2px"
                           *ngIf="ventaFileFEEP !== null"
                           (click)="descargarArchivoPago(ventaFileFEEP.fileRuta)"
                           ><em class="fa fa-download"></em> Descargar archivo
@@ -509,7 +636,11 @@
                           title="Subir archivo"
                           ><em class="fa fa-upload"></em
                         ></label>
-                        <label class="btn-light btn-sm" ngbButtonLabel style="margin-left: 1px" title="Eliminar archivo"
+                        <label
+                          class="btn-light btn-sm"
+                          ngbButtonLabel
+                          style="margin-left: 1px"
+                          title="Eliminar archivo"
                           *ngIf="ventaFileFEEP !== null"
                           (click)="eliminarArchivoFechaPago(13)"
                           ><em class="fa fa-times"></em>
@@ -520,7 +651,11 @@
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
-                  <datepicker-rounded #dpFCaida [label]="'Fecha de caída'" (onDateChanged)="onFechaCaidaChanged($event)"></datepicker-rounded>
+                  <datepicker-rounded
+                    #dpFCaida
+                    [label]="'Fecha de caída'"
+                    (onDateChanged)="onFechaCaidaChanged($event)"
+                  ></datepicker-rounded>
                 </div>
               </div>
 
@@ -534,7 +669,14 @@
                 </div>
 
                 <div class="col-sm-4 col-md-4" style="text-align: end">
-                  <button type="button" class="btn btn-optima" (click)="actualizarVenta()" style="text-decoration: none">Guardar</button>
+                  <button
+                    type="button"
+                    class="btn btn-optima"
+                    (click)="actualizarVenta()"
+                    style="text-decoration: none"
+                  >
+                    Guardar
+                  </button>
                 </div>
               </div>
 
@@ -542,7 +684,11 @@
                 <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">
                   <div class="form-group">
                     <label for="nombres">Cambiar estado</label>
-                    <select [(ngModel)]="idEstadoVentaSelect" class="form-control" id="iptTipoEstadoVenta">
+                    <select
+                      [(ngModel)]="idEstadoVentaSelect"
+                      class="form-control"
+                      id="iptTipoEstadoVenta"
+                    >
                       <option *ngFor="let o of optionsTiposEstadoVenta" [ngValue]="o.idEstadoVenta">
                         {{ o.nombre }}
                       </option>
@@ -601,7 +747,11 @@
                   <h3>Pagos</h3>
                 </div>
                 <div class="col-sm-12 col-md-7 text-right">
-                  <a id="#btnAgregarPago" (click)="abrirModalAgregarPago()" data-toggle="modal" data-target="#modal-gestion-pago"
+                  <a
+                    id="#btnAgregarPago"
+                    (click)="abrirModalAgregarPago()"
+                    data-toggle="modal"
+                    data-target="#modal-gestion-pago"
                     ><span class="font-add">Agregar<em class="fas fa-plus-circle"></em></span
                   ></a>
                   <!-- <a href="/cliente-nuevo-editar/0"
@@ -612,7 +762,12 @@
 
               <div class="row">
                 <div class="col-12">
-                  <table mat-table [dataSource]="pagos" class="tbproy" style="width: 100%; margin-top: 20px">
+                  <table
+                    mat-table
+                    [dataSource]="pagos"
+                    class="tbproy"
+                    style="width: 100%; margin-top: 20px"
+                  >
                     <ng-container matColumnDef="editar">
                       <th mat-header-cell *matHeaderCellDef style="max-width: 150px">Editar</th>
                       <td mat-cell *matCellDef="let element">
@@ -671,9 +826,18 @@
                     </ng-container>
 
                     <tr mat-header-row *matHeaderRowDef="fieldsTblPagos"></tr>
-                    <tr mat-row *matRowDef="let row; columns: fieldsTblPagos" class="col-sm-12 col-md-4"></tr>
+                    <tr
+                      mat-row
+                      *matRowDef="let row; columns: fieldsTblPagos"
+                      class="col-sm-12 col-md-4"
+                    ></tr>
                   </table>
-                  <div *ngIf="pagos.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px">-- No hay resultados --</div>
+                  <div
+                    *ngIf="pagos.data.length === 0"
+                    style="width: 100%; text-align: center; margin-top: 15px"
+                  >
+                    -- No hay resultados --
+                  </div>
 
                   <!-- <mat-paginator
                     [length]="totalData"
@@ -714,25 +878,51 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Agregar pago</h5>
-        <button id="btnPagoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          id="btnPagoClose"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body" style="padding-top: 0px">
         <div class="row">
           <div class="col-12">
-            <div class="alert alert-warning" role="alert" *ngIf="modalPagoWarnings.length > 0" style="font-size: 12px">
-              <div *ngFor="let modalPagoWarning of modalPagoWarnings"><strong>Advertencia:</strong> {{ modalPagoWarning }}<br /></div>
+            <div
+              class="alert alert-warning"
+              role="alert"
+              *ngIf="modalPagoWarnings.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoWarning of modalPagoWarnings">
+                <strong>Advertencia:</strong> {{ modalPagoWarning }}<br />
+              </div>
             </div>
-            <div class="alert alert-danger" role="alert" *ngIf="modalPagoErrores.length > 0" style="font-size: 12px">
-              <div *ngFor="let modalPagoError of modalPagoErrores"><strong>Error:</strong> {{ modalPagoError }}<br /></div>
+            <div
+              class="alert alert-danger"
+              role="alert"
+              *ngIf="modalPagoErrores.length > 0"
+              style="font-size: 12px"
+            >
+              <div *ngFor="let modalPagoError of modalPagoErrores">
+                <strong>Error:</strong> {{ modalPagoError }}<br />
+              </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12">
             Nro. Operación<br />
-            <input maxlength="20" [(ngModel)]="pagoModal.numeroOperacion" matInput class="form-control" placeholder="Nro de recibo" />
+            <input
+              maxlength="20"
+              [(ngModel)]="pagoModal.numeroOperacion"
+              matInput
+              class="form-control"
+              placeholder="Nro de recibo"
+            />
           </div>
         </div>
         <div class="row mt-2">
@@ -760,8 +950,15 @@
             Voucher (Opcional)<br />
             <div style="font-size: 0.75rem">Máximo 1 archivo</div>
             <div class="form-group" style="position: relative">
-              <input type="file" (change)="uploadFilePago($event)" class="custom-file-input form-control" id="validatedCustomFile" />
-              <label class="custom-file-label" for="validatedCustomFile">Seleccionar voucher...</label>
+              <input
+                type="file"
+                (change)="uploadFilePago($event)"
+                class="custom-file-input form-control"
+                id="validatedCustomFile"
+              />
+              <label class="custom-file-label" for="validatedCustomFile"
+                >Seleccionar voucher...</label
+              >
               <div class="invalid-feedback">Archivo inválido</div>
             </div>
           </div>
@@ -770,7 +967,10 @@
           <div class="col-12">
             <div class="form-group" *ngIf="pagoModal !== null && pagoModal.fileRuta !== null">
               Archivo Subido:<br />
-              <div (click)="descargarArchivoPago(pagoModal.fileRuta)" style="cursor: pointer; width: max-content; color: var(--primary)">
+              <div
+                (click)="descargarArchivoPago(pagoModal.fileRuta)"
+                style="cursor: pointer; width: max-content; color: var(--primary)"
+              >
                 <em class="fa fa-download"></em> Descargar
               </div>
             </div>
@@ -778,7 +978,14 @@
         </div>
         <div class="row" style="margin-top: 10px">
           <div class="col-12" style="text-align: center">
-            <button type="button" (click)="btnPagoGuardar()" class="btn btn-optima" style="text-decoration: none">Agregar</button>
+            <button
+              type="button"
+              (click)="btnPagoGuardar()"
+              class="btn btn-optima"
+              style="text-decoration: none"
+            >
+              Agregar
+            </button>
           </div>
         </div>
       </div>
@@ -834,8 +1041,17 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">Confirmar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarPago">Cancelar</button>
+        <button type="button" class="btn btn-optima" (click)="eliminarPagoSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarPago"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
@@ -860,8 +1076,17 @@
         </p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">Confirmar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cerrarModalEliminarInmueble">Cancelar</button>
+        <button type="button" class="btn btn-optima" (click)="eliminarInmuebleSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarInmueble"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
@@ -872,7 +1097,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title">Subir archivo de Fecha</h5>
-        <button id="btnModalFechaArchivoClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          id="btnModalFechaArchivoClose"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -886,9 +1117,16 @@
         </div>
         <div class="row" style="margin-top: 10px">
           <div class="col-12">
-            <div style="font-size: 0.75rem; margin-bottom: 12px">Si ya existe un archivo para la fecha seleccionada, este será reemplazado.</div>
+            <div style="font-size: 0.75rem; margin-bottom: 12px">
+              Si ya existe un archivo para la fecha seleccionada, este será reemplazado.
+            </div>
             <div class="form-group" style="position: relative">
-              <input type="file" (change)="uploadFileFechas($event,'')" class="custom-file-input form-control" id="validatedCustomFile" />
+              <input
+                type="file"
+                (change)="uploadFileFechas($event, '')"
+                class="custom-file-input form-control"
+                id="validatedCustomFile"
+              />
               <label class="custom-file-label" for="validatedCustomFile">Seleccionar...</label>
               <div class="invalid-feedback">Archivo inválido</div>
             </div>
@@ -896,7 +1134,14 @@
         </div>
         <div class="row" style="margin-top: 10px">
           <div class="col-12" style="text-align: center">
-            <button type="button" (click)="btnCerrarModalArchivoFecha()" class="btn btn-optima" style="text-decoration: none">Cerrar</button>
+            <button
+              type="button"
+              (click)="btnCerrarModalArchivoFecha()"
+              class="btn btn-optima"
+              style="text-decoration: none"
+            >
+              Cerrar
+            </button>
           </div>
         </div>
       </div>

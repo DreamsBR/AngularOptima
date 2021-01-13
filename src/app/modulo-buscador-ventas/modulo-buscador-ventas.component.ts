@@ -85,6 +85,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     //   return
     // }
 
+    //pocentaje * totalpaog
+
     this.loading = true;
     this.loadDataComponent().subscribe(
       (resp) => {
@@ -96,8 +98,10 @@ export class ModuloBuscadorVentasComponent implements OnInit {
         this.filterDesde = moment()
           .clone()
           .startOf("month")
-          .format("YYYY-MM-01");
-        this.filterHasta = moment().clone().endOf("month").format("YYYY-MM-01");
+          .format("YYYY-MM-Do");
+
+        this.filterHasta = moment()
+        .format("YYYY-MM-Do");
         this.dpfechaDesde.setValue(this.filterDesde);
         this.dpfechaHasta.setValue(this.filterHasta);
 
@@ -276,7 +280,7 @@ export class ModuloBuscadorVentasComponent implements OnInit {
     //forEach(element => {
 
     });
-
+    //Tipo de credito - bancos
   }*/
 
 
@@ -296,8 +300,9 @@ export class ModuloBuscadorVentasComponent implements OnInit {
       )
       .subscribe(
         (data) => {
+          //console.log(data)
           const itemsExportFormat: ExportItemExcel[] = [];
-
+          //console.log(data)
           var maximoCantidadInmuebles = 0;
           data.forEach(element => {
             if(element.listVentaInmueble.length >= maximoCantidadInmuebles){
@@ -313,7 +318,8 @@ export class ModuloBuscadorVentasComponent implements OnInit {
           });
 
           data.forEach((element) => {
-
+            var porcentaje:number  = 0
+            var totalPagos:number  = 0
             var tmpItem:any = {}
 
             tmpItem['ClienteNombre'] = element.venta.cliente.nombres + " " + element.venta.cliente.apellidos
@@ -322,12 +328,14 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['conyuge'] = element.venta.cliente.conyuge
             tmpItem['nroDocConyuge'] = element.venta.cliente.nroDocConyuge
 
+
+
             if( element.venta.cliente.estadoCivilConyuge.idEstadoCivil != 1 ){
               tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
             }else{
               tmpItem['estadoCivilConyuge'] = ''
             }
-            
+
             tmpItem['ocupacionConyuge'] = element.venta.cliente.ocupacionConyuge
             tmpItem['email'] = element.venta.cliente.email
             tmpItem['telefono'] = element.venta.cliente.telefono
@@ -382,28 +390,35 @@ export class ModuloBuscadorVentasComponent implements OnInit {
               }
 
             }
+            tmpItem['fechaSeparacion'] = this.datepipe.transform( element.venta.fechaSeparacion, "dd/MM/yyyy" )
+            tmpItem['fechaMinuta'] = this.datepipe.transform( element.venta.fechaMinuta, "dd/MM/yyyy" )
+            tmpItem['fechaDesembolso'] = this.datepipe.transform( element.venta.fechaDesembolso, "dd/MM/yyyy" )
+            tmpItem['fechaEpp'] = this.datepipe.transform( element.venta.fechaEpp, "dd/MM/yyyy" )
+            tmpItem['fechaCaida'] = this.datepipe.transform( element.venta.fechaCaida, "dd/MM/yyyy" )
+
+            tmpItem['status' ] = element.venta.estadoVenta.nombre
+            /*Porcentajes*/
+            var totPagos ;
+            var totalPorcentajePagos;
+
 
             for(let x = 0 ; x < maximoCantidadPagos ; x++ ){
               let numitem = x + 1
               if(element.listPagos[x] != undefined){
-                tmpItem['fechaSeparacion' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaSeparacion, "dd/MM/yyyy" )
-                tmpItem['fechaMinuta' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaMinuta, "dd/MM/yyyy" )
-                tmpItem['fechaDesembolso' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaDesembolso, "dd/MM/yyyy" )
-                tmpItem['fechaEpp' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaEpp, "dd/MM/yyyy" )
-                tmpItem['fechaCaida' + numitem] = this.datepipe.transform( element.listPagos[x].venta.fechaCaida, "dd/MM/yyyy" )
-                tmpItem['status' + numitem] = element.listPagos[x].venta.estadoVenta.nombre
-                tmpItem['porcentaje' + numitem] = element.listPagos[x].porcentaje
+                totalPagos = totalPagos + element.listPagos[x].monto
+                totalPorcentajePagos = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
+                tmpItem['PorcentajeDePago'] = totalPorcentajePagos.toFixed(2) + '%';
+                tmpItem['TotalPagos'] = totalPagos;
+
+                porcentaje  = (totalPagos / element.venta.financiamiento.montoFinanciado) * 100
+                //tmpItem['porcentaje' + numitem] = porcentaje.toFixed(2)
                 tmpItem['fechaPago' + numitem] = this.datepipe.transform( element.listPagos[x].fecha, "dd/MM/yyyy" )
                 tmpItem['numeroOperacion' + numitem] = element.listPagos[x].numeroOperacion
-                tmpItem['pago' + numitem] = element.listPagos[x].pago
+                tmpItem['pago' + numitem] = element.listPagos[x].monto
+
+
               }else{
-                tmpItem['fechaSeparacion' + numitem] = ''
-                tmpItem['fechaMinuta' + numitem] = ''
-                tmpItem['fechaDesembolso' + numitem] = ''
-                tmpItem['fechaEpp' + numitem] = ''
-                tmpItem['fechaCaida' + numitem] = ''
-                tmpItem['status' + numitem] = ''
-                tmpItem['porcentaje' + numitem] = ''
+
                 tmpItem['fechaPago' + numitem] = ''
                 tmpItem['numeroOperacion' + numitem] = ''
                 tmpItem['pago' + numitem] = ''
@@ -420,12 +435,15 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['fechaFinAhorro'] = element.venta.financiamiento.fechaInicioAhorro
             tmpItem['fechaInicioAhorro'] = element.venta.financiamiento.fechaFinAhorro
             tmpItem['banco'] = element.venta.financiamiento.banco.nombre
-            tmpItem['asesorfinanciamiento'] = element.venta.financiamiento.asesor
+            tmpItem['TipoDeCredito'] =  element.venta.financiamiento.tipoCredito.nombre
+            tmpItem['AsesorDebanco'] = element.venta.financiamiento.asesor
+            tmpItem['Bono'] =element.venta.financiamiento.bono;
+            tmpItem['AFP'] =element.venta.financiamiento.afp;
 
             itemsExportFormat.push(tmpItem);
           });
-
-          this.exporterService.exportToExcel(
+            //console.log(itemsExportFormat);
+            this.exporterService.exportToExcel(
             itemsExportFormat,
             "reporte_xgerencia"
           );
