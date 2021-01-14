@@ -24,7 +24,7 @@ export class PeriodoService {
   */
 
   getPeriodos(page): Observable<any> {
-    return this.http.get(this.urlEndPoint + '/page/' + page + '/10' ).pipe(
+    return this.http.get(this.urlEndPoint + '/page/' + page + '/10').pipe(
       map((data: any) => {
         ;(data.content as Periodo[]).map((periodo) => {
           return periodo
@@ -33,6 +33,15 @@ export class PeriodoService {
       })
     )
   }
+
+  getPeriodosByAnio(anio: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/byanio/' + anio).pipe()
+  }
+
+  getPeriodoByTipoPeriodo(idTipoPeriodo: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/bytipoperiodo/' + idTipoPeriodo).pipe()
+  }
+
   /*
 
   getPeriodosGerente(): Observable<any> {
@@ -59,7 +68,6 @@ export class PeriodoService {
       })
     )
   }
-
 
   agregarPeriodo(periodo: Periodo): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, periodo).pipe(

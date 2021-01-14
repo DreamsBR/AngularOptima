@@ -39,4 +39,22 @@ export class ModuloBuscadorVentasService {
   buscarClientesPorDni(nrodoc: string): Observable<Clientenodo[]> {
     return this.http.get<Clientenodo[]>(URL_BACKEND + 'cliente/nroDocumento/' + nrodoc).pipe()
   }
+
+  buscarVentasSearch(
+    fechaFin: string,
+    fechaIni: string,
+    idCliente: number,
+    idEstadoVenta: number,
+    idProyecto: number
+  ): Observable<any> {
+    let data = {
+      "fechaFin": fechaFin,
+      "fechaIni": fechaIni,
+      "idCliente": idCliente,
+      "idEstadoVenta": idEstadoVenta,
+      "idProyecto": idProyecto
+    }
+    return this.http.post(this.urlEndPoint + `/search/`, data).pipe()
+  }
+
 }

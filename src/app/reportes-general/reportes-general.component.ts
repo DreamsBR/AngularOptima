@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { FormControl } from '@angular/forms'
 import { Observable } from 'rxjs'
@@ -10,9 +10,11 @@ import { GerenciaService } from '../gerencias/gerencia.service'
 import { PeriodoGerencia } from '../periodo-gerencia/periodogerencia'
 import { PeriodoGerenciaService } from '../periodo-gerencia/periodo-gerencia.service'
 import { ReportesService } from '../reportes/reportes.service'
-import { ConsolidadoVentas } from './consolidadoventas'
+import { ConsolidadoGeneral } from './consolidadogeneral'
+import { ActivatedRoute } from '@angular/router'
+import { ColaboradorService } from '../colaboradores/colaborador.service'
 import { ExporterService } from '../helpers/exporter.service'
-import { ActivatedRoute,Router } from '@angular/router'
+import { TipoPeriodoService } from '../tipo-periodo/tipo-periodo.service'
 
 import {
   ApexAxisChartSeries,
@@ -46,11 +48,11 @@ export type ChartOptions = {
 }
 
 @Component({
-  selector: 'app-reportes',
-  templateUrl: './reportes.component.html',
-  styleUrls: ['./reportes.component.css']
+  selector: 'app-reportes-general',
+  templateUrl: './reportes-general.component.html',
+  styleUrls: ['./reportes-general.component.css']
 })
-export class ReportesComponent implements OnInit {
+export class ReportesGeneralComponent implements OnInit {
   @ViewChild('mychart', { static: true }) chartObj: ChartComponent
   @ViewChild('mychartFunnel', { static: true }) chartObjFunnel: ChartComponent
   @ViewChild('mychartForecast', { static: true }) chartObjForecast: ChartComponent
@@ -61,10 +63,10 @@ export class ReportesComponent implements OnInit {
   loading = false
   status = false
 
-  itemsTable = new MatTableDataSource<ConsolidadoVentas>()
+  itemsTable = new MatTableDataSource<ConsolidadoGeneral>()
   fieldsTable: string[] = [
     'numero',
-    'proyecto',
+    'gerente',
     'meta',
     'avance',
     'minuta',
@@ -80,10 +82,10 @@ export class ReportesComponent implements OnInit {
   public chartOptionsForecast: Partial<ChartOptions>
 
   // Variables para buscadores
-  keywordSearch1 = 'nombreColaborador'
+  keywordSearch1 = 'nombre'
   dataSearch1 = []
 
-  keywordSearch2 = 'nombrePeriodo'
+  keywordSearch2 = 'nombre'
   dataSearch2 = []
 
   // sumaEtapaSep
@@ -103,17 +105,19 @@ export class ReportesComponent implements OnInit {
   totalSP = 0
   totalCaida = 0
 
-  filterIdGerencia: number = null
+  filterIdTipoPeriodo: number = null
   filterIdPeriodo: number = null
 
   constructor(
-    private router: Router,
     private proyectoService: ProyectoService,
     private periodoService: PeriodoService,
     private gerenciaService: GerenciaService,
     private periodoGerenciaService: PeriodoGerenciaService,
     private reportesService: ReportesService,
-    private exporterService: ExporterService
+    private activatedRoute: ActivatedRoute,
+    private colaboradorService: ColaboradorService,
+    private exporterService: ExporterService,
+    private tipoPeriodoService: TipoPeriodoService
   ) {
     this.chartOptions = {
       colors: ['#579DD3', '#EE7B37'],
@@ -280,26 +284,24 @@ export class ReportesComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true
-    this.gerenciaService.getAllGerencias().subscribe((data) => {
-      const listaGerentes = []
-      data.forEach((elem: any) => {
-        if (elem.colaborador) {
-          listaGerentes.push({
-            ...elem,
-            idColaborador: elem.colaborador.idColaborador,
-            nombreColaborador: 'Gte. ' + elem.colaborador.nombres + ' ' + elem.colaborador.apellidos
-          })
-        }
-      })
-      this.dataSearch1 = listaGerentes
+    this.tipoPeriodoService.getTiposPeriodo().subscribe((resp) => {
       this.loading = false
+      this.dataSearch1 = resp
     })
+    // const cYear = new Date().getFullYear()
+    // const arrYears = []
+    // for (let i = 2020; i <= cYear + 10; i++) {
+    //   arrYears.push({
+    //     nombre: i.toString(),
+    //     valor: i
+    //   })
+    // }
+    // this.dataSearch1 = arrYears
+    // this.loading = false
   }
 
-  ////////////////////////////////////////////
-
   clearedSearch1() {
-    this.filterIdGerencia = null
+    this.filterIdTipoPeriodo = null
     // Cuando se limpia el primer buscador, limpiamos el segundo
     this.filterIdPeriodo = null
     this.dataSearch2 = []
@@ -311,19 +313,15 @@ export class ReportesComponent implements OnInit {
   }
 
   selectEventSearch1(item: any) {
-    this.filterIdGerencia = item.idGerencia
+    this.filterIdTipoPeriodo = item.idTipoPeriodo
 
     this.loading = true
     this.dataSearch2 = []
-    this.periodoGerenciaService.getPeriodoByIdGerencia(item.idGerencia).subscribe(
+    this.periodoService.getPeriodoByTipoPeriodo(this.filterIdTipoPeriodo).subscribe(
       (resp) => {
         const customDataSearch = []
         resp.forEach((elem: any) => {
-          customDataSearch.push({
-            ...elem,
-            idPeriodo: elem.periodo.idPeriodo,
-            nombrePeriodo: elem.periodo.nombre
-          })
+          customDataSearch.push(elem)
         })
         this.dataSearch2 = customDataSearch
         this.loading = false
@@ -344,48 +342,38 @@ export class ReportesComponent implements OnInit {
   }
 
   buscar() {
-    if (!this.filterIdGerencia || !this.filterIdPeriodo) {
-      alert('Debe seleccionar un gerente y un periodo')
+    if (!this.filterIdTipoPeriodo || !this.filterIdPeriodo) {
+      alert('Debe seleccionar un tipo y un periodo')
       return
     }
 
     this.loading = true
+    this.reportesService.getConsolidadoGeneral(this.filterIdPeriodo).subscribe(
+      (resp) => {
+        this.itemsTable = new MatTableDataSource<ConsolidadoGeneral>(resp)
+        this.totalMinuta = this.itemsTable.data
+          .map((t) => t.minuta)
+          .reduce((acc, value) => acc + value, 0)
+        this.totalCI = this.itemsTable.data.map((t) => t.ci).reduce((acc, value) => acc + value, 0)
+        this.totalPreca = this.itemsTable.data
+          .map((t) => t.preca)
+          .reduce((acc, value) => acc + value, 0)
+        this.totalEV = this.itemsTable.data.map((t) => t.ev).reduce((acc, value) => acc + value, 0)
+        this.totalSP = this.itemsTable.data.map((t) => t.sp).reduce((acc, value) => acc + value, 0)
+        this.totalCaida = this.itemsTable.data
+          .map((t) => t.caida)
+          .reduce((acc, value) => acc + value, 0)
 
-    this.reportesService
-      .getConsolidadoVentas(this.filterIdGerencia, this.filterIdPeriodo)
-      .subscribe(
-        (resp) => {
-          this.itemsTable = new MatTableDataSource<ConsolidadoVentas>(resp)
-          this.totalMinuta = this.itemsTable.data
-            .map((t) => t.minuta)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCI = this.itemsTable.data
-            .map((t) => t.ci)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalPreca = this.itemsTable.data
-            .map((t) => t.preca)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalEV = this.itemsTable.data
-            .map((t) => t.ev)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalSP = this.itemsTable.data
-            .map((t) => t.sp)
-            .reduce((acc, value) => acc + value, 0)
-          this.totalCaida = this.itemsTable.data
-            .map((t) => t.caida)
-            .reduce((acc, value) => acc + value, 0)
+        this.loading = false
 
-          this.loading = false
-
-          this.setDataChart()
-          this.drawFunnelChart()
-          this.drawForecastChart()
-        },
-        (error) => {
-          this.loading = false
-          console.log(error)
-        }
-      )
+        this.setDataChart()
+        this.drawFunnelChart()
+      },
+      (error) => {
+        this.loading = false
+        console.log(error)
+      }
+    )
   }
 
   setDataChart() {
@@ -410,7 +398,7 @@ export class ReportesComponent implements OnInit {
       categories: []
     }
     this.itemsTable.data.forEach((elem) => {
-      tmpXaxis.categories.push(elem.proyecto.nombre)
+      tmpXaxis.categories.push(elem.gerencia.colaborador.nombres)
     })
     this.chartOptions.labels = ['opa']
     this.chartOptions.series = tmpSeries
@@ -466,47 +454,12 @@ export class ReportesComponent implements OnInit {
     this.chartObjFunnel.updateOptions(this.chartOptionsFunnel)
   }
 
-  drawForecastChart() {
-    this.reportesService
-      .getConsolidadoGerencia(this.filterIdGerencia, this.filterIdPeriodo)
-      .subscribe((resp) => {
-        const tmpSeries = [
-          {
-            name: 'Meta',
-            data: []
-          },
-          {
-            name: 'Monto de venta alcanzada',
-            data: []
-          }
-        ]
-        const tmpXaxis = {
-          categories: []
-        }
-
-        resp.forEach((elem) => {
-          tmpSeries[0].data.push(elem.periodoGerencia.meta)
-          tmpSeries[1].data.push(elem.venta)
-          tmpXaxis.categories.push(elem.periodoGerencia.periodo.nombre)
-        })
-        this.chartOptionsForecast.series = tmpSeries
-        this.chartOptionsForecast.xaxis = tmpXaxis
-        this.chartObjForecast.updateOptions(this.chartOptionsForecast)
-      })
-  }
-
-  goDetails(row) {
-    // console.log(row)
-    const idProyecto = row.proyecto.idProyecto
-    this.router.navigate(['/reportes-por-proyecto/' + idProyecto + '/' + this.filterIdPeriodo])
-  }
-
-
   exportar() {
-    const itemsExportFormat:ExportItemExcel[] = []
-    this.itemsTable.data.forEach(element => {
-      const tmpItem:ExportItemExcel = {
-        proyecto: element.proyecto.nombre,
+    const itemsExportFormat: ExportItemExcel[] = []
+    this.itemsTable.data.forEach((element) => {
+      const tmpItem: ExportItemExcel = {
+        gerente:
+          element.gerencia.colaborador.nombres + ' ' + element.gerencia.colaborador.apellidos,
         meta: element.meta,
         avance: element.avance,
         minuta: element.minuta,
@@ -514,17 +467,17 @@ export class ReportesComponent implements OnInit {
         preca: element.preca,
         ev: element.ev,
         sp: element.sp,
-        caida: element.caida,
+        caida: element.caida
       }
       itemsExportFormat.push(tmpItem)
     })
     // const timeStamp = new Date().getTime()
-    this.exporterService.exportToExcel(itemsExportFormat,'reporte_xgerencia')
+    this.exporterService.exportToExcel(itemsExportFormat, 'reporte_general')
   }
 }
 
 interface ExportItemExcel {
-  proyecto: string
+  gerente: string
   meta: number
   avance: number
   minuta: number

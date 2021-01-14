@@ -12,7 +12,7 @@ import { Cliente } from '../clientes/cliente'
 import { Clientenodo } from '../clientes/clientenodo'
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap'
 import * as moment from 'moment'
-import { Financiamiento } from '../financiamientos/financiamiento'
+import { FinanciamientoNodos } from '../financiamientos/financiamiento'
 import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { MatPaginator } from '@angular/material/paginator'
@@ -31,7 +31,6 @@ import { VentaFiles } from '../venta-files/ventafiles'
 import { VentaFilesPost } from '../venta-files/ventafilespost'
 import { VentaFilesService } from '../venta-files/venta-files.service'
 
-
 @Component({
   selector: 'app-ventas-consulta-cliente-detalle',
   templateUrl: './ventas-consulta-cliente-detalle.component.html',
@@ -46,7 +45,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   venta: VentaNodos = new VentaNodos()
   cliente: Clientenodo = new Clientenodo()
-  financiamiento: Financiamiento = new Financiamiento()
+  financiamiento: FinanciamientoNodos = new FinanciamientoNodos()
   pago: Pago = new Pago()
 
   // Sort Datos
@@ -236,7 +235,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 2: // PRECALIFICACIÓN
         if (!this.venta.fechaSeparacion) {
-          alert('No se puede asignar el estado "Precalificación" sin haber asignado antes el estado "Separación"')
+          alert(
+            'No se puede asignar el estado "Precalificación" sin haber asignado antes el estado "Separación"'
+          )
           return
         } else {
           if (this.pagos.data.length < 1) {
@@ -249,7 +250,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 4: // CUOTA INICIAL
         if (!this.venta.fechaSeparacion) {
-          alert('No se puede asignar el estado "Cuota inicial" sin haber asignado antes el estado "Separación"')
+          alert(
+            'No se puede asignar el estado "Cuota inicial" sin haber asignado antes el estado "Separación"'
+          )
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -263,7 +266,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 5: // MINUTA
         console.log('Fecha minuta ' + this.venta.fechaMinuta)
         if (!this.venta.fechaSeparacion) {
-          alert('No se puede asignar el estado "Minuta" sin haber asignado antes el estado "Separación"')
+          alert(
+            'No se puede asignar el estado "Minuta" sin haber asignado antes el estado "Separación"'
+          )
           return
         } else {
           if (this.tempIdFechaMinuta === '') {
@@ -283,7 +288,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 6: // APERTURA DE AHORRO
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "Apertura de ahorro" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "Apertura de ahorro" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -296,7 +303,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 7: // EN AHORRO
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "En ahorro" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "En ahorro" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -309,7 +318,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 8: // CARTA DE APROBACIÓN
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "Carta de aprobación" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "Carta de aprobación" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -335,7 +346,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 10: // COFIDE
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "Cofide" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "Cofide" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.pagos.data.length < 2) {
@@ -348,7 +361,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
       case 11: // CRÉDITO DIRECTO
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "Crédito Directo" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "Crédito Directo" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.pagos.data.length < 1) {
@@ -362,7 +377,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 12: // DESEMBOLSO
         console.log('Fecha desembolso ' + this.venta.fechaDesembolso)
         if (!this.venta.fechaMinuta) {
-          alert('No se puede asignar el estado "Desembolso" sin haber asignado antes el estado "Minuta"')
+          alert(
+            'No se puede asignar el estado "Desembolso" sin haber asignado antes el estado "Minuta"'
+          )
           return
         } else {
           if (this.tempIdFechaDesembolso === '') {
@@ -384,7 +401,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       case 13: // EEP
         console.log('Fecha EEP ' + this.venta.fechaEpp)
         if (!this.venta.fechaDesembolso) {
-          alert('No se puede asignar el estado "EEPP" sin haber asignado antes el estado "Desembolso"')
+          alert(
+            'No se puede asignar el estado "EEPP" sin haber asignado antes el estado "Desembolso"'
+          )
           return
         } else {
           if (this.tempIdFechaEEP === '') {
@@ -491,10 +510,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       // console.log(this.pagoModal)
       // return
 
-      const montoFaltante = parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
+      const montoFaltante =
+        parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
       if (this.pagoModal.monto > montoFaltante) {
         this.loading = false
-        const msg = 'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
+        const msg =
+          'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
         this.modalPagoWarnings = [msg]
         return
       }
@@ -536,18 +557,20 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       reader.readAsDataURL(file)
       reader.onload = () => {
         if (typeof reader.result === 'string') {
-          this.utilService.postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`).subscribe(
-            (resp) => {
-              this.pagoModal.fileRuta = resp.fileName
-              this.loading = false
-              this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
-            },
-            (error) => {
-              this.loading = false
-              this.modalPagoErrores = ['Hubo un problema al subir el archivo']
-              console.log(error)
-            }
-          )
+          this.utilService
+            .postUploadFile(reader.result, `PAGO_RANDOMCODE_${randomCode}.${extension}`)
+            .subscribe(
+              (resp) => {
+                this.pagoModal.fileRuta = resp.fileName
+                this.loading = false
+                this.openSnackBar('success', '✓ Voucher subido correctamente', 'Cerrar')
+              },
+              (error) => {
+                this.loading = false
+                this.modalPagoErrores = ['Hubo un problema al subir el archivo']
+                console.log(error)
+              }
+            )
         } else {
           console.log('No se pudo convertir a String base 64')
         }
@@ -606,27 +629,35 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     // La propiedad fileRuta será completada cuando suba el archivo
   }
 
-  eliminarArchivoFechaPago (TipoEstadoVenta: number) {
+  eliminarArchivoFechaPago(TipoEstadoVenta: number) {
     switch (TipoEstadoVenta) {
       case 1:
-        this.ventaFilesService.deleteVentaFiles(this.ventaFileFSeparacion.idVentaFiles).subscribe(resp=>{
-          this.ventaFileFSeparacion = null
-        })
+        this.ventaFilesService
+          .deleteVentaFiles(this.ventaFileFSeparacion.idVentaFiles)
+          .subscribe((resp) => {
+            this.ventaFileFSeparacion = null
+          })
         break
       case 5:
-        this.ventaFilesService.deleteVentaFiles(this.ventaFileFMinuta.idVentaFiles).subscribe(resp=>{
-          this.ventaFileFMinuta = null
-        })
+        this.ventaFilesService
+          .deleteVentaFiles(this.ventaFileFMinuta.idVentaFiles)
+          .subscribe((resp) => {
+            this.ventaFileFMinuta = null
+          })
         break
       case 12:
-        this.ventaFilesService.deleteVentaFiles(this.ventaFileFDesembolso.idVentaFiles).subscribe(resp=>{
-          this.ventaFileFDesembolso = null
-        })
+        this.ventaFilesService
+          .deleteVentaFiles(this.ventaFileFDesembolso.idVentaFiles)
+          .subscribe((resp) => {
+            this.ventaFileFDesembolso = null
+          })
         break
       case 13:
-        this.ventaFilesService.deleteVentaFiles(this.ventaFileFEEP.idVentaFiles).subscribe(resp=>{
-          this.ventaFileFEEP = null
-        })
+        this.ventaFilesService
+          .deleteVentaFiles(this.ventaFileFEEP.idVentaFiles)
+          .subscribe((resp) => {
+            this.ventaFileFEEP = null
+          })
         break
       default:
         break
@@ -651,12 +682,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
               (resp) => {
                 console.log('Archivo subido')
                 console.log(resp)
-                
+
                 this.ventaFileModal.fileRuta = resp.fileName
 
-                
                 let pathToExec = null
-                const vfvalidacion =  this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
+                const vfvalidacion = this.getVentaFileToUpdateAndAssignID(this.ventaFileModal)
                 if (vfvalidacion.idVentaFiles === 0) {
                   console.log('creará')
                   console.log(vfvalidacion)
@@ -666,7 +696,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
                   console.log(vfvalidacion)
                   pathToExec = this.ventaFilesService.updateVentaFiles(vfvalidacion)
                 }
-  
+
                 pathToExec.subscribe(
                   (resp) => {
                     this.loading = false
@@ -677,7 +707,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
                   },
                   (error) => {
                     this.loading = false
-                    this.openSnackBar('error', 'No se pudo asociar el archivo a la fecha seleccionada', 'Cerrar')
+                    this.openSnackBar(
+                      'error',
+                      'No se pudo asociar el archivo a la fecha seleccionada',
+                      'Cerrar'
+                    )
                     console.log(error)
                   }
                 )
@@ -753,14 +787,14 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     )
   }
 
-  asignandoVentaFilesVariables (data: VentaFiles[]) {
-    data.forEach(element => {
+  asignandoVentaFilesVariables(data: VentaFiles[]) {
+    data.forEach((element) => {
       this.setLocalVentaFile(element)
     })
   }
 
   setLocalVentaFile(ventaFilesPost: VentaFiles) {
-    switch(ventaFilesPost.estadoVenta.idEstadoVenta) {
+    switch (ventaFilesPost.estadoVenta.idEstadoVenta) {
       case 1:
         this.ventaFileFSeparacion = ventaFilesPost
         break
@@ -779,7 +813,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   getVentaFileToUpdateAndAssignID(ventaFilesPost: VentaFilesPost) {
-    switch(ventaFilesPost.idEstadoVenta) {
+    switch (ventaFilesPost.idEstadoVenta) {
       case 1:
         if (this.ventaFileFSeparacion !== null) {
           ventaFilesPost.idVentaFiles = this.ventaFileFSeparacion.idVentaFiles
@@ -936,7 +970,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   get computedNombreStatusActual(): string {
     let name = 'No asignado'
-    if (this.venta !== null && typeof this.venta.estadoVenta !== 'undefined' && this.venta.estadoVenta !== null) {
+    if (
+      this.venta !== null &&
+      typeof this.venta.estadoVenta !== 'undefined' &&
+      this.venta.estadoVenta !== null
+    ) {
       name = this.venta.estadoVenta.nombre
     }
     return name

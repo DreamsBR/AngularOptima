@@ -129,6 +129,12 @@ import { TipoInmuebleComponent } from './tipoinmueble/tipoinmueble.component';
 import { TipoInmuebleCategoriaComponent } from './tipoinmueblecategoria/tipoinmueblecategoria.component';
 import { TipoinmuebleNuevoEditarComponent } from './tipoinmueble-nuevo-editar/tipoinmueble-nuevo-editar.component';
 import { TipoinmueblecategoriaNuevoEditarComponent } from './tipoinmueblecategoria-nuevo-editar/tipoinmueblecategoria-nuevo-editar.component';
+import { ReportesGeneralComponent } from './reportes-general/reportes-general.component';
+import { TipoPeriodoService } from './tipo-periodo/tipo-periodo.service';
+
+import { DatePipe } from '@angular/common';
+import { RangosComponent } from './rangos/rangos.component';
+import { TipoPeriodoComponent } from './tipo-periodo/tipo-periodo.component';
 
 const ROUTES: Routes = [
 
@@ -178,6 +184,7 @@ const ROUTES: Routes = [
   { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
   { path: 'reportes-por-vendedor', component: ReportesVendedorComponent },
   { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
+  { path: 'reportes-general', component: ReportesGeneralComponent },
   { path: 'bancos', component: BancosComponent },
   { path: 'banco-nuevo-editar/:id', component: BancoNuevoEditarComponent },
   { path: 'canales', component: CanalesComponent },
@@ -196,6 +203,8 @@ const ROUTES: Routes = [
   { path: 'tipoinmueblecategoria', component: TipoInmuebleCategoriaComponent },
   { path: 'tipoinmueble-nuevo-editar/:id', component: TipoinmuebleNuevoEditarComponent },
   { path: 'tipoinmueblecategoria-nuevo-editar/:id', component: TipoinmueblecategoriaNuevoEditarComponent },
+  { path: 'rangos', component: RangosComponent },
+  { path: 'tipo-periodo', component: TipoPeriodoComponent },
 ]
 
 @NgModule({
@@ -267,7 +276,10 @@ const ROUTES: Routes = [
     TipoInmuebleComponent,
     TipoInmuebleCategoriaComponent,
     TipoinmuebleNuevoEditarComponent,
-    TipoinmueblecategoriaNuevoEditarComponent
+    TipoinmueblecategoriaNuevoEditarComponent,
+    ReportesGeneralComponent,
+    RangosComponent,
+    TipoPeriodoComponent
   ],
   imports: [
     BrowserModule,
@@ -333,8 +345,10 @@ const ROUTES: Routes = [
     VentaFilesService,
     TipoinmuebleService,
     ModuloBuscadorVentasService,
+    TipoPeriodoService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    DatePipe
   ],
 
   bootstrap: [AppComponent]
