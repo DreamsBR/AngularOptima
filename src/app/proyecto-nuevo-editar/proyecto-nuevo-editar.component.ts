@@ -144,10 +144,10 @@ export class ProyectoNuevoEditarComponent implements OnInit {
       swal('Ingrese la direccion del Proyecto', '', 'warning')
       return
     }
-    if(this.aryPeriodos.length == 0 ){
-      swal('Ingrese la periodo del Proyecto', '', 'warning')
-      return
-    }
+    // if(this.aryPeriodos.length == 0 ){
+    //   swal('Ingrese la periodo del Proyecto', '', 'warning')
+    //   return
+    // }
     const newProyecto = new Proyecto()
     const newPerProyecto = new PeriodoProyecto()
 
