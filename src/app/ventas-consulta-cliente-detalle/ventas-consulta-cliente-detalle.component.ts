@@ -135,7 +135,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     private inmuebleService: InmuebleService,
     private utilService: UtilService,
     private ventaFilesService: VentaFilesService
-  ) {}
+  ) {
+    this.paramIdVenta = parseInt(this.activatedRoute.snapshot.params.id)
+  }
 
   ngOnInit() {
     this.initFunctions()
@@ -735,8 +737,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   initFunctions() {
-    this.paramIdVenta = parseInt(this.activatedRoute.snapshot.params.id)
-
     this.loading = true
     this.vccdService.fetchingInfoVenta(this.paramIdVenta).subscribe(
       (resp) => {
@@ -990,5 +990,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
 
   regresar() {
     window.history.back()
+  }
+
+  onLoadingChange(status: boolean) {
+    this.loading = status
   }
 }
