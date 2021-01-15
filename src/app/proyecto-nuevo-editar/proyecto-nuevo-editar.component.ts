@@ -151,7 +151,6 @@ export class ProyectoNuevoEditarComponent implements OnInit {
     const newProyecto = new Proyecto()
     const newPerProyecto = new PeriodoProyecto()
 
-
     newProyecto.idProyecto = this.idProyecto
     newProyecto.codigo = this.frmCodigo
     newProyecto.nombre = this.frmNombrepro

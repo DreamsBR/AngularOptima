@@ -109,6 +109,9 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     this.gerenciaproyectoService
       .getProyectosByIdGerencia2(this.idGerencia)
       .subscribe((response) => {
+
+        console.info(response)
+
         for(let x = 0 ; x < response.length ; x++ ){
           let proyecto: {[k: string]: any} = {};
           proyecto.idGerenciaProyecto = response[x].idGerenciaProyecto
