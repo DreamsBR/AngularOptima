@@ -223,12 +223,12 @@
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                    <input type="number" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemDepartamento.total - (itemDepartamento.descuento + itemDepartamento.ayudainicial)}}</p>
+                                                                                <p>{{ -((itemDepartamento.descuento + itemDepartamento.ayudainicial) - itemDepartamento.total) }}</p>
                                                                             </div>
                                                                         </div>
 
@@ -361,7 +361,7 @@
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemAdicional.total - ( (itemAdicional.total * itemAdicional.descuento) / 100 ) - itemAdicional.ayudainicial}}</p>
+                                                                                <p>{{- ((itemAdicional.ayudainicial + itemAdicional.descuento) -   itemAdicional.total) }}</p>
                                                                             </div>
                                                                         </div>
 

@@ -297,13 +297,14 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
       totalDepartamentos +=
-        this.departamentosAgregados[i].precio -  (this.departamentosAgregados[i].descuento + this.departamentosAgregados[i].ayudainicial)
+        ((this.departamentosAgregados[i].precio) - (this.departamentosAgregados[i].ayudainicial +  this.departamentosAgregados[i].descuento))
+
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
       totalAdicional +=
-        this.adicionalAgregados[i].precio -
-        (this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento) / 100 -
-        this.adicionalAgregados[i].ayudainicial
+
+        ((this.adicionalAgregados[i].precio) - ( this.adicionalAgregados[i].ayudainicial + this.adicionalAgregados[i].descuento))
+
     }
     this.totalInmuebles = totalDepartamentos + totalAdicional
     return this.totalInmuebles
