@@ -75,7 +75,43 @@
 
                                             </div>
                                         </div>
+                                        <div class="row mb-3">
+                                          <div class="col-sm-12 col-md-12">
+                                              <div class="card">
+                                                  <div class="card-body">
+                                                      <div class="row div-vendedores">
+                                                          <div class="col-sm-12 col-md-12">
+                                                              <p class="cliente-card-titulo" style="color: var(--primary)"><strong>Vendedor</strong></p>
+                                                          </div>
+                                                      </div>
 
+                                                      <div class="row">
+                                                          <div class="col-sm-12 col-md-7">
+
+                                                              <div class="form-group">
+                                                                  <autocompletar
+                                                                      #autocompleteVendedor
+                                                                      [options]="dataSearchVendedor"
+                                                                      [searchKeyword]="keywordSearchVendedor"
+                                                                      [keyToShow]="keywordSearchVendedor"
+                                                                      [label]="'Vendedor'"
+                                                                      (onSelected)="selectEventSearchVendedor($event)"
+                                                                      (onCleared)="clearedSearchVendedor()"
+                                                                      (onInputChanged)="clearedSearchVendedor()"
+                                                                  >
+                                                                  </autocompletar>
+                                                              </div>
+                                                              <div class="card-body">
+                                                                <p class="cliente-card-titulo"><strong>Nombres</strong></p>
+                                                                <p class="cliente-nombre"><strong>{{ ventanodos.vendedor.nombre}}</strong></p>
+
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
                                         <div class="row div-vendedores div-inmueble-caracteristicas">
 
                                             <div class="col-sm-12 col-md-12">
@@ -186,8 +222,8 @@
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="departamentoDescuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="number" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
+                                                                                    <label for="departamentoDescuento{{i}}">Dscto</label>
+                                                                                    <input type="number" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
@@ -198,7 +234,7 @@
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemDepartamento.total - ( (itemDepartamento.total * itemDepartamento.descuento) / 100 ) - itemDepartamento.ayudainicial}}</p>
+                                                                                <p>{{itemDepartamento.total - (  itemDepartamento.total - itemDepartamento.descuento ) - itemDepartamento.ayudainicial}}</p>
                                                                             </div>
                                                                         </div>
 

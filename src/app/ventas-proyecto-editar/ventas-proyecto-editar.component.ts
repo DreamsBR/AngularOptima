@@ -41,6 +41,8 @@ import { isNull } from 'util'
 
 import { Ventanodos } from './ventanodos'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
+import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
+import { Vendedor } from '../jefatura-nuevo-editar/vendedor'
 
 @Component({
   selector: 'app-ventas-proyecto-editar',
@@ -54,6 +56,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
+
+  vendedor: Vendedor = new Vendedor()
+
 
   idVendedor: number
 
@@ -97,6 +102,11 @@ export class VentasProyectoEditarComponent implements OnInit {
   fechaInicioAhorro: string
   fechaFinAhorro: string
 
+  dataSearchVendedor= [];
+  keywordSearchVendedor = 'nombre';
+  vendedorSelected: number = 0
+
+
   ventainmueble: Ventainmueble = new Ventainmueble()
   ventainmueblenodos: Ventainmueblenodos = new Ventainmueblenodos()
 
@@ -121,8 +131,11 @@ export class VentasProyectoEditarComponent implements OnInit {
     private canalService: CanalService,
     private categoriaService: CategoriaService,
     private ventainmuebleService: VentainmuebleService,
-    private tipoinmuebleService: TipoinmuebleService
+    private tipoinmuebleService: TipoinmuebleService,
+    private vendedorService: VendedorService,
+
   ) {}
+
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -132,6 +145,7 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.idVenta = parseInt(params.get('idventa'))
         this.obtenerClienteSeleccionado(params.get('dni'))
         this.obtenerDatosDeVenta(this.idVenta)
+
       }
     })
 
@@ -143,9 +157,25 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.obtenerCanal()
     this.obtenerMotivo()
     this.obtenerCategoria()
-
     this.agregarDepartamentoExistente()
     this.agregarEstacionamientoExistente()
+
+    this.obtenerVendedores()
+  }
+
+  clearedSearchVendedor() {
+    this.vendedorSelected = null
+  }
+
+
+  selectEventSearchVendedor(item: any) {
+    this.vendedorSelected = item.idVendedor
+  }
+
+  public obtenerVendedores() {
+    this.vendedorService.getTodosVendedores().subscribe((response) => {
+      this.dataSearchVendedor = response
+    })
   }
 
   onFechaInicioAhorro(newdate: string) {
@@ -233,6 +263,7 @@ export class VentasProyectoEditarComponent implements OnInit {
       this.tipoinmueble = response
     })
   }
+
 
   public seleccionarTipoInmueble(tipoinmueble: number) {
     this.tipoinmuebleSeleccionado = tipoinmueble
@@ -522,7 +553,7 @@ export class VentasProyectoEditarComponent implements OnInit {
     // this.venta.idVenta = 0
 
     this.venta.enable = 1
-    this.venta.idVendedor = this.idVendedor // id vendedor logueado
+    this.venta.idVendedor = this.vendedorSelected // id vendedor logueado
     this.venta.idEstadoVenta = this.estadoVenta
 
     this.venta.fechaRegistro = this.fechaRegistro

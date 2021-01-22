@@ -297,9 +297,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
       totalDepartamentos +=
-        this.departamentosAgregados[i].precio -
-        (this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento) / 100 -
-        this.departamentosAgregados[i].ayudainicial
+        this.departamentosAgregados[i].precio -  (this.departamentosAgregados[i].descuento + this.departamentosAgregados[i].ayudainicial)
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
       totalAdicional +=
@@ -410,8 +408,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial =
-      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
+    this.financiamiento.nomtoCuotaInicial = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
     this.financiamiento.montoFinanciado =
       this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
