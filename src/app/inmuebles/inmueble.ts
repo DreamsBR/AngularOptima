@@ -9,7 +9,10 @@ export class Inmueble {
   areaTotal: number
   idTipoVista: number
   cantidadDormitorio: number
+  moneda : string
+  tipoCambio: number
   precio: number
+
   // Esta faltando Otros
   enable: number;
   [key: string]: any
@@ -27,5 +30,7 @@ export class Inmueble {
     this.cantidadDormitorio = 0
     this.precio = 0
     this.enable = 0
+    this.tipoCambio= 0
+    this.moneda = ""
   }
 }
