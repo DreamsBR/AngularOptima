@@ -419,20 +419,20 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="porcentaje_cuota_inicial">Cuota inicial (%)</label>
-                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" maxlength="2">
+                                                    <label for="porcentaje_cuota_inicial">Cuota inicial</label>
+                                                    <input type="number" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="cuota_inicial">Cuota inicial</label>
-                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 }}" [(ngModel)]="cuota_inicial" readonly>
+                                                    <label for="cuota_inicial">Porcentaje de Pago(%)</label>
+                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( ( porcentaje_cuota_inicial * 100) / getTotalVenta()) }}" [(ngModel)]="cuota_inicial" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <label for="total_financiamiento">Financiamiento</label>
-                                                    <input type="text" class="form-control" name="total_financiamiento" value="{{ totalInmuebles - ( ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 ) }}" [(ngModel)]="total_financiamiento" readonly>
+                                                    <input type="number" class="form-control" name="total_financiamiento" value="{{  getTotalVenta() - porcentaje_cuota_inicial }}" [(ngModel)]="total_financiamiento" readonly>
                                                 </div>
                                             </div>
                                         </div>
