@@ -330,7 +330,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       return
     }
 
-    if (this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null) {
+    if (this.cuota_inicial == 0 || this.cuota_inicial == null) {
       swal('Ingrese la cuota inicial', '', 'warning')
       return
     }
@@ -409,10 +409,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
-    this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
-    this.financiamiento.montoFinanciado =
-      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+    this.financiamiento.montoCuotaInicial = this.cuota_inicial
+    this.financiamiento.porcCuotaInicial = (this.cuota_inicial * 100 / this.getTotalVenta() )
+    this.financiamiento.montoFinanciado = this.total_financiamiento
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
@@ -525,9 +524,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
-
+/*
     this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
-    swal('Venta registrada correctamente', '', 'success')
+    swal('Venta registrada correctamente', '', 'success')*/
   }
 
   status = false

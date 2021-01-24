@@ -43,6 +43,7 @@ import { Ventanodos } from './ventanodos'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
 import { Vendedor } from '../jefatura-nuevo-editar/vendedor'
+import { parse } from 'path'
 
 @Component({
   selector: 'app-ventas-proyecto-editar',
@@ -204,7 +205,10 @@ export class VentasProyectoEditarComponent implements OnInit {
   fechaSeparacion: string
 
   public obtenerDatosDeVenta(idVenta: number) {
+
     this.ventaService.getVentasById(idVenta).subscribe((venta) => {
+      let parseoPorcentaje;
+
       this.ventanodos = venta
       this.idVendedor = venta.vendedor.idVendedor
 
@@ -219,8 +223,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
       this.financiamiento.idFinanciamiento = this.ventanodos.financiamiento.idFinanciamiento
 
-      this.porcentaje_cuota_inicial = parseInt(this.ventanodos.financiamiento.porcCuotaInicial)
-      this.cuota_inicial = this.ventanodos.financiamiento.nomtoCuotaInicial
+      number:  parseoPorcentaje = parseFloat(this.ventanodos.financiamiento.porcCuotaInicial).toFixed(2)
+      this.porcentaje_cuota_inicial = parseoPorcentaje
+      this.cuota_inicial = this.ventanodos.financiamiento.montoCuotaInicial
       this.total_financiamiento = this.ventanodos.financiamiento.montoFinanciado
 
       this.motivoSeleccionado = this.ventanodos.motivo.idMotivo
@@ -527,11 +532,10 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial =
-      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
-    this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
+    this.financiamiento.montoCuotaInicial = this.cuota_inicial
+    this.financiamiento.porcCuotaInicial = (this.cuota_inicial * 100) / this.getTotalVenta();
     this.financiamiento.montoFinanciado =
-      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+      (this.totalInmuebles - this.financiamiento.montoCuotaInicial)
 
     this.financiamientoService
       .editarFinanciamiento(this.financiamiento, this.financiamiento.idFinanciamiento)

@@ -3,3 +3,4 @@ export class Bancos {
   enable: string
   nombre: string
 }
+

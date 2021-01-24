@@ -68,7 +68,7 @@ export class Ventanodos {
       enable: number
       nombre: string
     },
-    nomtoCuotaInicial: number
+    montoCuotaInicial: number
     montoFinanciado: number
     porcCuotaInicial: string
   }
