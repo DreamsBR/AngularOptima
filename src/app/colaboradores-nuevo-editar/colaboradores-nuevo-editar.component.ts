@@ -122,6 +122,8 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
     const newColaborador = JSON.parse(JSON.stringify(this.colaborador))
     newColaborador.idTipoDocumento = this.tipoDocSelected
 
+    console.info(id)
+
     if (id == 0) {
 
       if( this.contrasenia == null || this.contrasenia == '' ){
@@ -170,7 +172,6 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
     this.colaboradorService.agregarUsuario(addUsuarioLogin).subscribe(
       (response: any) => {
-        console.log('response: ' + response)
         this.router.navigate(['/colaboradores'])
         swal('Registro agregado', '', 'success')
       },
@@ -196,10 +197,7 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
 
   public editarUsuario(usuario: string, contrasenia: string, role: string){
 
-    console.info(contrasenia)
-
     if(contrasenia){
-
       if( contrasenia.length < 8 ){
         swal('La contraseña debe contener minimo 8 digitos.', '', 'warning')
       }else{
@@ -218,12 +216,21 @@ export class ColaboradoresNuevoEditarComponent implements OnInit {
           }
         )
       }
-
     }else{
-
-      this.router.navigate(['/colaboradores'])
-      swal('Registro editado correctamente', '', 'success')
-
+      this.colaboradorService.editarUsuarioRoleUser(usuario, role).subscribe(
+        (response: any) => {
+          this.router.navigate(['/colaboradores'])
+          swal('Registro editado correctamente', '', 'success')
+        },
+        (err) =>{
+          if (err.status == 400){
+            swal('Usuario ya existe', '', 'warning')
+          }
+          if (err.status == 401){
+            swal('Error en datos', '', 'warning')
+          }
+        }
+      )
     }
   }
 

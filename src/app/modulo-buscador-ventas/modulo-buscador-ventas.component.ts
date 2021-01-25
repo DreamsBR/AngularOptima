@@ -328,8 +328,6 @@ export class ModuloBuscadorVentasComponent implements OnInit {
             tmpItem['conyuge'] = element.venta.cliente.conyuge
             tmpItem['nroDocConyuge'] = element.venta.cliente.nroDocConyuge
 
-
-
             if( element.venta.cliente.estadoCivilConyuge.idEstadoCivil != 1 ){
               tmpItem['estadoCivilConyuge'] = element.venta.cliente.estadoCivilConyuge.nombre
             }else{

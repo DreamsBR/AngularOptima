@@ -76,6 +76,19 @@ export class ColaboradorService {
         return this.http.post<any>(this.urlEndPoint3, param, httpOptions)
     }
 
+    private urlEndPoint4 : string = URL_BACKEND_SEG + 'auth/' + 'changeroleadmin'
+    editarUsuarioRoleUser( usuario:string, role:string ) : Observable<any>{
+        
+        let param = {
+            "role": [
+                role
+            ],
+            "userName": usuario
+        }
+        let httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', }), responseType: 'text' as 'json' };
+        return this.http.post<any>(this.urlEndPoint4, param, httpOptions)
+    }
+
     obtenerUsuarioPorIdColaborador(idColaborador: number):Observable<any>{
         return this.http.get<any>(this.urlEndPoint + '/findUser/' + idColaborador)
       }
