@@ -41,6 +41,9 @@ import { isNull } from 'util'
 
 import { Ventanodos } from './ventanodos'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
+import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
+import { Vendedor } from '../jefatura-nuevo-editar/vendedor'
+
 
 @Component({
   selector: 'app-ventas-proyecto-editar',
@@ -54,6 +57,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public clienteSeleccionado: Cliente = new Cliente()
   public nrodoc: string
+
+  vendedor: Vendedor = new Vendedor()
+
 
   idVendedor: number
 
@@ -97,6 +103,11 @@ export class VentasProyectoEditarComponent implements OnInit {
   fechaInicioAhorro: string
   fechaFinAhorro: string
 
+  dataSearchVendedor= [];
+  keywordSearchVendedor = 'nombre';
+  vendedorSelected: number = 0
+  descuento:number=0
+
   ventainmueble: Ventainmueble = new Ventainmueble()
   ventainmueblenodos: Ventainmueblenodos = new Ventainmueblenodos()
 
@@ -121,8 +132,11 @@ export class VentasProyectoEditarComponent implements OnInit {
     private canalService: CanalService,
     private categoriaService: CategoriaService,
     private ventainmuebleService: VentainmuebleService,
-    private tipoinmuebleService: TipoinmuebleService
+    private tipoinmuebleService: TipoinmuebleService,
+    private vendedorService: VendedorService,
+
   ) {}
+
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -132,6 +146,8 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.idVenta = parseInt(params.get('idventa'))
         this.obtenerClienteSeleccionado(params.get('dni'))
         this.obtenerDatosDeVenta(this.idVenta)
+        this.vendedorSelected = this.ventanodos.vendedor.idVendedor
+
       }
     })
 
@@ -143,9 +159,26 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.obtenerCanal()
     this.obtenerMotivo()
     this.obtenerCategoria()
-
     this.agregarDepartamentoExistente()
     this.agregarEstacionamientoExistente()
+
+    this.obtenerVendedores()
+  }
+
+  clearedSearchVendedor() {
+    this.vendedorSelected = null
+  }
+
+
+  selectEventSearchVendedor(item: any) {
+
+    this.vendedorSelected = item.idVendedor
+  }
+
+  public obtenerVendedores() {
+    this.vendedorService.getTodosVendedores().subscribe((response) => {
+      this.dataSearchVendedor = response
+    })
   }
 
   onFechaInicioAhorro(newdate: string) {
@@ -174,9 +207,12 @@ export class VentasProyectoEditarComponent implements OnInit {
   fechaSeparacion: string
 
   public obtenerDatosDeVenta(idVenta: number) {
+
     this.ventaService.getVentasById(idVenta).subscribe((venta) => {
+      let parseoPorcentaje;
+
       this.ventanodos = venta
-      this.idVendedor = venta.vendedor.idVendedor
+      this.vendedorSelected = venta.vendedor.idVendedor
 
       this.estadoVenta = this.ventanodos.estadoVenta.idEstadoVenta
       this.fechaRegistro = this.ventanodos.fechaRegistro
@@ -189,8 +225,9 @@ export class VentasProyectoEditarComponent implements OnInit {
 
       this.financiamiento.idFinanciamiento = this.ventanodos.financiamiento.idFinanciamiento
 
-      this.porcentaje_cuota_inicial = parseInt(this.ventanodos.financiamiento.porcCuotaInicial)
-      this.cuota_inicial = this.ventanodos.financiamiento.nomtoCuotaInicial
+      number:  parseoPorcentaje = parseFloat(this.ventanodos.financiamiento.porcCuotaInicial).toFixed(2)
+      this.porcentaje_cuota_inicial = parseoPorcentaje
+      this.cuota_inicial = this.ventanodos.financiamiento.montoCuotaInicial
       this.total_financiamiento = this.ventanodos.financiamiento.montoFinanciado
 
       this.motivoSeleccionado = this.ventanodos.motivo.idMotivo
@@ -214,6 +251,8 @@ export class VentasProyectoEditarComponent implements OnInit {
     })
   }
 
+
+
   public obtenerClienteSeleccionado(nrodoc: string) {
     this.clienteService.obtenerClientesPorDni(nrodoc).subscribe((cliente) => {
       if (Object.keys(cliente).length > 0) {
@@ -228,11 +267,14 @@ export class VentasProyectoEditarComponent implements OnInit {
     })
   }
 
+
+
   public obtenerTipoInmueble() {
     this.tipoinmuebleService.getTipoinmueble().subscribe((response) => {
       this.tipoinmueble = response
     })
   }
+
 
   public seleccionarTipoInmueble(tipoinmueble: number) {
     this.tipoinmuebleSeleccionado = tipoinmueble
@@ -396,21 +438,18 @@ export class VentasProyectoEditarComponent implements OnInit {
   porcentaje_cuota_inicial: number
   cuota_inicial: number
   total_financiamiento: number
+  ayudainicial:number
 
   getTotalVenta() {
     let totalDepartamentos = 0
     let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
       totalDepartamentos +=
-        this.departamentosAgregados[i].precio -
-        (this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento) / 100 -
-        this.departamentosAgregados[i].ayudainicial
+      ((this.departamentosAgregados[i].precio) - (this.departamentosAgregados[i].ayudainicial +  this.departamentosAgregados[i].descuento))
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
       totalAdicional +=
-        this.adicionalAgregados[i].precio -
-        (this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento) / 100 -
-        this.adicionalAgregados[i].ayudainicial
+      ((this.adicionalAgregados[i].precio) - ( this.adicionalAgregados[i].ayudainicial + this.adicionalAgregados[i].descuento))
     }
     this.totalInmuebles = totalDepartamentos + totalAdicional
     return this.totalInmuebles
@@ -426,6 +465,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   bono: number
 
   guardarFinanciamiento() {
+    let mongofinanciado
     if (this.clienteSeleccionado.idCliente == 0) {
       swal('No se selecciono ningun cliente', '', 'warning')
       return
@@ -500,11 +540,11 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial =
-      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
-    this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
+    this.financiamiento.montoCuotaInicial = this.cuota_inicial
+    mongofinanciado = ((this.cuota_inicial * 100) / this.getTotalVenta()).toFixed(2);
+    this.financiamiento.porcCuotaInicial = mongofinanciado
     this.financiamiento.montoFinanciado =
-      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+      (this.totalInmuebles - this.financiamiento.montoCuotaInicial)
 
     this.financiamientoService
       .editarFinanciamiento(this.financiamiento, this.financiamiento.idFinanciamiento)
@@ -521,8 +561,9 @@ export class VentasProyectoEditarComponent implements OnInit {
   guardarVenta(idFinanciamiento: number) {
     // this.venta.idVenta = 0
 
+
     this.venta.enable = 1
-    this.venta.idVendedor = this.idVendedor // id vendedor logueado
+    this.venta.idVendedor = this.vendedorSelected  // id vendedor logueado
     this.venta.idEstadoVenta = this.estadoVenta
 
     this.venta.fechaRegistro = this.fechaRegistro
@@ -541,9 +582,9 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
 
-    this.venta.ayudaInicial = this.porcentaje_cuota_inicial
+    this.venta.ayudaInicial = this.ayudainicial
     this.venta.importe = this.totalInmuebles
-    this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
+    this.venta.descuento = 0
     this.venta.total = this.venta.importe - this.venta.descuento
 
     this.ventaService.editarVenta(this.venta, this.idVenta).subscribe(
@@ -555,6 +596,48 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     )
   }
+/*
+  "ayudaInicial": 0,
+  "descuento": 0,
+  "enable": 0,
+  "fechaCaida": "2021-01-25T17:57:29.823Z",
+  "fechaDesembolso": "2021-01-25T17:57:29.823Z",
+  "fechaEpp": "2021-01-25T17:57:29.823Z",
+  "fechaMinuta": "2021-01-25T17:57:29.823Z",
+  "fechaRegistro": "2021-01-25T17:57:29.823Z",
+  "fechaSeparacion": "2021-01-25T17:57:29.823Z",
+  "idCanal": 0,
+  "idCategoria": 0,
+  "idCliente": 0,
+  "idEstadoVenta": 0,
+  "idFinanciamiento": 0,
+  "idMotivo": 0,
+  "idProyecto": 0,
+  "idVendedor": 0,
+  "idVenta": 0,
+  "importe": 0,
+  "total": 0
+
+  "descuento": 0
+  "enable": 1
+  "fechaCaida": null
+  "fechaDesembolso": null
+  "fechaEpp": null
+  "fechaMinuta": null
+  "fechaRegistro": "2021-01-23T23:49:59.000+0000"
+  "fechaSeparacion": null
+  "idCanal": 3
+  "idCategoria": 2
+  "idCliente": 1
+  "idEstadoVenta": 15
+  "idFinanciamiento": 30
+  "idMotivo": 2
+  "idProyecto": 7
+  "idVendedor": 0
+  "importe": 34350
+  "total": 34350
+
+ */
 
   obtenerFechaActual() {
     var date = new Date()

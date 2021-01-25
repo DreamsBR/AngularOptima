@@ -190,13 +190,10 @@
               <div class="form-group">
                 <label for="Moneda">Moneda</label>
                 <select
-                [(ngModel)]="cambioMoneda"
-                  (ngModelChange)="onChangetMoneda($event)"
+                [(ngModel)]="inmueble.moneda"
                   class="form-control"
                   id="tipocambio">
-                  <option [ngValue]="0">-- Seleccionar --</option>
-                  <option [ngValue]="soles">Soles</option>
-                  <option [ngValue]="dolares">Dolares</option>
+                  <option value="{{mon}}" *ngFor="let mon of moneda"> {{mon}} </option>
                 </select>
               </div>
             </div>
@@ -204,11 +201,12 @@
 
           </div>
           <div class="row">
-            <div class="col-sm-12 col-md-2" *ngIf="isFormMoneda">
+            <div class="col-sm-12 col-md-2" >
               <div class="form-group">
                 <label for="iptPrecio">Tipo de cambio</label>
                 <input
-                  type="text"
+                  [(ngModel)]="inmueble.tipoCambio"
+                  type="number"
                   class="form-control"
                   id="iptPrecio"
                 />

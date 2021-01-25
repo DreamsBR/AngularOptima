@@ -135,6 +135,8 @@ import { TipoPeriodoService } from './tipo-periodo/tipo-periodo.service';
 import { DatePipe } from '@angular/common';
 import { RangosComponent } from './rangos/rangos.component';
 import { TipoPeriodoComponent } from './tipo-periodo/tipo-periodo.component';
+import { VentasAdjuntosComponent } from './ventas-adjuntos/ventas-adjuntos.component';
+import { VentasAdjuntosService } from './ventas-adjuntos/ventas-adjuntos.service';
 
 const ROUTES: Routes = [
 
@@ -279,7 +281,8 @@ const ROUTES: Routes = [
     TipoinmueblecategoriaNuevoEditarComponent,
     ReportesGeneralComponent,
     RangosComponent,
-    TipoPeriodoComponent
+    TipoPeriodoComponent,
+    VentasAdjuntosComponent
   ],
   imports: [
     BrowserModule,
@@ -346,6 +349,7 @@ const ROUTES: Routes = [
     TipoinmuebleService,
     ModuloBuscadorVentasService,
     TipoPeriodoService,
+    VentasAdjuntosService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     DatePipe

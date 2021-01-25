@@ -106,7 +106,7 @@
 
                                         <div class="row div-vendedores div-inmueble-caracteristicas">
 
-                                            
+
 
                                             <div class="col-sm-12 col-md-12">
                                                 <div class="card">
@@ -216,19 +216,19 @@
                                                                         <div class="row">
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
-                                                                                    <label for="departamentoDescuento{{i}}">Dscto (%)</label>
-                                                                                    <input type="text" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento" maxlength="2">
+                                                                                    <label for="departamentoDescuento{{i}}">Dscto</label>
+                                                                                    <input type="number" class="form-control" name="departamentoDescuento{{i}}" value="{{itemDepartamento.descuento}}" [(ngModel)]="itemDepartamento.descuento">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="departamentoAyudainicial{{i}}">Ayuda inicial</label>
-                                                                                    <input type="text" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
+                                                                                    <input type="number" class="form-control" name="departamentoAyudainicial{{i}}" value="{{itemDepartamento.ayudainicial}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemDepartamento.total - ( (itemDepartamento.total * itemDepartamento.descuento) / 100 ) - itemDepartamento.ayudainicial}}</p>
+                                                                                <p>{{ -((itemDepartamento.descuento + itemDepartamento.ayudainicial) - itemDepartamento.total) }}</p>
                                                                             </div>
                                                                         </div>
 
@@ -361,7 +361,7 @@
                                                                             </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
-                                                                                <p>{{itemAdicional.total - ( (itemAdicional.total * itemAdicional.descuento) / 100 ) - itemAdicional.ayudainicial}}</p>
+                                                                                <p>{{- ((itemAdicional.ayudainicial + itemAdicional.descuento) -   itemAdicional.total) }}</p>
                                                                             </div>
                                                                         </div>
 
@@ -419,20 +419,20 @@
                                         <div class="row">
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="porcentaje_cuota_inicial">Cuota inicial (%)</label>
-                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ porcentaje_cuota_inicial }}" [(ngModel)]="porcentaje_cuota_inicial" maxlength="2">
+                                                    <label for="cuota_inicial">Cuota inicial</label>
+                                                    <input type="number" class="form-control" name="cuota_inicial" value="{{ cuota_inicial }}" [(ngModel)]="cuota_inicial"  >
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
-                                                    <label for="cuota_inicial">Cuota inicial</label>
-                                                    <input type="text" class="form-control" name="cuota_inicial" value="{{ ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 }}" [(ngModel)]="cuota_inicial" readonly>
+                                                    <label for="porcentaje_cuota_inicial">Porcentaje de Pago(%)</label>
+                                                    <input type="text" class="form-control" name="porcentaje_cuota_inicial" value="{{ ( ( cuota_inicial * 100) / getTotalVenta()) |  number:'1.2-2' }}" [(ngModel)]="porcentaje_cuota_inicial" readonly>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-4">
                                                 <div class="form-group">
                                                     <label for="total_financiamiento">Financiamiento</label>
-                                                    <input type="text" class="form-control" name="total_financiamiento" value="{{ totalInmuebles - ( ( getTotalVenta() * porcentaje_cuota_inicial ) / 100 ) }}" [(ngModel)]="total_financiamiento" readonly>
+                                                    <input type="number" class="form-control" name="total_financiamiento" value="{{  getTotalVenta() - cuota_inicial }}" [(ngModel)]="total_financiamiento" readonly>
                                                 </div>
                                             </div>
                                         </div>

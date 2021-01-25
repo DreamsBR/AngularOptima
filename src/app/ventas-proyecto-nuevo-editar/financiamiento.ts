@@ -10,7 +10,7 @@ export class Financiamiento {
   idEstadoFinanciamiento: number
   idFinanciamiento: number
   idTipoCredito: number
-  nomtoCuotaInicial: number
+  montoCuotaInicial: number
   montoFinanciado: number
   porcCuotaInicial: number
 }

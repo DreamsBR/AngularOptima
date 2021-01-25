@@ -111,7 +111,7 @@
 
         <ng-container matColumnDef="financiado">
           <th mat-header-cell *matHeaderCellDef>Financiado</th>
-          <td mat-cell *matCellDef="let element">{{ element.total | formatSoles }}</td>
+          <td mat-cell *matCellDef="let element">{{ element.financiamiento.montoFinanciado | formatSoles }}</td>
         </ng-container>
 
         <ng-container matColumnDef="estado">

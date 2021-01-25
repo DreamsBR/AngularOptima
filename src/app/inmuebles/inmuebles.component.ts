@@ -23,6 +23,8 @@ export class InmueblesComponent implements OnInit {
     'idTipoVista',
     'cantidadDormitorio',
     'enable',
+    'moneda',
+    'tipoCambio',
     'precio'
   ]
   inmuebleLista = new MatTableDataSource<Inmueble>()
@@ -93,7 +95,10 @@ export class InmueblesComponent implements OnInit {
       "idTipoInmuebleCategoria": this.inmuebleSeleccionado.tipoInmuebleCategoria.idTipoInmuebleCategoria,
       "idTipoVista": this.inmuebleSeleccionado.tipoVista.idTipoVista,
       "numero": this.inmuebleSeleccionado.numero,
-      "precio": this.inmuebleSeleccionado.precio
+      "precio": this.inmuebleSeleccionado.precio,
+      "moneda" : this.inmuebleSeleccionado.moneda,
+      "tipoCambio": this.inmuebleSeleccionado.tipoCambios
+
     }
 
     this.inmuebleService.actualizarInmueble(delInmueble, delInmueble.idInmueble).subscribe((resp) => {

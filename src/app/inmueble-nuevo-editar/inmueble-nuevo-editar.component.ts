@@ -26,6 +26,7 @@ export class InmuebleNuevoEditarComponent implements OnInit {
   optionsTipoInmueble: TipoInmueble[] = []
   optionsTipoVista: TipoVista[] = []
   optionsTipoInmuebleCategoria: TipoInmuebleCategoria[] = []
+  moneda: string[] = ['Soles' , 'Dolares']
   // Formulario
   public inmueble: Inmueble = new Inmueble()
 
@@ -183,7 +184,8 @@ export class InmuebleNuevoEditarComponent implements OnInit {
     if (!isValid) return
 
       const __self = this
-    __self.inmuebleService.crearInmueble(this.inmueble).subscribe((resp) => {
+    __self.inmuebleService.crearInmueble(this.inmueble).subscribe((
+      resp) => {
       __self.regresar()
     })
   }

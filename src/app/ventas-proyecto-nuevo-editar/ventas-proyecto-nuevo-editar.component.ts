@@ -297,15 +297,14 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     let totalAdicional = 0
     for (var i = 0; i < this.departamentosAgregados.length; i++) {
       totalDepartamentos +=
-        this.departamentosAgregados[i].precio -
-        (this.departamentosAgregados[i].precio * this.departamentosAgregados[i].descuento) / 100 -
-        this.departamentosAgregados[i].ayudainicial
+        ((this.departamentosAgregados[i].precio) - (this.departamentosAgregados[i].ayudainicial +  this.departamentosAgregados[i].descuento))
+
     }
     for (var i = 0; i < this.adicionalAgregados.length; i++) {
       totalAdicional +=
-        this.adicionalAgregados[i].precio -
-        (this.adicionalAgregados[i].precio * this.adicionalAgregados[i].descuento) / 100 -
-        this.adicionalAgregados[i].ayudainicial
+
+        ((this.adicionalAgregados[i].precio) - ( this.adicionalAgregados[i].ayudainicial + this.adicionalAgregados[i].descuento))
+
     }
     this.totalInmuebles = totalDepartamentos + totalAdicional
     return this.totalInmuebles
@@ -331,7 +330,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       return
     }
 
-    if (this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null) {
+    if (this.cuota_inicial == 0 || this.cuota_inicial == null) {
       swal('Ingrese la cuota inicial', '', 'warning')
       return
     }
@@ -410,11 +409,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.fechaFinAhorro = this.fechaFinAhorro
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
-    this.financiamiento.nomtoCuotaInicial =
-      (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
-    this.financiamiento.porcCuotaInicial = this.porcentaje_cuota_inicial
-    this.financiamiento.montoFinanciado =
-      this.totalInmuebles - this.financiamiento.nomtoCuotaInicial
+    this.financiamiento.montoCuotaInicial = this.cuota_inicial
+    this.financiamiento.porcCuotaInicial = (this.cuota_inicial * 100 / this.getTotalVenta() )
+    this.financiamiento.montoFinanciado = this.total_financiamiento
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
@@ -527,9 +524,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
-
+/*
     this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
-    swal('Venta registrada correctamente', '', 'success')
+    swal('Venta registrada correctamente', '', 'success')*/
   }
 
   status = false

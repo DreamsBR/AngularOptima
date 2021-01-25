@@ -1,0 +1,154 @@
+<div class="row" style="margin-top: 15px">
+  <div class="col-sm-12 col-md-5">
+    <h3>Adjuntos de venta</h3>
+  </div>
+  <div class="col-sm-12 col-md-7 text-right">
+    <a
+      id="#btnAgregarAttach"
+      (click)="abrirModalAddAttach()"
+      data-toggle="modal"
+      data-target="#modal-addfiles"
+      ><span class="font-add">Agregar<em class="fas fa-plus-circle"></em></span
+    ></a>
+  </div>
+  <div class="col-12">
+    <table mat-table [dataSource]="itemsLista" class="tbproy" style="width: 100%">
+      <ng-container matColumnDef="editar">
+        <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <td mat-cell *matCellDef="let element">
+          <a href="#" data-toggle="dropdown"><em class="fas fa-ellipsis-v"></em></a>
+          <div class="dropdown-menu dropdown-menu-left">
+            <!-- <button
+              class="dropdown-item"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-tipoperiodo-nuevo-editar"
+            >
+              <em class="far fa-edit"></em> Editar
+            </button> -->
+            <button
+              class="dropdown-item"
+              type="button"
+              data-toggle="modal"
+              data-target="#modal-eliminar-attached"
+              (click)="setObjetoAttachedDelete(element)"
+            >
+              <em class="far fa-trash-alt"></em> Eliminar
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="idVentaAttached">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.idVentaAttached }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fileRuta">
+        <th mat-header-cell *matHeaderCellDef>Archivo</th>
+        <td mat-cell *matCellDef="let element">{{ element.fileRuta }}</td>
+      </ng-container>
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef>Fecha de registro</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechaRegistro | formatDate }}</td>
+      </ng-container>
+      <ng-container matColumnDef="descargar">
+        <th mat-header-cell *matHeaderCellDef>Descargar</th>
+        <td mat-cell *matCellDef="let element">
+          <div
+            *ngIf="element.fileRuta"
+            (click)="descargarArchivoAttached(element.fileRuta)"
+            style="cursor: pointer; width: max-content; color: var(--primary)"
+          >
+            <em class="fa fa-download"></em>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns" class="col-sm-12 col-md-4"></tr>
+    </table>
+
+    <br />
+    <br />
+    <br />
+  </div>
+</div>
+
+<div id="modal-addfiles" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Subir adjunto</h5>
+        <button
+          id="btnModalAttachClose"
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding-top: 0px">
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12">
+            <div class="form-group" style="position: relative">
+              <input
+                type="file"
+                (change)="uploadFileFechas($event, '')"
+                class="custom-file-input form-control"
+                id="validatedAttachFile"
+              />
+              <label class="custom-file-label" for="validatedCustomFile">Seleccionar...</label>
+              <div class="invalid-feedback">Archivo inválido</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+          <div class="col-12" style="text-align: center">
+            <button
+              type="button"
+              (click)="btnCerrarModalAttach()"
+              class="btn btn-optima"
+              style="text-decoration: none"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modal-eliminar-attached" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar adjunto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Seguro que deseas eliminar el siguiente archivo?</p>
+        <p>
+          Archivo:: <b>{{ attachedToDelete.fileRuta }}</b
+          ><br />
+          Fecha: <b>{{ attachedToDelete.fechaRegistro | formatDate }}</b>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-optima" (click)="eliminarAttachedSeleccionado()">
+          Confirmar
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          id="cerrarModalEliminarAttached"
+        >
+          Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

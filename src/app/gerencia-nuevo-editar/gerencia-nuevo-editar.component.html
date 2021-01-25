@@ -267,8 +267,8 @@
                                     <div class="row item-proyecto">
                                         <div class="col-sm-12 col-md-10">
                                             <p>{{itemProyecto.nombre}}</p>
-                                            <p><strong>Fecha de asignación {{itemProyecto.fechaAsignacionProyecto | formatDate}}</strong></p>
-                                            <p><strong>Fecha de termino {{itemProyecto.fechaTerminoProyecto | formatDate}}</strong></p>
+                                            <p><strong>Fecha de asignación {{itemProyecto.fechaAsignacionProyecto != null ? ( itemProyecto.fechaAsignacionProyecto | formatDate ) : ( '' ) }}</strong></p>
+                                            <p><strong>Fecha de termino {{itemProyecto.fechaTerminoProyecto != null ? ( itemProyecto.fechaTerminoProyecto | formatDate ) : ( '' ) }}</strong></p>
                                         </div>
                                         <div class="col-sm-12 col-md-2">
                                             <div class="btn-float-right">
@@ -281,6 +281,8 @@
                         </div>
 
                     </div>
+
+
 
                     <!-- <div class="row">
                         <div class="col-sm-12 col-md-8">
