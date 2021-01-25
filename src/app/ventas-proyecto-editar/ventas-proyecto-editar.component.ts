@@ -43,7 +43,7 @@ import { Ventanodos } from './ventanodos'
 import { DatepickerRoundedComponent } from '../datepicker-rounded/datepicker-rounded.component'
 import { VendedorService } from '../jefatura-nuevo-editar/vendedor.service'
 import { Vendedor } from '../jefatura-nuevo-editar/vendedor'
-import { parse } from 'path'
+
 
 @Component({
   selector: 'app-ventas-proyecto-editar',
@@ -106,7 +106,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   dataSearchVendedor= [];
   keywordSearchVendedor = 'nombre';
   vendedorSelected: number = 0
-
+  descuento:number=0
 
   ventainmueble: Ventainmueble = new Ventainmueble()
   ventainmueblenodos: Ventainmueblenodos = new Ventainmueblenodos()
@@ -146,6 +146,7 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.idVenta = parseInt(params.get('idventa'))
         this.obtenerClienteSeleccionado(params.get('dni'))
         this.obtenerDatosDeVenta(this.idVenta)
+        this.vendedorSelected = this.ventanodos.vendedor.idVendedor
 
       }
     })
@@ -170,6 +171,7 @@ export class VentasProyectoEditarComponent implements OnInit {
 
 
   selectEventSearchVendedor(item: any) {
+
     this.vendedorSelected = item.idVendedor
   }
 
@@ -210,7 +212,7 @@ export class VentasProyectoEditarComponent implements OnInit {
       let parseoPorcentaje;
 
       this.ventanodos = venta
-      this.idVendedor = venta.vendedor.idVendedor
+      this.vendedorSelected = venta.vendedor.idVendedor
 
       this.estadoVenta = this.ventanodos.estadoVenta.idEstadoVenta
       this.fechaRegistro = this.ventanodos.fechaRegistro
@@ -249,6 +251,8 @@ export class VentasProyectoEditarComponent implements OnInit {
     })
   }
 
+
+
   public obtenerClienteSeleccionado(nrodoc: string) {
     this.clienteService.obtenerClientesPorDni(nrodoc).subscribe((cliente) => {
       if (Object.keys(cliente).length > 0) {
@@ -262,6 +266,8 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     })
   }
+
+
 
   public obtenerTipoInmueble() {
     this.tipoinmuebleService.getTipoinmueble().subscribe((response) => {
@@ -432,6 +438,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   porcentaje_cuota_inicial: number
   cuota_inicial: number
   total_financiamiento: number
+  ayudainicial:number
 
   getTotalVenta() {
     let totalDepartamentos = 0
@@ -458,6 +465,7 @@ export class VentasProyectoEditarComponent implements OnInit {
   bono: number
 
   guardarFinanciamiento() {
+    let mongofinanciado
     if (this.clienteSeleccionado.idCliente == 0) {
       swal('No se selecciono ningun cliente', '', 'warning')
       return
@@ -533,7 +541,8 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.financiamiento.fechaInicioAhorro = this.fechaInicioAhorro
     this.financiamiento.idEstadoFinanciamiento = 1
     this.financiamiento.montoCuotaInicial = this.cuota_inicial
-    this.financiamiento.porcCuotaInicial = (this.cuota_inicial * 100) / this.getTotalVenta();
+    mongofinanciado = ((this.cuota_inicial * 100) / this.getTotalVenta()).toFixed(2);
+    this.financiamiento.porcCuotaInicial = mongofinanciado
     this.financiamiento.montoFinanciado =
       (this.totalInmuebles - this.financiamiento.montoCuotaInicial)
 
@@ -552,8 +561,9 @@ export class VentasProyectoEditarComponent implements OnInit {
   guardarVenta(idFinanciamiento: number) {
     // this.venta.idVenta = 0
 
+
     this.venta.enable = 1
-    this.venta.idVendedor = this.vendedorSelected // id vendedor logueado
+    this.venta.idVendedor = this.vendedorSelected  // id vendedor logueado
     this.venta.idEstadoVenta = this.estadoVenta
 
     this.venta.fechaRegistro = this.fechaRegistro
@@ -572,9 +582,9 @@ export class VentasProyectoEditarComponent implements OnInit {
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
 
-    this.venta.ayudaInicial = this.porcentaje_cuota_inicial
+    this.venta.ayudaInicial = this.ayudainicial
     this.venta.importe = this.totalInmuebles
-    this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
+    this.venta.descuento = 0
     this.venta.total = this.venta.importe - this.venta.descuento
 
     this.ventaService.editarVenta(this.venta, this.idVenta).subscribe(
@@ -586,6 +596,48 @@ export class VentasProyectoEditarComponent implements OnInit {
       }
     )
   }
+/*
+  "ayudaInicial": 0,
+  "descuento": 0,
+  "enable": 0,
+  "fechaCaida": "2021-01-25T17:57:29.823Z",
+  "fechaDesembolso": "2021-01-25T17:57:29.823Z",
+  "fechaEpp": "2021-01-25T17:57:29.823Z",
+  "fechaMinuta": "2021-01-25T17:57:29.823Z",
+  "fechaRegistro": "2021-01-25T17:57:29.823Z",
+  "fechaSeparacion": "2021-01-25T17:57:29.823Z",
+  "idCanal": 0,
+  "idCategoria": 0,
+  "idCliente": 0,
+  "idEstadoVenta": 0,
+  "idFinanciamiento": 0,
+  "idMotivo": 0,
+  "idProyecto": 0,
+  "idVendedor": 0,
+  "idVenta": 0,
+  "importe": 0,
+  "total": 0
+
+  "descuento": 0
+  "enable": 1
+  "fechaCaida": null
+  "fechaDesembolso": null
+  "fechaEpp": null
+  "fechaMinuta": null
+  "fechaRegistro": "2021-01-23T23:49:59.000+0000"
+  "fechaSeparacion": null
+  "idCanal": 3
+  "idCategoria": 2
+  "idCliente": 1
+  "idEstadoVenta": 15
+  "idFinanciamiento": 30
+  "idMotivo": 2
+  "idProyecto": 7
+  "idVendedor": 0
+  "importe": 34350
+  "total": 34350
+
+ */
 
   obtenerFechaActual() {
     var date = new Date()
