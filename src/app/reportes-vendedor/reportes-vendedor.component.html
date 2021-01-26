@@ -10,7 +10,9 @@
           </div>
           <h3>Reportes por vendedor</h3>
         </div>
-        <div id="monto" class="col-sm-12 col-md-7 text-right">{{ getTotalMeta | formatSoles }} - {{ getTotalAvance | formatSoles }}</div>
+        <div id="monto" class="col-sm-12 col-md-7 text-right">
+          {{ getTotalMeta | formatSoles }} - {{ getTotalAvance | formatSoles }}
+        </div>
       </div>
 
       <div class="row mt-3">
@@ -77,8 +79,13 @@
         </div>
       </div>
       <!--Begin::TablaResultados-->
-      <div class="row">
-        <table mat-table [dataSource]="itemsTable" class="tblreportes" style="width: 100%; margin-top: 20px">
+      <div class="row" style="overflow-x: auto">
+        <table
+          mat-table
+          [dataSource]="itemsTable"
+          class="tblreportes"
+          style="width: 100%; margin-top: 20px"
+        >
           <ng-container matColumnDef="numero">
             <th mat-header-cell *matHeaderCellDef>#</th>
             <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
@@ -156,10 +163,19 @@
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="fieldsTable"></tr>
-          <tr mat-row *matRowDef="let row; columns: fieldsTable" class="col-sm-12 col-md-4 tblreportes-trhover"></tr>
+          <tr
+            mat-row
+            *matRowDef="let row; columns: fieldsTable"
+            class="col-sm-12 col-md-4 tblreportes-trhover"
+          ></tr>
           <tr mat-footer-row *matFooterRowDef="fieldsTable"></tr>
         </table>
-        <div *ngIf="itemsTable.data.length === 0" style="width: 100%; text-align: center; margin-top: 15px">-- No hay resultados --</div>
+        <div
+          *ngIf="itemsTable.data.length === 0"
+          style="width: 100%; text-align: center; margin-top: 15px"
+        >
+          -- No hay resultados --
+        </div>
       </div>
       <!--End::TablaResultados-->
       <div class="row mt-4">
