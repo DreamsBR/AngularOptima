@@ -1,4 +1,12 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core'
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { VentaAttached } from './venta-attached'
 import { UtilService } from '../util/util.service'
@@ -16,16 +24,13 @@ export class VentasAdjuntosComponent implements OnInit {
 
   @Output() onLoadingChange = new EventEmitter<boolean>()
 
-  displayedColumns: string[] = [
-    'editar',
-    'idVentaAttached',
-    'fileRuta',
-    'descargar',
-    'fechaRegistro'
-  ]
+  displayedColumns: string[] = ['editar', 'idVentaAttached', 'nombre', 'descargar', 'fechaRegistro']
   itemsLista = new MatTableDataSource<VentaAttached>()
 
+  formIsValid: boolean = true
+
   newVentaAttached: VentaAttached = new VentaAttached()
+  nombreArchivoAdjunto: string = ''
 
   attachedToDelete: VentaAttached = new VentaAttached()
 
@@ -94,6 +99,7 @@ export class VentasAdjuntosComponent implements OnInit {
                 this.newVentaAttached.fileRuta = resp.fileName
                 this.newVentaAttached.idVenta = this.ventaId
                 this.newVentaAttached.fechaRegistro = now.toISOString()
+                this.newVentaAttached.nombre = this.nombreArchivoAdjunto
 
                 this.ventasAdjuntosService.postAttached(this.newVentaAttached).subscribe(
                   (resp) => {
@@ -173,6 +179,10 @@ export class VentasAdjuntosComponent implements OnInit {
       this.openSnackBar('success', '✓ Pago eliminado con éxito', 'Cerrar', 1500)
       this.fetchData()
     })
+  }
+
+  checkIsFormValid() {
+    this.formIsValid = !(this.nombreArchivoAdjunto.length >= 3)
   }
 
   openSnackBar(type: string, message: string, action: string, duration: number = 5000) {

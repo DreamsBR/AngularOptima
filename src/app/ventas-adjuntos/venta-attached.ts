@@ -3,4 +3,5 @@ export class VentaAttached {
   fileRuta: string
   fechaRegistro: string
   idVenta: number
+  nombre: string
 }
