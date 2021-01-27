@@ -995,4 +995,15 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   onLoadingChange(status: boolean) {
     this.loading = status
   }
+
+  calculateDescuento (elem: Inmueble) {
+    let descuento = ''
+    if (elem && elem.descuento) {
+      const factor = elem.precio / elem.descuento
+      descuento = factor.toFixed(1);
+    } else {
+      descuento = '0.0';
+    }
+    return descuento
+  }
 }
