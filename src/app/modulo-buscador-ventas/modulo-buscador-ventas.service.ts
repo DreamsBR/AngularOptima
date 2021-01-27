@@ -22,7 +22,9 @@ export class ModuloBuscadorVentasService {
   }
 
   getVentaByProyectoAndEstado(idProyecto: number, idEstadoVenta: number): Observable<any> {
-    return this.http.get(this.urlEndPoint + `/byproyectoandestado/${idProyecto}/${idEstadoVenta}`).pipe()
+    return this.http
+      .get(this.urlEndPoint + `/byproyectoandestado/${idProyecto}/${idEstadoVenta}`)
+      .pipe()
   }
 
   getVentaByCliente(idCliente: number): Observable<any> {
@@ -31,8 +33,18 @@ export class ModuloBuscadorVentasService {
     return this.http.get(this.urlEndPoint + `/bycliente/${idCliente}/${page}/${pageCount}`).pipe()
   }
 
-  getVentaByProyectoAndEstadoRange(idProyecto: number, idEstadoVenta: number, fechaini: string, fechafin: string): Observable<any> {
-    return this.http.get(this.urlEndPoint + `/byproyectoandestadorange/${idProyecto}/${idEstadoVenta}/${fechaini}/${fechafin}`).pipe()
+  getVentaByProyectoAndEstadoRange(
+    idProyecto: number,
+    idEstadoVenta: number,
+    fechaini: string,
+    fechafin: string
+  ): Observable<any> {
+    return this.http
+      .get(
+        this.urlEndPoint +
+          `/byproyectoandestadorange/${idProyecto}/${idEstadoVenta}/${fechaini}/${fechafin}`
+      )
+      .pipe()
   }
 
   // Otros métodos para buscar
@@ -48,13 +60,16 @@ export class ModuloBuscadorVentasService {
     idProyecto: number
   ): Observable<any> {
     let data = {
-      "fechaFin": fechaFin,
-      "fechaIni": fechaIni,
-      "idCliente": idCliente,
-      "idEstadoVenta": idEstadoVenta,
-      "idProyecto": idProyecto
+      fechaFin: fechaFin,
+      fechaIni: fechaIni,
+      idCliente: idCliente,
+      idEstadoVenta: idEstadoVenta,
+      idProyecto: idProyecto
     }
     return this.http.post(this.urlEndPoint + `/search/`, data).pipe()
   }
 
+  deleteVentaById(idVenta: number): Observable<any> {
+    return this.http.delete(this.urlEndPoint + `/${idVenta}`).pipe()
+  }
 }
