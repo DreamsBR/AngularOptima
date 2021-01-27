@@ -524,9 +524,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         )
       }
     }
-/*
+
     this.router.navigate(['/ventas-proyecto/' + this.paramIdProyecto])
-    swal('Venta registrada correctamente', '', 'success')*/
+    swal('Venta registrada correctamente', '', 'success')
   }
 
   status = false
