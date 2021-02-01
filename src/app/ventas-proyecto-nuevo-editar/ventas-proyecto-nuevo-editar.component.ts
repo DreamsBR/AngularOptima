@@ -452,16 +452,12 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
 
-    console.info(this.ayudainicial)
-
     // this.venta.ayudaInicial = this.porcentaje_cuota_inicial
     this.venta.ayudaInicial = this.ayudainicial
     this.venta.importe = this.totalInmuebles
     // this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
     this.venta.descuento = 0
     this.venta.total = this.venta.importe - this.venta.descuento
-
-    console.info(this.venta)
 
     this.ventaService.agregarVenta(this.venta).subscribe(
       (response) => {
