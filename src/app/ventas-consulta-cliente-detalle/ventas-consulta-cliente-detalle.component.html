@@ -349,7 +349,7 @@
                         *matCellDef="let elem"
                         style="text-align: end; color: var(--primary); font-weight: bold"
                       >
-                        {{ elem.importe | formatSoles }}
+                        {{ ( elem.precio - elem.descuento - elem.ayudainicial ) | formatSoles }}
                       </td>
                     </ng-container>
 
@@ -395,7 +395,7 @@
                       <div class="row">
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
-                          <p>{{ financiamiento.porcCuotaInicial }} %</p>
+                          <p>{{ financiamiento.porcCuotaInicial | number : '1.2-2' }} %</p>
                         </div>
                         <div class="col-sm-12 col-md-4">
                           <p class="label-dato">Cuota inicial</p>
