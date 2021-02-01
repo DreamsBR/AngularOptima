@@ -146,8 +146,6 @@ export class VentasProyectoEditarComponent implements OnInit {
         this.idVenta = parseInt(params.get('idventa'))
         this.obtenerClienteSeleccionado(params.get('dni'))
         this.obtenerDatosDeVenta(this.idVenta)
-        this.vendedorSelected = this.ventanodos.vendedor.idVendedor
-
       }
     })
 
@@ -248,6 +246,8 @@ export class VentasProyectoEditarComponent implements OnInit {
       this.dpfechaFinAhorro.setValue(this.ventanodos.financiamiento.fechaFinAhorro)
 
       this.totalInmuebles
+
+      this.vendedorSelected = this.ventanodos.vendedor.idVendedor
     })
   }
 
@@ -337,7 +337,6 @@ export class VentasProyectoEditarComponent implements OnInit {
 
   public agregarDepartamentoExistente() {
     this.ventainmuebleService.getInmueblesPorVenta(this.idVenta).subscribe((response) => {
-      console.info(response)
       for (let x = 0; x < response.length; x++) {
         if (response[x].inmueble.tipoInmueble.idTipoInmueble == 1 || response[x].inmueble.tipoInmueble.idTipoInmueble == 3) {
           let tInmueble = new Inmueble()

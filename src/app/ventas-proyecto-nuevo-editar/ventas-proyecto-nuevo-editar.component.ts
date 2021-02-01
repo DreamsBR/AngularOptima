@@ -291,6 +291,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
   porcentaje_cuota_inicial: number
   cuota_inicial: number
   total_financiamiento: number
+  ayudainicial:number
 
   getTotalVenta() {
     let totalDepartamentos = 0
@@ -411,7 +412,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.financiamiento.idEstadoFinanciamiento = 1
     this.financiamiento.montoCuotaInicial = this.cuota_inicial
     this.financiamiento.porcCuotaInicial = (this.cuota_inicial * 100 / this.getTotalVenta() )
-    this.financiamiento.montoFinanciado = this.total_financiamiento
+    this.financiamiento.montoFinanciado = (this.totalInmuebles - this.financiamiento.montoCuotaInicial)
 
     this.financiamientoService.agregarFinanciamiento(this.financiamiento).subscribe(
       (response) => {
@@ -421,6 +422,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
         this.errores = err.error.errors as string[]
       }
     )
+
   }
 
   guardarVenta(idFinanciamiento: number) {
@@ -430,26 +432,36 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       swal('Falta selecionar un vendedor', '', 'warning')
       return
     }
-    this.venta.idVendedor = this.vendedorSelected
+    
 
     this.venta.enable = 1
+    this.venta.idVendedor = this.vendedorSelected
+    this.venta.idEstadoVenta = 15
+
     this.venta.fechaCaida = ''
     this.venta.fechaDesembolso = ''
     this.venta.fechaEpp = ''
     this.venta.fechaMinuta = ''
     this.venta.fechaSeparacion = ''
+
     this.venta.idCliente = this.clienteSeleccionado.idCliente
-    this.venta.idEstadoVenta = 15
     this.venta.idFinanciamiento = idFinanciamiento
     this.venta.idProyecto = this.paramIdProyecto
+
     this.venta.idMotivo = this.motivoSeleccionado
     this.venta.idCanal = this.canalSeleccionado
     this.venta.idCategoria = this.categoriaSeleccionado
 
-    this.venta.ayudaInicial = this.porcentaje_cuota_inicial
-    this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
+    console.info(this.ayudainicial)
+
+    // this.venta.ayudaInicial = this.porcentaje_cuota_inicial
+    this.venta.ayudaInicial = this.ayudainicial
     this.venta.importe = this.totalInmuebles
+    // this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
+    this.venta.descuento = 0
     this.venta.total = this.venta.importe - this.venta.descuento
+
+    console.info(this.venta)
 
     this.ventaService.agregarVenta(this.venta).subscribe(
       (response) => {
