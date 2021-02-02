@@ -32,26 +32,24 @@ export class ProyectosColaboradorComponent implements OnInit {
 
   public obtenerGerencias() {
     this.activatedRoute.paramMap.subscribe((params) => {
-
       this.idColaborador = parseInt(this.as.usuario.idColaborador);
-
       this.vendedorService.getVendedorPorColaborador(this.idColaborador).subscribe((
         response) => {
-        let idJefatura = response[0].idJefatura
-
-        this.jefaturaproyectoService.getProyectoPorJefatura(idJefatura).subscribe((
-          response) => {
-          this.proyectosLista = response
-        },
-        (err) => {
-          if(err.status == 500){}
-        })
-
+        let proyectos = response
+        for(let x = 0 ; x<response.length ; x++ ){
+          this.jefaturaproyectoService.getProyectoPorJefatura(proyectos[x].idJefatura).subscribe((
+            res) => {
+            // console.info(response[0])
+            if( res[0] != undefined ){
+              // console.info(res[0])
+              this.proyectosLista.push(res[0])
+            }
+          })
+        }
       },
       (err) => {
         if(err.status == 500){}
       })
-
     })
   }
 
