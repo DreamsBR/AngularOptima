@@ -942,11 +942,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   get porcentajePagado(): string {
-    if (typeof this.venta.financiamiento !== 'undefined') {
-      const totalFinanciamiento = parseFloat(this.venta.financiamiento.montoFinanciado)
-      const porc = (this.sumaTotalPagos / totalFinanciamiento) * 100
+    if (typeof this.venta !== 'undefined') {
+      const totalVenta = this.venta.total
+      const porc = (this.sumaTotalPagos * 100) / totalVenta
       return `${porc.toFixed(2)} %`
-      //return `${this.venta.financiamiento.financiamiento}`
     } else {
       return '--'
     }
