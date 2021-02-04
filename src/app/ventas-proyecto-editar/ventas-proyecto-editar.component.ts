@@ -475,7 +475,8 @@ export class VentasProyectoEditarComponent implements OnInit {
       return
     }
 
-    if (this.porcentaje_cuota_inicial == 0 || this.porcentaje_cuota_inicial == null) {
+    console.info( this.cuota_inicial )
+    if (this.cuota_inicial == null) {
       swal('Ingrese la cuota inicial', '', 'warning')
       return
     }

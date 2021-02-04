@@ -79,7 +79,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   tempIdFechaCaida: string = ''
 
   displayedColumns: string[] = [
-    'editar',
+    // 'editar',
     'idTipoInmueble',
     'idTipoInmuebleCategoria',
     'numero',
