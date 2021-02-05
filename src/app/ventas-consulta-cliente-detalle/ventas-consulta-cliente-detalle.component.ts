@@ -218,6 +218,12 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   actualizarVenta() {
     console.log('Aplicando lógica de negocio...')
 
+    // this.venta.fechaSeparacion = null
+    // this.venta.fechaMinuta = null
+    // this.venta.fechaDesembolso = null
+    // this.venta.fechaEpp = null
+    // this.venta.fechaCaida = null
+
     switch (this.idEstadoVentaSelect) {
       case 1: // SEPARACIÓN
         // TODO
@@ -232,6 +238,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             return
           }
           this.venta.fechaSeparacion = this.tempIdFechaSeparacion
+          this.venta.fechaMinuta = null
+          this.venta.fechaDesembolso = null
+          this.venta.fechaEpp = null
+          this.venta.fechaCaida = null
         }
         break
 
@@ -284,6 +294,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             }
             this.venta.fechaSeparacion = this.tempIdFechaSeparacion
             this.venta.fechaMinuta = this.tempIdFechaMinuta
+            this.venta.fechaDesembolso = null
+            this.venta.fechaEpp = null
+            this.venta.fechaCaida = null
           }
         }
         break
@@ -396,6 +409,8 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             this.venta.fechaSeparacion = this.tempIdFechaSeparacion
             this.venta.fechaMinuta = this.tempIdFechaMinuta
             this.venta.fechaDesembolso = this.tempIdFechaDesembolso
+            this.venta.fechaEpp = null
+            this.venta.fechaCaida = null
           }
         }
         break
@@ -421,6 +436,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
             this.venta.fechaMinuta = this.tempIdFechaMinuta
             this.venta.fechaDesembolso = this.tempIdFechaDesembolso
             this.venta.fechaEpp = this.tempIdFechaEEP
+            this.venta.fechaCaida = null
           }
         }
         break
@@ -443,6 +459,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     //console.log('Objecto ventas consulta detalle')
     // console.log(this.venta)
     // return
+
+    console.info(this.venta)
+
     this.venta.estadoVenta.idEstadoVenta = this.idEstadoVentaSelect // Asigna el id al objeto venta
     this.loading = true
     this.vccdService.updateVenta(this.venta).subscribe(
@@ -631,12 +650,20 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   eliminarArchivoFechaPago(TipoEstadoVenta: number) {
+
+    // @ViewChild('dpFSeparacion', { static: true }) dpFSeparacion: DatepickerRoundedComponent
+    // @ViewChild('dpFMinuta', { static: true }) dpFMinuta: DatepickerRoundedComponent
+    // @ViewChild('dpFDesembolso', { static: true }) dpFDesembolso: DatepickerRoundedComponent
+    // @ViewChild('dpFEEP', { static: true }) dpFEEP: DatepickerRoundedComponent
+    // @ViewChild('dpFCaida', { static: true }) dpFCaida: DatepickerRoundedComponent
+
     switch (TipoEstadoVenta) {
       case 1:
         this.ventaFilesService
           .deleteVentaFiles(this.ventaFileFSeparacion.idVentaFiles)
           .subscribe((resp) => {
             this.ventaFileFSeparacion = null
+            this.dpFSeparacion.setValue('')
           })
         break
       case 5:
@@ -644,6 +671,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .deleteVentaFiles(this.ventaFileFMinuta.idVentaFiles)
           .subscribe((resp) => {
             this.ventaFileFMinuta = null
+            this.dpFMinuta.setValue('')
           })
         break
       case 12:
@@ -651,6 +679,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .deleteVentaFiles(this.ventaFileFDesembolso.idVentaFiles)
           .subscribe((resp) => {
             this.ventaFileFDesembolso = null
+            this.dpFDesembolso.setValue('')
           })
         break
       case 13:
@@ -658,6 +687,7 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .deleteVentaFiles(this.ventaFileFEEP.idVentaFiles)
           .subscribe((resp) => {
             this.ventaFileFEEP = null
+            this.dpFEEP.setValue('')
           })
         break
       default:
