@@ -17,3 +17,7 @@ th, td{
 .tr_periodos input{
     width: 150px;
 }
+
+.margin_bottom{
+    margin: 0px 0px 10px 0px;
+}
