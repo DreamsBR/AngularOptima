@@ -18,6 +18,23 @@ th, td{
     width: 150px;
 }
 
+.tblreportes .mat-column-meta,
+.tblreportes .mat-column-avance,
+.tblreportes .mat-column-minuta,
+.tblreportes .mat-column-ci, 
+.tblreportes .mat-column-preca,
+.tblreportes .mat-column-ev,
+.tblreportes .mat-column-sp,
+.tblreportes .mat-column-caida {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.tblreportes .mat-column-meta,
+.tblreportes .mat-column-avance {
+    text-align: right;
+}
+
 .margin_bottom{
     margin: 0px 0px 10px 0px;
 }

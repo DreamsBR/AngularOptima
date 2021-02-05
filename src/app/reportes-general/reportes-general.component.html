@@ -94,9 +94,11 @@
           <ng-container matColumnDef="gerente">
             <th mat-header-cell *matHeaderCellDef>Gerente</th>
             <td mat-cell *matCellDef="let element">
-              {{
-                element.gerencia.colaborador.nombres + ' ' + element.gerencia.colaborador.apellidos
-              }}
+              <a [routerLink]="['/reportes']" style="color: inherit;">
+                {{
+                  element.gerencia.colaborador.nombres + ' ' + element.gerencia.colaborador.apellidos
+                }}
+              </a>
             </td>
             <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>

@@ -512,12 +512,11 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
       // console.log(this.pagoModal)
       // return
 
-      const montoFaltante =
-        parseFloat(this.venta.financiamiento.montoFinanciado) - this.sumaTotalPagos
+      const montoFaltante =this.venta.total - this.sumaTotalPagos
       if (this.pagoModal.monto > montoFaltante) {
         this.loading = false
         const msg =
-          'El monto ingresado supera el monto faltante para completar el financiamiento. Ingrese un monto menor'
+          'El monto ingresado supera el monto faltante para completar el total de venta. Ingrese un monto menor'
         this.modalPagoWarnings = [msg]
         return
       }
@@ -943,11 +942,10 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
   }
 
   get porcentajePagado(): string {
-    if (typeof this.venta.financiamiento !== 'undefined') {
-      const totalFinanciamiento = parseFloat(this.venta.financiamiento.montoFinanciado)
-      const porc = (this.sumaTotalPagos / totalFinanciamiento) * 100
+    if (typeof this.venta !== 'undefined') {
+      const totalVenta = this.venta.total
+      const porc = (this.sumaTotalPagos * 100) / totalVenta
       return `${porc.toFixed(2)} %`
-      //return `${this.venta.financiamiento.financiamiento}`
     } else {
       return '--'
     }
@@ -980,13 +978,6 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
     return name
   }
 
-  get computedMontoInicial(): number {
-    let porc = 0
-    if (this.financiamiento && this.venta.importe) {
-      porc = (parseFloat(this.financiamiento.porcCuotaInicial) * this.venta.importe) / 100
-    }
-    return porc
-  }
 
   regresar() {
     window.history.back()
