@@ -664,6 +664,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .subscribe((resp) => {
             this.ventaFileFSeparacion = null
             this.dpFSeparacion.setValue('')
+            this.venta.fechaSeparacion = null
+            this.idEstadoVentaSelect = 15 // Estado inicio
+            this.actualizarVenta()
           })
         break
       case 5:
@@ -672,6 +675,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .subscribe((resp) => {
             this.ventaFileFMinuta = null
             this.dpFMinuta.setValue('')
+            this.venta.fechaMinuta = null
+            this.idEstadoVentaSelect = 1
+            this.actualizarVenta()
           })
         break
       case 12:
@@ -680,6 +686,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .subscribe((resp) => {
             this.ventaFileFDesembolso = null
             this.dpFDesembolso.setValue('')
+            this.venta.fechaDesembolso = null
+            this.idEstadoVentaSelect = 5
+            this.actualizarVenta()
           })
         break
       case 13:
@@ -688,6 +697,9 @@ export class VentasConsultaClienteDetalleComponent implements OnInit {
           .subscribe((resp) => {
             this.ventaFileFEEP = null
             this.dpFEEP.setValue('')
+            this.venta.fechaEpp = null
+            this.idEstadoVentaSelect = 12
+            this.actualizarVenta()
           })
         break
       default:
