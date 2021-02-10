@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatInputModule } from '@angular/material/input'
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatTableModule } from '@angular/material/table'
+import { MatRadioModule } from '@angular/material/radio'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -137,6 +138,10 @@ import { RangosComponent } from './rangos/rangos.component';
 import { TipoPeriodoComponent } from './tipo-periodo/tipo-periodo.component';
 import { VentasAdjuntosComponent } from './ventas-adjuntos/ventas-adjuntos.component';
 import { VentasAdjuntosService } from './ventas-adjuntos/ventas-adjuntos.service';
+import { CategoriaGerenciaComponent } from './categoria-gerencia/categoria-gerencia.component';
+import { CategoriaGerenciaService } from './categoria-gerencia/categoria-gerencia.service';
+import { ReportesPorCategoriaComponent } from './reportes-por-categoria/reportes-por-categoria.component';
+import { CategoriaGerenciaNuevoEditarComponent } from './categoria-gerencia-nuevo-editar/categoria-gerencia-nuevo-editar.component'
 
 const ROUTES: Routes = [
 
@@ -186,6 +191,7 @@ const ROUTES: Routes = [
   { path: 'reportes-por-proyecto/:idproyecto/:idperiodo', component: ReportesProyectosComponent },
   { path: 'reportes-por-vendedor', component: ReportesVendedorComponent },
   { path: 'reportes-por-vendedor/:idcolaborador/:idperiodo', component: ReportesVendedorComponent },
+  { path: 'reportes-por-categoria', component: ReportesPorCategoriaComponent },
   { path: 'reportes-general', component: ReportesGeneralComponent },
   { path: 'bancos', component: BancosComponent },
   { path: 'banco-nuevo-editar/:id', component: BancoNuevoEditarComponent },
@@ -207,6 +213,8 @@ const ROUTES: Routes = [
   { path: 'tipoinmueblecategoria-nuevo-editar/:id', component: TipoinmueblecategoriaNuevoEditarComponent },
   { path: 'rangos', component: RangosComponent },
   { path: 'tipo-periodo', component: TipoPeriodoComponent },
+  { path: 'categoria-gerencia', component: CategoriaGerenciaComponent },
+  { path: 'categoria-gerencia-nuevo-editar/:id', component: CategoriaGerenciaNuevoEditarComponent },
 ]
 
 @NgModule({
@@ -282,7 +290,10 @@ const ROUTES: Routes = [
     ReportesGeneralComponent,
     RangosComponent,
     TipoPeriodoComponent,
-    VentasAdjuntosComponent
+    VentasAdjuntosComponent,
+    CategoriaGerenciaComponent,
+    ReportesPorCategoriaComponent,
+    CategoriaGerenciaNuevoEditarComponent
   ],
   imports: [
     BrowserModule,
@@ -295,6 +306,7 @@ const ROUTES: Routes = [
     MatInputModule,
     MatFormFieldModule,
     MatTableModule,
+    MatRadioModule,
     MatPaginatorModule,
     MatSelectModule,
     MatSnackBarModule,
@@ -350,6 +362,7 @@ const ROUTES: Routes = [
     ModuloBuscadorVentasService,
     TipoPeriodoService,
     VentasAdjuntosService,
+    CategoriaGerenciaService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     DatePipe

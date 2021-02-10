@@ -64,6 +64,8 @@ export class GerenciasComponent implements OnInit {
 
   public eliminar(gerencia: Gerencia): void {
 
+    console.log(gerencia.categoriaGerencia.idCategoriaGerencia);
+
     let gerenciaadd: Gerencia2 = new Gerencia2()
 
     gerenciaadd.enable = 0 // --> Deshabilita Gerencia
@@ -72,6 +74,7 @@ export class GerenciasComponent implements OnInit {
     gerenciaadd.idGerente = gerencia.colaborador.idColaborador
     gerenciaadd.nombre = gerencia.nombre
     gerenciaadd.idGerencia = gerencia.idGerencia
+    gerenciaadd.idCategoriaGerencia = gerencia.categoriaGerencia.idCategoriaGerencia
 
     this.gerenciaService.editarGerencia(gerenciaadd, gerenciaadd.idGerencia).subscribe(
       (response) => {

@@ -1,4 +1,6 @@
+import { CategoriaGerencia } from '../categoria-gerencia/categoria-gerencia'
 export class Gerencia{
+  categoriaGerencia: CategoriaGerencia
   idGerencia: number
   enable: number
   fechaIngreso: string

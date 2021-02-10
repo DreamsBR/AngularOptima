@@ -1,40 +1,53 @@
-th, td{
-    white-space:nowrap
+th,
+td {
+  white-space: nowrap;
 }
 
-.alert{
-    font-size: 10px;
-    padding: 3px;
+.alert {
+  font-size: 10px;
+  padding: 3px;
 }
 
 .autocomplete-container .not-found {
-    padding: 0 .75em;
-    border: 1px solid #f1f1f1;
-    background: #fff;
-    z-index: 9999;
+  padding: 0 0.75em;
+  border: 1px solid #f1f1f1;
+  background: #fff;
+  z-index: 9999;
 }
 
-.tr_periodos input{
-    width: 150px;
+.tr_periodos input {
+  width: 150px;
 }
 
 .tblreportes .mat-column-meta,
 .tblreportes .mat-column-avance,
 .tblreportes .mat-column-minuta,
-.tblreportes .mat-column-ci, 
+.tblreportes .mat-column-ci,
 .tblreportes .mat-column-preca,
 .tblreportes .mat-column-ev,
 .tblreportes .mat-column-sp,
 .tblreportes .mat-column-caida {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
 }
 
 .tblreportes .mat-column-meta,
 .tblreportes .mat-column-avance {
-    text-align: right;
+  text-align: right;
 }
 
-.margin_bottom{
-    margin: 0px 0px 10px 0px;
+.margin_bottom {
+  margin: 0px 0px 10px 0px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: var(--primary);
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle,
+.mat-radio-button.mat-accent
+  .mat-radio-ripple
+  .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-accent:active .mat-radio-persistent-ripple {
+  background-color: var(--primary);
 }

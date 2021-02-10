@@ -71,6 +71,15 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-sm-12">
+                                    <label id="tipogerente-radio-group-label">Selecciona la categoría de gerencia:</label>
+                                    <mat-radio-group [(ngModel)]="categoriaGerencia"  [ngModelOptions]="{standalone: true}" class="tipogerente-radio-group" aria-labelledby="tipogerente-radio-group-label">
+                                        <mat-radio-button class="tipogerente-radio-button"  *ngFor="let categoria of dataCategoriaGerencia" [value]="categoria.idCategoriaGerencia">{{ categoria.nombre }}</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-12 col-md-4">
                                     <div class="form-group">
                                         <label for="fechaIngreso">Fecha Inicio Cargo</label>

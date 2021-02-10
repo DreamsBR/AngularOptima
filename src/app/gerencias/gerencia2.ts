@@ -5,4 +5,5 @@ export class Gerencia2{
     idGerencia: number
     idGerente: number
     nombre: string
+    idCategoriaGerencia: number
 }

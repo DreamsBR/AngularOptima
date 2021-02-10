@@ -62,4 +62,8 @@ export class ReportesService {
   getPeriodoColaboradorByIdColaborador(idColaborador: number): Observable<any> {
     return this.http.get(URL_BACKEND + 'periodocolaborador/' + idColaborador).pipe()
   }
+
+  getConsolidadoGerenciaPorCategoria(idPeriodo: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/consolidadoGerenciaVentaByCategoria/' + idPeriodo).pipe()
+  }
 }

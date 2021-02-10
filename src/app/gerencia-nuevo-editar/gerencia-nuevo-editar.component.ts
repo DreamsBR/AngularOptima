@@ -12,10 +12,13 @@ import { PeriodoGerenciaService } from './../periodo-gerencia/periodo-gerencia.s
 import { PeriodoGerencia2 } from './../periodo-gerencia/periodogerencia2'
 import { GerenciaproyectoService } from './gerenciaproyecto.service'
 import { Gerenciaproyecto } from './gerenciaproyecto'
+import { CategoriaGerenciaService } from '../categoria-gerencia/categoria-gerencia.service';
+import { CategoriaGerencia } from '../categoria-gerencia/categoria-gerencia';
 
 @Component({
   selector: 'app-gerencia-nuevo-editar',
-  templateUrl: './gerencia-nuevo-editar.component.html'
+  templateUrl: './gerencia-nuevo-editar.component.html',
+  styleUrls: ['./gerencia-nuevo-editar.css'],
 })
 
 export class GerenciaNuevoEditarComponent implements OnInit {
@@ -23,6 +26,8 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   public idGerencia: number
 
   public nombreGerencia: string
+
+  public categoriaGerencia: string
 
   public errores: string[]
   public gerencia: Gerencia = new Gerencia()
@@ -38,6 +43,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
   fechaTerminoProyecto : string
 
   kwBuscar = 'nombre'
+  dataCategoriaGerencia: CategoriaGerencia[] = []
   dataBuscarGerente = []
   dataBuscarPeriodo = []
   dataBuscarProyecto = []
@@ -60,10 +66,14 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     private proyectoService: ProyectoService,
     private gerenciaService: GerenciaService,
     private periodoGerenciaService: PeriodoGerenciaService,
-    private gerenciaproyectoService: GerenciaproyectoService
+    private gerenciaproyectoService: GerenciaproyectoService,
+    private categoriaGerenciaService: CategoriaGerenciaService
   ){}
 
   ngOnInit(){
+
+  
+    
     this.activatedRoute.paramMap.subscribe((params) => {
       this.idGerencia = parseInt(params.get('id'))
       if(this.idGerencia != 0){
@@ -76,6 +86,8 @@ export class GerenciaNuevoEditarComponent implements OnInit {
             this.dpFechaInicio.setValue(response.gerencia.fechaIngreso)
             this.dpFechaFin.setValue(response.gerencia.fechaTermino)
 
+            this.categoriaGerencia = response.gerencia.categoriaGerencia.idCategoriaGerencia
+
             this.agregarPeriodosExistentes()
             this.agregarProyectosExistentes()
           },
@@ -84,6 +96,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
           }
         )
       }
+      this.obtenerTodosLasCategorias()
       this.obtenerTodosLosColaboradores()
       this.obtenerTodosLosPeriodos()
       this.obtenerTodosLosProyectos()
@@ -122,6 +135,13 @@ export class GerenciaNuevoEditarComponent implements OnInit {
           this.aryProyectos.push(proyecto)
         }
       })
+  }
+
+  obtenerTodosLasCategorias(){
+    this.categoriaGerenciaService.getCategoriasGerencia().subscribe((data) => {
+      const listaCategoriaGerencia = [...data]
+      this.dataCategoriaGerencia = listaCategoriaGerencia
+    })
   }
 
   obtenerTodosLosColaboradores(){
@@ -236,6 +256,11 @@ export class GerenciaNuevoEditarComponent implements OnInit {
       return
     }
 
+    if(this.categoriaGerencia == null){
+      swal('Seleccione la categoría de gerencia', '', 'warning')
+      return
+    }
+
     if(this.fechaIngreso == '' || this.fechaIngreso == null){
       swal('Seleccione una fecha de ingreso de gerencia', '', 'warning')
       return
@@ -263,6 +288,7 @@ export class GerenciaNuevoEditarComponent implements OnInit {
     gerenciaadd.fechaTermino = this.fechaTermino
     gerenciaadd.idGerente = this.colaboradorSeleccionado.idColaborador
     gerenciaadd.nombre = this.nombreGerencia
+    gerenciaadd.idCategoriaGerencia = parseInt(this.categoriaGerencia)
 
     //console.log('sdfsdfsdfsdfsdf')
     //console.log(gerenciaadd)
