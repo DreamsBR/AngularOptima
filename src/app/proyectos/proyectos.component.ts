@@ -6,6 +6,8 @@ import { AuthService } from '../usuarios/auth.service'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import swal from 'sweetalert2'
+import { ConsolidadoGeneral } from '../reportes-general/consolidadogeneral'
+import { elementAt } from 'rxjs/operators'
 
 @Component({
   selector: 'app-proyectos',
@@ -26,6 +28,9 @@ export class ProyectosComponent implements OnInit {
 
   proyectoToDelete:Proyecto = new Proyecto()
 
+  dataBuscarProyecto = []
+  kwBuscar = 'nombre'
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   constructor(
@@ -36,11 +41,13 @@ export class ProyectosComponent implements OnInit {
 
   ngOnInit() {
     this.fetchData(this.pageIndex)
+    this.obtenerTodoProyectos()
   }
 
   fetchData(pageIndex: number) {
     this.proyectoService.getProyectos(pageIndex).subscribe((proyectosJsonResponse) => {
       this.proyectoLista = new MatTableDataSource<Proyecto>(proyectosJsonResponse.content)
+      console.log(proyectosJsonResponse.content)
       this.pageIndex = proyectosJsonResponse.pageable.pageNumber
       this.totalData = proyectosJsonResponse.totalElements
     })
@@ -84,6 +91,33 @@ export class ProyectosComponent implements OnInit {
         this.fetchData(0)
       }
     )
+  }
+  obtenerTodoProyectos(){
+    this.proyectoService.obtenerProyectos().subscribe((data)=>{
+      const listaProyectos = []
+      data.forEach((elem:any) => {
+        listaProyectos.push({
+          idProyecto: elem.idProyecto,
+          nombre: elem.nombre
+        })
+      })
+      this.dataBuscarProyecto = listaProyectos
+    })
+  }
+  proyectoSelec: any
+  seleccionarItemBusquedaProyecto(event){
+   
+    this.proyectoSelec = event
+    this.proyectoService.getProyectosById(this.proyectoSelec.idProyecto).subscribe((
+      jsonProyecto) =>{
+        console.log(jsonProyecto.proyecto)
+        this.proyectoLista = new MatTableDataSource<Proyecto>([jsonProyecto.proyecto])
+        this.pageIndex = 0
+        this.totalData = 1
+    })
+  }
+  Cancelar(){
+    this.fetchData(this.pageIndex)
   }
 
 }

@@ -52,8 +52,12 @@ export class ClientesComponent implements OnInit {
   clienteSeleccionado: any
   seleccionarItemBusquedaCliente(event){
     this.clienteSeleccionado = event
-    //this.clienteAutocomplete.searchInput.nativeElement.value = this.clienteSeleccionado.nroDocumento
     console.log(this.clienteSeleccionado)
+    this.clienteService.obtenerClientesPorDni(this.clienteSeleccionado.nroDocumento).subscribe((
+      clienteJsonResponse) =>{
+        console.log(clienteJsonResponse)
+        this.clientesLista = clienteJsonResponse
+      })
   }
 
   public obtenerCliente() {

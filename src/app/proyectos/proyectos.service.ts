@@ -82,11 +82,20 @@ export class ProyectoService {
         return throwError(e)
       })
     )}
-
   eliminarProyecto(id: number): Observable<Proyecto> {
     return this.http.delete<Proyecto>(`${this.urlEndPoint}/${id}`).pipe(
       catchError((e) => {
         return throwError(e)
+      })
+    )
+  }
+  obtenerProyectos(){
+    return this.http.get(this.urlEndPoint+'/').pipe(
+      map((data:any ) => {
+        (data as Proyecto[]).map((proyecto) => {
+          return proyecto
+        })
+        return data
       })
     )
   }

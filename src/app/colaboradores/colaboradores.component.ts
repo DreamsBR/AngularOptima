@@ -19,6 +19,9 @@ export class ColaboradoresComponent implements OnInit {
   urlBackend: String = URL_BACKEND;
   base: string;
 
+  dataBuscarColaborador = []
+  kwBuscar = 'nombre'
+
   constructor(
     private colaboradorService: ColaboradorService,
     private activatedRoute: ActivatedRoute,
@@ -27,6 +30,7 @@ export class ColaboradoresComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerColaborador()
+    this.obtenerTodoColaboradores()
   }
 
   dni:string
@@ -44,6 +48,17 @@ export class ColaboradoresComponent implements OnInit {
     this.obtenerColaborador()
 
   }
+  colaboradorSelec: any
+  seleccionarItemBusquedaColaborador(event){
+    this.colaboradorSelec = event
+    //console.log(this.colaboradorSelec)
+    this.colaboradorService.obtenerColaboradorFiltro(this.colaboradorSelec.nroDocumento).subscribe((
+      jsonColaborador) =>{
+        console.log(jsonColaborador)
+        this.colaboradoresLista = jsonColaborador
+    })
+  }
+
 
   obtenerColaborador(){
     this.activatedRoute.paramMap.subscribe(params => {
@@ -55,7 +70,7 @@ export class ColaboradoresComponent implements OnInit {
       subscribe(
         (colaboradorJsonResponse) => {
           this.colaboradoresLista = colaboradorJsonResponse.content;
-          console.info(this.colaboradoresLista)
+         /// console.info(this.colaboradoresLista)
           this.paginador = colaboradorJsonResponse;
           this.base='colaborador'
         })
@@ -85,5 +100,19 @@ export class ColaboradoresComponent implements OnInit {
   menuToggle(){
     this.status = !this.status;
   }
+  obtenerTodoColaboradores(){
+  
+    this.colaboradorService.obtenerColaboradores().subscribe((data)=>{
+      const listaColaboradores = []
+      data.forEach((elem:any) => {
+        listaColaboradores.push({
+          idColaborador: elem.idColaborador,
+          nroDocumento : elem.numeroDocumento,
+          nombre: elem.nombres+" " + elem.apellidos
+        })
+      })
+      this.dataBuscarColaborador = listaColaboradores
+    })
 
+  }
 }

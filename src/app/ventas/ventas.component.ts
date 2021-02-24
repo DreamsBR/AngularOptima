@@ -19,12 +19,16 @@ export class VentasComponent implements OnInit {
   pageSize: number = 15
   pageSizeOptions: number[] = [5, 10, 25, 250]
 
+  dataBuscarProyecto = []
+  kwBuscar = 'nombre'
+
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator
 
   constructor(private proyectoService: ProyectoService) {}
 
   ngOnInit() {
     this.obtenerProyectos(this.pageIndex)
+    this.obtenerTodoProyectos()
   }
 
   obtenerProyectos(pageIndex: number) {
@@ -47,5 +51,32 @@ export class VentasComponent implements OnInit {
   status: boolean = false
   menuToggle() {
     this.status = !this.status
+  }
+  obtenerTodoProyectos(){
+    this.proyectoService.obtenerProyectos().subscribe((data)=>{
+      const listaProyectos = []
+      data.forEach((elem:any) => {
+        listaProyectos.push({
+          idProyecto: elem.idProyecto,
+          nombre: elem.nombre
+        })
+      })
+      this.dataBuscarProyecto = listaProyectos
+    })
+  }
+  proyectoSelec: any
+  seleccionarItemBusquedaProyecto(event){
+   
+    this.proyectoSelec = event
+    this.proyectoService.getProyectosById(this.proyectoSelec.idProyecto).subscribe((
+      jsonProyecto) =>{
+        console.log(jsonProyecto.proyecto)
+        this.proyectoLista = new MatTableDataSource<Proyecto>([jsonProyecto.proyecto])
+        this.pageIndex = 0
+        this.totalData = 1
+    })
+  }
+  Cancelar(){
+    this.obtenerProyectos(this.pageIndex)
   }
 }

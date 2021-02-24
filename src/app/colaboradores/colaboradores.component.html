@@ -24,17 +24,28 @@
                 </button>
               </p>
                 <div class="collapse" id="collapseFiltro">
-                  <div class="row col-xl-10">
-                  <!--
-                    <div class="col-sm-12 col-md-12 col-xl-2">
-                          <div class="form-group">
-                              <mat-form-field>
-                                <mat-label style="color: orangered;">Nombre y Apellido</mat-label>
-                                <input matInput  placeholder="Nombre" #input>
-                              </mat-form-field>
-                          </div>
+                  <div class="row col-xl-12">
+                    <div class="col-sm-12 col-md-12 col-xl-6">
+                      <div class="clsiptr-input">
+                          <ng-autocomplete
+                              #clienteAutocomplete
+                              [data]="dataBuscarColaborador"
+                              [searchKeyword]="kwBuscar"
+                              (selected)="seleccionarItemBusquedaColaborador($event)"
+                              [itemTemplate]="itemTemplate"
+                              [notFoundTemplate]="noFound"
+                              placeHolder="Nombres y Apellidos"
+                          >
+                          </ng-autocomplete>
+                          <ng-template #itemTemplate let-item>
+                              <a [innerHTML]="item.nombre"></a>
+                          </ng-template>
+                          <ng-template #noFound let-notFound>
+                              <div style="color: #c1c1c1">-- no encontrado --</div>
+                          </ng-template>
                       </div>
-                    -->
+                    </div>
+                    <br>
                       <div class="col-sm-12 col-md-12 col-xl-2">
                           <div class="form-group">
                             <div class="form-group">
@@ -47,10 +58,10 @@
                     </div>
 
 
-                    <div class="col-xl-1">
+                    <div class="col-2 col-sm-2 col-md-2 col-xl-2">
                       <button type="button" (click)="filtrar()" class="btn btn-optima">Buscar</button>
                     </div>
-                    <div class="col-xl-1">
+                    <div class="col-2 col-sm-2 col-md-2 col-xl-2">
                       <button type="button" (click)="Cancelar()" class="btn btn-optima">Cancelar</button>
                     </div>
               </div>

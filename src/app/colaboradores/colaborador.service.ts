@@ -29,6 +29,16 @@ export class ColaboradorService {
             })
         );
     }
+    obtenerColaboradores(){
+        return this.http.get(this.urlEndPoint+'/').pipe(
+          map((data:any ) => {
+            (data as Colaborador[]).map((colaborador) => {
+              return colaborador
+            })
+            return data
+          })
+        )
+      }
 
 
     getTodosColaboradores(): Observable<any> {
