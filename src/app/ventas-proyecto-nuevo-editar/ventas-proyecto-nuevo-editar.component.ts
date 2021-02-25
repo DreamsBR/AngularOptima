@@ -76,6 +76,9 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
 
   venta: Venta = new Venta()
 
+  descuentoPorcentaje: number;
+  descuentoPorAyudaIni : number;
+
   departamentos: Inmueble[]
   idInmuebleSeleccionado: number
   departamentoSeleccionado: Inmueble
@@ -433,7 +436,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
       swal('Falta selecionar un vendedor', '', 'warning')
       return
     }
-    
+
 
     this.venta.enable = 1
     this.venta.idVendedor = this.vendedorSelected
@@ -454,6 +457,7 @@ export class VentasProyectoNuevoEditarComponent implements OnInit {
     this.venta.idCategoria = this.categoriaSeleccionado
 
     // this.venta.ayudaInicial = this.porcentaje_cuota_inicial
+    //this.venta
     this.venta.ayudaInicial = this.ayudainicial
     this.venta.importe = this.totalInmuebles
     // this.venta.descuento = (this.totalInmuebles * this.porcentaje_cuota_inicial) / 100
