@@ -238,12 +238,12 @@
                                                                                 <input type="number" class="form-control" maxlength="2" id="descuentoPorAyudaIni{{i}}" name="descuentoPorAyudaIni{{i}}" value="{{ (itemDepartamento.ayudainicial * 100) / itemDepartamento.total | number:'1.2-2' }}" [(ngModel)]="descuentoPorAyudaIni">
                                                                             </div>
                                                                         </div>
-                                                                           <!-- <div class="col-sm-12 col-md-4">
+                                                                        <div class="col-sm-12 col-md-4">
                                                                                 <div class="form-group">
                                                                                     <label for="departamentoAyudainicial{{i}}">Monto Ayuda inicial</label>
                                                                                     <input type="number" class="form-control" name="departamentoAyudainicial{{i}}" value="{{(descuentoPorAyudaIni * itemDepartamento.total )/100}}" [(ngModel)]="itemDepartamento.ayudainicial">
                                                                                 </div>
-                                                                            </div>-->
+                                                                        </div>
                                                                             <div class="col-sm-12 col-md-4">
                                                                                 <p class="titulo"><strong>Total</strong></p>
                                                                                 <p>{{ -((itemDepartamento.descuento + itemDepartamento.ayudainicial) - itemDepartamento.total) }}</p>

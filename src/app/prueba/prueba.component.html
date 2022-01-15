@@ -1,8 +1,12 @@
-<div style="width: 100%; max-width: 1300px; margin: 0 auto">
-  prueba works!
 
-  <br />
-  El siguiente es el componente buscador de venta:
 
-  <modulo-buscador-ventas [idProyecto]="1"></modulo-buscador-ventas>
-</div>
+<h2>{{montoTot }}</h2>
+<label>Porcentaje</label>
+<input type="text" name="porcentaje" id="porcentaje" value="{{procentajeDescuento()}}" [(ngModel)]="porcentaje" >
+<br>
+<label>Monto</label>
+<input type="text" name="monto" id="monto" value="{{montoDescuento()}}"  [(ngModel)]="monto"  >
+<br>
+<br>
+total: <h1 >{{ calcularPorcentaje() }}</h1>
+
